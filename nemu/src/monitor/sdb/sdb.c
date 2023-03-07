@@ -54,6 +54,9 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
+static int cmd_si(char *args);
+static int cmd_info(char *args);
+static int cmd_x(char *args);
 
 static struct {
   const char *name;
@@ -65,7 +68,9 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-
+  { "si", "Execute by one step", cmd_si },
+  { "info", "Print info", cmd_info },
+  { "x", "Scan memory", cmd_x }
 };
 
 #define NR_CMD ARRLEN(cmd_table)
@@ -90,6 +95,21 @@ static int cmd_help(char *args) {
     }
     printf("Unknown command '%s'\n", arg);
   }
+  return 0;
+}
+
+static int cmd_si(char * args){
+  printf("Not support now!\n");
+  return 0;
+}
+
+static int cmd_info(char * args){
+  printf("Not support now!\n");
+  return 0;
+}
+
+static int cmd_x(char * args){
+  printf("Not support now!\n");
   return 0;
 }
 

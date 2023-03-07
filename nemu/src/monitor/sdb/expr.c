@@ -22,9 +22,8 @@
 
 enum {
   TK_NOTYPE = 256, TK_EQ,
-
   /* TODO: Add more token types */
-
+  TK_ADD, TK_MINUS, TK_MULT, TK_DIV
 };
 
 static struct rule {
@@ -37,7 +36,10 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
+  {"\\+", TK_ADD},         // plus
+  {"\\-", TK_MINUS},          // minus
+  {"\\*", TK_MULT},         // mult
+  {"/", TK_DIV},         // div
   {"==", TK_EQ},        // equal
 };
 
@@ -93,8 +95,19 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
         switch (rules[i].token_type) {
+          case TK_NOTYPE:
+
+          case TK_EQ:
+
+          case '+':
+
+          case '-':
+
+          case '*':
+
+          case '/':
+
           default: TODO();
         }
 
@@ -119,7 +132,7 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  
 
   return 0;
 }
