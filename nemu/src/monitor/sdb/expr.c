@@ -19,13 +19,12 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
-#include <string.h>
 
 enum {
   TK_NOTYPE = 256, TK_EQ,
   /* TODO: Add more token types */
   TK_ADD, TK_MINUS, TK_MULT, TK_DIV,
-  TK_NUM
+  TK_DNUM, TK_LP, TK_RP
 };
 
 static struct rule {
@@ -42,7 +41,9 @@ static struct rule {
   {"-", TK_MINUS},      // minus
   {"\\*", TK_MULT},     // mult
   {"/", TK_DIV},        // div
-  {"[0-9]+", TK_NUM},   // num
+  {"[0-9]+", TK_DNUM},   // num
+  {"(", TK_LP},         // left parentheses
+  {")", TK_RP},         // right parentheses
   {"==", TK_EQ},        // equal
 };
 
@@ -102,7 +103,8 @@ static bool make_token(char *e) {
           case TK_NOTYPE:
             break;
           case TK_EQ: case TK_ADD: case TK_MINUS: 
-          case TK_MULT: case TK_DIV: case TK_NUM:
+          case TK_MULT: case TK_DIV: case TK_DNUM:
+          case TK_LP: case TK_RP:
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
             break;
@@ -123,6 +125,98 @@ static bool make_token(char *e) {
   return true;
 }
 
+bool check_parentheses(int p, int q){
+  int nr_p = 0;
+  for(int i = p; i <= q; ++i){
+    if(tokens[i].type == TK_LP){
+      nr_p += 1;
+    }else if(tokens[i].type == TK_RP){
+      if(nr_p > 0)
+        nr_p -= 1;
+      else
+        assert(0);
+    }
+  }
+  if(nr_p == 0 && tokens[p].type == TK_LP 
+        && tokens[q].type == TK_RP) 
+    return true;
+  else if (nr_p == 0)
+    return false;
+  else
+    assert(0);
+}
+
+int get_primary_op(int p, int q){
+  int temp = 0;  //position of primary operator
+  int op_prio = 0;  //priority of operators
+  for(int i = p; i <= q; ++i){
+    //skip nested parentheses
+    if(tokens[i].type == TK_LP){
+      int nr_p = 1;
+      while(i <= q){
+        if(tokens[++i].type == TK_LP) 
+          nr_p++;
+        else if(tokens[i].type == TK_RP)
+          nr_p--;
+        if(nr_p == 0) 
+          break;
+      }
+    //set op '+' as primary op
+    }else if(tokens[i].type == TK_ADD){
+      temp = i;
+      op_prio = 1;
+    //set op '-' as primary op
+    }else if(tokens[i].type == TK_MINUS && i > 0 
+      && (tokens[i-1].type == TK_DNUM || tokens[i-1].type == TK_RP)){
+      temp = i;
+      op_prio = 1;
+    //set op '*' and '/' as primary op
+    }else if((tokens[i].type == TK_MULT || tokens[i].type == TK_DIV) 
+      && op_prio >= 2){
+      temp = i;
+      op_prio = 2;
+    }
+  }
+  if(temp == 0)
+    assert(0);
+  return temp;
+}
+
+word_t expr_eval(int p, int q){
+  if (p > q) {
+      /* Bad expression */
+      assert(0);
+    }
+    else if (p == q) {
+      /* Single token.
+      * For now this token should be a number.
+      * Return the value of the number.
+      */
+      if(tokens[p].type != TK_DNUM)
+        assert(0);
+      else
+        return atoi(tokens[p].str);
+    }
+    else if (check_parentheses(p, q) == true) {
+      /* The expression is surrounded by a matched pair of parentheses.
+      * If that is the case, just throw away the parentheses.
+      */
+      return expr_eval(p + 1, q - 1);
+    }
+    else {
+      int op = get_primary_op(p, q);
+      word_t val1 = expr_eval(p, op - 1);
+      word_t val2 = expr_eval(op + 1, q);
+
+      switch (tokens[op].type) {
+        case TK_ADD: return val1 + val2;
+        case TK_MINUS: return val1 - val2;
+        case TK_MULT: return val1 * val2;
+        case TK_DIV: return val1 / val2;
+        default: assert(0);
+      }
+    }
+}
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
@@ -131,7 +225,5 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  
-
-  return 0;
+  return expr_eval(0, nr_token-1);
 }
