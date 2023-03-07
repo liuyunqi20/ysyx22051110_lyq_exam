@@ -139,7 +139,7 @@ static int cmd_x(char * args){
   //print memory
   int i = nr_byte;
   while(i > 0){
-    printf("%lx", addr);
+    printf("0x%lx", addr);
     for(int j = 0; j < 4; ++j){
       uint32_t temp = vaddr_read(addr, 4); 
       printf(" %08x", temp);
