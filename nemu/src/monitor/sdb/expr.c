@@ -19,11 +19,13 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
+#include <string.h>
 
 enum {
   TK_NOTYPE = 256, TK_EQ,
   /* TODO: Add more token types */
-  TK_ADD, TK_MINUS, TK_MULT, TK_DIV
+  TK_ADD, TK_MINUS, TK_MULT, TK_DIV,
+  TK_NUM
 };
 
 static struct rule {
@@ -36,10 +38,11 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", TK_ADD},         // plus
-  {"\\-", TK_MINUS},          // minus
-  {"\\*", TK_MULT},         // mult
-  {"/", TK_DIV},         // div
+  {"\\+", TK_ADD},      // plus
+  {"-", TK_MINUS},      // minus
+  {"\\*", TK_MULT},     // mult
+  {"/", TK_DIV},        // div
+  {"[0-9]+", TK_NUM},   // num
   {"==", TK_EQ},        // equal
 };
 
@@ -97,18 +100,14 @@ static bool make_token(char *e) {
          */
         switch (rules[i].token_type) {
           case TK_NOTYPE:
-
-          case TK_EQ:
-
-          case '+':
-
-          case '-':
-
-          case '*':
-
-          case '/':
-
-          default: TODO();
+            break;
+          case TK_EQ: case TK_ADD: case TK_MINUS: 
+          case TK_MULT: case TK_DIV: case TK_NUM:
+            tokens[nr_token].type = rules[i].token_type;
+            strncpy(tokens[nr_token++].str, substr_start, substr_len);
+            break;
+          default: 
+            Log("Unknown token\n");
         }
 
         break;
