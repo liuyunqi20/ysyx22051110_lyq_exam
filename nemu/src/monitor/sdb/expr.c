@@ -42,7 +42,7 @@ static struct rule {
   {"\\*", TK_MULT},     // mult
   {"/", TK_DIV},        // div
   {"[0-9]+", TK_DNUM},   // num
-  {"(", TK_LP},         // left parentheses
+  {"\\(", TK_LP},         // left parentheses
   {")", TK_RP},         // right parentheses
   {"==", TK_EQ},        // equal
 };
