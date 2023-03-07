@@ -104,7 +104,10 @@ static int cmd_si(char * args){
 }
 
 static int cmd_info(char * args){
-  printf("Not support now!\n");
+  char *arg = strtok(NULL, " ");
+  if(!strcmp(arg, "r") || !strcmp(arg, "register")){
+    
+  }
   return 0;
 }
 
