@@ -134,7 +134,8 @@ static int cmd_x(char * args){
   if(arg == NULL){
     printf("missing base address\n");
   }
-  addr = atoi(arg);
+  char * temp_ptr;
+  addr = strtol(arg, &temp_ptr, 16);
   //print memory
   int i = nr_byte;
   while(i > 0){
