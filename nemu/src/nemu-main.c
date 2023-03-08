@@ -36,16 +36,16 @@ int main(int argc, char *argv[]) {
   assert(fp != NULL);
   bool flag;
   char buf[200];
-  long result;
+  unsigned result;
   for(int i = 0; i < 3; ++i){
-    if(fscanf(fp, "%ld", &result) == 0) {
+    if(fscanf(fp, "%u", &result) == 0) {
       printf("no result\n");
     }
     if(fgets(buf, 199, fp) == 0) {;}
     buf[strlen(buf)-1] = '\0';
-    printf("%ld %s\n",result, buf);
+    printf("%u %s\n",result, buf);
     word_t temp = expr(buf ,&flag);
-    printf("result: %ld-%ld\n", result, temp);
+    printf("result: %u-%u\n", result, (unsigned)temp);
   }
 
   return is_exit_status_bad();
