@@ -46,10 +46,10 @@ int main(int argc, char *argv[]) {
     //printf("%u %s\n",result, buf);
     word_t temp = expr(buf ,&flag);
     if(result == (unsigned)temp)
-      printf("success\n");
+      printf("success ");
     else
-      printf("failed\n");
-    printf("result: %u-%u ", result, (unsigned)temp);
+      printf("failed ");
+    printf(" %u-%u ", result, (unsigned)temp);
   }
 
   return is_exit_status_bad();
