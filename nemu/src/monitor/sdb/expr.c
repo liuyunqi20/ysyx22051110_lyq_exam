@@ -182,7 +182,7 @@ int get_primary_op(int p, int q){
     }
   }
   if(temp == -1)
-    assert(0);
+    return -1;
   printf("primary token: %s(%d)\n", tokens[temp].str, temp);
   return temp;
 }
