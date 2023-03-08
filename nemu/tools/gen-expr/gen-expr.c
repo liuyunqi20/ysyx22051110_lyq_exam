@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
     buf_idx = 0;
     memset(buf, 0, 1000);
     //test
-    gen_rand_expr(10);
+    gen_rand_expr(5);
     
     //printf("%s\n", buf);
 

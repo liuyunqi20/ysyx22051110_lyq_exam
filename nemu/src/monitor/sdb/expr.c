@@ -187,7 +187,7 @@ int get_primary_op(int p, int q){
   return temp;
 }
 
-word_t expr_eval(int p, int q){
+uint32_t expr_eval(int p, int q){
   if (p > q) {
       /* Bad expression */
       assert(0);
