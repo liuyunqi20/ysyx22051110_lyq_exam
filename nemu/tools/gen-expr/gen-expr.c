@@ -63,6 +63,7 @@ void gen_num(){
 
 void gen_rand_op(){
   int op = rand() % 4;
+  gen(' ');
   switch(op){
     case 0: gen('+'); break;
     case 1: gen('-'); break;
@@ -70,6 +71,7 @@ void gen_rand_op(){
     case 3: gen('/'); break;
     default: gen('+'); break;
   }
+  gen(' ');
 }
 
 static void gen_rand_expr(int depth) {
