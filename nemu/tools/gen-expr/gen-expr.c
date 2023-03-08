@@ -31,8 +31,58 @@ static char *code_format =
 "  return 0; "
 "}";
 
-static void gen_rand_expr() {
-  buf[0] = '\0';
+int buf_idx;
+
+void gen(char c){
+  buf[buf_idx++] = c;
+}
+
+int choose(int n){
+  return rand() % n;
+}
+
+void gen_num(){
+  int sign = rand() & 1;
+  int i = (rand() % 99) + 1;
+  if(sign == 1){
+    gen('(');
+    gen('-');
+  }
+  //gen('n');gen('u');gen('m');
+  sprintf(buf+buf_idx, "%d", i);
+  int cnt =0;
+  while(i != 0){
+    i /= 10;
+    cnt++;
+  }
+  buf_idx += cnt;
+    if(sign == 1){
+    gen(')');
+  }
+}
+
+void gen_rand_op(){
+  int op = rand() % 4;
+  switch(op){
+    case 0: gen('+'); break;
+    case 1: gen('-'); break;
+    case 2: gen('*'); break;
+    case 3: gen('/'); break;
+    default: gen('+'); break;
+  }
+}
+
+static void gen_rand_expr(int depth) {
+  if(depth != 0){
+    int c = choose(3);
+    switch (c) {
+      case 0: gen_num(); break;
+      case 1: gen('('); gen_rand_expr(depth-1); gen(')'); break;
+      default: gen_rand_expr(depth-1); gen_rand_op(); gen_rand_expr(depth-1); break;
+    }
+  }else{
+    gen_num();
+  }
 }
 
 int main(int argc, char *argv[]) {
@@ -44,7 +94,13 @@ int main(int argc, char *argv[]) {
   }
   int i;
   for (i = 0; i < loop; i ++) {
-    gen_rand_expr();
+    //test
+    buf_idx = 0;
+    memset(buf, 0, 1000);
+    //test
+    gen_rand_expr(10);
+    
+    //printf("%s\n", buf);
 
     sprintf(code_buf, code_format, buf);
 
@@ -53,14 +109,14 @@ int main(int argc, char *argv[]) {
     fputs(code_buf, fp);
     fclose(fp);
 
-    int ret = system("gcc /tmp/.code.c -o /tmp/.expr");
+    int ret = system("gcc -O2 -Wall -Werror /tmp/.code.c -o /tmp/.expr");
     if (ret != 0) continue;
 
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
 
     int result;
-    fscanf(fp, "%d", &result);
+    if(fscanf(fp, "%d", &result)==0){;}
     pclose(fp);
 
     printf("%u %s\n", result, buf);

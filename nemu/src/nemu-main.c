@@ -29,7 +29,23 @@ int main(int argc, char *argv[]) {
 #endif
 
   /* Start engine. */
-  engine_start();
+  //engine_start();
+  /* Test Expr */
+  word_t expr(char *e, bool *success);
+  FILE *fp = fopen("./tools/input", "r");
+  assert(fp != NULL);
+  bool flag;
+  char buf[200];
+  unsigned result;
+  for(int i = 0; i < 2; ++i){
+    if(fscanf(fp, "%u", &result) == 0) {
+      printf("no result\n");
+    }
+    if(fgets(buf, 199, fp) == 0) {;}
+    printf("%d %s\n",result, buf);
+    word_t temp = expr(buf ,&flag);
+    printf("    %u-%lu\n", result, temp);
+  }
 
   return is_exit_status_bad();
 }
