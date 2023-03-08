@@ -21,10 +21,11 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,
+  TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_AND,
   /* TODO: Add more token types */
   TK_ADD, TK_MINUS, TK_MULT, TK_DIV,
-  TK_DNUM, TK_LP, TK_RP, TK_NEG
+  TK_DNUM, TK_HNUM, TK_LP, TK_RP, 
+  TK_NEG, TK_DEREF, TK_REG
 };
 
 static struct rule {
@@ -37,14 +38,18 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
+  {"==", TK_EQ},        // equal
+  {"!=", TK_NEQ},       // not equal
+  {"&&", TK_AND},       // and
   {"\\+", TK_ADD},      // plus
   {"-", TK_MINUS},      // minus
   {"\\*", TK_MULT},     // mult
   {"/", TK_DIV},        // div
-  {"[0-9]+", TK_DNUM},   // num
-  {"\\(", TK_LP},         // left parentheses
+  {"[0-9]+", TK_DNUM},  // dex num
+  {"0[x,X][a-f,A-F,0-9]+", TK_HNUM}, // hex num
+  {"\\(", TK_LP},       // left parentheses
   {")", TK_RP},         // right parentheses
-  {"==", TK_EQ},        // equal
+  {"$[a-z,0-9]+", TK_REG} //registers
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -102,9 +107,10 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_NOTYPE:
             break;
-          case TK_EQ: case TK_ADD: case TK_MINUS: 
-          case TK_MULT: case TK_DIV: case TK_DNUM:
-          case TK_LP: case TK_RP:
+          case TK_EQ: case TK_NEQ: case TK_AND:
+          case TK_ADD: case TK_MINUS: case TK_MULT: 
+          case TK_DIV: case TK_DNUM: case TK_LP: 
+          case TK_RP:
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token].str, substr_start, substr_len);
             tokens[nr_token++].str[substr_len] = '\0';
@@ -237,9 +243,18 @@ word_t expr(char *e, bool *success) {
   }
   
   for(int i = 0; i < nr_token; ++i){
+
     if(tokens[i].type == TK_MINUS 
-      && (i == 0 || (i > 0 && tokens[i-1].type != TK_DNUM && tokens[i-1].type != TK_RP)))
-      tokens[i].type = TK_NEG;
+      && (i == 0 || (tokens[i - 1].type != TK_DNUM 
+        && tokens[i - 1].type != TK_HNUM && tokens[i - 1].type != TK_RP))){
+        tokens[i].type = TK_NEG;
+    }
+
+    if (tokens[i].type == TK_MULT 
+      && (i == 0 || (tokens[i - 1].type != TK_DNUM 
+        && tokens[i - 1].type != TK_HNUM && tokens[i - 1].type != TK_RP))) {
+      tokens[i].type = TK_DEREF;
+    }
   }
   /* TODO: Insert codes to evaluate the expression. */
   return (word_t)expr_eval(0, nr_token-1);
