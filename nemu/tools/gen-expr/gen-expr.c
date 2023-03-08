@@ -100,7 +100,9 @@ int main(int argc, char *argv[]) {
     buf_idx = 0;
     memset(buf, 0, 1000);
     //test
-    gen_rand_expr(5);
+    strcpy(buf, "(unsigned)");
+    buf_idx += 10;
+    gen_rand_expr(9);
     
     //printf("%s\n", buf);
 
@@ -121,7 +123,7 @@ int main(int argc, char *argv[]) {
     if(fscanf(fp, "%d", &result)==0){;}
     pclose(fp);
 
-    printf("%u %s\n", result, buf);
+    printf("%u %s\n", result, buf + 10);
   }
   return 0;
 }
