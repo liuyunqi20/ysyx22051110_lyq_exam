@@ -30,6 +30,19 @@ void isa_reg_display() {
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+  if(s[0] != '$')
+    *success = false;
+  if(!strcmp(s, regs[0])){
+    *success = true;
+    return 0;
+  }
+  for(int i = 1; i < 32; ++i){
+    if(!strcmp(s+1, regs[i])){
+      printf("hit reg %s\n", regs[i]);
+      *success = false;
+      return cpu.gpr[i];
+    }
+  }
   *success = false;
   return 0;
 }
