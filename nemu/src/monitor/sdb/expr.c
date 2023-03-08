@@ -128,6 +128,7 @@ static bool make_token(char *e) {
 
 bool check_parentheses(int p, int q){
   int nr_p = 0;
+  printf("%d %d nr:%d\n", p, q, nr_token);
   for(int i = p; i <= q; ++i){
     printf("check: %d %s\n",i, tokens[i].str);
     if(tokens[i].type == TK_LP){
