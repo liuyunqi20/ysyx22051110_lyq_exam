@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
       printf("success ");
     else
       printf("failed ");
-    printf(" %u-%u ", result, (unsigned)temp);
+    printf(" %u-%u\n", result, (unsigned)temp);
   }
 
   return is_exit_status_bad();
