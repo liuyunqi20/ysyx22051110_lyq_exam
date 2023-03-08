@@ -45,8 +45,8 @@ static struct rule {
   {"-", TK_MINUS},      // minus
   {"\\*", TK_MULT},     // mult
   {"/", TK_DIV},        // div
-  {"[0-9]+", TK_DNUM},  // dex num
   {"0x[a-f,A-F,0-9]+", TK_HNUM}, // hex num
+  {"[0-9]+", TK_DNUM},  // dex num
   {"\\(", TK_LP},       // left parentheses
   {")", TK_RP},         // right parentheses
   {"$[a-z,0-9]+", TK_REG} //registers
