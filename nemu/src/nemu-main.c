@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
   //engine_start();
   /* Test Expr */
   word_t expr(char *e, bool *success);
-  FILE *fp = fopen("./tools/input", "r");
+  FILE *fp = fopen("./tools/gen_expr/input", "r");
   assert(fp != NULL);
   bool flag;
   char buf[200];
