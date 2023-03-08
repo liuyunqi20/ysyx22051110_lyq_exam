@@ -90,8 +90,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            //i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
@@ -152,7 +152,7 @@ int get_primary_op(int p, int q){
   int op_prio = 10;  //priority of operators
   for(int i = p; i <= q; ++i){
     //skip nested parentheses
-    Log("tokens[%d]: %s", i, tokens[i].str);
+    //Log("tokens[%d]: %s", i, tokens[i].str);
     if(tokens[i].type == TK_LP){
       int nr_p = 1;
       while(i <= q){
@@ -181,7 +181,7 @@ int get_primary_op(int p, int q){
   }
   if(temp == -1)
     assert(0);
-  printf("primary token: %s(%d)\n", tokens[temp].str, temp);
+  //printf("primary token: %s(%d)\n", tokens[temp].str, temp);
   return temp;
 }
 
