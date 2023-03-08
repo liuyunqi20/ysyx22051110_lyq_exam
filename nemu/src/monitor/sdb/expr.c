@@ -187,7 +187,7 @@ int get_primary_op(int p, int q){
   return temp;
 }
 
-int expr_eval(int p, int q){
+word_t expr_eval(int p, int q){
   if (p > q) {
       /* Bad expression */
       assert(0);
@@ -210,7 +210,7 @@ int expr_eval(int p, int q){
     }
     else {
       int op = get_primary_op(p, q);
-      int val1 = 0, val2 = 0;
+      word_t val1 = 0, val2 = 0;
 
       if(tokens[op].type == TK_NEG)
         val1 = expr_eval(op + 1, q);
@@ -224,7 +224,7 @@ int expr_eval(int p, int q){
         case TK_MINUS: return val1 - val2;
         case TK_MULT: return val1 * val2;
         case TK_DIV: return val1 / val2;
-        case TK_NEG: return (-1) * val1;
+        case TK_NEG: return -val1;
         default: assert(0);
       }
     }
