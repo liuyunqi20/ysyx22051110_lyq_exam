@@ -45,11 +45,11 @@ int main(int argc, char *argv[]) {
     buf[strlen(buf)-1] = '\0';
     //printf("%u %s\n",result, buf);
     word_t temp = expr(buf ,&flag);
-    printf("result: %u-%u ", result, (unsigned)temp);
     if(result == (unsigned)temp)
       printf(" success\n");
     else
       printf(" failed\n");
+    printf("result: %u-%u ", result, (unsigned)temp);
   }
 
   return is_exit_status_bad();
