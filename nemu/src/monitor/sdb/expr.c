@@ -109,8 +109,8 @@ static bool make_token(char *e) {
             break;
           case TK_EQ: case TK_NEQ: case TK_AND:
           case TK_ADD: case TK_MINUS: case TK_MULT: 
-          case TK_DIV: case TK_DNUM: case TK_LP: 
-          case TK_RP:
+          case TK_DIV: case TK_DNUM: case TK_HNUM: 
+          case TK_LP: case TK_RP: case TK_REG:
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token].str, substr_start, substr_len);
             tokens[nr_token++].str[substr_len] = '\0';
@@ -203,10 +203,20 @@ word_t expr_eval(int p, int q){
       * For now this token should be a number.
       * Return the value of the number.
       */
-      if(tokens[p].type != TK_DNUM)
-        assert(0);
-      else
+      if(tokens[p].type == TK_DNUM){
         return atoi(tokens[p].str);
+      }else if(tokens[p].type == TK_HNUM){
+        char * temp_ptr;
+        return strtol(tokens[p].str, &temp_ptr, 16);
+      }else if(tokens[p].type == TK_REG){
+        bool flag;
+        word_t res = isa_reg_str2val(tokens[p].str, &flag);
+        if(flag)  
+          return res;
+        else
+          assert(0);
+      }else
+        assert(0);
     }
     else if (check_parentheses(p, q) == true) {
       /* The expression is surrounded by a matched pair of parentheses.
@@ -231,6 +241,10 @@ word_t expr_eval(int p, int q){
         case TK_MULT: return val1 * val2;
         case TK_DIV: return val1 / val2;
         case TK_NEG: return -val1;
+        case TK_EQ: return val1 == val2;
+        case TK_NEQ: return val1 != val2;
+        case TK_AND: return val1 && val2;
+        case TK_DEREF: return *(word_t *)val1;
         default: assert(0);
       }
     }
@@ -245,13 +259,13 @@ word_t expr(char *e, bool *success) {
   for(int i = 0; i < nr_token; ++i){
 
     if(tokens[i].type == TK_MINUS 
-      && (i == 0 || (tokens[i - 1].type != TK_DNUM 
+      && (i == 0 || (tokens[i - 1].type != TK_DNUM && tokens[i - 1].type != TK_REG
         && tokens[i - 1].type != TK_HNUM && tokens[i - 1].type != TK_RP))){
         tokens[i].type = TK_NEG;
     }
 
     if (tokens[i].type == TK_MULT 
-      && (i == 0 || (tokens[i - 1].type != TK_DNUM 
+      && (i == 0 || (tokens[i - 1].type != TK_DNUM && tokens[i - 1].type != TK_REG
         && tokens[i - 1].type != TK_HNUM && tokens[i - 1].type != TK_RP))) {
       tokens[i].type = TK_DEREF;
     }
