@@ -46,7 +46,7 @@ static struct rule {
   {"\\*", TK_MULT},     // mult
   {"/", TK_DIV},        // div
   {"[0-9]+", TK_DNUM},  // dex num
-  {"0[x,X][a-f,A-F,0-9]+", TK_HNUM}, // hex num
+  {"0x[a-f,A-F,0-9]+", TK_HNUM}, // hex num
   {"\\(", TK_LP},       // left parentheses
   {")", TK_RP},         // right parentheses
   {"$[a-z,0-9]+", TK_REG} //registers
@@ -95,8 +95,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            //i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
