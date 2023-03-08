@@ -150,7 +150,7 @@ bool check_parentheses(int p, int q){
 
 int get_primary_op(int p, int q){
   int temp = -1;  //position of primary operator
-  int op_prio = 0;  //priority of operators
+  int op_prio = 10;  //priority of operators
   for(int i = p; i <= q; ++i){
     //skip nested parentheses
     Log("tokens[%d]: %s\n", i, tokens[i].str);
@@ -164,7 +164,6 @@ int get_primary_op(int p, int q){
         if(nr_p == 0) 
           break;
       }
-      Log("after skip, i=%d, token=%s\n",i, tokens[i].str);
     //set op '+' as primary op
     }else if(tokens[i].type == TK_ADD){
       temp = i;
