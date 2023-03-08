@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
   bool flag;
   char buf[200];
   unsigned result;
-  for(int i = 0; i < 2; ++i){
+  for(int i = 0; i < 3; ++i){
     if(fscanf(fp, "%u", &result) == 0) {
       printf("no result\n");
     }
