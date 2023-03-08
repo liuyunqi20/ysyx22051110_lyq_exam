@@ -46,9 +46,9 @@ int main(int argc, char *argv[]) {
     //printf("%u %s\n",result, buf);
     word_t temp = expr(buf ,&flag);
     if(result == (unsigned)temp)
-      printf(" success\n");
+      printf("success\n");
     else
-      printf(" failed\n");
+      printf("failed\n");
     printf("result: %u-%u ", result, (unsigned)temp);
   }
 
