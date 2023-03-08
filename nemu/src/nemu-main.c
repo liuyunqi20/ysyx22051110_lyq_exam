@@ -45,6 +45,7 @@ int main(int argc, char *argv[]) {
     buf[strlen(buf)-1] = '\0';
     //printf("%u %s\n",result, buf);
     word_t temp = expr(buf ,&flag);
+    printf("%d ", i+1);
     if(result == (unsigned)temp)
       printf("success ");
     else
