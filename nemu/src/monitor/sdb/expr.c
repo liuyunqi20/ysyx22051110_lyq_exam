@@ -129,6 +129,7 @@ static bool make_token(char *e) {
 bool check_parentheses(int p, int q){
   int nr_p = 0;
   for(int i = p; i <= q; ++i){
+    printf("check: %d %s\n",i, tokens[i].str);
     if(tokens[i].type == TK_LP){
       nr_p += 1;
     }else if(tokens[i].type == TK_RP){
