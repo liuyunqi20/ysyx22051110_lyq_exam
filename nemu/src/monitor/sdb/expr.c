@@ -151,6 +151,7 @@ int get_primary_op(int p, int q){
   int op_prio = 0;  //priority of operators
   for(int i = p; i <= q; ++i){
     //skip nested parentheses
+    Log("tokens[%d]: %s\n", i, tokens[i].str);
     if(tokens[i].type == TK_LP){
       int nr_p = 1;
       while(i <= q){
@@ -161,6 +162,7 @@ int get_primary_op(int p, int q){
         if(nr_p == 0) 
           break;
       }
+      Log("after skip, i=%d, token=%s\n",i, tokens[i].str);
     //set op '+' as primary op
     }else if(tokens[i].type == TK_ADD){
       temp = i;

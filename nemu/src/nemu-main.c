@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
     buf[strlen(buf)-1] = '\0';
     printf("%d %s\n",result, buf);
     word_t temp = expr(buf ,&flag);
-    printf("    %u-%lu\n", result, temp);
+    printf("result: %u-%lu\n", result, temp);
   }
 
   return is_exit_status_bad();
