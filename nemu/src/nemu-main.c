@@ -43,9 +43,13 @@ int main(int argc, char *argv[]) {
     }
     if(fgets(buf, 199, fp) == 0) {;}
     buf[strlen(buf)-1] = '\0';
-    printf("%u %s\n",result, buf);
+    //printf("%u %s\n",result, buf);
     word_t temp = expr(buf ,&flag);
-    printf("result: %u-%u\n", result, (unsigned)temp);
+    printf("result: %u-%u ", result, (unsigned)temp);
+    if(result == (unsigned)temp)
+      printf(" success\n");
+    else
+      printf(" failed\n");
   }
 
   return is_exit_status_bad();
