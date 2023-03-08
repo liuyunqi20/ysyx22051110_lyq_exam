@@ -24,7 +24,7 @@ enum {
   TK_NOTYPE = 256, TK_EQ,
   /* TODO: Add more token types */
   TK_ADD, TK_MINUS, TK_MULT, TK_DIV,
-  TK_DNUM, TK_LP, TK_RP
+  TK_DNUM, TK_LP, TK_RP, TK_NEG
 };
 
 static struct rule {
@@ -170,13 +170,8 @@ int get_primary_op(int p, int q){
         if(nr_p == 0) 
           break;
       }
-    //set op '+' as primary op
-    }else if(tokens[i].type == TK_ADD){
-      temp = i;
-      op_prio = 1;
-    //set op '-' as primary op
-    }else if(tokens[i].type == TK_MINUS && i > 0 
-      && (tokens[i-1].type == TK_DNUM || tokens[i-1].type == TK_RP)){
+    //set op '+' and '-' as primary op
+    }else if(tokens[i].type == TK_ADD || tokens[i].type == TK_MINUS){
       temp = i;
       op_prio = 1;
     //set op '*' and '/' as primary op
@@ -215,14 +210,21 @@ word_t expr_eval(int p, int q){
     }
     else {
       int op = get_primary_op(p, q);
-      word_t val1 = expr_eval(p, op - 1);
-      word_t val2 = expr_eval(op + 1, q);
+      word_t val1 = 0, val2 = 0;
+
+      if(tokens[op].type == TK_NEG)
+        val1 = expr_eval(op + 1, q);
+      else{
+        val1 = expr_eval(p, op - 1);
+        val2 = expr_eval(op + 1, q);
+      }
 
       switch (tokens[op].type) {
         case TK_ADD: return val1 + val2;
         case TK_MINUS: return val1 - val2;
         case TK_MULT: return val1 * val2;
         case TK_DIV: return val1 / val2;
+        case TK_NEG: return -val1;
         default: assert(0);
       }
     }
@@ -233,7 +235,12 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
+  
+  for(int i = 0; i < nr_token; ++i){
+    if(tokens[i].type == TK_MINUS 
+      && (i == 0 || (i > 0 && tokens[i-1].type != TK_DNUM && tokens[i-1].type != TK_RP)))
+      tokens[i].type = TK_NEG;
+  }
   /* TODO: Insert codes to evaluate the expression. */
   return expr_eval(0, nr_token-1);
 }
