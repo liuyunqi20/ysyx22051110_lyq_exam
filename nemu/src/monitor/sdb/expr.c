@@ -210,7 +210,7 @@ int expr_eval(int p, int q){
     }
     else {
       int op = get_primary_op(p, q);
-      word_t val1 = 0, val2 = 0;
+      int val1 = 0, val2 = 0;
 
       if(tokens[op].type == TK_NEG)
         val1 = expr_eval(op + 1, q);
