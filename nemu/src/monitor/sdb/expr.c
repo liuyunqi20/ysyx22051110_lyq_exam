@@ -49,7 +49,7 @@ static struct rule {
   {"[0-9]+", TK_DNUM},  // dex num
   {"\\(", TK_LP},       // left parentheses
   {")", TK_RP},         // right parentheses
-  {"$[a-z,0-9]+", TK_REG} //registers
+  {"\\$[a-z,0-9]+", TK_REG} //registers
 };
 
 #define NR_REGEX ARRLEN(rules)
