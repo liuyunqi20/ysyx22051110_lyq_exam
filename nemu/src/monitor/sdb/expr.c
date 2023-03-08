@@ -107,6 +107,7 @@ static bool make_token(char *e) {
           case TK_LP: case TK_RP:
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
+            printf("tokens[%d]=%s\n", nr_token-1, tokens[nr_token-1].str);
             break;
           default: 
             Log("Unknown token\n");
@@ -147,7 +148,7 @@ bool check_parentheses(int p, int q){
 }
 
 int get_primary_op(int p, int q){
-  int temp = 0;  //position of primary operator
+  int temp = -1;  //position of primary operator
   int op_prio = 0;  //priority of operators
   for(int i = p; i <= q; ++i){
     //skip nested parentheses
@@ -179,7 +180,7 @@ int get_primary_op(int p, int q){
       op_prio = 2;
     }
   }
-  if(temp == 0)
+  if(temp == -1)
     assert(0);
   return temp;
 }
