@@ -162,7 +162,7 @@ bool check_parentheses(int p, int q){
 
 int get_primary_op(int p, int q){
   int temp = -1;  //position of primary operator
-  int op_prio = 10;  //priority of operators
+  int op_prio = 0;  //priority of operators
   for(int i = p; i <= q; ++i){
     //skip nested parentheses
     Log("tokens[%d]: %s", i, tokens[i].str);
@@ -177,14 +177,24 @@ int get_primary_op(int p, int q){
           break;
       }
     //set op '+' and '-' as primary op
-    }else if(tokens[i].type == TK_ADD || tokens[i].type == TK_MINUS){
+    }else if((tokens[i].type == TK_ADD || tokens[i].type == TK_MINUS)
+      && op_prio <= 4){
       temp = i;
-      op_prio = 1;
+      op_prio = 4;
     //set op '*' and '/' as primary op
     }else if((tokens[i].type == TK_MULT || tokens[i].type == TK_DIV) 
-      && op_prio >= 2){
+      && op_prio <= 3){
       temp = i;
-      op_prio = 2;
+      op_prio = 3;
+    //set op '==' and '!=' as primary op
+    }else if((tokens[i].type == TK_EQ || tokens[i].type == TK_NEQ)
+      && op_prio <= 7){
+      temp = i;
+      op_prio = 7;
+    //set op '&&' as primary op
+    }else if(tokens[i].type == TK_AND && op_prio <= 11){
+      temp = i;
+      op_prio = 11;
     }
   }
   printf("primary token: %s(%d)\n", tokens[temp].str, temp);
