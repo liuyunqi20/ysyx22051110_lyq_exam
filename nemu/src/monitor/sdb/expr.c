@@ -73,7 +73,7 @@ typedef struct token {
   char str[32];
 } Token;
 
-static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[128] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
@@ -134,8 +134,10 @@ bool check_parentheses(int p, int q){
     }else if(tokens[i].type == TK_RP){
       if(nr_p > 0)
         nr_p -= 1;
-      else
+      else{
+        printf("bad expression at %s(%d)\n",tokens[i].str, i);
         assert(0);
+      }
     }
   }
   if(nr_p == 0 && tokens[p].type == TK_LP 
