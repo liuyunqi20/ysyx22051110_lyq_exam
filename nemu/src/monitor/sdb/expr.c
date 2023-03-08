@@ -90,8 +90,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            //i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
@@ -130,7 +130,7 @@ bool check_parentheses(int p, int q){
   int nr_p = 0;
   //printf("%d %d nr:%d\n", p, q, nr_token);
   for(int i = p; i <= q; ++i){
-    printf("check: %d %s\n",i, tokens[i].str);
+    //printf("check: %d %s\n",i, tokens[i].str);
     if(tokens[i].type == TK_LP){
       nr_p += 1;
     }else if(tokens[i].type == TK_RP){
