@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
   //engine_start();
   /* Test Expr */
   word_t expr(char *e, bool *success);
-  FILE *fp = fopen("~/ics2022/nemu/tools/gen_expr/input", "r");
+  FILE *fp = fopen("/home/llyyqq/ics2022/nemu/input", "r");
   assert(fp != NULL);
   bool flag;
   char buf[200];
