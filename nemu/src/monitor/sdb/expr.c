@@ -152,7 +152,7 @@ int get_primary_op(int p, int q){
   int op_prio = 10;  //priority of operators
   for(int i = p; i <= q; ++i){
     //skip nested parentheses
-    Log("tokens[%d]: %s\n", i, tokens[i].str);
+    Log("tokens[%d]: %s", i, tokens[i].str);
     if(tokens[i].type == TK_LP){
       int nr_p = 1;
       while(i <= q){
