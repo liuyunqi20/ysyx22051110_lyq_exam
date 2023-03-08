@@ -108,7 +108,6 @@ static bool make_token(char *e) {
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token].str, substr_start, substr_len);
             tokens[nr_token++].str[substr_len] = '\0';
-            printf("tokens[%d]=%s\n", nr_token-1, tokens[nr_token-1].str);
             break;
           default: 
             Log("Unknown token\n");
@@ -182,6 +181,7 @@ int get_primary_op(int p, int q){
   }
   if(temp == -1)
     assert(0);
+  printf("primary token: %s(%d)\n", tokens[temp].str, temp);
   return temp;
 }
 
