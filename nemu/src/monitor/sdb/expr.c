@@ -165,7 +165,7 @@ int get_primary_op(int p, int q){
   int op_prio = 10;  //priority of operators
   for(int i = p; i <= q; ++i){
     //skip nested parentheses
-    //Log("tokens[%d]: %s", i, tokens[i].str);
+    Log("tokens[%d]: %s", i, tokens[i].str);
     if(tokens[i].type == TK_LP){
       int nr_p = 1;
       while(i <= q){
@@ -187,9 +187,9 @@ int get_primary_op(int p, int q){
       op_prio = 2;
     }
   }
+  printf("primary token: %s(%d)\n", tokens[temp].str, temp);
   if(temp == -1)
     return p;
-  //printf("primary token: %s(%d)\n", tokens[temp].str, temp);
   return temp;
 }
 
@@ -228,7 +228,7 @@ word_t expr_eval(int p, int q){
       int op = get_primary_op(p, q);
       word_t val1 = 0, val2 = 0;
 
-      if(tokens[op].type == TK_NEG)
+      if(tokens[op].type == TK_NEG || tokens[op].type == TK_DEREF)
         val1 = expr_eval(op + 1, q);
       else{
         val1 = expr_eval(p, op - 1);
