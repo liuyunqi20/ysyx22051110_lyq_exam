@@ -224,7 +224,7 @@ int expr_eval(int p, int q){
         case TK_MINUS: return val1 - val2;
         case TK_MULT: return val1 * val2;
         case TK_DIV: return val1 / val2;
-        case TK_NEG: return -val1;
+        case TK_NEG: return (-1) * val1;
         default: assert(0);
       }
     }
@@ -242,5 +242,5 @@ word_t expr(char *e, bool *success) {
       tokens[i].type = TK_NEG;
   }
   /* TODO: Insert codes to evaluate the expression. */
-  return expr_eval(0, nr_token-1);
+  return (word_t)expr_eval(0, nr_token-1);
 }
