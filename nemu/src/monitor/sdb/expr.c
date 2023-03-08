@@ -142,6 +142,7 @@ bool check_parentheses(int p, int q){
       }
     }
   }
+  Log("nr_p=%d, t[p]:%s t[q]:%s \n",nr_p, tokens[p].str, tokens[q].str);
   if(nr_p == 0 && tokens[p].type == TK_LP 
         && tokens[q].type == TK_RP) 
     return true;
