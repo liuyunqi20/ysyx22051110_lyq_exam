@@ -16,12 +16,15 @@
 #include "sdb.h"
 
 #define NR_WP 32
+#define LEN_WP_EXPR 100
 
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
 
   /* TODO: Add more members if necessary */
+  char expr_str[LEN_WP_EXPR];
+  word_t val;
 
 } WP;
 
@@ -40,22 +43,40 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-WP * new_wp(){
+WP * new_wp(char * s){
   if(free_ == NULL)
     assert(0);
   WP * temp = free_;
   free_ = free_->next;
+  //initialize watchpoint
+  int i;
+  for(i = 0; i < LEN_WP_EXPR && s[i] != '\0'; ++i){
+    temp->expr_str[i] = s[i];
+  }
+  if(i == LEN_WP_EXPR) {
+    printf("expr in watchpoint is too long!\n");
+    assert(0);
+  }
+  temp->expr_str[i] = '\0';
+  bool flag;
+  temp->val = expr(temp->expr_str, &flag);
+  if(!flag)
+    assert(0);
+  printf("watchpoint %d: %s %lu\n", temp->NO, temp->expr_str, temp->val);
+  //insert to head list
   temp->next = head;
   head = temp;
   return head;
 }
 
 void free_wp(WP * wp){
+  if(wp == NULL)
+    return;
   if(head == wp){
     //delete head node
     WP * temp = head;
     head = head->next;
-    
+
     //insert wp to free list
     temp->next = free_;
     free_ = temp;
@@ -71,3 +92,11 @@ void free_wp(WP * wp){
     free_ = wp;
   }
 } 
+
+void print_wp(){
+  WP * h = head;
+  while(h && h->next != NULL){
+    printf("%d: %s %lu\n", h->NO, h->expr_str, h->val);
+    h = h->next;
+  }
+}
