@@ -40,4 +40,34 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
+WP * new_wp(){
+  if(free_ == NULL)
+    assert(0);
+  WP * temp = free_;
+  free_ = free_->next;
+  temp->next = head;
+  head = temp;
+  return head;
+}
 
+void free_wp(WP * wp){
+  if(head == wp){
+    //delete head node
+    WP * temp = head;
+    head = head->next;
+    
+    //insert wp to free list
+    temp->next = free_;
+    free_ = temp;
+  }else{
+    //find forward node of wp
+    WP * h = head;
+    while(h && h->next != wp)
+      h = h->next;
+    h->next = wp->next;
+
+    //insert wp to free list
+    wp->next = free_;
+    free_ = wp;
+  }
+} 

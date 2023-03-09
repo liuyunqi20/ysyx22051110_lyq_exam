@@ -29,15 +29,15 @@ int main(int argc, char *argv[]) {
 #endif
 
   /* Start engine. */
-  //engine_start();
+  engine_start();
   /* Test Expr */
-  word_t expr(char *e, bool *success);
-  FILE *fp = fopen("/home/llyyqq/ics2022/nemu/input", "r");
+  /*word_t expr(char *e, bool *success);
+  FILE *fp = fopen("/home/llyyqq/ics2022/nemu/input_1", "r");
   assert(fp != NULL);
   bool flag;
   char buf[200];
   unsigned result;
-  for(int i = 0; i < 50; ++i){
+  for(int i = 0; i < 1; ++i){
     if(fscanf(fp, "%u", &result) == 0) {
       printf("no result\n");
     }
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     else
       printf("failed ");
     printf(" %u-%u\n", result, (unsigned)temp);
-  }
+  }*/
 
   return is_exit_status_bad();
 }
