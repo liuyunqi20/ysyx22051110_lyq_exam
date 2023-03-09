@@ -32,13 +32,14 @@ void isa_reg_display() {
 word_t isa_reg_str2val(const char *s, bool *success) {
   if(s[0] != '$')
     *success = false;
-  printf("reg: %s %ld\n", s, strlen(s));
+  //printf("reg: %s\n", s);
   if(!strcmp(s, regs[0])){
     *success = true;
     return 0;
   }
   for(int i = 1; i < 32; ++i){
     if(!strcmp(s+1, regs[i])){
+      printf("reg %s %s\n",s, regs[i]);
       *success = true;
       return cpu.gpr[i];
     }
