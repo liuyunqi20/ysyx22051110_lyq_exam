@@ -281,5 +281,8 @@ word_t expr(char *e, bool *success) {
     }
   }
   /* TODO: Insert codes to evaluate the expression. */
-  return (word_t)expr_eval(0, nr_token-1);
+  
+  word_t res =  (word_t)expr_eval(0, nr_token-1);
+  *success = true;
+  return res;
 }

@@ -39,7 +39,6 @@ word_t isa_reg_str2val(const char *s, bool *success) {
   }
   for(int i = 1; i < 32; ++i){
     if(!strcmp(s+1, regs[i])){
-      printf("reg %s %s\n",s, regs[i]);
       *success = true;
       return cpu.gpr[i];
     }
