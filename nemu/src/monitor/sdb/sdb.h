@@ -18,6 +18,20 @@
 
 #include <common.h>
 
+#define LEN_WP_EXPR 100
+typedef struct watchpoint {
+  int NO;
+  struct watchpoint *next;
+
+  /* TODO: Add more members if necessary */
+  char expr_str[LEN_WP_EXPR];
+  word_t val;
+
+} WP;
+
 word_t expr(char *e, bool *success);
+void free_wp(WP * wp);
+WP * new_wp(char * s);
+void print_wp();
 
 #endif

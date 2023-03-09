@@ -58,6 +58,7 @@ static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
+static int cmd_w(char *args);
 
 static struct {
   const char *name;
@@ -71,7 +72,8 @@ static struct {
   /* TODO: Add more commands */
   { "si", "Execute by one step", cmd_si },
   { "info", "Print info", cmd_info },
-  { "x", "Scan memory", cmd_x }
+  { "x", "Scan memory", cmd_x },
+  { "w", "Set watchpoint", cmd_w}
 };
 
 #define NR_CMD ARRLEN(cmd_table)
@@ -116,6 +118,8 @@ static int cmd_info(char * args){
     printf("Invalid info command!\n");
   }else if(!strcmp(arg, "r") || !strcmp(arg, "register")){
     isa_reg_display();
+  }else if(!strcmp(arg, "w") || !strcmp(arg, "watchpoints")){
+    print_wp();
   }
   return 0;
 }
@@ -150,6 +154,18 @@ static int cmd_x(char * args){
     }
     printf("\n");
   }
+  return 0;
+}
+
+static int cmd_w(char * args){
+  char * arg = strtok(NULL, " ");
+  if(arg == NULL){
+    printf("Usage: w [EXPR]\n");
+    return 0;
+  }
+  WP * temp = new_wp(arg);
+  printf("watchpoint %d: %s %lu\n", 
+    temp->NO, temp->expr_str, temp->val);
   return 0;
 }
 
