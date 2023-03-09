@@ -49,6 +49,7 @@ WP * new_wp(char * s){
   }
   temp->expr_str[i] = '\0';
   bool flag;
+  printf("new_wp: %s\n", temp->expr_str);
   temp->val = expr(temp->expr_str, &flag);
   if(!flag)
     assert(0);
