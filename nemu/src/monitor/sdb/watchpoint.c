@@ -49,11 +49,11 @@ WP * new_wp(char * s){
   }
   temp->expr_str[i] = '\0';
   bool flag;
-  printf("new_wp: %s\n", temp->expr_str);
+  //printf("new_wp: %s\n", temp->expr_str);
   temp->val = expr(temp->expr_str, &flag);
   if(!flag)
     assert(0);
-  printf("watchpoint %d: %s %lu\n", temp->NO, temp->expr_str, temp->val);
+  //printf("watchpoint %d: %s %lu\n", temp->NO, temp->expr_str, temp->val);
   //insert to head list
   temp->next = head;
   head = temp;
