@@ -86,8 +86,26 @@ void free_wp(WP * wp){
 
 void print_wp(){
   WP * h = head;
-  while(h && h->next != NULL){
-    printf("%d: %s %lu\n", h->NO, h->expr_str, h->val);
+  while(h){
+    printf("watchpoint %d: %s %lu\n", h->NO, h->expr_str, h->val);
     h = h->next;
   }
+}
+
+int check_wp(){
+  WP * h = head;
+  int flag = 1;
+  while(h){
+    bool expr_flag;
+    word_t temp = expr(h->expr_str, &expr_flag);
+    if(temp != h->val){
+      flag = 0;
+      printf("watchpoint %d: %s\n\n", h->NO, h->expr_str);
+      printf("Old value = %lu\n", h->val);
+      printf("New value = %lu\n", temp);
+      h->val = temp;
+    }
+    h = h->next;
+  }
+  return flag;
 }
