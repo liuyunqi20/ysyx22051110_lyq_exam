@@ -32,7 +32,7 @@ void isa_reg_display() {
 word_t isa_reg_str2val(const char *s, bool *success) {
   if(s[0] != '$')
     *success = false;
-  printf("reg: %s\n", s);
+  printf("reg: %s %ld\n", s, strlen(s));
   if(!strcmp(s, regs[0])){
     *success = true;
     return 0;
