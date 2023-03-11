@@ -32,7 +32,8 @@ enum {
 #define immI() do { *imm = SEXT(BITS(i, 31, 20), 12); } while(0)
 #define immU() do { *imm = SEXT(BITS(i, 31, 12), 20) << 12; } while(0)
 #define immS() do { *imm = (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); } while(0)
-#define immJ() do { *imm = ((SEXT(BITS(i, 31, 31), 1) << 20) | (BITS(i, 19, 12) << 12) | (BITS(i, 20, 20) << 11) | (BITS(i, 30, 21) << 1)); } while(0)
+#define immJ() do { *imm = ((SEXT(BITS(i, 31, 31), 1) << 20) | (BITS(i, 19, 12) << 12) \
+                         | (BITS(i, 20, 20) << 11) | (BITS(i, 30, 21) << 1)); } while(0)
 
 static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, word_t *imm, int type) {
   uint32_t i = s->isa.inst.val;
@@ -57,12 +58,13 @@ static int decode_exec(Decode *s) {
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
   decode_operand(s, &dest, &src1, &src2, &imm, concat(TYPE_, type)); \
   __VA_ARGS__ ; \
-    Log("match inst %s npc=%x", " "#name, (unsigned)s->dnpc); \
+    Log("match inst %s pc=%x", " "#name, (unsigned)s->pc); \
 }
 
   INSTPAT_START();
   INSTPAT("??????? ????? ????? ??? ????? 00101 11", auipc  , U, R(dest) = s->pc + imm);
   INSTPAT("??????? ????? ????? 011 ????? 00000 11", ld     , I, R(dest) = Mr(src1 + imm, 8));
+  INSTPAT("??????? ????? ????? 010 ????? 00000 11", lw     , I, R(dest) = SEXT(Mr(src1 + imm, 4), 32) );
   INSTPAT("??????? ????? ????? 011 ????? 01000 11", sd     , S, Mw(src1 + imm, 8, src2));
 
   INSTPAT("??????? ????? ????? 000 ????? 00100 11", addi   , I, R(dest) = src1 + imm);
