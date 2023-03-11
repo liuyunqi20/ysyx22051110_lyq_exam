@@ -56,7 +56,7 @@ static int decode_exec(Decode *s) {
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
   decode_operand(s, &dest, &src1, &src2, &imm, concat(TYPE_, type)); \
-  Log("match inst %s\n", #name); \
+  Log("match inst %s pc=%x", " "#name, (unsigned)s->pc); \
   __VA_ARGS__ ; \
 }
 
