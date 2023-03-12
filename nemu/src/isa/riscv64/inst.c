@@ -63,7 +63,7 @@ static int decode_exec(Decode *s) {
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
   decode_operand(s, &dest, &src1, &src2, &imm, concat(TYPE_, type)); \
   __VA_ARGS__ ; \
-  Log("%s: %lx => (%lx)", ""#name, SEXT(src2, 32), src1 + imm); \
+  Log("%s: pc=%lx", ""#name, s->pc); \
 }
 
   INSTPAT_START();
