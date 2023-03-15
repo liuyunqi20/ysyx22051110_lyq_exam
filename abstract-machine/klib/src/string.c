@@ -110,7 +110,7 @@ int memcmp(const void *s1, const void *s2, size_t n) {
     src++;
     --n;
   }
-  return (int)((*dst)-(*src));
+  return n == 0 ? 0 : (int)((*dst)-(*src));
 }
 
 #endif
