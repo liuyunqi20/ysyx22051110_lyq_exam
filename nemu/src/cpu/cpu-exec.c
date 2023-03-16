@@ -32,11 +32,31 @@ uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
+#define IRINGBUF_SIZE 32
+#define IBUF_SIZE 64
+struct iring{
+  char buf[IRINGBUF_SIZE][IBUF_SIZE];
+  int head;
+} iringbuf;
+
 void device_update();
+
+static void log_write_iringbuf(void){
+  int temp = iringbuf.head;
+  for(int i = 0; i < IRINGBUF_SIZE; ++i){
+    if(iringbuf.buf[temp][0] != '\0'){
+      printf("%s\n", iringbuf.buf[temp]);
+    }
+    if(temp == IRINGBUF_SIZE - 1)
+      temp = 0;
+    else
+      temp++;
+  }
+}
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
-  if (1) { log_write("%s\n", _this->logbuf); }
+  if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
@@ -71,6 +91,15 @@ static void exec_once(Decode *s, vaddr_t pc) {
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
 #endif
+#ifdef CONFIG_ITRACE_RINGBUF
+  char * str = iringbuf.buf[iringbuf.head];
+  strncpy(str, s->logbuf, IBUF_SIZE - 1);
+  iringbuf.buf[iringbuf.head][IBUF_SIZE - 1] = '\0';
+  if(iringbuf.head == (IRINGBUF_SIZE - 1))
+    iringbuf.head = 0;
+  else
+    iringbuf.head += 1;
+#endif
 }
 
 static void execute(uint64_t n) {
@@ -95,6 +124,9 @@ static void statistic() {
 
 void assert_fail_msg() {
   isa_reg_display();
+#ifdef CONFIG_ITRACE_RINGBUF
+  log_write_iringbuf();
+#endif
   statistic();
 }
 
@@ -119,6 +151,10 @@ void cpu_exec(uint64_t n) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
 
     case NEMU_END: case NEMU_ABORT:
+#ifdef CONFIG_ITRACE_RINGBUF
+      //if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0)
+        log_write_iringbuf();
+#endif
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
