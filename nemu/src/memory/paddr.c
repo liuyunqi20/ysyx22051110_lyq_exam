@@ -29,11 +29,29 @@ paddr_t host_to_guest(uint8_t *haddr) { return haddr - pmem + CONFIG_MBASE; }
 
 static word_t pmem_read(paddr_t addr, int len) {
   word_t ret = host_read(guest_to_host(addr), len);
+#ifdef CONFIG_MTRACE_READ
+  #ifdef CONFIG_MTRACE_COND
+    if(addr < CONFIG_MTRACE_END && addr > CONFIG_MTRACE_START){
+      printf("0x%016x r %d %lx\n", addr, len, ret);
+    }
+  #else
+    printf("0x%016x r %d %lx\n", addr, len, ret);
+  #endif
+#endif
   return ret;
 }
 
 static void pmem_write(paddr_t addr, int len, word_t data) {
   host_write(guest_to_host(addr), len, data);
+#ifdef CONFIG_MTRACE_WRITE
+  #ifdef CONFIG_MTRACE_COND
+    if(addr < CONFIG_MTRACE_END && addr > CONFIG_MTRACE_START){
+      printf("0x%016x w %d %lx\n", addr, len, data);
+    }
+  #else
+    printf("0x%016x w %d %lx\n", addr, len, data);
+  #endif
+#endif
 }
 
 static void out_of_bound(paddr_t addr) {

@@ -9,6 +9,14 @@ config MSIZE
   hex "Memory size"
   default 0x8000000
 
+config MTRACE_START
+  hex "Memory trace range start"
+  default 0x80000000
+
+config MTRACE_END
+  hex "Memory trace range end"
+  default 0x88000000
+
 config PC_RESET_OFFSET
   hex "Offset of reset vector from the base of memory"
   default 0x100000 if ISA_x86
