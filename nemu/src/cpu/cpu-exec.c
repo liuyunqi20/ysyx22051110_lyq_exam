@@ -93,6 +93,8 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #endif
 #ifdef CONFIG_ITRACE_RINGBUF
   char * str = iringbuf.buf[iringbuf.head];
+  memset(str, ' ', 4);
+  str += 4;
   strncpy(str, s->logbuf, IBUF_SIZE - 1);
   iringbuf.buf[iringbuf.head][IBUF_SIZE - 1] = '\0';
   if(iringbuf.head == (IRINGBUF_SIZE - 1))
@@ -152,7 +154,7 @@ void cpu_exec(uint64_t n) {
 
     case NEMU_END: case NEMU_ABORT:
 #ifdef CONFIG_ITRACE_RINGBUF
-      //if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0)
+      if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0)
         log_write_iringbuf();
 #endif
       Log("nemu: %s at pc = " FMT_WORD,
