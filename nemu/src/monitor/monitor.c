@@ -15,6 +15,7 @@
 
 #include <isa.h>
 #include <memory/paddr.h>
+#include <elf.h>
 
 void init_rand();
 void init_log(const char *log_file);
@@ -23,6 +24,13 @@ void init_difftest(char *ref_so_file, long img_size, int port);
 void init_device();
 void init_sdb();
 void init_disasm(const char *triple);
+
+#define FUNC_TAB_SIZE 32
+struct func_tab{
+  char name_tab[FUNC_TAB_SIZE][64];
+  word_t pc_tab[FUNC_TAB_SIZE];
+  int func_num;
+} functab;
 
 static void welcome() {
   Log("Trace: %s", MUXDEF(CONFIG_TRACE, ANSI_FMT("ON", ANSI_FG_GREEN), ANSI_FMT("OFF", ANSI_FG_RED)));
@@ -45,6 +53,65 @@ static char *log_file = NULL;
 static char *diff_so_file = NULL;
 static char *img_file = NULL;
 static int difftest_port = 1234;
+static char *elf_file = NULL;
+static int elf_en = 0;
+
+static void read_ehdr(Elf64_Ehdr * ehdr, FILE * fp)
+{
+    int ret = fread(ehdr, sizeof(*ehdr), 1, fp);
+    assert(ret == 1);
+    assert(ehdr->e_ident[EI_MAG1] == ELFMAG1);
+    assert(ehdr->e_ident[EI_MAG2] == ELFMAG2);
+    assert(ehdr->e_ident[EI_MAG3] == ELFMAG3);
+}
+
+static void init_ftrace(){
+#ifdef CONFIG_FTRACE
+  if(elf_file == NULL || elf_en == 0) {
+    Log("No elf file is given");
+    return;
+  }
+  FILE *fp = fopen(elf_file, "rb");
+  Assert(fp, "Can not open '%s'", elf_file);
+  //read ELF header 
+  Elf64_Ehdr ehdr;
+  read_ehdr(&ehdr, fp);
+  //check Section Table
+  Elf64_Shdr symtab_shdr;
+  Elf64_Shdr strtab_shdr;
+  Elf64_Shdr shdr;
+  fseek(fp, ehdr.e_shoff, SEEK_SET);
+  for(int i = 0; i < ehdr.e_shnum; ++i){
+    int ret = fread(&shdr, ehdr.e_shentsize, 1, fp);
+    assert(ret == 1);
+    if(shdr.sh_type == SHT_SYMTAB){
+      symtab_shdr = shdr;
+    }else if(shdr.sh_type == SHT_STRTAB){
+      strtab_shdr = shdr;
+    }
+  }
+  //Find function symbol
+  int sym_num = symtab_shdr.sh_size / symtab_shdr.sh_entsize;
+  Elf64_Sym sym;
+  for(int i = 0; i < sym_num; ++i){
+    fseek(fp, symtab_shdr.sh_offset + i * symtab_shdr.sh_entsize, SEEK_SET);
+    int ret = fread(&sym, symtab_shdr.sh_entsize, 1, fp);
+    assert(ret == 1);
+    if(ELF64_ST_TYPE(sym.st_info) == STT_FUNC){
+      int idx = functab.func_num;
+      functab.pc_tab[idx] = sym.st_value;
+      fseek(fp, strtab_shdr.sh_offset + sym.st_name, SEEK_SET);
+      char * p = fgets(functab.name_tab[idx], 64, fp);
+      assert(p == functab.name_tab[idx]);
+      printf("get pc=%lx name = %s\n", sym.st_value, functab.name_tab[idx]);
+      functab.func_num += 1;
+    }
+  }
+
+  fclose(fp);
+
+#endif
+}
 
 static long load_img() {
   if (img_file == NULL) {
@@ -75,15 +142,17 @@ static int parse_args(int argc, char *argv[]) {
     {"diff"     , required_argument, NULL, 'd'},
     {"port"     , required_argument, NULL, 'p'},
     {"help"     , no_argument      , NULL, 'h'},
+    {"elf"      , required_argument      , NULL, 'e'},
     {0          , 0                , NULL,  0 },
   };
   int o;
-  while ( (o = getopt_long(argc, argv, "-bhl:d:p:", table, NULL)) != -1) {
+  while ( (o = getopt_long(argc, argv, "-bhl:d:p:e:", table, NULL)) != -1) {
     switch (o) {
       case 'b': sdb_set_batch_mode(); break;
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
+      case 'e': elf_file = optarg; elf_en = 1; break;
       case 1: img_file = optarg; return 0;
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
@@ -91,6 +160,7 @@ static int parse_args(int argc, char *argv[]) {
         printf("\t-l,--log=FILE           output log to FILE\n");
         printf("\t-d,--diff=REF_SO        run DiffTest with reference REF_SO\n");
         printf("\t-p,--port=PORT          run DiffTest with port PORT\n");
+        printf("\t-e,--elf=FILE           elf file for ftrace\n");
         printf("\n");
         exit(0);
     }
@@ -121,6 +191,8 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Load the image to memory. This will overwrite the built-in image. */
   long img_size = load_img();
+
+  init_ftrace();
 
   /* Initialize differential testing. */
   init_difftest(diff_so_file, img_size, difftest_port);
