@@ -127,7 +127,7 @@ static void init_ftrace(){
 
 //call: type=0, ret: type=1
 void ftrace_print(word_t cur_pc, word_t dst_pc, int type){
-  printf("0x%lx:", cur_pc);
+  printf("0x%lx: ", cur_pc);
   for(int i = 0; i < ftrace_spacen; ++i)
     putchar(' ');
   int hit = 0;
@@ -138,10 +138,10 @@ void ftrace_print(word_t cur_pc, word_t dst_pc, int type){
       break;
     }
   }
-  if(type == 1){
+  if(type == 0){
     ftrace_spacen++;
     printf("call ");
-  }else if(type == 0){
+  }else if(type == 1){
     printf("ret ");
   }else
     assert(0);
