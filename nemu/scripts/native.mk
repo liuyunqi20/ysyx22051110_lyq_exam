@@ -25,13 +25,15 @@ $(BINARY): compile_git
 # Some convenient rules
 
 override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt
-override ARGS += -e $(ELF_FILE)
 override ARGS += $(ARGS_DIFF)
 
 # Command to execute NEMU
-ELF_FILE ?=
 IMG ?=
 NEMU_EXEC := $(BINARY) $(ARGS) $(IMG)
+
+# add elf file
+ELF_FILE ?=
+override ARGS += -e $(ELF_FILE)
 
 run-env: $(BINARY) $(DIFF_REF_SO)
 
