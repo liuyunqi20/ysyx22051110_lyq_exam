@@ -71,6 +71,7 @@ static void init_ftrace(){
     Log("No elf file is given");
     return;
   }
+  printf("cnm\n");
   FILE *fp = fopen(elf_file, "rb");
   Assert(fp, "Can not open '%s'", elf_file);
   //read ELF header 
