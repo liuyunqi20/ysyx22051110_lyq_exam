@@ -81,6 +81,7 @@ static void init_ftrace(){
   fseek(fp, ehdr.e_shoff + ehdr.e_shstrndx * ehdr.e_shentsize, SEEK_SET);
   int ret = fread(&shstrtab_shdr, ehdr.e_shentsize, 1, fp);
   assert(ret == 1);
+  printf("shstrtab: %lx %lx\n", shstrtab_shdr.sh_offset, shstrtab_shdr.sh_size);
   //check Section Table
   Elf64_Shdr symtab_shdr;
   Elf64_Shdr strtab_shdr;
@@ -90,6 +91,7 @@ static void init_ftrace(){
   for(int i = 0; i < ehdr.e_shnum; ++i){
     int ret = fread(&shdr, ehdr.e_shentsize, 1, fp);
     assert(ret == 1);
+    printf("sh_name: 0x%u\n", shdr.sh_name);
     fseek(fp, shstrtab_shdr.sh_offset + shdr.sh_name, SEEK_SET);
     char * p = fgets(shname, 64, fp);
     assert(p == shname);
