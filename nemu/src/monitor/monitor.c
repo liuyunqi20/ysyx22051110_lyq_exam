@@ -76,17 +76,26 @@ static void init_ftrace(){
   //read ELF header 
   Elf64_Ehdr ehdr;
   read_ehdr(&ehdr, fp);
+  //get Shstrtab
+  Elf64_Shdr shstrtab_shdr;
+  fseek(fp, ehdr.e_shoff + ehdr.e_shstrndx * ehdr.e_shentsize, SEEK_SET);
+  int ret = fread(&shstrtab_shdr, ehdr.e_shentsize, 1, fp);
+  assert(ret == 1);
   //check Section Table
   Elf64_Shdr symtab_shdr;
   Elf64_Shdr strtab_shdr;
   Elf64_Shdr shdr;
+  char shname[64];
   fseek(fp, ehdr.e_shoff, SEEK_SET);
   for(int i = 0; i < ehdr.e_shnum; ++i){
     int ret = fread(&shdr, ehdr.e_shentsize, 1, fp);
     assert(ret == 1);
-    if(shdr.sh_type == SHT_SYMTAB){
+    fseek(fp, shstrtab_shdr.sh_offset + shdr.sh_name, SEEK_SET);
+    char * p = fgets(shname, 64, fp);
+    assert(p == shname);
+    if(!strcmp(shname, ".symtab")){
       symtab_shdr = shdr;
-    }else if(shdr.sh_type == SHT_STRTAB){
+    }else if(!strcmp(shname, ".strtab")){
       strtab_shdr = shdr;
     }
   }
