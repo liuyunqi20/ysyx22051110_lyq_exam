@@ -33,7 +33,7 @@ NEMU_EXEC := $(BINARY) $(ARGS) $(IMG)
 
 # add elf file
 ELF_FILE ?=
-override ARGS += -e $(ELF_FILE)
+override ARGS += --elf=$(ELF_FILE)
 
 run-env: $(BINARY) $(DIFF_REF_SO)
 
