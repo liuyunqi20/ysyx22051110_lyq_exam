@@ -55,6 +55,7 @@ static char *img_file = NULL;
 static int difftest_port = 1234;
 static char *elf_file = NULL;
 static int elf_en = 0;
+static int ftrace_spacen = 0;
 
 static void read_ehdr(Elf64_Ehdr * ehdr, FILE * fp)
 {
@@ -100,8 +101,8 @@ static void init_ftrace(){
       strtab_shdr = shdr;
     }
   }
-  printf("symtab: %lx %lx\n", symtab_shdr.sh_offset, symtab_shdr.sh_size);
-  printf("strtab: %lx %lx\n", strtab_shdr.sh_offset, strtab_shdr.sh_size);
+  //printf("symtab: %lx %lx\n", symtab_shdr.sh_offset, symtab_shdr.sh_size);
+  //printf("strtab: %lx %lx\n", strtab_shdr.sh_offset, strtab_shdr.sh_size);
   //Find function symbol
   int sym_num = symtab_shdr.sh_size / symtab_shdr.sh_entsize;
   Elf64_Sym sym;
@@ -113,17 +114,38 @@ static void init_ftrace(){
       int idx = functab.func_num;
       functab.pc_tab[idx] = sym.st_value;
       fseek(fp, strtab_shdr.sh_offset + sym.st_name, SEEK_SET);
-      printf("offset=%lx\n", strtab_shdr.sh_offset + sym.st_name);
+      //printf("offset=%lx\n", strtab_shdr.sh_offset + sym.st_name);
       char * p = fgets(functab.name_tab[idx], 64, fp);
       assert(p == functab.name_tab[idx]);
-      printf("get pc=%lx name = %s\n", sym.st_value, functab.name_tab[idx]);
+      //printf("get pc=%lx name = %s\n", sym.st_value, functab.name_tab[idx]);
       functab.func_num += 1;
     }
   }
-
   fclose(fp);
-
 #endif
+}
+
+//call: type=0, ret: type=1
+void ftrace_print(word_t cur_pc, word_t dst_pc, int type){
+  printf("0x%lx:", cur_pc);
+  for(int i = 0; i < ftrace_spacen; ++i)
+    putchar(' ');
+  int hit = 0;
+  if(type == 0) ftrace_spacen--;
+  for(int i = 0; i < functab.func_num; ++i){
+    if(dst_pc == functab.pc_tab[i]){
+      hit = i;
+      break;
+    }
+  }
+  if(type == 1){
+    ftrace_spacen++;
+    printf("call ");
+  }else if(type == 0){
+    printf("ret ");
+  }else
+    assert(0);
+  printf("[%s@0x%lx]\n", functab.name_tab[hit], dst_pc);
 }
 
 static long load_img() {
