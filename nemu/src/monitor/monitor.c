@@ -128,10 +128,10 @@ static void init_ftrace(){
 //call: type=0, ret: type=1
 void ftrace_print(word_t cur_pc, word_t dst_pc, int type){
   printf("0x%lx: ", cur_pc);
+  if(type == 0) ftrace_spacen--;
   for(int i = 0; i < ftrace_spacen; ++i)
     putchar(' ');
   int hit = 0;
-  if(type == 0) ftrace_spacen--;
   for(int i = 0; i < functab.func_num; ++i){
     if(dst_pc == functab.pc_tab[i]){
       hit = i;
