@@ -90,6 +90,8 @@ static void init_ftrace(){
       strtab_shdr = shdr;
     }
   }
+  printf("symtab: %lx %lx\n", symtab_shdr.sh_offset, symtab_shdr.sh_size);
+  printf("strtab: %lx %lx\n", strtab_shdr.sh_offset, strtab_shdr.sh_size);
   //Find function symbol
   int sym_num = symtab_shdr.sh_size / symtab_shdr.sh_entsize;
   Elf64_Sym sym;
@@ -101,10 +103,10 @@ static void init_ftrace(){
       int idx = functab.func_num;
       functab.pc_tab[idx] = sym.st_value;
       fseek(fp, strtab_shdr.sh_offset + sym.st_name, SEEK_SET);
-      printf("offset=%lx\n", strtab_shdr.sh_offset + sym.st_name);
+      //printf("offset=%lx\n", strtab_shdr.sh_offset + sym.st_name);
       char * p = fgets(functab.name_tab[idx], 64, fp);
       assert(p == functab.name_tab[idx]);
-      printf("get pc=%lx name = %s\n", sym.st_value, functab.name_tab[idx]);
+      //printf("get pc=%lx name = %s\n", sym.st_value, functab.name_tab[idx]);
       functab.func_num += 1;
     }
   }
