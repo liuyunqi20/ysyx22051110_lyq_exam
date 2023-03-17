@@ -101,6 +101,7 @@ static void init_ftrace(){
       int idx = functab.func_num;
       functab.pc_tab[idx] = sym.st_value;
       fseek(fp, strtab_shdr.sh_offset + sym.st_name, SEEK_SET);
+      printf("offset=%lx\n", strtab_shdr.sh_offset + sym.st_name);
       char * p = fgets(functab.name_tab[idx], 64, fp);
       assert(p == functab.name_tab[idx]);
       printf("get pc=%lx name = %s\n", sym.st_value, functab.name_tab[idx]);
