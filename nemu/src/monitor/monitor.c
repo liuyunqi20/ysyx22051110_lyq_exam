@@ -91,7 +91,6 @@ static void init_ftrace(){
     fseek(fp, ehdr.e_shoff + i * ehdr.e_shentsize, SEEK_SET);
     int ret = fread(&shdr, ehdr.e_shentsize, 1, fp);
     assert(ret == 1);
-    printf("sh_name: 0x%u\n", shdr.sh_name);
     fseek(fp, shstrtab_shdr.sh_offset + shdr.sh_name, SEEK_SET);
     char * p = fgets(shname, 64, fp);
     assert(p == shname);
@@ -114,10 +113,10 @@ static void init_ftrace(){
       int idx = functab.func_num;
       functab.pc_tab[idx] = sym.st_value;
       fseek(fp, strtab_shdr.sh_offset + sym.st_name, SEEK_SET);
-      //printf("offset=%lx\n", strtab_shdr.sh_offset + sym.st_name);
+      printf("offset=%lx\n", strtab_shdr.sh_offset + sym.st_name);
       char * p = fgets(functab.name_tab[idx], 64, fp);
       assert(p == functab.name_tab[idx]);
-      //printf("get pc=%lx name = %s\n", sym.st_value, functab.name_tab[idx]);
+      printf("get pc=%lx name = %s\n", sym.st_value, functab.name_tab[idx]);
       functab.func_num += 1;
     }
   }
