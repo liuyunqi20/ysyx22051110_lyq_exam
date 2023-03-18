@@ -127,6 +127,7 @@ static void init_ftrace(){
 
 //call: type=0, ret: type=1
 void ftrace_print(word_t cur_pc, word_t dst_pc, int type){
+#ifdef CONFIG_FTRACE
   printf("0x%lx: ", cur_pc);
   if(type == 1) ftrace_spacen--;
   for(int i = 0; i < ftrace_spacen; ++i)
@@ -146,6 +147,7 @@ void ftrace_print(word_t cur_pc, word_t dst_pc, int type){
   }else
     assert(0);
   printf("[%s@0x%lx]\n", functab.name_tab[hit], dst_pc);
+#endif
 }
 
 static long load_img() {
