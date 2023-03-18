@@ -89,13 +89,26 @@ void *memmove(void *dst, const void *src, size_t n) {
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
-  uint8_t * s1 = (uint8_t *)out;
-  const uint8_t * s2 = (const uint8_t *)in;
-  while(n != 0){
-    *s1 = *s2;
-    s1++;
-    s2++;
-    --n;
+  uint8_t * s1;
+  const uint8_t * s2;
+  if((out > (in + n)) || (out < in)){
+    s1 = (uint8_t *)out;
+    s2 = (const uint8_t *)in;
+    while(n != 0){
+      *s1 = *s2;
+      s1++;
+      s2++;
+      --n;
+    }
+  }else{
+    s1 = (uint8_t *)out + n - 1;
+    s2 = (const uint8_t *)((uint8_t *)in + n - 1);
+    while(n != 0){
+      *s1 = *s2;
+      s1--;
+      s2--;
+      --n;
+    }
   }
   return out;
 }
