@@ -55,8 +55,8 @@ static char *img_file = NULL;
 static int difftest_port = 1234;
 static char *elf_file = NULL;
 static int elf_en = 0;
-static int ftrace_spacen = 0;
 
+#ifdef CONFIG_FTRACE
 static void read_ehdr(Elf64_Ehdr * ehdr, FILE * fp)
 {
     int ret = fread(ehdr, sizeof(*ehdr), 1, fp);
@@ -65,6 +65,7 @@ static void read_ehdr(Elf64_Ehdr * ehdr, FILE * fp)
     assert(ehdr->e_ident[EI_MAG2] == 'L');
     assert(ehdr->e_ident[EI_MAG3] == 'F');
 }
+#endif
 
 static void init_ftrace(){
 #ifdef CONFIG_FTRACE
@@ -126,8 +127,9 @@ static void init_ftrace(){
 }
 
 //call: type=0, ret: type=1
-void ftrace_print(word_t cur_pc, word_t dst_pc, int type){
 #ifdef CONFIG_FTRACE
+static int ftrace_spacen = 0;
+void ftrace_print(word_t cur_pc, word_t dst_pc, int type){
   printf("0x%lx: ", cur_pc);
   if(type == 1) ftrace_spacen--;
   for(int i = 0; i < ftrace_spacen; ++i)
@@ -147,8 +149,8 @@ void ftrace_print(word_t cur_pc, word_t dst_pc, int type){
   }else
     assert(0);
   printf("[%s@0x%lx]\n", functab.name_tab[hit], dst_pc);
-#endif
 }
+#endif
 
 static long load_img() {
   if (img_file == NULL) {
