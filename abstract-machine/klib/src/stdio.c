@@ -20,13 +20,14 @@ static void itoa(char * s, int num){
   int i = 0;
   if(num < 0){
     s[i++] = '-';
-    num = -num;
   }
   if(num == 0)
     s[i++] = '0';
   else{
     while(num != 0){
-      s[i++] = (num % 10) + '0';
+      int temp = num % 10;
+      if(temp < 0) temp = -temp;
+      s[i++] = temp + '0';
       num = num / 10;
     }
     int t1 = s[0] == '-' ? 1:0;
