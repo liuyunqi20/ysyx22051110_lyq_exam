@@ -43,7 +43,14 @@ static void itoa(char * s, int num){
 }
 
 int printf(const char *fmt, ...) {
-  panic("Not implemented");
+  char buf[256];
+  va_list ap;
+  va_start(ap, fmt);
+  int ret = vsprintf(buf, fmt, ap);
+  va_end(ap);
+  for(int i = 0; i < 256 && buf[i]!='\0'; ++i)
+    putch(buf[i]);
+  return ret;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
@@ -68,6 +75,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           int temp = (int)va_arg(ap, int);
           itoa(num_buf, temp);
           p += cats(out + p, num_buf);
+          break;
+        case 'c':
+          int tmpch = (int)va_arg(ap, int);
+          out[p++] = (char)tmpch;
           break;
         default:
           out[p++] = '%';
