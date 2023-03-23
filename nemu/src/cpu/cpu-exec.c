@@ -41,6 +41,7 @@ struct iring{
 
 void device_update();
 
+#ifdef CONFIG_ITRACE_RINGBUF
 static void log_write_iringbuf(void){
   int temp = iringbuf.head;
   for(int i = 0; i < IRINGBUF_SIZE; ++i){
@@ -53,6 +54,7 @@ static void log_write_iringbuf(void){
       temp++;
   }
 }
+#endif
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
