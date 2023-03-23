@@ -98,7 +98,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   memset(str, ' ', 4);
   str += 4;
   strncpy(str, s->logbuf, IBUF_SIZE - 1);
-  iringbuf.buf[iringbuf.head][IBUF_SIZE - 1] = '\0';
+  //iringbuf.buf[iringbuf.head][IBUF_SIZE - 1] = '\0';
   if(iringbuf.head == (IRINGBUF_SIZE - 1))
     iringbuf.head = 0;
   else
