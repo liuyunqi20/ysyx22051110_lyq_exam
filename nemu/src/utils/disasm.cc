@@ -52,8 +52,8 @@ extern "C" void init_disasm(const char *triple) {
   std::string errstr;
   std::string gTriple(triple);
 
-  llvm::MCRegisterInfo *gMRI = nullptr;
   llvm::MCInstrInfo *gMII = nullptr;
+  llvm::MCRegisterInfo *gMRI = nullptr;
   auto target = llvm::TargetRegistry::lookupTarget(gTriple, errstr);
   if (!target) {
     llvm::errs() << "Can't find target for " << gTriple << ": " << errstr << "\n";
