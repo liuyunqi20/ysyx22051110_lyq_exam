@@ -1,6 +1,6 @@
 #include <am.h>
 #include <nemu.h>
-int    printf    (const char *format, ...);
+//int    printf    (const char *format, ...);
 #define SYNC_ADDR (VGACTL_ADDR + 4)
 
 void __am_gpu_init() {
@@ -28,7 +28,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t * cur_pixel = ctl->pixels;
   int fb_w = (int)(inl(VGACTL_ADDR) >> 16); 
   uint32_t *fb = ((uint32_t *)FB_ADDR) + (ctl->y) * fb_w + ctl->x;
-  printf("fb_w: %d, w: %d h: %d\n", fb_w, ctl->w, ctl->h);
+  //printf("fb_w: %d, w: %d h: %d\n", fb_w, ctl->w, ctl->h);
   for(int i = 0; i < ctl->h; ++i){
     for(int j = 0; j < ctl->w; ++j){
       fb[j] = *cur_pixel;
