@@ -1,4 +1,8 @@
 BUILD_DIR = ./build
+SIM_HOME = ./sim
+IMG ?= 
+
+include ../Makefile
 
 export PATH := $(PATH):$(abspath ./utils)
 
@@ -26,12 +30,14 @@ checkformat:
 	mill -i __.checkFormat
 
 clean:
-	-rm -rf $(BUILD_DIR)
+#	-rm -rf $(BUILD_DIR)
+	-make -C $(SIM_HOME) clean
 
-.PHONY: test verilog help compile bsp reformat checkformat clean
+.PHONY: test verilog help compile bsp reformat checkformat clean wave sim
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@echo "Write this Makefile by yourself."
+	make -C $(SIM_HOME) sim IMAGE=$(IMG) ELF_SRC=$(ELF_SRC)
 
-include ../Makefile
+wave:
+	make -C $(SIM_HOME) wave
