@@ -93,9 +93,9 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
       if(waddr >= FB_ADDR)     { 
         uint64_t offset = waddr - FB_ADDR;
         if(wmask == 0xf0)
-          *(uint32_t *)((uintptr_t)vmem + offset + 4) = (uint32_t)((uint64_t)waddr >> 32);
+          *(uint32_t *)((uintptr_t)vgafb_mem + offset + 4) = (uint32_t)((uint64_t)waddr >> 32);
         else if(wmask == 0x0f)
-          *(uint32_t *)((uintptr_t)vmem + offset) = (uint32_t)waddr;
+          *(uint32_t *)((uintptr_t)vgafb_mem + offset) = (uint32_t)waddr;
       }
     // ---------------- memory ---------------- 
     assert(waddr >= MBASE && waddr < (MBASE + MSIZE));
