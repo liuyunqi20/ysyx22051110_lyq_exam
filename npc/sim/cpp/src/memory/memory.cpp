@@ -91,7 +91,8 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
       if((uint64_t)waddr == (uint64_t)SERIAL_PORT) { putchar((uint8_t)wdata); return;}
       if((uint64_t)waddr == (uint64_t)VGACTL_ADDR) { 
         if(wmask == 0xf0) 
-          vga_ctl |= (wdata & 0xffffffff00000000); 
+          vga_ctl |= (wdata & 0xffffffff00000000);
+        printf("wmask %x vga_ctl: %lx\n", wmask, (uint64_t)vga_ctl);
         return;
       }
       if((uint64_t)waddr >= (uint64_t)FB_ADDR)     { 
