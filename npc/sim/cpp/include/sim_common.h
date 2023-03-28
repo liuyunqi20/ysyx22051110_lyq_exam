@@ -4,6 +4,11 @@
 #define str_temp(x) #x
 #define str(x) str_temp(x)
 
+#define concat_temp(x, y) x ## y
+#define concat(x, y) concat_temp(x, y)
+
+#define MAP(c, f) c(f)
+
 #define ANSI_FG_RED     "\33[1;31m"
 #define ANSI_FG_GREEN   "\33[1;32m"
 #define ANSI_FG_YELLOW  "\33[1;33m"

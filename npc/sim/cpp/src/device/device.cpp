@@ -7,6 +7,8 @@ static uint64_t boot_time = 0;
 
 extern NPCstate npc_state;
 
+void send_key(uint8_t scancode, int is_keydown);
+
 static uint64_t get_time_internal() {
   struct timeval now;
   gettimeofday(&now, NULL);
@@ -43,7 +45,7 @@ void device_update(){
       case SDL_KEYDOWN:
       case SDL_KEYUP: {
         uint8_t k = event.key.keysym.scancode;
-        bool is_keydown = (event.key.type == SDL_KEYDOWN);
+        int is_keydown = (event.key.type == SDL_KEYDOWN);
         send_key(k, is_keydown);
         break;
       }

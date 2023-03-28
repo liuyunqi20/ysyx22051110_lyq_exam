@@ -88,7 +88,7 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
     waddr = waddr & ~0x7;
     //printf("waddr: %llx wdata: %llx\n", waddr, wdata);
     // ---------------- mmio ---------------- 
-      if((uint64_t)waddr == (uint64_t)SERIAL_PORT) { printf("enhen");putchar((uint8_t)wdata); return;}
+      if((uint64_t)waddr == (uint64_t)SERIAL_PORT) { putchar((uint8_t)wdata); return;}
       if((uint64_t)waddr == (uint64_t)VGACTL_ADDR) { 
         if((uint8_t)wmask == 0xf0)
           vga_ctl |= ((wdata << 32) & 0xffffffff00000000);
