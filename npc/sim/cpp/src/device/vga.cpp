@@ -32,8 +32,10 @@ static inline void update_screen() {
 
 void vga_update_screen() {
   uint32_t ret = (uint32_t)(vga_ctl >> 32);
-  if(ret)
+  if(ret){
     update_screen();
+    printf("catch update sceen\n");
+  }
   vga_ctl = vga_ctl & ~0xffffffff00000000;
 }
 
