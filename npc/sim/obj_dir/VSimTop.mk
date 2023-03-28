@@ -38,6 +38,7 @@ VM_USER_CFLAGS = \
 	-I/home/llyyqq/Desktop/ysyx/ysyx-workbench/npc/sim/cpp/include/ \
 	-DDEVICE \
 	-DHAS_VGA \
+	-DHAS_KEYBOARD \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
