@@ -8,8 +8,8 @@ CPP_INCLUDE = $(NPC_HOME)/sim/cpp/include/
 #MTRACE = 1
 #DIFF = 1
 #WAVE = 1
-#DEVICE = 1
-#HAS_VGA = 1
+DEVICE = 1
+HAS_VGA = 1
 #HAS_KEYBOARD = 1
 
 # ------------------------ verilator ------------------------
