@@ -36,10 +36,13 @@ VM_MODPREFIX = VSimTop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
 	-I/home/llyyqq/Desktop/ysyx/ysyx-workbench/npc/sim/cpp/include/ \
+	-DDEVICE \
+	-DHAS_VGA \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
 	-lreadline \
+	-lSDL2 \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \

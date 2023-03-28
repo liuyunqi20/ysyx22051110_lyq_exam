@@ -29,6 +29,8 @@ WP * new_wp(char * s);
 void print_wp();
 int check_wp();
 void init_sdb();
+// ------------------ device ------------------
+void init_device();
 
 #endif
 
