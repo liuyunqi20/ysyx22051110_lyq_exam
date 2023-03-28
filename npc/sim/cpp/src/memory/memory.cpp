@@ -7,7 +7,7 @@
 #define VGACTL_ADDR 0xa0000100
 
 extern uint64_t vga_ctl;
-extern void * vmem;
+extern void * vgafb_mem;
 
 static uint8_t pmem[MSIZE] PG_ALIGN = {};
 

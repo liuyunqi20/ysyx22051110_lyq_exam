@@ -1,11 +1,11 @@
 #include "sim_device.h"
 
 uint64_t vga_ctl = 0;
+void *vgafb_mem = NULL;
 
 #define SCREEN_W 400
 #define SCREEN_H 300
 
-static void *vmem = NULL;
 static SDL_Renderer *renderer = NULL;
 static SDL_Texture *texture = NULL;
 
@@ -24,7 +24,7 @@ static void init_screen() {
 }
 
 static inline void update_screen() {
-  SDL_UpdateTexture(texture, NULL, vmem, SCREEN_W * sizeof(uint32_t));
+  SDL_UpdateTexture(texture, NULL, vgafb_mem, SCREEN_W * sizeof(uint32_t));
   SDL_RenderClear(renderer);
   SDL_RenderCopy(renderer, texture, NULL, NULL);
   SDL_RenderPresent(renderer);
@@ -41,7 +41,7 @@ void init_vga() {
   vga_ctl = (SCREEN_W << 16) | SCREEN_H;
   vga_ctl = vga_ctl & ~0xffffffff00000000;
 
-  vmem = malloc(SCREEN_W * SCREEN_H * sizeof(uint32_t));
+  vgafb_mem = malloc(SCREEN_W * SCREEN_H * sizeof(uint32_t));
   init_screen();
-  memset(vmem, 0, SCREEN_W * SCREEN_H * sizeof(uint32_t));
+  memset(vgafb_mem, 0, SCREEN_W * SCREEN_H * sizeof(uint32_t));
 }
