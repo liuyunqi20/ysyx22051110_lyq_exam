@@ -88,10 +88,10 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
     waddr = waddr & ~0x7;
     //printf("waddr: %llx wdata: %llx\n", waddr, wdata);
     // ---------------- mmio ---------------- 
-      if((uint64_t)waddr == SERIAL_PORT) { putchar((uint8_t)wdata); return;}
-      if((uint64_t)waddr == VGACTL_ADDR) { if(wmask == 0xf0) vga_ctl |= (wdata & 0xffffffff00000000); }
-      if((uint64_t)waddr >= FB_ADDR)     { 
-        uint64_t offset = waddr - FB_ADDR;
+      if((uint64_t)waddr == (uint64_t)SERIAL_PORT) { putchar((uint8_t)wdata); return;}
+      if((uint64_t)waddr == (uint64_t)VGACTL_ADDR) { if(wmask == 0xf0) vga_ctl |= (wdata & 0xffffffff00000000); }
+      if((uint64_t)waddr >= (uint64_t)FB_ADDR)     { 
+        uint64_t offset = (uint64_t)waddr - FB_ADDR;
         if(wmask == 0xf0)
           *(uint32_t *)((uintptr_t)vgafb_mem + offset + 4) = (uint32_t)((uint64_t)waddr >> 32);
         else if(wmask == 0x0f)
