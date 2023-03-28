@@ -74,6 +74,7 @@ extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * r
       }
       if(raddr == KBD_ADDR) {
         *rdata = i8042_data_io_handler();
+        return;
       }
     // ---------------- memory ---------------- 
     assert(raddr >= MBASE && raddr < (MBASE + MSIZE));
