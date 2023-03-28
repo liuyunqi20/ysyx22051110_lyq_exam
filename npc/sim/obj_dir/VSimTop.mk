@@ -45,6 +45,9 @@ VM_USER_LDLIBS = \
 VM_USER_CLASSES = \
 	cpu_exec \
 	dut \
+	device \
+	keyboard \
+	vga \
 	memory \
 	expr \
 	monitor \
@@ -57,6 +60,7 @@ VM_USER_CLASSES = \
 VM_USER_DIR = \
 	./cpp/src \
 	./cpp/src/cpu \
+	./cpp/src/device \
 	./cpp/src/memory \
 	./cpp/src/monitor \
 	./cpp/src/reg \
@@ -74,6 +78,12 @@ VPATH += $(VM_USER_DIR)
 cpu_exec.o: ./cpp/src/cpu/cpu_exec.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 dut.o: ./cpp/src/cpu/dut.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+device.o: ./cpp/src/device/device.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+keyboard.o: ./cpp/src/device/keyboard.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+vga.o: ./cpp/src/device/vga.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 memory.o: ./cpp/src/memory/memory.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

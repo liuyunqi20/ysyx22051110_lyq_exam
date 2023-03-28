@@ -100,7 +100,6 @@ void execute_once(){
     SimTop->clock = !SimTop->clock;
     SimTop->eval();
     wave_dump();
-#endif
     //output debug info
     /*
     fprintf(debug_trace_fp, "time = %ld pc=%lx wen=%d wnum=%d wdata=%lx\n",
