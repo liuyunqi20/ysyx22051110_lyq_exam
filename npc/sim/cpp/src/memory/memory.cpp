@@ -95,11 +95,13 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
         return;
       }
       if((uint64_t)waddr >= (uint64_t)FB_ADDR)     { 
-        uint64_t offset = ((uint64_t)waddr - FB_ADDR) >> 2;
-        if((uint8_t)wmask == 0xf0)
-          *(uint32_t *)((uint64_t)vgafb_mem + offset + 4) = (uint32_t)((uint64_t)wdata >> 32);
-        else if((uint8_t)wmask == 0x0f)
-          *(uint32_t *)((uint64_t)vgafb_mem + offset) = (uint32_t)wdata;
+        uint64_t offset = (uint64_t)waddr - FB_ADDR;
+        if((uint8_t)wmask == 0xf0){
+          *(uint32_t *)((uint64_t)vgafb_mem + offset + 4) = (uint32_t)((uint64_t)wdata >> 32); printf("1\n");
+        }
+        else if((uint8_t)wmask == 0x0f){
+          *(uint32_t *)((uint64_t)vgafb_mem + offset) = (uint32_t)wdata; printf("2");
+        }
         return;
       }
     // ---------------- memory ---------------- 
