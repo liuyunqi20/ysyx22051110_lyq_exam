@@ -55,7 +55,12 @@ void send_key(uint8_t scancode, int is_keydown) {
 
 uint32_t i8042_data_port;
 
+uint32_t i8042_data_io_handler(){
+  return key_dequeue();
+}
+
 void init_i8042(){
     i8042_data_port = _KEY_NONE;
     init_keymap();
+    printf("[npc] init keyboard success!\n");
 }

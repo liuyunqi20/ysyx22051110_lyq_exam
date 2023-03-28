@@ -5,9 +5,11 @@
 #define SERIAL_PORT 0xa00003f8
 #define FB_ADDR     0xa1000000
 #define VGACTL_ADDR 0xa0000100
+#define KBD_ADDR    0xa0000060
 
 extern uint64_t vga_ctl;
 extern void * vgafb_mem;
+uint32_t i8042_data_io_handler();
 
 static uint8_t pmem[MSIZE] PG_ALIGN = {};
 
@@ -69,6 +71,9 @@ extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * r
       if(raddr == VGACTL_ADDR) {
         *rdata = vga_ctl;
         return;
+      }
+      if(raddr == KBD_ADDR) {
+        *rdata = i8042_data_io_handler();
       }
     // ---------------- memory ---------------- 
     assert(raddr >= MBASE && raddr < (MBASE + MSIZE));
