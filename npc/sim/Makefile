@@ -10,7 +10,7 @@ CPP_INCLUDE = $(NPC_HOME)/sim/cpp/include/
 #WAVE = 1
 DEVICE = 1
 HAS_VGA = 1
-#HAS_KEYBOARD = 1
+HAS_KEYBOARD = 1
 
 # ------------------------ verilator ------------------------
 ifeq ($(VERILATOR_ROOT),)
