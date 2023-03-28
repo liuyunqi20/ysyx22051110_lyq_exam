@@ -1,5 +1,6 @@
 #include <am.h>
 #include <klib-macros.h>
+#include "riscv/riscv.h"
 
 extern char _heap_start;
 int main(const char *args);
@@ -14,7 +15,10 @@ Area heap = RANGE(&_heap_start, PMEM_END);
 #endif
 static const char mainargs[] = MAINARGS;
 
+#define SERIAL_PORT 0xa00003f8
+
 void putch(char ch) {
+  outb(SERIAL_PORT, ch);
 }
 
 void halt(int code) {
