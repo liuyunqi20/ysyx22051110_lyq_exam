@@ -44,4 +44,5 @@ void init_vga() {
   vgafb_mem = malloc(SCREEN_W * SCREEN_H * sizeof(uint32_t));
   init_screen();
   memset(vgafb_mem, 0, SCREEN_W * SCREEN_H * sizeof(uint32_t));
+  printf("[npc] init vga success!\n");
 }
