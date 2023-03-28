@@ -99,7 +99,7 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
       }
     // ---------------- memory ---------------- 
     if(waddr >= MBASE && waddr < (MBASE + MSIZE))
-      printf("w: %lx %lx\n", (uint64_t)waddr, (uint64_t)wdata);
+      printf("pc: %lx w: %lx %lx\n", ,cpu_pc, (uint64_t)waddr, (uint64_t)wdata);
     assert(waddr >= MBASE && waddr < (MBASE + MSIZE));
     uint64_t temp_data = wdata;
     int len = 0;
