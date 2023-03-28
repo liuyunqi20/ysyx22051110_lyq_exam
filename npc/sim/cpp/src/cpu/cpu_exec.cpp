@@ -24,11 +24,7 @@ static VSimTop * SimTop = NULL;
 static VerilatedVcdC * tfp = NULL;
 static FILE * debug_trace_fp = NULL;
 
-static struct {
-  int state;
-  uint64_t halt_pc;
-  uint32_t halt_ret;
-} npc_state;
+NPCstate npc_state;
 static uint64_t g_nr_step = 0;
 static int ebreak_f = 0;
 static int noninst_f = 0;
@@ -40,8 +36,16 @@ extern "C" void set_inst_ptr(const svOpenArrayHandle a) {
   cpu_inst = (uint64_t *)(((VerilatedDpiOpenVar*)a)->datap());
 }
 
+void device_update();
+
 // Legacy function required only so linking works on Cygwin and MSVC++
 double sc_time_stamp() { return 0; }
+
+void wave_dump(){
+#ifdef DUMPWAVE
+    tfp->dump(contextp->time());
+#endif
+}
 
 #define IRINGBUF_SIZE 32
 #define IBUF_SIZE 64
@@ -95,8 +99,8 @@ void execute_once(){
     contextp->timeInc(1);
     SimTop->clock = !SimTop->clock;
     SimTop->eval();
-    tfp->dump(contextp->time());
-
+    wave_dump();
+#endif
     //output debug info
     /*
     fprintf(debug_trace_fp, "time = %ld pc=%lx wen=%d wnum=%d wdata=%lx\n",
@@ -112,7 +116,7 @@ void execute_once(){
     contextp->timeInc(1);
     SimTop->clock = !SimTop->clock;
     SimTop->eval();
-    tfp->dump(contextp->time());
+    wave_dump();
     //update current pc
     VSimTop::catch_ebreak(&ebreak_f);
     cpu_pc = SimTop->io_core_debug_debug_pc;
@@ -134,6 +138,9 @@ void execute(uint64_t step){
             set_npc_state(NPC_ABORT, SimTop->io_core_debug_debug_pc - 4, gpr(10));
             break;
         }
+#ifdef DEVICE
+        device_update();
+#endif
     }
 }
 
@@ -143,9 +150,11 @@ static void statistic(){
     if(npc_state.state == NPC_ABORT)
         dump_gpr(cpu_gpr);
     contextp->timeInc(1);
-    tfp->dump(contextp->time());
+    wave_dump();
     SimTop->final();
+#ifdef DUMPWAVE
     tfp->close();
+#endif
 }
 
 void cpu_exec(uint64_t step){
@@ -181,7 +190,7 @@ void init_cpu(){
     SimTop->reset = 1;
     SimTop->clock = 1;
     SimTop->eval();
-    tfp->dump(contextp->time());
+    wave_dump();
     g_nr_step = 0;
     while (1) {
         contextp->timeInc(1);  
@@ -190,17 +199,17 @@ void init_cpu(){
             if(contextp->time() >= RESET_TIME) {
                 SimTop->reset = 0;
                 SimTop->eval();
-                tfp->dump(contextp->time());
+                wave_dump();
                 break;
             }
         }
         SimTop->eval();
-        tfp->dump(contextp->time());
+        wave_dump();
     }
     contextp->timeInc(1);
     SimTop->clock = !SimTop->clock;
     SimTop->eval();
-    tfp->dump(contextp->time());
+    wave_dump();
     cpu_pc = SimTop->io_core_debug_debug_pc;
     printf("[npc] cpu init success!\n");
     npc_state.state = NPC_STOP;
@@ -214,9 +223,11 @@ void init_cpu_env(int argc, char** argv, char** env)
     contextp->commandArgs(argc, argv);
     SimTop = new VSimTop(contextp, "TOP");
     contextp->traceEverOn(true);    //compute traced signals
+#ifdef DUMPWAVE
     tfp = new VerilatedVcdC();
     SimTop->trace(tfp, 99);
     tfp->open("waveform.vcd");
+#endif
     //set scope for exported function from verilog
     const svScope scope = svGetScopeFromName("TOP.SimTop.my_core_top.my_id.my_inst_monitor");
     assert(scope); // Check for nullptr if scope not found

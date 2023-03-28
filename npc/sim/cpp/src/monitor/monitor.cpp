@@ -93,6 +93,9 @@ void init_monitor(int argc, char *argv[]){
 #endif
     //initialize sdb
     init_sdb();
+#ifdef DEVICE
+    init_device();
+#endif
 
 #ifdef ITRACE
     init_disasm("riscv64-pc-linux-gnu");

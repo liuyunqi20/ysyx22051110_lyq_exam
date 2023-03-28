@@ -3,6 +3,11 @@
 
 #define RTC_ADDR    0xa0000048
 #define SERIAL_PORT 0xa00003f8
+#define FB_ADDR     0xa1000000
+#define VGACTL_ADDR 0xa0000100
+
+extern uint64_t vga_ctl;
+extern void * vmem;
 
 static uint8_t pmem[MSIZE] PG_ALIGN = {};
 
@@ -61,6 +66,10 @@ extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * r
         //printf("time: %ld\n", temp.tv_usec);
         return;
       }
+      if(raddr == VGACTL_ADDR) {
+        *rdata = vga_ctl;
+        return;
+      }
     // ---------------- memory ---------------- 
     assert(raddr >= MBASE && raddr < (MBASE + MSIZE));
     uint64_t ret;
@@ -80,6 +89,14 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
     //printf("waddr: %llx wdata: %llx\n", waddr, wdata);
     // ---------------- mmio ---------------- 
       if(waddr == SERIAL_PORT) { putchar((uint8_t)wdata); return;}
+      if(waddr == VGACTL_ADDR) { if(wmask == 0xf0) vga_ctl |= (wdata & 0xffffffff00000000); }
+      if(waddr >= FB_ADDR)     { 
+        uint64_t offset = waddr - FB_ADDR;
+        if(wmask == 0xf0)
+          *(uint32_t)((uintptr_t)vmem + offset + 4) = (uint32_t)((uint64_t)waddr >> 32);
+        else if(wmask == 0x0f)
+          *(uint32_t)((uintptr_t)vmem + offset) = (uint32_t)waddr;
+      }
     // ---------------- memory ---------------- 
     assert(waddr >= MBASE && waddr < (MBASE + MSIZE));
     uint64_t temp_data = wdata;

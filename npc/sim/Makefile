@@ -3,10 +3,14 @@ CPP_HOME = ./cpp
 DUT_DIR = ../build
 DUT_NAME = SimTop
 CPP_INCLUDE = $(NPC_HOME)/sim/cpp/include/
-#config
-#DIFF = 1
+# ------------------------ config ------------------------
 #ITRACE = 1
 #MTRACE = 1
+#DIFF = 1
+#WAVE = 1
+#DEVICE = 1
+#HAS_VGA = 1
+#HAS_KEYBOARD = 1
 
 # ------------------------ verilator ------------------------
 ifeq ($(VERILATOR_ROOT),)
@@ -58,6 +62,21 @@ ifdef DIFF
 VERILATOR_FLAGS += -CFLAGS -DDIFFTEST
 endif
 
+ifdef WAVE
+VERILATOR_FLAGS += -CFLAGS -DDUMPWAVE
+endif
+
+ifdef DEVICE
+VERILATOR_FLAGS += -CFLAGS -DDEVICE
+endif
+
+ifdef HAS_VGA
+VERILATOR_FLAGS += -CFLAGS -DHAS_VGA
+endif
+
+ifdef HAS_KEYBOARD
+VERILATOR_FLAGS += -CFLAGS -DHAS_KEYBOARD
+endif
 # ------------------------ verilator run parameters  ------------------------
 IMAGE ?=
 ifdef DIFF

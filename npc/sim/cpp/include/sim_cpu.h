@@ -8,8 +8,6 @@ typedef struct {
     uint64_t pc;
 } CPU_state;
 
-enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
-
 typedef uint64_t vaddr_t;
 
 void init_cpu_env(int argc, char** argv, char** env);
