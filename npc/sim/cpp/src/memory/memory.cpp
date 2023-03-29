@@ -10,6 +10,9 @@
 extern uint64_t vga_ctl;
 extern void * vgafb_mem;
 uint32_t i8042_data_io_handler();
+void difftest_skip_ref();
+void wave_end();
+
 
 static uint8_t pmem[MSIZE] PG_ALIGN = {};
 
@@ -55,7 +58,7 @@ void pmem_write(uint64_t addr, int len, uint64_t data) {
     default: assert(0);
   }
 }
-    extern void wave_end();
+
 extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * rdata){
   if(en && !wr){
     //printf("raddr: %lx\n", raddr);
@@ -66,14 +69,17 @@ extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * r
         gettimeofday(&temp, NULL);
         *rdata = (long long)temp.tv_usec;
         //printf("time: %ld\n", temp.tv_usec);
+        difftest_skip_ref();
         return;
       }
       if(raddr == VGACTL_ADDR) {
         *rdata = vga_ctl;
+        difftest_skip_ref();
         return;
       }
       if(raddr == KBD_ADDR) {
         *rdata = i8042_data_io_handler();
+        difftest_skip_ref();
         return;
       }
     // ---------------- memory ---------------- 
@@ -96,10 +102,15 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
     waddr = waddr & ~0x7;
     //printf("waddr: %llx wdata: %llx\n", waddr, wdata);
     // ---------------- mmio ---------------- 
-      if((uint64_t)waddr == (uint64_t)SERIAL_PORT) { putchar((uint8_t)wdata); return;}
+      if((uint64_t)waddr == (uint64_t)SERIAL_PORT) { 
+        putchar((uint8_t)wdata); 
+        difftest_skip_ref();
+        return;
+      }
       if((uint64_t)waddr == (uint64_t)VGACTL_ADDR) { 
         if((uint8_t)wmask == 0xf0)
           vga_ctl |= ((wdata << 32) & 0xffffffff00000000);
+        difftest_skip_ref();
         return;
       }
       if((uint64_t)waddr >= (uint64_t)FB_ADDR)     { 
@@ -110,6 +121,7 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
         else if((uint8_t)wmask == 0x0f){
           *(uint32_t *)((uint64_t)vgafb_mem + offset) = (uint32_t)wdata;
         }
+        difftest_skip_ref();
         return;
       }
     // ---------------- memory ---------------- 
