@@ -116,6 +116,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           if(*(fmt + 1) == 'x'){
             htoa(num_buf, templx);
             p += cats(out + p, num_buf);
+            fmt++;
           }
           break;
         default:
