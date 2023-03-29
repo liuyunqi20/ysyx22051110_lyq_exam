@@ -44,7 +44,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module{
     })
     val pc     = RegInit("h7fff_fffc".U(w.W))
     io.pc     := pc
-    val nextpc = Mux(io.exc_br.exc_en, io.exc_br.exc_target,  
+    val nextpc = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
                     Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
 
     val my_imem_port = Module(new Inst_mem_port(w))
