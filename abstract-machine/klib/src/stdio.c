@@ -18,6 +18,30 @@ static int cats(char * dst, char * src){
   return i;
 }
 
+static void htoa(char * s, uint64_t num){
+  int i = 0;
+  if(num == 0)
+    s[i++] = '0';
+  else{
+    while(num != 0){
+      int temp = num % 16;
+      if(temp < 0) temp = -temp;
+      s[i++] = temp < 10 ? (temp + '0') : (temp - 10 + 'a');
+      num = num / 16;
+    }
+    int t1 = 0;
+    int t2 = i-1;
+    while(t2 > t1){
+      char temp = s[t1];
+      s[t1] = s[t2];
+      s[t2] = temp;
+      t1++;
+      t2--;
+    }
+  }
+  s[i] = '\0';
+}
+
 static void itoa(char * s, int num){
   int i = 0;
   if(num < 0){
@@ -59,7 +83,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
     int ret = 0;
   char ch;
   int p = 0;
-  char num_buf[32];
+  char num_buf[68];
 
   while((ch = *fmt) != '\0'){
     if(ch != '%'){
@@ -81,6 +105,18 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
         case 'c':
           int tmpch = (int)va_arg(ap, int);
           out[p++] = (char)tmpch;
+          break;
+        case 'x':
+          int tempx = (int)va_arg(ap, int);
+          itoa(num_buf, tempx);
+          p += cats(out + p, num_buf);
+          break;
+        case 'l':
+          uint64_t templx = (uint64_t)va_arg(ap, uint64_t);
+          if(*(fmt + 1) == 'x'){
+            htoa(num_buf, templx);
+            p += cats(out + p, num_buf);
+          }
           break;
         default:
           out[p++] = '%';
