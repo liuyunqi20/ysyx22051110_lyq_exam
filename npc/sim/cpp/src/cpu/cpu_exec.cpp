@@ -101,7 +101,7 @@ void set_npc_state(int state, uint64_t pc, uint32_t ret){
 }
 
 void execute_once(){
-    printf("start %lx\n", cpu_pc);
+    //printf("start %lx\n", cpu_pc);
     // ----------------- NEG ----------------- 
     contextp->timeInc(1);
     SimTop->clock = !SimTop->clock;
@@ -134,8 +134,7 @@ void execute(uint64_t step){
         execute_once();
         g_nr_step++;
 #ifdef DIFFTEST
-        printf("cnum %lx\n", cpu_pc);
-        difftest_step(SimTop->io_core_debug_debug_pc);
+        difftest_step(SimTop->io_core_debug_debug_pc, SimTop->io_core_debug_debug_nextpc);
 #endif
         if(npc_state.state != NPC_RUNNING) break;
         if(ebreak_f == 1){
