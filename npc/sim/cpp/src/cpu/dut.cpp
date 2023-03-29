@@ -16,6 +16,7 @@ static int is_skip_ref = 0;
 static uint64_t skip_dut_nr_inst = 0;
 
 void difftest_skip_ref() {
+    printf("en: %lx\n",cpu_pc);
   is_skip_ref = 1;
   skip_dut_nr_inst = 0;
 }
