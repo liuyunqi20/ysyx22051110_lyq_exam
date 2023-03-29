@@ -23,7 +23,7 @@ class Inst_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
         |       import "DPI-C" function void cpu_dmem_read(
         |           input bit en, input bit wr, input longint raddr, 
         |           output longint rdata);
-        |       always @(posedge clk) begin
+        |       always @(*) begin
         |           if(!reset)
         |               cpu_dmem_read(en, wr, addr, rdata);
         |           else 
