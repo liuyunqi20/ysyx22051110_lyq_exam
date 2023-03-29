@@ -120,11 +120,11 @@ void execute_once(){
 #endif
     // ----------------- POS -----------------
     contextp->timeInc(1);
-        cpu_pc = SimTop->io_core_debug_debug_nextpc;
     SimTop->clock = !SimTop->clock;
     SimTop->eval();
     wave_dump();
     //update current pc
+    cpu_pc = SimTop->io_core_debug_debug_nextpc;
     VSimTop::catch_ebreak(&ebreak_f);
 }
 
