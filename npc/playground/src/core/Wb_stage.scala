@@ -13,8 +13,8 @@ class Wb_stage(w: Int) extends Module{
     // ------------------ intrrupt ------------------ 
     io.exc_br.exc_br     := io.mem2wb.exc_type.orR === 1.U
     io.exc_br.exc_target := Mux1H(Seq(
-        /* ecall */ io.mem2wb.exc_type(0) -> (my_csr.io.rd.rdata),
-        /* mret  */ io.mem2wb.exc_type(1) -> (my_csr.io.rd.rdata + 4.U(w.W)),
+        /* ecall */ io.mem2wb.exc_type(0) -> (my_csr.io.rd.csr_rdata),
+        /* mret  */ io.mem2wb.exc_type(1) -> (my_csr.io.rd.csr_rdata + 4.U(w.W)),
     ))
     val intr_raddr  = Mux1H(Seq(
         /* ecall */ io.mem2wb.exc_type(0) -> ("h305".U(12.W)), //mtvec
@@ -29,7 +29,7 @@ class Wb_stage(w: Int) extends Module{
     my_csr.io.op.csr_num   := io.mem2wb.csr_num
     my_csr.io.op.csr_wdata := io.mem2wb.rs1
     //csr read
-    my_csr.io.rd.raddr        := intr_raddr
+    my_csr.io.rd.csr_raddr := intr_raddr
     //csr exc
     my_csr.io.exc.ecall        := io.mem2wb.exc_type(0) === 1.U
     my_csr.io.exc.ecall_epc    := io.pc
