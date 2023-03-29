@@ -45,9 +45,10 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+188,"io_core_data_mem_out_wdata", false,-1, 63,0);
         tracep->declBus(c+190,"io_core_data_mem_out_wmask", false,-1, 7,0);
         tracep->declQuad(c+191,"io_core_debug_debug_pc", false,-1, 63,0);
-        tracep->declBit(c+193,"io_core_debug_debug_rf_we", false,-1);
-        tracep->declBus(c+194,"io_core_debug_debug_rf_wnum", false,-1, 4,0);
-        tracep->declQuad(c+195,"io_core_debug_debug_rf_wdata", false,-1, 63,0);
+        tracep->declQuad(c+193,"io_core_debug_debug_nextpc", false,-1, 63,0);
+        tracep->declBit(c+195,"io_core_debug_debug_rf_we", false,-1);
+        tracep->declBus(c+196,"io_core_debug_debug_rf_wnum", false,-1, 4,0);
+        tracep->declQuad(c+197,"io_core_debug_debug_rf_wdata", false,-1, 63,0);
         tracep->declBit(c+159,"SimTop clock", false,-1);
         tracep->declBit(c+160,"SimTop reset", false,-1);
         tracep->declQuad(c+161,"SimTop io_core_inst_mem_in_rdata", false,-1, 63,0);
@@ -71,9 +72,10 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+188,"SimTop io_core_data_mem_out_wdata", false,-1, 63,0);
         tracep->declBus(c+190,"SimTop io_core_data_mem_out_wmask", false,-1, 7,0);
         tracep->declQuad(c+191,"SimTop io_core_debug_debug_pc", false,-1, 63,0);
-        tracep->declBit(c+193,"SimTop io_core_debug_debug_rf_we", false,-1);
-        tracep->declBus(c+194,"SimTop io_core_debug_debug_rf_wnum", false,-1, 4,0);
-        tracep->declQuad(c+195,"SimTop io_core_debug_debug_rf_wdata", false,-1, 63,0);
+        tracep->declQuad(c+193,"SimTop io_core_debug_debug_nextpc", false,-1, 63,0);
+        tracep->declBit(c+195,"SimTop io_core_debug_debug_rf_we", false,-1);
+        tracep->declBus(c+196,"SimTop io_core_debug_debug_rf_wnum", false,-1, 4,0);
+        tracep->declQuad(c+197,"SimTop io_core_debug_debug_rf_wdata", false,-1, 63,0);
         tracep->declBit(c+159,"SimTop my_core_top clock", false,-1);
         tracep->declBit(c+160,"SimTop my_core_top reset", false,-1);
         tracep->declQuad(c+175,"SimTop my_core_top io_core_inst_mem_out_addr", false,-1, 63,0);
@@ -83,9 +85,10 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+188,"SimTop my_core_top io_core_data_mem_out_wdata", false,-1, 63,0);
         tracep->declBus(c+190,"SimTop my_core_top io_core_data_mem_out_wmask", false,-1, 7,0);
         tracep->declQuad(c+191,"SimTop my_core_top io_core_debug_debug_pc", false,-1, 63,0);
-        tracep->declBit(c+193,"SimTop my_core_top io_core_debug_debug_rf_we", false,-1);
-        tracep->declBus(c+194,"SimTop my_core_top io_core_debug_debug_rf_wnum", false,-1, 4,0);
-        tracep->declQuad(c+195,"SimTop my_core_top io_core_debug_debug_rf_wdata", false,-1, 63,0);
+        tracep->declQuad(c+193,"SimTop my_core_top io_core_debug_debug_nextpc", false,-1, 63,0);
+        tracep->declBit(c+195,"SimTop my_core_top io_core_debug_debug_rf_we", false,-1);
+        tracep->declBus(c+196,"SimTop my_core_top io_core_debug_debug_rf_wnum", false,-1, 4,0);
+        tracep->declQuad(c+197,"SimTop my_core_top io_core_debug_debug_rf_wdata", false,-1, 63,0);
         tracep->declBit(c+159,"SimTop my_core_top my_if clock", false,-1);
         tracep->declBit(c+160,"SimTop my_core_top my_if reset", false,-1);
         tracep->declQuad(c+1,"SimTop my_core_top my_if io_branch_pc_seq", false,-1, 63,0);
@@ -94,6 +97,7 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+6,"SimTop my_core_top my_if io_exc_br_exc_br", false,-1);
         tracep->declQuad(c+7,"SimTop my_core_top my_if io_exc_br_exc_target", false,-1, 63,0);
         tracep->declQuad(c+9,"SimTop my_core_top my_if io_pc", false,-1, 63,0);
+        tracep->declQuad(c+193,"SimTop my_core_top my_if io_nextpc", false,-1, 63,0);
         tracep->declQuad(c+175,"SimTop my_core_top my_if io_inst_mem_out_addr", false,-1, 63,0);
         tracep->declBus(c+11,"SimTop my_core_top my_if io_if2id_inst", false,-1, 31,0);
         tracep->declQuad(c+9,"SimTop my_core_top my_if pc", false,-1, 63,0);
@@ -101,10 +105,10 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBus(c+11,"SimTop my_core_top my_if inst", false,-1, 31,0);
         tracep->declBit(c+159,"SimTop my_core_top my_if my_imem_port clk", false,-1);
         tracep->declBit(c+160,"SimTop my_core_top my_if my_imem_port reset", false,-1);
-        tracep->declBit(c+199,"SimTop my_core_top my_if my_imem_port en", false,-1);
-        tracep->declBit(c+200,"SimTop my_core_top my_if my_imem_port wr", false,-1);
+        tracep->declBit(c+201,"SimTop my_core_top my_if my_imem_port en", false,-1);
+        tracep->declBit(c+202,"SimTop my_core_top my_if my_imem_port wr", false,-1);
         tracep->declQuad(c+12,"SimTop my_core_top my_if my_imem_port addr", false,-1, 63,0);
-        tracep->declQuad(c+197,"SimTop my_core_top my_if my_imem_port rdata", false,-1, 63,0);
+        tracep->declQuad(c+199,"SimTop my_core_top my_if my_imem_port rdata", false,-1, 63,0);
         tracep->declBit(c+159,"SimTop my_core_top my_id clock", false,-1);
         tracep->declBit(c+160,"SimTop my_core_top my_id reset", false,-1);
         tracep->declQuad(c+9,"SimTop my_core_top my_id io_pc", false,-1, 63,0);
@@ -257,7 +261,7 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+32,"SimTop my_core_top my_mem my_dmem_port wdata", false,-1, 63,0);
         tracep->declBus(c+140,"SimTop my_core_top my_mem my_dmem_port wmask", false,-1, 7,0);
         tracep->declQuad(c+141,"SimTop my_core_top my_mem my_dmem_port rdata", false,-1, 63,0);
-        tracep->declQuad(c+201,"SimTop my_core_top my_mem my_dmem_port tmprdata", false,-1, 63,0);
+        tracep->declQuad(c+203,"SimTop my_core_top my_mem my_dmem_port tmprdata", false,-1, 63,0);
         tracep->declBit(c+159,"SimTop my_core_top my_wb clock", false,-1);
         tracep->declBit(c+160,"SimTop my_core_top my_wb reset", false,-1);
         tracep->declQuad(c+9,"SimTop my_core_top my_wb io_pc", false,-1, 63,0);
@@ -631,12 +635,13 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullQData(oldp+188,(vlSelf->io_core_data_mem_out_wdata),64);
         tracep->fullCData(oldp+190,(vlSelf->io_core_data_mem_out_wmask),8);
         tracep->fullQData(oldp+191,(vlSelf->io_core_debug_debug_pc),64);
-        tracep->fullBit(oldp+193,(vlSelf->io_core_debug_debug_rf_we));
-        tracep->fullCData(oldp+194,(vlSelf->io_core_debug_debug_rf_wnum),5);
-        tracep->fullQData(oldp+195,(vlSelf->io_core_debug_debug_rf_wdata),64);
-        tracep->fullQData(oldp+197,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___my_imem_port_rdata),64);
-        tracep->fullBit(oldp+199,(1U));
-        tracep->fullBit(oldp+200,(0U));
-        tracep->fullQData(oldp+201,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__my_dmem_port__DOT__tmprdata),64);
+        tracep->fullQData(oldp+193,(vlSelf->io_core_debug_debug_nextpc),64);
+        tracep->fullBit(oldp+195,(vlSelf->io_core_debug_debug_rf_we));
+        tracep->fullCData(oldp+196,(vlSelf->io_core_debug_debug_rf_wnum),5);
+        tracep->fullQData(oldp+197,(vlSelf->io_core_debug_debug_rf_wdata),64);
+        tracep->fullQData(oldp+199,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___my_imem_port_rdata),64);
+        tracep->fullBit(oldp+201,(1U));
+        tracep->fullBit(oldp+202,(0U));
+        tracep->fullQData(oldp+203,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__my_dmem_port__DOT__tmprdata),64);
     }
 }

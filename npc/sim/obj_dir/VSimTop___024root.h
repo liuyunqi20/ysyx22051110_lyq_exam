@@ -44,6 +44,7 @@ VL_MODULE(VSimTop___024root) {
     VL_OUT64(io_core_data_mem_out_addr,63,0);
     VL_OUT64(io_core_data_mem_out_wdata,63,0);
     VL_OUT64(io_core_debug_debug_pc,63,0);
+    VL_OUT64(io_core_debug_debug_nextpc,63,0);
     VL_OUT64(io_core_debug_debug_rf_wdata,63,0);
 
     // LOCAL SIGNALS

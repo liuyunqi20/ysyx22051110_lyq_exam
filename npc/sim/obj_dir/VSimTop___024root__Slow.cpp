@@ -1439,6 +1439,7 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
                                              : 0U)) 
                     | (- (IData)((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type) 
                                         >> 6U))))));
+    vlSelf->io_core_debug_debug_nextpc = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc;
     vlSelf->io_core_inst_mem_out_addr = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc;
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___my_imem_port_rdata = 1ULL;
@@ -1605,6 +1606,7 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     vlSelf->io_core_data_mem_out_wdata = VL_RAND_RESET_Q(64);
     vlSelf->io_core_data_mem_out_wmask = VL_RAND_RESET_I(8);
     vlSelf->io_core_debug_debug_pc = VL_RAND_RESET_Q(64);
+    vlSelf->io_core_debug_debug_nextpc = VL_RAND_RESET_Q(64);
     vlSelf->io_core_debug_debug_rf_we = VL_RAND_RESET_I(1);
     vlSelf->io_core_debug_debug_rf_wnum = VL_RAND_RESET_I(5);
     vlSelf->io_core_debug_debug_rf_wdata = VL_RAND_RESET_Q(64);

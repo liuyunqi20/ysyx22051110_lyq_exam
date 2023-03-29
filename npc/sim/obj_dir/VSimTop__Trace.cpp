@@ -350,10 +350,11 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
         tracep->chgQData(oldp+187,(vlSelf->io_core_data_mem_out_wdata),64);
         tracep->chgCData(oldp+189,(vlSelf->io_core_data_mem_out_wmask),8);
         tracep->chgQData(oldp+190,(vlSelf->io_core_debug_debug_pc),64);
-        tracep->chgBit(oldp+192,(vlSelf->io_core_debug_debug_rf_we));
-        tracep->chgCData(oldp+193,(vlSelf->io_core_debug_debug_rf_wnum),5);
-        tracep->chgQData(oldp+194,(vlSelf->io_core_debug_debug_rf_wdata),64);
-        tracep->chgQData(oldp+196,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___my_imem_port_rdata),64);
+        tracep->chgQData(oldp+192,(vlSelf->io_core_debug_debug_nextpc),64);
+        tracep->chgBit(oldp+194,(vlSelf->io_core_debug_debug_rf_we));
+        tracep->chgCData(oldp+195,(vlSelf->io_core_debug_debug_rf_wnum),5);
+        tracep->chgQData(oldp+196,(vlSelf->io_core_debug_debug_rf_wdata),64);
+        tracep->chgQData(oldp+198,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___my_imem_port_rdata),64);
     }
 }
 

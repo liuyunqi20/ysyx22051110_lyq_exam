@@ -1602,6 +1602,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__3(VSimTop___024root* vlSelf
                                              : 0U)) 
                     | (- (IData)((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type) 
                                         >> 6U))))));
+    vlSelf->io_core_debug_debug_nextpc = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc;
     vlSelf->io_core_inst_mem_out_addr = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc;
     vlSelf->io_core_data_mem_out_wmask = vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___wmask_T_10;
     VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_core_top__DOT__my_if__DOT__my_imem_port__DOT__cpu_dmem_read_TOP(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_en, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_wr), 
