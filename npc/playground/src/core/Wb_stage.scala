@@ -21,7 +21,7 @@ class Wb_stage(w: Int) extends Module{
         /* mret  */ io.mem2wb.exc_type(1) -> ("h341".U(12.W)), //mepc
     ))
     val exc_code    = MuxLookup(io.mem2wb.exc_type, 0.U((w-1).W)
-        /* ecall */ io.mem2wb.exc_type(0) -> (11.U((w-1).W)),
+        /* ecall */ io.mem2wb.exc_type(0) -> (11.U((w-1).W))
     )
     // ------------------ CSR ------------------ 
     //csr inst
