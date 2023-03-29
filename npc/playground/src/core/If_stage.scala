@@ -40,10 +40,12 @@ class If_stage(w: Int, if_id_w: Int) extends Module{
         val inst_mem_in  = new MemInBundle(w)
         val inst_mem_out = new MemOutBundle(w)
         val if2id        = new IftoIdBundle(w)
+        val exc_br       = Flipped(new ExcBranchBundle(w))
     })
     val pc     = RegInit("h7fff_fffc".U(w.W))
     io.pc     := pc
-    val nextpc = Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq)
+    val nextpc = Mux(io.exc_br.exc_en, io.exc_br.exc_target,  
+                    Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
 
     val my_imem_port = Module(new Inst_mem_port(w))
     my_imem_port.io.clk := clock

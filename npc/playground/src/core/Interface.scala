@@ -31,19 +31,21 @@ import chisel3._
         val inst = Output(UInt(32.W))
     }
 
-    class IdtoExBundle(w: Int) extends Bundle{
+    class IdtoExBundle(w: Int) extends Bundle with HasDecodeConst{
         //control signals
-        val alu_op    = Output(UInt(25.W))
+        val alu_op    = Output(UInt(ALUOP_LEN.W))
         val src1_sel  = Output(Bool())
         val src2_sel  = Output(Bool())
-        val br_type   = Output(UInt(9.W))
+        val br_type   = Output(UInt(BRTYPE_LEN.W))
         val gr_we     = Output(Bool())
         val wb_sel    = Output(Bool())
         val mem_en    = Output(Bool())
         val mem_wr    = Output(Bool())
-        val mem_type  = Output(UInt(7.W))
+        val mem_type  = Output(UInt(MT_LEN.W))
         val rv64w     = Output(Bool())
-        val ex_sel   = Output(UInt(3.W))
+        val ex_sel    = Output(UInt(SLTT_LEN.W))
+        val csr_op    = Output(UInt(CSRT_LEN.W))
+        val exc_type  = Output(UInt(EXCT_LEN.W))
         //data signals
         val dest      = Output(UInt(5.W))
         val pc        = Output(UInt(w.W))
@@ -51,25 +53,36 @@ import chisel3._
         val rs2       = Output(UInt(w.W))
         val imm       = Output(UInt(w.W))
         val mem_wdata = Output(UInt(w.W))
+        val csr_num   = Output(UInt(12.W))
     }
 
-    class ExtoMemBundle(w: Int) extends Bundle{
+    class ExtoMemBundle(w: Int) extends Bundle with HasDecodeConst{
         //control signals
         val gr_we     = Output(Bool()) 
         val dest      = Output(UInt(5.W))
         val wb_sel    = Output(Bool())
         val mem_en    = Output(Bool())
         val mem_wr    = Output(Bool())
-        val mem_type  = Output(UInt(7.W))
+        val mem_type  = Output(UInt(MT_LEN.W))
+        val csr_op    = Output(UInt(CSRT_LEN.W))
+        val exc_type  = Output(UInt(EXCT_LEN.W))
         //data signals
         val result    = Output(UInt(w.W))
         val mem_wdata = Output(UInt(w.W))
+        val csr_num   = Output(UInt(12.W))
+        val rs1       = Output(UInt(w.W))
     }
 
-    class MemtoWbBundle(w: Int) extends Bundle{
-        val result = Output(UInt(w.W))
-        val gr_we  = Output(Bool())
-        val dest   = Output(UInt(5.W))
+    class MemtoWbBundle(w: Int) extends Bundle with HasDecodeConst{
+        //control signals
+        val gr_we     = Output(Bool())
+        val csr_op    = Output(UInt(CSRT_LEN.W))
+        val exc_type  = Output(UInt(EXCT_LEN.W))
+        //data signals
+        val dest      = Output(UInt(5.W))
+        val result    = Output(UInt(w.W))
+        val csr_num   = Output(UInt(12.W))
+        val rs1       = Output(UInt(w.W))
     }
 
     class WbtoRfBundle(w: Int) extends Bundle{
@@ -82,4 +95,9 @@ import chisel3._
         val pc_seq    = Output(UInt(w.W))
         val br_target = Output(UInt(w.W))
         val br_en     = Output(Bool())
+    }
+
+    class ExcBranchBundle(w: Int) extends Bundle{
+        val exc_br     = Output(Bool())
+        val exc_target = Output(UInt(w.W))
     }

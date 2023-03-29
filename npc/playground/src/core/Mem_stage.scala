@@ -119,7 +119,13 @@ class Mem_stage(w: Int) extends Module{
     my_dmem_port.io.wdata  := io.ex2mem.mem_wdata
     my_dmem_port.io.wmask  := wmask
     //to Wb stage
-    io.mem2wb.result       := Mux(io.ex2mem.wb_sel, rdata, io.ex2mem.result)
+        //control
     io.mem2wb.gr_we        := io.ex2mem.gr_we
+    io.mem2wb.csr_op       := io.ex2mem.csr_op
+    io.mem2wb.intr_type    := io.ex2mem.intr_type
+        //data
     io.mem2wb.dest         := io.ex2mem.dest
+    io.mem2wb.result       := Mux(io.ex2mem.wb_sel, rdata, io.ex2mem.result)
+    io.mem2wb.csr_num      := io.ex2mem.csr_num
+    io.mem2wb.rs1          := io.ex2mem.rs1
 }

@@ -49,8 +49,7 @@ class Ex_stage(w: Int) extends Module{
         /* SLTU_T */ io.id2ex.ex_sel(2) -> (s1_ltu_s2 === 1.U).asUInt,
     ))
     //to Mem stage
-        //write back pc + 4 when jal/jalr
-        io.ex2mem.result    := Mux(is_jal, pc_seq, res)
+        //control
         io.ex2mem.gr_we     := io.id2ex.gr_we
         io.ex2mem.dest      := io.id2ex.dest
         io.ex2mem.wb_sel    := io.id2ex.wb_sel
@@ -58,4 +57,10 @@ class Ex_stage(w: Int) extends Module{
         io.ex2mem.mem_wr    := io.id2ex.mem_wr
         io.ex2mem.mem_type  := io.id2ex.mem_type
         io.ex2mem.mem_wdata := io.id2ex.mem_wdata
+        io.ex2mem.csr_op  := io.id2ex.csr_op
+        io.ex2mem.intr_type := io.id2ex.intr_type
+        //data
+        io.ex2mem.result    := Mux(is_jal, pc_seq, res)
+        io.ex2mem.csr_num   := io.id2ex.csr_num
+        io.ex2mem.rs1       := io.id2ex.rs1
 }

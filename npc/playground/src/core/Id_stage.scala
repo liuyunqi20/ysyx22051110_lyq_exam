@@ -2,6 +2,16 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
+trait HasDecodeConst{
+    val INSTT_LEN  = 7
+    val ALUOP_LEN  = 23
+    val BRTYPE_LEN = 9
+    val MT_LEN     = 7
+    val SLTT_LEN   = 3
+    val CSRT_LEN   = 3
+    val EXCT_LEN   = 2 
+}
+
 class InstMonitor(w: Int) extends BlackBox with HasBlackBoxInline{
     val io = IO(new Bundle{
         val clock       = Input(Clock())
@@ -26,12 +36,7 @@ class InstMonitor(w: Int) extends BlackBox with HasBlackBoxInline{
     """.stripMargin)
 }
 
-class MyDecoder() extends Module{
-    val INSTT_LEN  = 6
-    val ALUOP_LEN  = 23
-    val BRTYPE_LEN = 9
-    val MT_LEN     = 7
-    val SLTT_LEN   = 3
+class MyDecoder() extends Module with HasDecodeConst{
     val io = IO(new Bundle{
         val inst      = Input(UInt(32.W))
         val inst_type = Output(UInt(INSTT_LEN.W))
@@ -45,7 +50,9 @@ class MyDecoder() extends Module{
         val mem_wr    = Output(Bool())
         val mem_type  = Output(UInt(MT_LEN.W))
         val rv64w     = Output(Bool())
-        val ex_sel   = Output(UInt(SLTT_LEN.W))
+        val ex_sel    = Output(UInt(SLTT_LEN.W))
+        val csr_op    = Output(UInt(CSRT_LEN.W))
+        val exc_type  = Output(UInt(EXCT_LEN.W))
     })
     //Declare control signals
         //alu_op
@@ -58,8 +65,9 @@ class MyDecoder() extends Module{
         val ALU_DUW  = "h40000".U  ; val ALU_R    = "h80000".U ; val ALU_RU   = "h100000".U;
         val ALU_RW   = "h200000".U ; val ALU_RUW  = "h400000".U;
         //inst_type
-        val Rtype   = "h01".U; val Itype   = "h02".U; val Stype   = "h04".U ;
+        val Rtype   = "h01".U; val Itype   = "h02".U; val Stype   = "h04".U ; 
         val Btype   = "h08".U; val Utype   = "h10".U; val Jtype   = "h20".U ;
+        val Ntype   = "h00".U;
         //src1_sel
         val OP1_RS1 = 0.B    ; val OP1_PC  = 1.B    ;
         //src2_sel
@@ -84,153 +92,178 @@ class MyDecoder() extends Module{
         val LEN_X   = 0.B    ; val LEN_W   = 1.B    ;
         //slt type
         val NSLT    = "h01".U; val SLT_T   = "h02".U; val SLTU_T  = "h04".U ;
+        //csr type
+        val CSR_W   = "h01".U; val CSR_S   = "h02".U; val CSR_C   = "h04".U ; 
+        val NCSR    = "h00".U;
+        //exc type
+        val EC_T    = "h01".U; val RET_T   = "h02".U; val NINT    = "h00".U ; 
     //BitPat
-        val LUI   = BitPat("b???????_?????_?????_???_?????_01101_11")
-        val AUIPC = BitPat("b???????_?????_?????_???_?????_00101_11")
-        val JAL   = BitPat("b???????_?????_?????_???_?????_11011_11")
-        val JALR  = BitPat("b???????_?????_?????_???_?????_11001_11")
+        val LUI    = BitPat("b???????_?????_?????_???_?????_01101_11")
+        val AUIPC  = BitPat("b???????_?????_?????_???_?????_00101_11")
+        val JAL    = BitPat("b???????_?????_?????_???_?????_11011_11")
+        val JALR   = BitPat("b???????_?????_?????_???_?????_11001_11")
         //branch
-        val BEQ   = BitPat("b???????_?????_?????_000_?????_11000_11")
-        val BNE   = BitPat("b???????_?????_?????_001_?????_11000_11")
-        val BLT   = BitPat("b???????_?????_?????_100_?????_11000_11")
-        val BGE   = BitPat("b???????_?????_?????_101_?????_11000_11")
-        val BLTU  = BitPat("b???????_?????_?????_110_?????_11000_11")
-        val BGEU  = BitPat("b???????_?????_?????_111_?????_11000_11")
+        val BEQ    = BitPat("b???????_?????_?????_000_?????_11000_11")
+        val BNE    = BitPat("b???????_?????_?????_001_?????_11000_11")
+        val BLT    = BitPat("b???????_?????_?????_100_?????_11000_11")
+        val BGE    = BitPat("b???????_?????_?????_101_?????_11000_11")
+        val BLTU   = BitPat("b???????_?????_?????_110_?????_11000_11")
+        val BGEU   = BitPat("b???????_?????_?????_111_?????_11000_11")
         //load
-        val LB    = BitPat("b???????_?????_?????_000_?????_00000_11")
-        val LH    = BitPat("b???????_?????_?????_001_?????_00000_11")
-        val LW    = BitPat("b???????_?????_?????_010_?????_00000_11")
-        val LBU   = BitPat("b???????_?????_?????_100_?????_00000_11")
-        val LHU   = BitPat("b???????_?????_?????_101_?????_00000_11")
-        val LWU   = BitPat("b???????_?????_?????_110_?????_00000_11")
-        val LD    = BitPat("b???????_?????_?????_011_?????_00000_11")
+        val LB     = BitPat("b???????_?????_?????_000_?????_00000_11")
+        val LH     = BitPat("b???????_?????_?????_001_?????_00000_11")
+        val LW     = BitPat("b???????_?????_?????_010_?????_00000_11")
+        val LBU    = BitPat("b???????_?????_?????_100_?????_00000_11")
+        val LHU    = BitPat("b???????_?????_?????_101_?????_00000_11")
+        val LWU    = BitPat("b???????_?????_?????_110_?????_00000_11")
+        val LD     = BitPat("b???????_?????_?????_011_?????_00000_11")
         //store
-        val SB    = BitPat("b???????_?????_?????_000_?????_01000_11")
-        val SH    = BitPat("b???????_?????_?????_001_?????_01000_11")
-        val SW    = BitPat("b???????_?????_?????_010_?????_01000_11")
-        val SD    = BitPat("b???????_?????_?????_011_?????_01000_11")
+        val SB     = BitPat("b???????_?????_?????_000_?????_01000_11")
+        val SH     = BitPat("b???????_?????_?????_001_?????_01000_11")
+        val SW     = BitPat("b???????_?????_?????_010_?????_01000_11")
+        val SD     = BitPat("b???????_?????_?????_011_?????_01000_11")
         //arith/logic Itype
-        val ADDI  = BitPat("b???????_?????_?????_000_?????_00100_11")
-        val SLTI  = BitPat("b???????_?????_?????_010_?????_00100_11")
-        val SLTIU = BitPat("b???????_?????_?????_011_?????_00100_11")
-        val XORI  = BitPat("b???????_?????_?????_100_?????_00100_11")
-        val ORI   = BitPat("b???????_?????_?????_110_?????_00100_11")
-        val ANDI  = BitPat("b???????_?????_?????_111_?????_00100_11")
-        val SLLI  = BitPat("b000000?_?????_?????_001_?????_00100_11")
-        val SRLI  = BitPat("b000000?_?????_?????_101_?????_00100_11")
-        val SRAI  = BitPat("b010000?_?????_?????_101_?????_00100_11")
-        val ADDIW = BitPat("b???????_?????_?????_000_?????_00110_11")
-        val SLLIW = BitPat("b0000000_?????_?????_001_?????_00110_11")
-        val SRLIW = BitPat("b0000000_?????_?????_101_?????_00110_11")
-        val SRAIW = BitPat("b0100000_?????_?????_101_?????_00110_11")
+        val ADDI   = BitPat("b???????_?????_?????_000_?????_00100_11")
+        val SLTI   = BitPat("b???????_?????_?????_010_?????_00100_11")
+        val SLTIU  = BitPat("b???????_?????_?????_011_?????_00100_11")
+        val XORI   = BitPat("b???????_?????_?????_100_?????_00100_11")
+        val ORI    = BitPat("b???????_?????_?????_110_?????_00100_11")
+        val ANDI   = BitPat("b???????_?????_?????_111_?????_00100_11")
+        val SLLI   = BitPat("b000000?_?????_?????_001_?????_00100_11")
+        val SRLI   = BitPat("b000000?_?????_?????_101_?????_00100_11")
+        val SRAI   = BitPat("b010000?_?????_?????_101_?????_00100_11")
+        val ADDIW  = BitPat("b???????_?????_?????_000_?????_00110_11")
+        val SLLIW  = BitPat("b0000000_?????_?????_001_?????_00110_11")
+        val SRLIW  = BitPat("b0000000_?????_?????_101_?????_00110_11")
+        val SRAIW  = BitPat("b0100000_?????_?????_101_?????_00110_11")
         //arith/logic Rtype
-        val ADD   = BitPat("b0000000_?????_?????_000_?????_01100_11")
-        val SUB   = BitPat("b0100000_?????_?????_000_?????_01100_11")
-        val SLL   = BitPat("b0000000_?????_?????_001_?????_01100_11")
-        val SLT   = BitPat("b0000000_?????_?????_010_?????_01100_11")
-        val SLTU  = BitPat("b0000000_?????_?????_011_?????_01100_11")
-        val XOR   = BitPat("b0000000_?????_?????_100_?????_01100_11")
-        val SRL   = BitPat("b0000000_?????_?????_101_?????_01100_11")
-        val SRA   = BitPat("b0100000_?????_?????_101_?????_01100_11")
-        val OR    = BitPat("b0000000_?????_?????_110_?????_01100_11")
-        val AND   = BitPat("b0000000_?????_?????_111_?????_01100_11")
-        val ADDW  = BitPat("b0000000_?????_?????_000_?????_01110_11")
-        val SUBW  = BitPat("b0100000_?????_?????_000_?????_01110_11")
-        val SLLW  = BitPat("b0000000_?????_?????_001_?????_01110_11")
-        val SRLW  = BitPat("b0000000_?????_?????_101_?????_01110_11")
-        val SRAW  = BitPat("b0100000_?????_?????_101_?????_01110_11")
+        val ADD    = BitPat("b0000000_?????_?????_000_?????_01100_11")
+        val SUB    = BitPat("b0100000_?????_?????_000_?????_01100_11")
+        val SLL    = BitPat("b0000000_?????_?????_001_?????_01100_11")
+        val SLT    = BitPat("b0000000_?????_?????_010_?????_01100_11")
+        val SLTU   = BitPat("b0000000_?????_?????_011_?????_01100_11")
+        val XOR    = BitPat("b0000000_?????_?????_100_?????_01100_11")
+        val SRL    = BitPat("b0000000_?????_?????_101_?????_01100_11")
+        val SRA    = BitPat("b0100000_?????_?????_101_?????_01100_11")
+        val OR     = BitPat("b0000000_?????_?????_110_?????_01100_11")
+        val AND    = BitPat("b0000000_?????_?????_111_?????_01100_11")
+        val ADDW   = BitPat("b0000000_?????_?????_000_?????_01110_11")
+        val SUBW   = BitPat("b0100000_?????_?????_000_?????_01110_11")
+        val SLLW   = BitPat("b0000000_?????_?????_001_?????_01110_11")
+        val SRLW   = BitPat("b0000000_?????_?????_101_?????_01110_11")
+        val SRAW   = BitPat("b0100000_?????_?????_101_?????_01110_11")
         //RV32M
-        val MUL   = BitPat("b0000001_?????_?????_000_?????_01100_11")
-        val MULH  = BitPat("b0000001_?????_?????_001_?????_01100_11")
-        val MULHSU= BitPat("b0000001_?????_?????_010_?????_01100_11")
-        val MULHU = BitPat("b0000001_?????_?????_011_?????_01100_11")
-        val DIV   = BitPat("b0000001_?????_?????_100_?????_01100_11")
-        val DIVU  = BitPat("b0000001_?????_?????_101_?????_01100_11")
-        val REM   = BitPat("b0000001_?????_?????_110_?????_01100_11")
-        val REMU  = BitPat("b0000001_?????_?????_111_?????_01100_11")
+        val MUL    = BitPat("b0000001_?????_?????_000_?????_01100_11")
+        val MULH   = BitPat("b0000001_?????_?????_001_?????_01100_11")
+        val MULHSU = BitPat("b0000001_?????_?????_010_?????_01100_11")
+        val MULHU  = BitPat("b0000001_?????_?????_011_?????_01100_11")
+        val DIV    = BitPat("b0000001_?????_?????_100_?????_01100_11")
+        val DIVU   = BitPat("b0000001_?????_?????_101_?????_01100_11")
+        val REM    = BitPat("b0000001_?????_?????_110_?????_01100_11")
+        val REMU   = BitPat("b0000001_?????_?????_111_?????_01100_11")
         //RV64M
-        val MULW  = BitPat("b0000001_?????_?????_000_?????_01110_11")
-        val DIVW  = BitPat("b0000001_?????_?????_100_?????_01110_11")
-        val DIVUW = BitPat("b0000001_?????_?????_101_?????_01110_11")
-        val REMW  = BitPat("b0000001_?????_?????_110_?????_01110_11")
-        val REMUW = BitPat("b0000001_?????_?????_111_?????_01110_11")
+        val MULW   = BitPat("b0000001_?????_?????_000_?????_01110_11")
+        val DIVW   = BitPat("b0000001_?????_?????_100_?????_01110_11")
+        val DIVUW  = BitPat("b0000001_?????_?????_101_?????_01110_11")
+        val REMW   = BitPat("b0000001_?????_?????_110_?????_01110_11")
+        val REMUW  = BitPat("b0000001_?????_?????_111_?????_01110_11")
+        //Zicsr
+        val CSRRW  = BitPat("b???????_?????_?????_001_?????_11100_11")
+        val CSRRS  = BitPat("b???????_?????_?????_010_?????_11100_11")
+        val CSRRC  = BitPat("b???????_?????_?????_011_?????_11100_11")
+        val CSRRWI = BitPat("b???????_?????_?????_101_?????_11100_11")
+        val CSRRSI = BitPat("b???????_?????_?????_110_?????_11100_11")
+        val CSRRCI = BitPat("b???????_?????_?????_111_?????_11100_11")
+        //exception
+        val ECALL  = BitPat("b0000000_00000_00000_000_00000_11100_11")
+        val MRET   = BitPat("b0011000_00010_00000_000_00000_11100_11")
     //Decode
     val csignals = 
         ListLookup(io.inst,
-                         List(0.U  , 0.U     , 0.B    , 0.B    , 0.B  , 0.B   ,  0.U   , 0.B  , 0.B , 0.U  , 0.B  , 0.U   ),
-            Array(         /* inst |  ALUop  |  op1   |   op2  |  rf  |  wb   |  br    | mem  | mem | mem  | rv64w| slt  */
-                           /* type |  sfcn   |  sel   |   sel  |  wen |  sel  |  type  | en   |  wr | type | sel  | sel  */
-                LUI   -> List(Utype, ALU_ADD , 0.B    , OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                AUIPC -> List(Utype, ALU_ADD , OP1_PC , OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                JAL   -> List(Jtype, ALU_ADD , OP1_PC , OP2_IMM, REN_1, WB_ALU, JAL_T  , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                JALR  -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_ALU, JALR_T , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
+                         List(0.U  , 0.U     , 0.B    , 0.B    , 0.B  , 0.B   ,  0.U   , 0.B  , 0.B , 0.U  , 0.B  , 0.U   , 0.U  , 0.U),
+            Array(         /* inst |  ALUop  |  op1   |   op2  |  rf  |  wb   |  br    | mem  | mem | mem  | rv64w| slt   | csr  | intr */
+                           /* type |  sfcn   |  sel   |   sel  |  wen |  sel  |  type  | en   |  wr | type | sel  | sel   | type | type */
+                LUI   -> List(Utype, ALU_ADD , 0.B    , OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                AUIPC -> List(Utype, ALU_ADD , OP1_PC , OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                JAL   -> List(Jtype, ALU_ADD , OP1_PC , OP2_IMM, REN_1, WB_ALU, JAL_T  , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                JALR  -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_ALU, JALR_T , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
                 //branch
-                BEQ   -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BEQ_T  , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                BNE   -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BNE_T  , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                BLT   -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BLT_T  , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                BGE   -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BGE_T  , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                BLTU  -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BLTU_T , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                BGEU  -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BGEU_T , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
+                BEQ   -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BEQ_T  , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                BNE   -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BNE_T  , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                BLT   -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BLT_T  , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                BGE   -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BGE_T  , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                BLTU  -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BLTU_T , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                BGEU  -> List(Btype, ALU_SUB , OP1_RS1, OP2_RS2, REN_0, 0.B   , BGEU_T , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
                 //load
-                LB    -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_B , LEN_X, NSLT  ),
-                LH    -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_H , LEN_X, NSLT  ),
-                LW    -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_W , LEN_X, NSLT  ),
-                LBU   -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_BU, LEN_X, NSLT  ),
-                LHU   -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_HU, LEN_X, NSLT  ),
-                LWU   -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_WU, LEN_X, NSLT  ),
-                LD    -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_D , LEN_X, NSLT  ),
+                LB    -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_B , LEN_X, NSLT  , NCSR , NINT ),
+                LH    -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_H , LEN_X, NSLT  , NCSR , NINT ),
+                LW    -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_W , LEN_X, NSLT  , NCSR , NINT ),
+                LBU   -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_BU, LEN_X, NSLT  , NCSR , NINT ),
+                LHU   -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_HU, LEN_X, NSLT  , NCSR , NINT ),
+                LWU   -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_WU, LEN_X, NSLT  , NCSR , NINT ),
+                LD    -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_MEM, NB     , MEN_1, M_RD, MT_D , LEN_X, NSLT  , NCSR , NINT ),
                 //store
-                SB    -> List(Stype, ALU_ADD , OP1_RS1, OP2_IMM, REN_0, 0.B   , NB     , MEN_1, M_WR, MT_B , LEN_X, NSLT  ),
-                SH    -> List(Stype, ALU_ADD , OP1_RS1, OP2_IMM, REN_0, 0.B   , NB     , MEN_1, M_WR, MT_H , LEN_X, NSLT  ),
-                SW    -> List(Stype, ALU_ADD , OP1_RS1, OP2_IMM, REN_0, 0.B   , NB     , MEN_1, M_WR, MT_W , LEN_X, NSLT  ),
-                SD    -> List(Stype, ALU_ADD , OP1_RS1, OP2_IMM, REN_0, 0.B   , NB     , MEN_1, M_WR, MT_D , LEN_X, NSLT  ),
+                SB    -> List(Stype, ALU_ADD , OP1_RS1, OP2_IMM, REN_0, 0.B   , NB     , MEN_1, M_WR, MT_B , LEN_X, NSLT  , NCSR , NINT ),
+                SH    -> List(Stype, ALU_ADD , OP1_RS1, OP2_IMM, REN_0, 0.B   , NB     , MEN_1, M_WR, MT_H , LEN_X, NSLT  , NCSR , NINT ),
+                SW    -> List(Stype, ALU_ADD , OP1_RS1, OP2_IMM, REN_0, 0.B   , NB     , MEN_1, M_WR, MT_W , LEN_X, NSLT  , NCSR , NINT ),
+                SD    -> List(Stype, ALU_ADD , OP1_RS1, OP2_IMM, REN_0, 0.B   , NB     , MEN_1, M_WR, MT_D , LEN_X, NSLT  , NCSR , NINT ),
                 //arith/logic Itype
-                ADDI  -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                SLTI  -> List(Itype, ALU_SUB , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, SLT_T ),
-                SLTIU -> List(Itype, ALU_SUB , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, SLTU_T),
-                XORI  -> List(Itype, ALU_XOR , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                ORI   -> List(Itype, ALU_OR  , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                ANDI  -> List(Itype, ALU_AND , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                SLLI  -> List(Itype, ALU_SLL , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                SRLI  -> List(Itype, ALU_SRL , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                SRAI  -> List(Itype, ALU_SRA , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                ADDIW -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
-                SLLIW -> List(Itype, ALU_SLL , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
-                SRLIW -> List(Itype, ALU_SRLW, OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
-                SRAIW -> List(Itype, ALU_SRAW, OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
+                ADDI  -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                SLTI  -> List(Itype, ALU_SUB , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, SLT_T , NCSR , NINT ),
+                SLTIU -> List(Itype, ALU_SUB , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, SLTU_T, NCSR , NINT ),
+                XORI  -> List(Itype, ALU_XOR , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                ORI   -> List(Itype, ALU_OR  , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                ANDI  -> List(Itype, ALU_AND , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                SLLI  -> List(Itype, ALU_SLL , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                SRLI  -> List(Itype, ALU_SRL , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                SRAI  -> List(Itype, ALU_SRA , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                ADDIW -> List(Itype, ALU_ADD , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                SLLIW -> List(Itype, ALU_SLL , OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                SRLIW -> List(Itype, ALU_SRLW, OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                SRAIW -> List(Itype, ALU_SRAW, OP1_RS1, OP2_IMM, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
                 //arith/logic Rtype
-                ADD   -> List(Rtype, ALU_ADD , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                SUB   -> List(Rtype, ALU_SUB , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                SLL   -> List(Rtype, ALU_SLL , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                SLT   -> List(Rtype, ALU_SUB , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, SLT_T ),
-                SLTU  -> List(Rtype, ALU_SUB , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, SLTU_T),
-                XOR   -> List(Rtype, ALU_XOR , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                SRL   -> List(Rtype, ALU_SRL , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                SRA   -> List(Rtype, ALU_SRA , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                OR    -> List(Rtype, ALU_OR  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                AND   -> List(Rtype, ALU_AND , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                ADDW  -> List(Rtype, ALU_ADD , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
-                SUBW  -> List(Rtype, ALU_SUB , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
-                SLLW  -> List(Rtype, ALU_SLL , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
-                SRLW  -> List(Rtype, ALU_SRLW, OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
-                SRAW  -> List(Rtype, ALU_SRAW, OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
+                ADD   -> List(Rtype, ALU_ADD , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                SUB   -> List(Rtype, ALU_SUB , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                SLL   -> List(Rtype, ALU_SLL , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                SLT   -> List(Rtype, ALU_SUB , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, SLT_T , NCSR , NINT ),
+                SLTU  -> List(Rtype, ALU_SUB , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, SLTU_T, NCSR , NINT ),
+                XOR   -> List(Rtype, ALU_XOR , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                SRL   -> List(Rtype, ALU_SRL , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                SRA   -> List(Rtype, ALU_SRA , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                OR    -> List(Rtype, ALU_OR  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                AND   -> List(Rtype, ALU_AND , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                ADDW  -> List(Rtype, ALU_ADD , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                SUBW  -> List(Rtype, ALU_SUB , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                SLLW  -> List(Rtype, ALU_SLL , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                SRLW  -> List(Rtype, ALU_SRLW, OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                SRAW  -> List(Rtype, ALU_SRAW, OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
                 //"M" extension
-                MUL   -> List(Rtype, ALU_M   , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                MULH  -> List(Rtype, ALU_MH  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                MULHU -> List(Rtype, ALU_MHU , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                MULHSU-> List(Rtype, ALU_MHSU, OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                MULW  -> List(Rtype, ALU_MW  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
-                DIV   -> List(Rtype, ALU_D   , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                DIVU  -> List(Rtype, ALU_DU  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                DIVW  -> List(Rtype, ALU_DW  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
-                DIVUW -> List(Rtype, ALU_DUW , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
-                REM   -> List(Rtype, ALU_R   , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                REMU  -> List(Rtype, ALU_RU  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  ),
-                REMW  -> List(Rtype, ALU_RW  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
-                REMUW -> List(Rtype, ALU_RUW , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  ),
+                MUL   -> List(Rtype, ALU_M   , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                MULH  -> List(Rtype, ALU_MH  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                MULHU -> List(Rtype, ALU_MHU , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                MULHSU-> List(Rtype, ALU_MHSU, OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                MULW  -> List(Rtype, ALU_MW  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                DIV   -> List(Rtype, ALU_D   , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                DIVU  -> List(Rtype, ALU_DU  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                DIVW  -> List(Rtype, ALU_DW  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                DIVUW -> List(Rtype, ALU_DUW , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                REM   -> List(Rtype, ALU_R   , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                REMU  -> List(Rtype, ALU_RU  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                REMW  -> List(Rtype, ALU_RW  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                REMUW -> List(Rtype, ALU_RUW , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                //Zicsr
+                CSRRW -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_W, NINT ),
+                CSRRS -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_S, NINT ),
+                CSRRC -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_C, NINT ),
+                CSRRWI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_W, NINT ),
+                CSRRSI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_S, NINT ),
+                CSRRCI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_C, NINT ),
+                //exception
+                ECALL -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , NCSR , EC_T ),
+                MRET  -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , NCSR , RET_T),
             )
         )
-    val inst_type::alu_op::src1_sel::src2_sel::rf_we::wb_sel::br_type::mem_en::mem_wr::mem_type::rv64w::ex_sel::Nil = csignals
+    val inst_type::alu_op::src1_sel::src2_sel::rf_we::wb_sel::br_type::mem_en::mem_wr::mem_type::rv64w::ex_sel::csr_op::exc_type::Nil = csignals
     //To output wire
         io.inst_type := inst_type
         io.alu_op    := alu_op
@@ -243,7 +276,9 @@ class MyDecoder() extends Module{
         io.mem_wr    := mem_wr
         io.mem_type  := mem_type
         io.rv64w     := rv64w
-        io.ex_sel   := ex_sel
+        io.ex_sel    := ex_sel
+        io.csr_op    := csr_op
+        io.exc_type  := exc_type
 }
 
 class Id_stage(w: Int) extends Module{
@@ -277,7 +312,7 @@ class Id_stage(w: Int) extends Module{
         val mem_wr    = my_decoder.io.mem_wr
         val mem_type  = my_decoder.io.mem_type
         val rv64w     = my_decoder.io.rv64w
-        val ex_sel   = my_decoder.io.ex_sel
+        val ex_sel    = my_decoder.io.ex_sel
 
     //control unit
         //val (Rtype, Itype, Stype, Btype, Utype, Jtype) = ("h01".U, "h02".U, "h04".U, "h08".U, "h10".U, "h20".U)
@@ -324,11 +359,14 @@ class Id_stage(w: Int) extends Module{
         io.id2ex.mem_wr    := mem_wr
         io.id2ex.mem_type  := mem_type
         io.id2ex.rv64w     := rv64w
-        io.id2ex.ex_sel   := ex_sel
+        io.id2ex.ex_sel    := ex_sel
+        io.id2ex.csr_op    := my_decoder.io.csr_op 
+        io.id2ex.exc_type  := my_decoder.io.exc_type
         //data signals
         io.id2ex.pc        := io.pc
         io.id2ex.rs1       := rf_rdata1
         io.id2ex.rs2       := rf_rdata2
         io.id2ex.imm       := imm
         io.id2ex.mem_wdata := rf_rdata2
+        io.id2ex.csr_num   := inst(31, 20)
 }
