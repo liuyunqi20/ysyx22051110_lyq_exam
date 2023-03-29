@@ -134,7 +134,6 @@ void execute(uint64_t step){
         execute_once();
         g_nr_step++;
 #ifdef DIFFTEST
-        printf("excpc: %lx\n", cpu_pc);
         difftest_step(SimTop->io_core_debug_debug_pc);
 #endif
         if(npc_state.state != NPC_RUNNING) break;
