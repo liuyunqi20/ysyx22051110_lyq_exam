@@ -5,6 +5,8 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
+static char print_buf[4096];
+
 static int cats(char * dst, char * src){
   int i = 0;
   while(*src != '\0'){
@@ -44,13 +46,12 @@ static void itoa(char * s, int num){
 }
 
 int printf(const char *fmt, ...) {
-  char buf[512];
   va_list ap;
   va_start(ap, fmt);
-  int ret = vsprintf(buf, fmt, ap);
+  int ret = vsprintf(print_buf, fmt, ap);
   va_end(ap);
-  for(int i = 0; i < 512 && buf[i]!='\0'; ++i)
-    putch(buf[i]);
+  for(int i = 0; i < 4096 && print_buf[i]!='\0'; ++i)
+    putch(print_buf[i]);
   return ret;
 }
 
