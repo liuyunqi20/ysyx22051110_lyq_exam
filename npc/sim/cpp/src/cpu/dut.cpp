@@ -75,26 +75,11 @@ static void checkregs(CPU_state *ref_r, vaddr_t pc) {
 
 void difftest_step(vaddr_t pc, vaddr_t npc){
     CPU_state ref_r;
-    /*if (skip_dut_nr_inst > 0) {
-        ref_difftest_regcpy(&ref_r, cpu_pc, DIFFTEST_TO_DUT);
-        if (ref_r.pc == npc) {
-            skip_dut_nr_inst = 0;
-            checkregs(&ref_r, npc);
-            return;
-        }
-        skip_dut_nr_inst --;
-        if (skip_dut_nr_inst == 0)
-            panic("can not catch up with ref.pc = " FMT_WORD " at pc = " FMT_WORD, ref_r.pc, pc);
-        return;
-    }*/
     if (is_skip_ref) {
         is_skip_ref -= 1;
         if(is_skip_ref) return;
         // to skip the checking of an instruction, just copy the reg state to reference design
-        //printf("a1 %lx\n", cpu_pc);
         ref_difftest_regcpy((uint64_t *)cpu_gpr + 1, pc, DIFFTEST_TO_REF);
-        //printf("a2\n");
-        //printf("diff: cpupc: %lx\n", cpu_pc);
         return;
     }
     //REF execute one step
