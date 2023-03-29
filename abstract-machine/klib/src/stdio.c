@@ -44,12 +44,12 @@ static void itoa(char * s, int num){
 }
 
 int printf(const char *fmt, ...) {
-  char buf[256];
+  char buf[512];
   va_list ap;
   va_start(ap, fmt);
   int ret = vsprintf(buf, fmt, ap);
   va_end(ap);
-  for(int i = 0; i < 256 && buf[i]!='\0'; ++i)
+  for(int i = 0; i < 512 && buf[i]!='\0'; ++i)
     putch(buf[i]);
   return ret;
 }
