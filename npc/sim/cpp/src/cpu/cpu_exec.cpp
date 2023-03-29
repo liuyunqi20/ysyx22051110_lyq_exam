@@ -103,6 +103,7 @@ void set_npc_state(int state, uint64_t pc, uint32_t ret){
 void execute_once(){
     //printf("start %lx\n", cpu_pc);
     // ----------------- NEG ----------------- 
+    cpu_pc = SimTop->io_core_debug_debug_nextpc;
     contextp->timeInc(1);
     SimTop->clock = !SimTop->clock;
     SimTop->eval();
@@ -119,7 +120,6 @@ void execute_once(){
     write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
 #endif
     // ----------------- POS -----------------
-    cpu_pc = SimTop->io_core_debug_debug_nextpc;
     contextp->timeInc(1);
     SimTop->clock = !SimTop->clock;
     SimTop->eval();
