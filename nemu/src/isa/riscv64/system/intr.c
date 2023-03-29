@@ -62,12 +62,9 @@ word_t csr_rc(uint32_t csr_num, uint64_t wmask){
 }
 
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
-  /* TODO: Trigger an interrupt/exception with ``NO''.
-   * Then return the address of the interrupt/exception vector.
-   */
   mepc = epc;
   mcause = NO;
-  printf("epc: %lx\nmcause: %lx\nmstatus: %lx\n", mepc, mcause, mstatus);
+  //printf("epc: %lx\nmcause: %lx\nmstatus: %lx\n", mepc, mcause, mstatus);
   printf("mtvec: %lx\n", mtvec);
   return mtvec;
 }
