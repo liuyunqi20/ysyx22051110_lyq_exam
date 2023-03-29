@@ -50,6 +50,10 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type);
 vaddr_t isa_raise_intr(word_t NO, vaddr_t epc);
 #define INTR_EMPTY ((word_t)-1)
 word_t isa_query_intr();
+word_t csr_rw(uint32_t csr_num, uint64_t wdata);
+word_t csr_rs(uint32_t csr_num, uint64_t wmask);
+word_t csr_rc(uint32_t csr_num, uint64_t wmask);
+word_t isa_intr_ret();
 
 // difftest
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc);

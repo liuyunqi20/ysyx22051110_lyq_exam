@@ -15,12 +15,61 @@
 
 #include <isa.h>
 
+uint64_t mepc;
+uint64_t mcause;
+uint64_t mtvec;
+uint64_t mstatus;
+
+word_t csr_rw(uint32_t csr_num, uint64_t wdata){
+  word_t res;
+  switch(csr_num){
+    case 0x300: res = mstatus; mstatus = wdata; break;
+    case 0x305: res = mtvec;   mtvec   = wdata; break;
+    case 0x341: res = mepc;    mepc    = wdata; break;
+    case 0x342: res = mcause;  mcause  = wdata; break;
+    default:
+      assert(0);
+  }
+  return res;
+}
+
+word_t csr_rs(uint32_t csr_num, uint64_t wmask){
+  word_t res;
+  switch(csr_num){
+    case 0x300: res = mstatus; mstatus |= wmask; break;
+    case 0x305: res = mtvec;   mtvec   |= wmask; break;
+    case 0x341: res = mepc;    mepc    |= wmask; break;
+    case 0x342: res = mcause;  mcause  |= wmask; break;
+    default:
+      assert(0);
+  }
+  return res;
+}
+
+word_t csr_rc(uint32_t csr_num, uint64_t wmask){
+  word_t res;
+  switch(csr_num){
+    case 0x300: res = mstatus; mstatus &= ~wmask; break;
+    case 0x305: res = mtvec;   mtvec   &= ~wmask; break;
+    case 0x341: res = mepc;    mepc    &= ~wmask; break;
+    case 0x342: res = mcause;  mcause  &= ~wmask; break;
+    default:
+      assert(0);
+  }
+  return res;
+}
+
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * Then return the address of the interrupt/exception vector.
    */
+  mepc = epc;
+  mcause = NO;
+  return mtvec;
+}
 
-  return 0;
+word_t isa_intr_ret(){
+  return mepc + 4;
 }
 
 word_t isa_query_intr() {
