@@ -62,8 +62,8 @@ word_t csr_rc(uint32_t csr_num, uint64_t wmask){
 }
 
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
-#ifdef ETRACE
-  printf("trigger exception %d at pc = %lx\n", NO, epc);
+#ifdef CONFIG_ETRACE
+  printf("trigger exception %ld at pc = %lx\n", NO, epc);
 #endif
   mepc = epc;
   mcause = NO;
