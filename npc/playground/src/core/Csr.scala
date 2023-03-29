@@ -76,11 +76,9 @@ class Csr(w: Int) extends Module with HasCsrConst{
         when(csr_en && csr_1H(0)){
             mstatus := csr_res
         }
-        // ----- mcause
-        when(io.exc.ecall){
-            mcause  := csr_res
-        } .elsewhen(~io.exc.ecall && csr_en && csr_1H(2)){
-            mcause  := csr_res
+        // ----- mtvec
+        when(csr_en && csr_1H(1)){
+            mtvec   := csr_res
         }
         // ----- mepc
         when(io.exc.ecall){
@@ -88,8 +86,10 @@ class Csr(w: Int) extends Module with HasCsrConst{
         } .elsewhen(~io.exc.ecall && csr_en && csr_1H(2)){
             mepc    := csr_res
         }
-        // ----- mtvec
-        when(csr_en && csr_1H(3)){
-            mtvec   := csr_res
+        // ----- mcause
+        when(io.exc.ecall){
+            mcause  := csr_res
+        } .elsewhen(~io.exc.ecall && csr_en && csr_1H(3)){
+            mcause  := csr_res
         }
 }
