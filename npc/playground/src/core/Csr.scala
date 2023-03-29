@@ -54,7 +54,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
         val csrrs_res = csr_src | io.op.csr_wdata
         val csrrc_res = csr_src & (~io.op.csr_wdata)   
         val csr_res   = Mux1H(Seq(
-            io.op.csr_op(0) -> io.csr_wdata,
+            io.op.csr_op(0) -> io.op.csr_wdata,
             io.op.csr_op(1) -> csrrs_res,
             io.op.csr_op(2) -> csrrc_res,
         ))
@@ -77,19 +77,19 @@ class Csr(w: Int) extends Module with HasCsrConst{
             mstatus := csr_res
         }
         // ----- mcause
-        when(ecall){
-            mcause := csr_res
-        } .elsewhen(~ecall && csr_en && csr_1H(2)){
-            mcause := csr_res
+        when(io.exc.ecall){
+            mcause  := csr_res
+        } .elsewhen(~io.exc.ecall && csr_en && csr_1H(2)){
+            mcause  := csr_res
         }
         // ----- mepc
-        when(ecall){
-            mepc := ecall_epc
-        } .elsewhen(~ecall && csr_en && csr_1H(2)){
-            mepc := csr_epc
+        when(io.exc.ecall){
+            mepc    := io.exc.ecall_epc
+        } .elsewhen(~io.exc.ecall && csr_en && csr_1H(2)){
+            mepc    := csr_res
         }
         // ----- mtvec
         when(csr_en && csr_1H(3)){
-            mtvec := csr_res
+            mtvec   := csr_res
         }
 }
