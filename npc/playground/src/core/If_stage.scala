@@ -36,6 +36,7 @@ class Inst_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
 class If_stage(w: Int, if_id_w: Int) extends Module{
     val io = IO(new Bundle{
         val pc           = Output(UInt(w.W))
+        val nextpc       = Output(UInt(w.W))
         val branch       = Flipped(new BranchBundle(w))
         val inst_mem_in  = new MemInBundle(w)
         val inst_mem_out = new MemOutBundle(w)
@@ -46,6 +47,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module{
     io.pc     := pc
     val nextpc = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
                     Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
+    io.nextpc := nextpc
 
     val my_imem_port = Module(new Inst_mem_port(w))
     my_imem_port.io.clk := clock

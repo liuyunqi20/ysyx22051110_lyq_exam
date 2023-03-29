@@ -35,6 +35,7 @@ class MycpuCoreTop(w: Int) extends Module{
     my_wb.io.pc            := my_if.io.pc
     //debug
     io.core_debug.debug_pc       := my_if.io.pc
+    io.core_debug.debug_nextpc   := my_if.io.nextpc
     io.core_debug.debug_rf_we    := my_wb.io.wb2rf.rf_we
     io.core_debug.debug_rf_wnum  := my_wb.io.wb2rf.waddr
     io.core_debug.debug_rf_wdata := my_wb.io.wb2rf.wdata
