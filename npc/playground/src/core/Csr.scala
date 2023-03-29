@@ -88,7 +88,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
         }
         // ----- mcause
         when(io.exc.ecall){
-            mcause  := csr_res
+            mcause  := io.exc.ecall_code
         } .elsewhen(~io.exc.ecall && csr_en && csr_1H(3)){
             mcause  := csr_res
         }
