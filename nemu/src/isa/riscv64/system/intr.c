@@ -22,7 +22,7 @@ uint64_t mstatus;
 
 word_t csr_rw(uint32_t csr_num, uint64_t wdata){
   word_t res;
-  printf("rw %lx\n", wdata);
+  //printf("rw %lx\n", wdata);
   switch(csr_num){
     case 0x300: res = mstatus; mstatus = wdata; break;
     case 0x305: res = mtvec;   mtvec   = wdata; break;
@@ -44,7 +44,7 @@ word_t csr_rs(uint32_t csr_num, uint64_t wmask){
     default:
       assert(0);
   }
-  printf("rs: %lx\n", res);
+  //printf("rs: %lx\n", res);
   return res;
 }
 
