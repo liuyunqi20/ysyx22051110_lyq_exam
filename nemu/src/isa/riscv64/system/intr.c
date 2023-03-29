@@ -44,6 +44,7 @@ word_t csr_rs(uint32_t csr_num, uint64_t wmask){
     default:
       assert(0);
   }
+  printf("rs: %lx\n", res);
   return res;
 }
 
