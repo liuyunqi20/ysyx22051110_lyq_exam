@@ -55,7 +55,7 @@ void pmem_write(uint64_t addr, int len, uint64_t data) {
     default: assert(0);
   }
 }
-
+    extern void wave_end();
 extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * rdata){
   if(en && !wr){
     //printf("raddr: %lx\n", raddr);
@@ -77,7 +77,6 @@ extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * r
         return;
       }
     // ---------------- memory ---------------- 
-    extern void wave_end();
     if(!(raddr >= MBASE && raddr < (MBASE + MSIZE))){
       printf("pc: %lx r: %lx\n", cpu_pc, (uint64_t)raddr); wave_end(); }
     assert(raddr >= MBASE && raddr < (MBASE + MSIZE));
