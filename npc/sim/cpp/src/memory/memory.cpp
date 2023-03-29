@@ -100,7 +100,7 @@ extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * r
 extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wdata, char wmask){
   if(en && wr){
     waddr = waddr & ~0x7;
-    //printf("waddr: %llx wdata: %llx\n", waddr, wdata);
+    printf("waddr: %llx wdata: %llx\n", waddr, wdata);
     // ---------------- mmio ---------------- 
       if((uint64_t)waddr == (uint64_t)SERIAL_PORT) { 
         putchar((uint8_t)wdata); 
