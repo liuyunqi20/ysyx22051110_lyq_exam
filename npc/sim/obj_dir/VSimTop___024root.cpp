@@ -182,7 +182,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__3(VSimTop___024root* vlSelf
                    | (((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
                        & (0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op))) 
                       & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___GEN) 
-                         >> 2U))))) {
+                         >> 3U))))) {
             __Vdly__SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mcause 
                 = vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
         }
@@ -198,7 +198,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__3(VSimTop___024root* vlSelf
         }
         if (((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op)) 
              & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___GEN) 
-                >> 3U))) {
+                >> 1U))) {
             __Vdly__SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec 
                 = vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
         }
