@@ -77,7 +77,7 @@ extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * r
         return;
       }
     // ---------------- memory ---------------- 
-    extern wave_end();
+    extern void wave_end();
     if(!(raddr >= MBASE && raddr < (MBASE + MSIZE))){
       printf("pc: %lx r: %lx\n", cpu_pc, (uint64_t)raddr); wave_end(); }
     assert(raddr >= MBASE && raddr < (MBASE + MSIZE));
