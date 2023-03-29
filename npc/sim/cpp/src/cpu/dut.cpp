@@ -92,7 +92,7 @@ void difftest_step(vaddr_t pc){
         printf("a1\n");
         ref_difftest_regcpy(cpu_gpr, cpu_pc, DIFFTEST_TO_REF);
         printf("a2\n");
-        printf("diff: cpupc: %lx\n", cpu_pc)
+        printf("diff: cpupc: %lx\n", cpu_pc);
         is_skip_ref = 0;
         return;
     }
