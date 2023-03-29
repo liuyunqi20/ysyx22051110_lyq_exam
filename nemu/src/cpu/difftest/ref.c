@@ -26,9 +26,10 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   }
 }
 
-void difftest_regcpy(void *dut, bool direction) {
+void difftest_regcpy(void *dut, uint64_t pc_to_ref, bool direction) {
   if(direction){ //dut to ref
     memcpy((void *)&(cpu.gpr[1]), dut, sizeof(uint64_t)*31);
+    cpu.pc = pc_to_ref;
   }else{ //ref to dut
     memcpy(dut, (const void *)&cpu, sizeof(uint64_t)*33);
   }
