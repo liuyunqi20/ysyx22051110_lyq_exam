@@ -124,7 +124,7 @@ void execute_once(){
     SimTop->eval();
     wave_dump();
     //update current pc
-    cpu_pc = SimTop->io_core_debug_debug_nextpc;
+        cpu_pc = SimTop->io_core_debug_debug_nextpc;
     VSimTop::catch_ebreak(&ebreak_f);
 }
 
