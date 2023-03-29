@@ -252,15 +252,15 @@ class MyDecoder() extends Module with HasDecodeConst{
                 REMW  -> List(Rtype, ALU_RW  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
                 REMUW -> List(Rtype, ALU_RUW , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
                 //Zicsr
-                CSRRW -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_W, NINT ),
-                CSRRS -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_S, NINT ),
-                CSRRC -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_C, NINT ),
-                CSRRWI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_W, NINT ),
-                CSRRSI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_S, NINT ),
-                CSRRCI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , CSR_C, NINT ),
+                CSRRW -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , CSR_W, NINT ),
+                CSRRS -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , CSR_S, NINT ),
+                CSRRC -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , CSR_C, NINT ),
+                CSRRWI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , CSR_W, NINT ),
+                CSRRSI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , CSR_S, NINT ),
+                CSRRCI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , CSR_C, NINT ),
                 //exception
-                ECALL -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , NCSR , EC_T ),
-                MRET  -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSTL  , NCSR , RET_T),
+                ECALL -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , EC_T ),
+                MRET  -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , RET_T),
             )
         )
     val inst_type::alu_op::src1_sel::src2_sel::rf_we::wb_sel::br_type::mem_en::mem_wr::mem_type::rv64w::ex_sel::csr_op::exc_type::Nil = csignals
