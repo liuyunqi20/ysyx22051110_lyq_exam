@@ -11,6 +11,14 @@ void (*ref_difftest_regcpy)(void *dut, int direction) = NULL;
 void (*ref_difftest_exec)(uint64_t n) = NULL;
 void (*ref_difftest_raise_intr)(uint64_t NO) = NULL;
 
+static int is_skip_ref = 0;
+static uint64_t skip_dut_nr_inst = 0;
+
+void difftest_skip_ref() {
+  is_skip_ref = 1;
+  skip_dut_nr_inst = 0;
+}
+
 void init_difftest(char *ref_so_file, long img_size, int port){
     assert(ref_so_file != NULL);
 
@@ -66,6 +74,24 @@ static void checkregs(CPU_state *ref_r, vaddr_t pc) {
 
 void difftest_step(vaddr_t pc){
     CPU_state ref_r;
+    /*if (skip_dut_nr_inst > 0) {
+        ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
+        if (ref_r.pc == npc) {
+            skip_dut_nr_inst = 0;
+            checkregs(&ref_r, npc);
+            return;
+        }
+        skip_dut_nr_inst --;
+        if (skip_dut_nr_inst == 0)
+            panic("can not catch up with ref.pc = " FMT_WORD " at pc = " FMT_WORD, ref_r.pc, pc);
+        return;
+    }*/
+    if (is_skip_ref) {
+        // to skip the checking of an instruction, just copy the reg state to reference design
+        ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+        is_skip_ref = 0;
+        return;
+    }
     //REF execute one step
     ref_difftest_exec(1);
     //copy regs from REF
