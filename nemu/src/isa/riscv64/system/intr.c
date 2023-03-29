@@ -65,7 +65,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   mepc = epc;
   mcause = NO;
   //printf("epc: %lx\nmcause: %lx\nmstatus: %lx\n", mepc, mcause, mstatus);
-  printf("mtvec: %lx\n", mtvec);
+  //printf("mtvec: %lx\n", mtvec);
   return mtvec;
 }
 
