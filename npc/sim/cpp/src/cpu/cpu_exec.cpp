@@ -119,13 +119,13 @@ void execute_once(){
     write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
 #endif
     // ----------------- POS -----------------
+    cpu_pc = SimTop->io_core_debug_debug_nextpc;
     contextp->timeInc(1);
     SimTop->clock = !SimTop->clock;
     SimTop->eval();
     wave_dump();
     //update current pc
     VSimTop::catch_ebreak(&ebreak_f);
-    cpu_pc = SimTop->io_core_debug_debug_pc;
 }
 
 void execute(uint64_t step){
