@@ -41,6 +41,13 @@ void device_update();
 // Legacy function required only so linking works on Cygwin and MSVC++
 double sc_time_stamp() { return 0; }
 
+void wave_end(){
+#ifdef DUMPWAVE
+    tfp->dump(contextp->time());
+    tfp->close();
+#endif
+}
+
 void wave_dump(){
 #ifdef DUMPWAVE
     tfp->dump(contextp->time());
