@@ -16,7 +16,7 @@ static int is_skip_ref = 0;
 static uint64_t skip_dut_nr_inst = 0;
 
 void difftest_skip_ref() {
-  is_skip_ref = 1;
+  is_skip_ref = 2;
   skip_dut_nr_inst = 0;
 }
 
@@ -88,12 +88,13 @@ void difftest_step(vaddr_t pc, vaddr_t npc){
         return;
     }*/
     if (is_skip_ref) {
+        is_skip_ref -= 1;
+        if(is_skip_ref) return;
         // to skip the checking of an instruction, just copy the reg state to reference design
         //printf("a1 %lx\n", cpu_pc);
         ref_difftest_regcpy((uint64_t *)cpu_gpr + 1, npc, DIFFTEST_TO_REF);
         //printf("a2\n");
         //printf("diff: cpupc: %lx\n", cpu_pc);
-        is_skip_ref = 0;
         return;
     }
     //REF execute one step
