@@ -61,7 +61,7 @@ void pmem_write(uint64_t addr, int len, uint64_t data) {
 
 extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * rdata){
   if(en && !wr){
-    //printf("raddr: %lx\n", raddr);
+    printf("raddr: %lx\n", raddr);
     raddr = raddr & ~0x7;
     // ---------------- mmio ---------------- 
       if(raddr == RTC_ADDR) { 
