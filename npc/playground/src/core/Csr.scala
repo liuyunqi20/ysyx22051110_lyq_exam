@@ -8,6 +8,9 @@ trait HasCsrConst{
     val Mepc    = 0x341
     val Mcause  = 0x342
     val Mstatus_init = "ha00001800"
+    val Mstatus_SXL_init = 0x2
+    val Mstatus_UXL_init = 0x2
+    val Mstatus_MPP_init = 0x3
 }
 
 class CsrOpBundle(w: Int) extends Bundle{
@@ -24,6 +27,7 @@ class CsrOutBundle(w: Int) extends Bundle{
 
 class CsrExcBundle(w: Int) extends Bundle{
     val ecall      = Input(Bool())
+    val mret       = Input(Bool())
     val epc        = Input(UInt(w.W))
     val exc_code   = Input(UInt((w-1).W))
     val intr       = Input(Bool())
@@ -35,7 +39,11 @@ class Csr(w: Int) extends Module with HasCsrConst{
         val out = new CsrOutBundle(w)
         val exc = new CsrExcBundle(w)
     })
-    val mstatus = RegInit(Mstatus_init.U(w.W))
+    val mstatus_sxl  = RegInit(Mstatus_SXL_init.U(2.W))
+    val mstatus_uxl  = RegInit(Mstatus_UXL_init.U(2.W))
+    val mstatus_mpp  = RegInit(Mstatus_MPP_init.U(2.W))
+    val mstatus_mie  = RegInit(0.U(1.W))
+    val mstatus_mpie = RegInit(0.U(1.W))
     val mcause  = RegInit(0.U(w.W))
     val mepc    = RegInit(0.U(w.W))
     val mtvec   = RegInit(0.U(w.W))
@@ -64,10 +72,21 @@ class Csr(w: Int) extends Module with HasCsrConst{
         ))
     // ------------------- CSR regs -------------------
         // ----- mstatus ----- 
-        val mstatus_rval = Cat(0.U(28.W) , mstatus(35, 32) /* SXL UXL */, 0.U(19.W), 
-                            mstatus(12, 11) /* MPP */, 0.U(7.W), mstatus(3) /* MIE */, 0.U(3.W))
-        when(csr_en && csr_1H(0)){
-            mstatus := csr_res
+        val mstatus_rval = Cat(0.U(28.W) , mstatus_sxl, mstatus_uxl, 0.U(19.W), 
+                            mstatus_mpp, 0.U(3.W), mstatus_mpie, 0.U(3.W), mstatus_mie, 0.U(3.W))
+        when(io.exc.ecall || io.exc.intr){
+            mstatus.mie  := 0.U(1.W)
+            mstatus.mpie := mstatus_mie
+            mstatus.mpp  := 3.U(2.W)
+        } .elsewhen(io.exc.mret){
+            mstatus.mie  := mstatus_mpie
+            mstatus.mpie := 1.U(1.W)
+        } .elsewhen(csr_en && csr_1H(0)){
+            mstatus_sxl  := csr_res(35, 34)
+            mstatus_uxl  := csr_res(33, 32)
+            mstatus_mpp  := csr_res(12, 11)
+            mstatus_mpie := csr_res(7)
+            mstatus_mie  := csr_res(3)
         }
         // ----- mtvec ----- 
         val mtvec_rval   = Cat(mtvec(w-1, 2), 0.U(2.W))
@@ -78,14 +97,14 @@ class Csr(w: Int) extends Module with HasCsrConst{
         val mepc_rval    = Cat(mepc(w-1, 2), 0.U(2.W))
         when(io.exc.ecall || io.exc.intr){
             mepc    := io.exc.epc
-        } .elsewhen(~io.exc.ecall && csr_en && csr_1H(2)){
+        } .elsewhen(csr_en && csr_1H(2)){
             mepc    := csr_res
         }
         // ----- mcause ----- 
         val mcause_rval  = mcause
         when(io.exc.ecall || io.exc.intr){
             mcause  := Cat(io.exc.intr.asUInt, io.exc.exc_code)
-        } .elsewhen(~io.exc.ecall && csr_en && csr_1H(3)){
+        } .elsewhen(csr_en && csr_1H(3)){
             mcause  := csr_res
         }
     // ------------------- CSR out port -------------------
