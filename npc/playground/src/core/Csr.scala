@@ -124,7 +124,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
         }
         // ----- mip ----- 
         when(has_intr_t){
-            mip     := Mip_MTIP
+            mip     := Mip_MTIP.U(w.W)
         }.elsewhen(csr_en && csr_1H(5)){
             mip     := csr_res
         } 
