@@ -75,12 +75,12 @@ class Csr(w: Int) extends Module with HasCsrConst{
         val mstatus_rval = Cat(0.U(28.W) , mstatus_sxl, mstatus_uxl, 0.U(19.W), 
                             mstatus_mpp, 0.U(3.W), mstatus_mpie, 0.U(3.W), mstatus_mie, 0.U(3.W))
         when(io.exc.ecall || io.exc.intr){
-            mstatus.mie  := 0.U(1.W)
-            mstatus.mpie := mstatus_mie
-            mstatus.mpp  := 3.U(2.W)
+            mstatus_mie  := 0.U(1.W)
+            mstatus_mpie := mstatus_mie
+            mstatus_mpp  := 3.U(2.W)
         } .elsewhen(io.exc.mret){
-            mstatus.mie  := mstatus_mpie
-            mstatus.mpie := 1.U(1.W)
+            mstatus_mie  := mstatus_mpie
+            mstatus_mpie := 1.U(1.W)
         } .elsewhen(csr_en && csr_1H(0)){
             mstatus_sxl  := csr_res(35, 34)
             mstatus_uxl  := csr_res(33, 32)
