@@ -26,8 +26,9 @@ class Wb_stage(w: Int) extends Module{
     my_csr.io.op.csr_wdata  := io.mem2wb.rs1
     //csr exc
     my_csr.io.exc.ecall     := io.mem2wb.exc_type(0) === 1.U
-    my_csr.io.exc.ecall_epc := io.pc
+    my_csr.io.exc.epc       := io.pc
     my_csr.io.exc.exc_code  := Cat(0.U(1.W), exc_code)
+    my_csr.io.intr          := 0.B
     // ------------------ RF write back ------------------ 
     io.wb2rf.rf_we := io.mem2wb.gr_we
     io.wb2rf.waddr := io.mem2wb.dest

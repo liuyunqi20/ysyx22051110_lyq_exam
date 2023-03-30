@@ -24,7 +24,7 @@ class CsrOutBundle(w: Int) extends Bundle{
 
 class CsrExcBundle(w: Int) extends Bundle{
     val ecall      = Input(Bool())
-    val ecall_epc  = Input(UInt((w-1).W))
+    val epc        = Input(UInt((w-1).W))
     val exc_code   = Input(UInt((w-1).W))
     val intr       = Input(Bool())
 }
@@ -77,7 +77,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
         // ----- mepc ----- 
         val mepc_rval    = Cat(mepc(w-1, 2), 0.U(2.W))
         when(io.exc.ecall || io.exc.intr){
-            mepc    := io.exc.ecall_epc
+            mepc    := io.exc.epc
         } .elsewhen(~io.exc.ecall && csr_en && csr_1H(2)){
             mepc    := csr_res
         }
