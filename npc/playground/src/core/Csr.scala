@@ -4,9 +4,11 @@ import chisel3.util._
 
 trait HasCsrConst{
     val Mstatus = 0x300
+    val Mie     = 0x304
     val Mtvec   = 0x305
     val Mepc    = 0x341
     val Mcause  = 0x342
+    val Mip     = 0x344
     val Mstatus_init = "ha00001800"
     val Mstatus_SXL_init = 0x2
     val Mstatus_UXL_init = 0x2
@@ -62,6 +64,8 @@ class Csr(w: Int) extends Module with HasCsrConst{
             /* mtvec   */ (Mtvec.U)   -> ("h02".U),
             /* mepc    */ (Mepc.U)    -> ("h04".U),
             /* mcause  */ (Mcause.U)  -> ("h08".U),
+            /* mie     */ (Mie.U)     -> ("h10".U),
+            /* mip     */ (Mie.U)     -> ("h20".U),
         ))
         val csr_en  = io.op.csr_op.orR === 1.U
         val csr_src = Mux1H(Seq(
@@ -69,6 +73,8 @@ class Csr(w: Int) extends Module with HasCsrConst{
             csr_1H(1) -> mtvec_rval  ,
             csr_1H(2) -> mepc_rval   ,
             csr_1H(3) -> mcause_rval ,
+            csr_1H(4) -> mie         ,
+            csr_1H(5) -> mip         ,
         ))
         val csrrs_res = csr_src | io.op.csr_wdata
         val csrrc_res = csr_src & (~io.op.csr_wdata)   
@@ -111,13 +117,13 @@ class Csr(w: Int) extends Module with HasCsrConst{
             mcause  := csr_res
         }
         // ----- mie ----- 
-        when(csr_en && csr_1H(1)){
+        when(csr_en && csr_1H(4)){
             mie     := csr_res
         }
         // ----- mip ----- 
         when(has_intr_t){
             mip(7)  := 1.U(1.W)
-        }.elsewhen(csr_en && csr_1H(1)){
+        }.elsewhen(csr_en && csr_1H(5)){
             mip     := csr_res
         } 
     // ------------------- CSR out port -------------------
