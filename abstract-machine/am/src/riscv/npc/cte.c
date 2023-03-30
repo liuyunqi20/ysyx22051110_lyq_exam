@@ -3,15 +3,24 @@
 
 static Context* (*user_handler)(Event, Context*) = NULL;
 
+#define INTR_BIT ((uint64_t)1 << 63)
+
 Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
+    uint64_t exc_code = (c->mcause) & ~INTR_BIT;
     //printf("%d\n", c->mcause);
-    switch (c->mcause) {
-      case 11: ev.event = EVENT_YIELD; break;
-      default: ev.event = EVENT_ERROR; break;
+    if(((c->mcause) & INTR_BIT)){
+      switch (exc_code) { 
+        case 7:  ev.event = EVENT_IRQ_TIMER; break;
+        default: ev.event = EVENT_ERROR; break;
+      }
+    }else{
+      switch (exc_code) {
+        case 11: ev.event = EVENT_YIELD; break;
+        default: ev.event = EVENT_ERROR; break;
+      }
     }
-
     c = user_handler(ev, c);
     assert(c != NULL);
   }

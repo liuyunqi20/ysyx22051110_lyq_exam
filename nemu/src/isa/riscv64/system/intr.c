@@ -19,6 +19,7 @@ uint64_t mepc;
 uint64_t mcause;
 uint64_t mtvec;
 uint64_t mstatus;
+uint64_t mip, mie;
 #define MSTATUS_MASK 0x0000000f00001888
 #define MPIE_MASK    0x0000000000000080
 #define MIE_MASK     0x0000000000000008
@@ -34,7 +35,10 @@ word_t csr_rw(uint32_t csr_num, uint64_t wdata){
     case 0x305: res = mtvec;   mtvec   = wdata; break;
     case 0x341: res = mepc;    mepc    = wdata; break;
     case 0x342: res = mcause;  mcause  = wdata; break;
+    case 0x304: res = mie;     mie     = wdata; break;
+    case 0x344: res = mip;     mip     = wdata; break;
     default:
+          printf("rwcsr_unm: %x\n", csr_num);
       assert(0);
   }
   return res;
@@ -47,7 +51,10 @@ word_t csr_rs(uint32_t csr_num, uint64_t wmask){
     case 0x305: res = mtvec;   mtvec   |= wmask; break;
     case 0x341: res = mepc;    mepc    |= wmask; break;
     case 0x342: res = mcause;  mcause  |= wmask; break;
+    case 0x304: res = mie;     mie     |= wmask; break;
+    case 0x344: res = mip;     mip     |= wmask; break;
     default:
+      printf("rscsr_unm: %x\n", csr_num);
       assert(0);
   }
   //printf("rs: %lx\n", res);
@@ -61,7 +68,10 @@ word_t csr_rc(uint32_t csr_num, uint64_t wmask){
     case 0x305: res = mtvec;   mtvec   &= ~wmask; break;
     case 0x341: res = mepc;    mepc    &= ~wmask; break;
     case 0x342: res = mcause;  mcause  &= ~wmask; break;
+    case 0x304: res = mie;     mie     &= ~wmask; break;
+    case 0x344: res = mip;     mip     &= ~wmask; break;
     default:
+        printf("rccsr_unm: %x\n", csr_num);
       assert(0);
   }
   return res;
