@@ -55,7 +55,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
     val mtvec_rval   = Cat(mtvec(w-1, 2), 0.U(2.W))
     val mepc_rval    = Cat(mepc(w-1, 2), 0.U(2.W))
     val mcause_rval  = mcause
-    val has_intr_t   = io.clint.intr_t && (mstatus_mie === 1.U) && (mie(7) === 1.U)
+    val has_intr_t   = io.clint_intr_t && (mstatus_mie === 1.U) && (mie(7) === 1.U)
     // ------------------- CSR inst ------------------- 
         val csr_1H  = MuxLookup(io.op.csr_num, 0.U(w.W), Seq(
             /* mstatus */ (Mstatus.U) -> ("h01".U),
