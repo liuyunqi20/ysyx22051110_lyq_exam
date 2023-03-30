@@ -39,7 +39,7 @@ class MycpuCoreTop(w: Int) extends Module{
     my_csr.io.op           <> my_wb.io.csr_op
     my_csr.io.exc          <> my_wb.io.csr_exc
     my_csr.io.out          <> my_wb.io.csr_out
-    my_csr.io.clint_int_t  := my_clint.io.has_intr_t
+    my_csr.io.clint_intr_t := my_clint.io.has_intr_t
     my_clint.io.en         := my_mem.io.data_mem_out.en
     my_clint.io.wr         := my_mem.io.data_mem_out.wr
     my_clint.io.waddr      := my_mem.io.data_mem_out.addr
