@@ -9,11 +9,13 @@ class MycpuCoreTop(w: Int) extends Module{
         val core_data_mem_out = new MemOutBundle(w)
         val core_debug        = new DebugBundle(w)
     });
-    val my_if  = Module(new If_stage(w, w))
-    val my_id  = Module(new Id_stage(w))
-    val my_ex  = Module(new Ex_stage(w))
-    val my_mem = Module(new Mem_stage(w))
-    val my_wb  = Module(new Wb_stage(w))
+    val my_if    = Module(new If_stage(w, w))
+    val my_id    = Module(new Id_stage(w))
+    val my_ex    = Module(new Ex_stage(w))
+    val my_mem   = Module(new Mem_stage(w))
+    val my_wb    = Module(new Wb_stage(w))
+    val my_clint = Module(new Clint(w))
+    val my_csr   = Module(new Csr(w))
     //IF stage
     my_if.io.inst_mem_in   <> io.core_inst_mem_in
     my_if.io.inst_mem_out  <> io.core_inst_mem_out
@@ -33,6 +35,15 @@ class MycpuCoreTop(w: Int) extends Module{
     //Wb stage
     my_wb.io.mem2wb        <> my_mem.io.mem2wb
     my_wb.io.pc            := my_if.io.pc
+    //CSR/CLINT
+    my_csr.io.op           <> my_wb.io.csr_op
+    my_csr.io.exc          <> my_wb.io.csr_exc
+    my_csr.io.out          <> my_wb.io.csr_out
+    my_csr.io.clint_int_t  := my_clint.io.has_intr_t
+    my_clint.io.en         := my_mem.io.data_mem_out.en
+    my_clint.io.wr         := my_mem.io.data_mem_out.wr
+    my_clint.io.waddr      := my_mem.io.data_mem_out.waddr
+    my_clint.io.wdata      := my_mem.io.data_mem_out.wdata
     //debug
     io.core_debug.debug_pc       := my_if.io.pc
     io.core_debug.debug_nextpc   := my_if.io.nextpc
