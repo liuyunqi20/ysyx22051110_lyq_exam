@@ -9,10 +9,12 @@ trait HasCsrConst{
     val Mepc    = 0x341
     val Mcause  = 0x342
     val Mip     = 0x344
-    val Mstatus_init = "ha00001800"
+    val Mstatus_init     = "ha00001800"
     val Mstatus_SXL_init = 0x2
     val Mstatus_UXL_init = 0x2
     val Mstatus_MPP_init = 0x3
+    val Mip_MTIP         = "h000000080"
+    val Mie_MTIE         = "h000000080"
 }
 
 class CsrOpBundle(w: Int) extends Bundle{
@@ -122,7 +124,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
         }
         // ----- mip ----- 
         when(has_intr_t){
-            mip(7)  := 1.U(1.W)
+            mip     := Mip_MTIP
         }.elsewhen(csr_en && csr_1H(5)){
             mip     := csr_res
         } 
