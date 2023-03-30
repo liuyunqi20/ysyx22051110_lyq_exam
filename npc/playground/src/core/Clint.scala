@@ -25,7 +25,7 @@ class Clint(w: Int) extends Module with HasClintConst{
     }
     when(wen && hit_mtime){
         mtime    := io.wdata
-    } .elsewhen(wen && hit_mtime){
+    } .elsewhen(wen && hit_mtimecmp){
         mtime    := 0.U(w.W)
     } .otherwise {
         mtime    := mtime + 1.U
