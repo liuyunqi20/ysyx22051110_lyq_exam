@@ -15,6 +15,7 @@ trait HasCsrConst{
     val Mstatus_MPP_init = 0x3
     val Mip_MTIP         = "h000000080"
     val Mie_MTIE         = "h000000080"
+    val Mcause_INT_T     = "h800000007"
 }
 
 class CsrOpBundle(w: Int) extends Bundle{
@@ -33,7 +34,7 @@ class CsrExcBundle(w: Int) extends Bundle{
     val ecall      = Input(Bool())
     val mret       = Input(Bool())
     val epc        = Input(UInt(w.W))
-    val exc_code   = Input(UInt((w-1).W))
+    val exc_code   = Input(UInt(w.W))
     val intr_t     = Output(Bool())
 }
 
@@ -113,8 +114,10 @@ class Csr(w: Int) extends Module with HasCsrConst{
             mepc    := csr_res
         }
         // ----- mcause ----- 
-        when(io.exc.ecall || has_intr_t){
-            mcause  := Cat(has_intr_t.asUInt, io.exc.exc_code)
+        when(io.exc.ecall){
+            mcause  := io.exc.exc_code
+        } .elsewhen(has_intr_t){
+            mcause  := Mcause_INT_T.U(w.W)
         } .elsewhen(csr_en && csr_1H(3)){
             mcause  := csr_res
         }

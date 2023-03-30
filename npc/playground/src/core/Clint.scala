@@ -20,8 +20,11 @@ class Clint(w: Int) extends Module with HasClintConst{
     when(io.en && io.wr && (io.waddr === MTIMECMP_ADDR.U(w.W))){
         mtimecmp := io.wdata
         mtime    := 0.U
-    } .elsewhen(io.en && io.wr && (io.waddr === MTIME_ADDR.U(w.W))){
+    }
+    when(io.en && io.wr && (io.waddr === MTIME_ADDR.U(w.W))){
         mtime    := io.wdata
+    } .other{
+        mtime    := mtime + 1
     }
     io.has_intr_t := mtime >= mtimecmp
 }

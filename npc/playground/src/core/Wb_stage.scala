@@ -18,8 +18,8 @@ class Wb_stage(w: Int) extends Module{
         /* ecall */ io.mem2wb.exc_type(0) -> (io.csr_out.mtvec),
         /* mret  */ io.mem2wb.exc_type(1) -> (io.csr_out.mepc + 4.U(w.W)),
     ))
-    val exc_code    = MuxLookup(io.mem2wb.exc_type, 0.U((w-1).W), Seq(
-        /* ecall */ io.mem2wb.exc_type(0) -> (11.U((w-1).W)),
+    val exc_code    = MuxLookup(io.mem2wb.exc_type, 0.U(w.W), Seq(
+        /* ecall  */ io.mem2wb.exc_type(0) -> (11.U(w.W)),
     ))
     // ------------------ CSR ------------------ 
     //csr inst
@@ -30,7 +30,7 @@ class Wb_stage(w: Int) extends Module{
     io.csr_exc.ecall     := io.mem2wb.exc_type(0) === 1.U
     io.csr_exc.mret      := io.mem2wb.exc_type(1) === 1.U
     io.csr_exc.epc       := io.pc
-    io.csr_exc.exc_code  := Cat(0.U(1.W), exc_code)
+    io.csr_exc.exc_code  := exc_code
     // ------------------ RF write back ------------------ 
     io.wb2rf.rf_we := io.mem2wb.gr_we
     io.wb2rf.waddr := io.mem2wb.dest

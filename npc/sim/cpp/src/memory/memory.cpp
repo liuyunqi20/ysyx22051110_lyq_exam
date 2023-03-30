@@ -6,6 +6,8 @@
 #define FB_ADDR     0xa1000000
 #define VGACTL_ADDR 0xa0000100
 #define KBD_ADDR    0xa0000060
+#define MT_ADDR         0xbff8
+#define MTCMP_ADDR      0x4000
 
 extern uint64_t vga_ctl;
 extern void * vgafb_mem;
@@ -102,6 +104,10 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
     waddr = waddr & ~0x7;
     //printf("waddr: %llx wdata: %llx\n", waddr, wdata);
     // ---------------- mmio ---------------- 
+      if((uint64_t)waddr == (uint64_t)MT_ADDR || (uint64_t)waddr == (uint64_t)MTCMP_ADDR){
+        difftest_skip_ref();
+        return;
+      }
       if((uint64_t)waddr == (uint64_t)SERIAL_PORT) { 
         putchar((uint8_t)wdata); 
         difftest_skip_ref();

@@ -22,95 +22,95 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
     if (false && tracep && c) {}  // Prevent unused
     // Body
     {
-        tracep->declBit(c+166,"clock", false,-1);
-        tracep->declBit(c+167,"reset", false,-1);
-        tracep->declQuad(c+168,"io_core_inst_mem_in_rdata", false,-1, 63,0);
-        tracep->declQuad(c+170,"io_core_inst_mem_in_rvalid", false,-1, 63,0);
-        tracep->declQuad(c+172,"io_core_inst_mem_in_wvalid", false,-1, 63,0);
-        tracep->declQuad(c+174,"io_core_data_mem_in_rdata", false,-1, 63,0);
-        tracep->declQuad(c+176,"io_core_data_mem_in_rvalid", false,-1, 63,0);
-        tracep->declQuad(c+178,"io_core_data_mem_in_wvalid", false,-1, 63,0);
-        tracep->declBit(c+180,"io_core_inst_mem_out_en", false,-1);
-        tracep->declBit(c+181,"io_core_inst_mem_out_wr", false,-1);
-        tracep->declQuad(c+182,"io_core_inst_mem_out_addr", false,-1, 63,0);
-        tracep->declBit(c+184,"io_core_inst_mem_out_rready", false,-1);
-        tracep->declBit(c+185,"io_core_inst_mem_out_wready", false,-1);
-        tracep->declQuad(c+186,"io_core_inst_mem_out_wdata", false,-1, 63,0);
-        tracep->declBus(c+188,"io_core_inst_mem_out_wmask", false,-1, 7,0);
-        tracep->declBit(c+189,"io_core_data_mem_out_en", false,-1);
-        tracep->declBit(c+190,"io_core_data_mem_out_wr", false,-1);
-        tracep->declQuad(c+191,"io_core_data_mem_out_addr", false,-1, 63,0);
-        tracep->declBit(c+193,"io_core_data_mem_out_rready", false,-1);
-        tracep->declBit(c+194,"io_core_data_mem_out_wready", false,-1);
-        tracep->declQuad(c+195,"io_core_data_mem_out_wdata", false,-1, 63,0);
-        tracep->declBus(c+197,"io_core_data_mem_out_wmask", false,-1, 7,0);
-        tracep->declQuad(c+198,"io_core_debug_debug_pc", false,-1, 63,0);
-        tracep->declQuad(c+200,"io_core_debug_debug_nextpc", false,-1, 63,0);
-        tracep->declBit(c+202,"io_core_debug_debug_rf_we", false,-1);
-        tracep->declBus(c+203,"io_core_debug_debug_rf_wnum", false,-1, 4,0);
-        tracep->declQuad(c+204,"io_core_debug_debug_rf_wdata", false,-1, 63,0);
-        tracep->declBit(c+166,"SimTop clock", false,-1);
-        tracep->declBit(c+167,"SimTop reset", false,-1);
-        tracep->declQuad(c+168,"SimTop io_core_inst_mem_in_rdata", false,-1, 63,0);
-        tracep->declQuad(c+170,"SimTop io_core_inst_mem_in_rvalid", false,-1, 63,0);
-        tracep->declQuad(c+172,"SimTop io_core_inst_mem_in_wvalid", false,-1, 63,0);
-        tracep->declQuad(c+174,"SimTop io_core_data_mem_in_rdata", false,-1, 63,0);
-        tracep->declQuad(c+176,"SimTop io_core_data_mem_in_rvalid", false,-1, 63,0);
-        tracep->declQuad(c+178,"SimTop io_core_data_mem_in_wvalid", false,-1, 63,0);
-        tracep->declBit(c+180,"SimTop io_core_inst_mem_out_en", false,-1);
-        tracep->declBit(c+181,"SimTop io_core_inst_mem_out_wr", false,-1);
-        tracep->declQuad(c+182,"SimTop io_core_inst_mem_out_addr", false,-1, 63,0);
-        tracep->declBit(c+184,"SimTop io_core_inst_mem_out_rready", false,-1);
-        tracep->declBit(c+185,"SimTop io_core_inst_mem_out_wready", false,-1);
-        tracep->declQuad(c+186,"SimTop io_core_inst_mem_out_wdata", false,-1, 63,0);
-        tracep->declBus(c+188,"SimTop io_core_inst_mem_out_wmask", false,-1, 7,0);
-        tracep->declBit(c+189,"SimTop io_core_data_mem_out_en", false,-1);
-        tracep->declBit(c+190,"SimTop io_core_data_mem_out_wr", false,-1);
-        tracep->declQuad(c+191,"SimTop io_core_data_mem_out_addr", false,-1, 63,0);
-        tracep->declBit(c+193,"SimTop io_core_data_mem_out_rready", false,-1);
-        tracep->declBit(c+194,"SimTop io_core_data_mem_out_wready", false,-1);
-        tracep->declQuad(c+195,"SimTop io_core_data_mem_out_wdata", false,-1, 63,0);
-        tracep->declBus(c+197,"SimTop io_core_data_mem_out_wmask", false,-1, 7,0);
-        tracep->declQuad(c+198,"SimTop io_core_debug_debug_pc", false,-1, 63,0);
-        tracep->declQuad(c+200,"SimTop io_core_debug_debug_nextpc", false,-1, 63,0);
-        tracep->declBit(c+202,"SimTop io_core_debug_debug_rf_we", false,-1);
-        tracep->declBus(c+203,"SimTop io_core_debug_debug_rf_wnum", false,-1, 4,0);
-        tracep->declQuad(c+204,"SimTop io_core_debug_debug_rf_wdata", false,-1, 63,0);
-        tracep->declBit(c+166,"SimTop my_core_top clock", false,-1);
-        tracep->declBit(c+167,"SimTop my_core_top reset", false,-1);
-        tracep->declQuad(c+182,"SimTop my_core_top io_core_inst_mem_out_addr", false,-1, 63,0);
-        tracep->declBit(c+189,"SimTop my_core_top io_core_data_mem_out_en", false,-1);
-        tracep->declBit(c+190,"SimTop my_core_top io_core_data_mem_out_wr", false,-1);
-        tracep->declQuad(c+191,"SimTop my_core_top io_core_data_mem_out_addr", false,-1, 63,0);
-        tracep->declQuad(c+195,"SimTop my_core_top io_core_data_mem_out_wdata", false,-1, 63,0);
-        tracep->declBus(c+197,"SimTop my_core_top io_core_data_mem_out_wmask", false,-1, 7,0);
-        tracep->declQuad(c+198,"SimTop my_core_top io_core_debug_debug_pc", false,-1, 63,0);
-        tracep->declQuad(c+200,"SimTop my_core_top io_core_debug_debug_nextpc", false,-1, 63,0);
-        tracep->declBit(c+202,"SimTop my_core_top io_core_debug_debug_rf_we", false,-1);
-        tracep->declBus(c+203,"SimTop my_core_top io_core_debug_debug_rf_wnum", false,-1, 4,0);
-        tracep->declQuad(c+204,"SimTop my_core_top io_core_debug_debug_rf_wdata", false,-1, 63,0);
-        tracep->declBit(c+166,"SimTop my_core_top my_if clock", false,-1);
-        tracep->declBit(c+167,"SimTop my_core_top my_if reset", false,-1);
+        tracep->declBit(c+176,"clock", false,-1);
+        tracep->declBit(c+177,"reset", false,-1);
+        tracep->declQuad(c+178,"io_core_inst_mem_in_rdata", false,-1, 63,0);
+        tracep->declQuad(c+180,"io_core_inst_mem_in_rvalid", false,-1, 63,0);
+        tracep->declQuad(c+182,"io_core_inst_mem_in_wvalid", false,-1, 63,0);
+        tracep->declQuad(c+184,"io_core_data_mem_in_rdata", false,-1, 63,0);
+        tracep->declQuad(c+186,"io_core_data_mem_in_rvalid", false,-1, 63,0);
+        tracep->declQuad(c+188,"io_core_data_mem_in_wvalid", false,-1, 63,0);
+        tracep->declBit(c+190,"io_core_inst_mem_out_en", false,-1);
+        tracep->declBit(c+191,"io_core_inst_mem_out_wr", false,-1);
+        tracep->declQuad(c+192,"io_core_inst_mem_out_addr", false,-1, 63,0);
+        tracep->declBit(c+194,"io_core_inst_mem_out_rready", false,-1);
+        tracep->declBit(c+195,"io_core_inst_mem_out_wready", false,-1);
+        tracep->declQuad(c+196,"io_core_inst_mem_out_wdata", false,-1, 63,0);
+        tracep->declBus(c+198,"io_core_inst_mem_out_wmask", false,-1, 7,0);
+        tracep->declBit(c+199,"io_core_data_mem_out_en", false,-1);
+        tracep->declBit(c+200,"io_core_data_mem_out_wr", false,-1);
+        tracep->declQuad(c+201,"io_core_data_mem_out_addr", false,-1, 63,0);
+        tracep->declBit(c+203,"io_core_data_mem_out_rready", false,-1);
+        tracep->declBit(c+204,"io_core_data_mem_out_wready", false,-1);
+        tracep->declQuad(c+205,"io_core_data_mem_out_wdata", false,-1, 63,0);
+        tracep->declBus(c+207,"io_core_data_mem_out_wmask", false,-1, 7,0);
+        tracep->declQuad(c+208,"io_core_debug_debug_pc", false,-1, 63,0);
+        tracep->declQuad(c+210,"io_core_debug_debug_nextpc", false,-1, 63,0);
+        tracep->declBit(c+212,"io_core_debug_debug_rf_we", false,-1);
+        tracep->declBus(c+213,"io_core_debug_debug_rf_wnum", false,-1, 4,0);
+        tracep->declQuad(c+214,"io_core_debug_debug_rf_wdata", false,-1, 63,0);
+        tracep->declBit(c+176,"SimTop clock", false,-1);
+        tracep->declBit(c+177,"SimTop reset", false,-1);
+        tracep->declQuad(c+178,"SimTop io_core_inst_mem_in_rdata", false,-1, 63,0);
+        tracep->declQuad(c+180,"SimTop io_core_inst_mem_in_rvalid", false,-1, 63,0);
+        tracep->declQuad(c+182,"SimTop io_core_inst_mem_in_wvalid", false,-1, 63,0);
+        tracep->declQuad(c+184,"SimTop io_core_data_mem_in_rdata", false,-1, 63,0);
+        tracep->declQuad(c+186,"SimTop io_core_data_mem_in_rvalid", false,-1, 63,0);
+        tracep->declQuad(c+188,"SimTop io_core_data_mem_in_wvalid", false,-1, 63,0);
+        tracep->declBit(c+190,"SimTop io_core_inst_mem_out_en", false,-1);
+        tracep->declBit(c+191,"SimTop io_core_inst_mem_out_wr", false,-1);
+        tracep->declQuad(c+192,"SimTop io_core_inst_mem_out_addr", false,-1, 63,0);
+        tracep->declBit(c+194,"SimTop io_core_inst_mem_out_rready", false,-1);
+        tracep->declBit(c+195,"SimTop io_core_inst_mem_out_wready", false,-1);
+        tracep->declQuad(c+196,"SimTop io_core_inst_mem_out_wdata", false,-1, 63,0);
+        tracep->declBus(c+198,"SimTop io_core_inst_mem_out_wmask", false,-1, 7,0);
+        tracep->declBit(c+199,"SimTop io_core_data_mem_out_en", false,-1);
+        tracep->declBit(c+200,"SimTop io_core_data_mem_out_wr", false,-1);
+        tracep->declQuad(c+201,"SimTop io_core_data_mem_out_addr", false,-1, 63,0);
+        tracep->declBit(c+203,"SimTop io_core_data_mem_out_rready", false,-1);
+        tracep->declBit(c+204,"SimTop io_core_data_mem_out_wready", false,-1);
+        tracep->declQuad(c+205,"SimTop io_core_data_mem_out_wdata", false,-1, 63,0);
+        tracep->declBus(c+207,"SimTop io_core_data_mem_out_wmask", false,-1, 7,0);
+        tracep->declQuad(c+208,"SimTop io_core_debug_debug_pc", false,-1, 63,0);
+        tracep->declQuad(c+210,"SimTop io_core_debug_debug_nextpc", false,-1, 63,0);
+        tracep->declBit(c+212,"SimTop io_core_debug_debug_rf_we", false,-1);
+        tracep->declBus(c+213,"SimTop io_core_debug_debug_rf_wnum", false,-1, 4,0);
+        tracep->declQuad(c+214,"SimTop io_core_debug_debug_rf_wdata", false,-1, 63,0);
+        tracep->declBit(c+176,"SimTop my_core_top clock", false,-1);
+        tracep->declBit(c+177,"SimTop my_core_top reset", false,-1);
+        tracep->declQuad(c+192,"SimTop my_core_top io_core_inst_mem_out_addr", false,-1, 63,0);
+        tracep->declBit(c+199,"SimTop my_core_top io_core_data_mem_out_en", false,-1);
+        tracep->declBit(c+200,"SimTop my_core_top io_core_data_mem_out_wr", false,-1);
+        tracep->declQuad(c+201,"SimTop my_core_top io_core_data_mem_out_addr", false,-1, 63,0);
+        tracep->declQuad(c+205,"SimTop my_core_top io_core_data_mem_out_wdata", false,-1, 63,0);
+        tracep->declBus(c+207,"SimTop my_core_top io_core_data_mem_out_wmask", false,-1, 7,0);
+        tracep->declQuad(c+208,"SimTop my_core_top io_core_debug_debug_pc", false,-1, 63,0);
+        tracep->declQuad(c+210,"SimTop my_core_top io_core_debug_debug_nextpc", false,-1, 63,0);
+        tracep->declBit(c+212,"SimTop my_core_top io_core_debug_debug_rf_we", false,-1);
+        tracep->declBus(c+213,"SimTop my_core_top io_core_debug_debug_rf_wnum", false,-1, 4,0);
+        tracep->declQuad(c+214,"SimTop my_core_top io_core_debug_debug_rf_wdata", false,-1, 63,0);
+        tracep->declBit(c+176,"SimTop my_core_top my_if clock", false,-1);
+        tracep->declBit(c+177,"SimTop my_core_top my_if reset", false,-1);
         tracep->declQuad(c+1,"SimTop my_core_top my_if io_branch_pc_seq", false,-1, 63,0);
         tracep->declQuad(c+3,"SimTop my_core_top my_if io_branch_br_target", false,-1, 63,0);
         tracep->declBit(c+5,"SimTop my_core_top my_if io_branch_br_en", false,-1);
         tracep->declBit(c+6,"SimTop my_core_top my_if io_exc_br_exc_br", false,-1);
         tracep->declQuad(c+7,"SimTop my_core_top my_if io_exc_br_exc_target", false,-1, 63,0);
         tracep->declQuad(c+9,"SimTop my_core_top my_if io_pc", false,-1, 63,0);
-        tracep->declQuad(c+200,"SimTop my_core_top my_if io_nextpc", false,-1, 63,0);
-        tracep->declQuad(c+182,"SimTop my_core_top my_if io_inst_mem_out_addr", false,-1, 63,0);
+        tracep->declQuad(c+210,"SimTop my_core_top my_if io_nextpc", false,-1, 63,0);
+        tracep->declQuad(c+192,"SimTop my_core_top my_if io_inst_mem_out_addr", false,-1, 63,0);
         tracep->declBus(c+11,"SimTop my_core_top my_if io_if2id_inst", false,-1, 31,0);
         tracep->declQuad(c+9,"SimTop my_core_top my_if pc", false,-1, 63,0);
         tracep->declQuad(c+12,"SimTop my_core_top my_if nextpc", false,-1, 63,0);
         tracep->declBus(c+11,"SimTop my_core_top my_if inst", false,-1, 31,0);
-        tracep->declBit(c+166,"SimTop my_core_top my_if my_imem_port clk", false,-1);
-        tracep->declBit(c+167,"SimTop my_core_top my_if my_imem_port reset", false,-1);
-        tracep->declBit(c+208,"SimTop my_core_top my_if my_imem_port en", false,-1);
-        tracep->declBit(c+209,"SimTop my_core_top my_if my_imem_port wr", false,-1);
+        tracep->declBit(c+176,"SimTop my_core_top my_if my_imem_port clk", false,-1);
+        tracep->declBit(c+177,"SimTop my_core_top my_if my_imem_port reset", false,-1);
+        tracep->declBit(c+218,"SimTop my_core_top my_if my_imem_port en", false,-1);
+        tracep->declBit(c+219,"SimTop my_core_top my_if my_imem_port wr", false,-1);
         tracep->declQuad(c+12,"SimTop my_core_top my_if my_imem_port addr", false,-1, 63,0);
-        tracep->declQuad(c+206,"SimTop my_core_top my_if my_imem_port rdata", false,-1, 63,0);
-        tracep->declBit(c+166,"SimTop my_core_top my_id clock", false,-1);
-        tracep->declBit(c+167,"SimTop my_core_top my_id reset", false,-1);
+        tracep->declQuad(c+216,"SimTop my_core_top my_if my_imem_port rdata", false,-1, 63,0);
+        tracep->declBit(c+176,"SimTop my_core_top my_id clock", false,-1);
+        tracep->declBit(c+177,"SimTop my_core_top my_id reset", false,-1);
         tracep->declQuad(c+9,"SimTop my_core_top my_id io_pc", false,-1, 63,0);
         tracep->declBus(c+11,"SimTop my_core_top my_id io_if2id_inst", false,-1, 31,0);
         tracep->declBit(c+14,"SimTop my_core_top my_id io_wb2rf_rf_we", false,-1);
@@ -136,8 +136,8 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+34,"SimTop my_core_top my_id io_id2ex_imm", false,-1, 63,0);
         tracep->declQuad(c+32,"SimTop my_core_top my_id io_id2ex_mem_wdata", false,-1, 63,0);
         tracep->declBus(c+36,"SimTop my_core_top my_id io_id2ex_csr_num", false,-1, 11,0);
-        tracep->declBit(c+166,"SimTop my_core_top my_id my_inst_monitor clock", false,-1);
-        tracep->declBit(c+167,"SimTop my_core_top my_id my_inst_monitor reset", false,-1);
+        tracep->declBit(c+176,"SimTop my_core_top my_id my_inst_monitor clock", false,-1);
+        tracep->declBit(c+177,"SimTop my_core_top my_id my_inst_monitor reset", false,-1);
         tracep->declBit(c+37,"SimTop my_core_top my_id my_inst_monitor inst_ebreak", false,-1);
         tracep->declQuad(c+38,"SimTop my_core_top my_id my_inst_monitor inst", false,-1, 63,0);
         tracep->declBus(c+11,"SimTop my_core_top my_id my_decoder io_inst", false,-1, 31,0);
@@ -155,8 +155,8 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBus(c+27,"SimTop my_core_top my_id my_decoder io_ex_sel", false,-1, 2,0);
         tracep->declBus(c+28,"SimTop my_core_top my_id my_decoder io_csr_op", false,-1, 2,0);
         tracep->declBus(c+29,"SimTop my_core_top my_id my_decoder io_exc_type", false,-1, 1,0);
-        tracep->declBit(c+166,"SimTop my_core_top my_id my_rf clock", false,-1);
-        tracep->declBit(c+167,"SimTop my_core_top my_id my_rf reset", false,-1);
+        tracep->declBit(c+176,"SimTop my_core_top my_id my_rf clock", false,-1);
+        tracep->declBit(c+177,"SimTop my_core_top my_id my_rf reset", false,-1);
         tracep->declBus(c+41,"SimTop my_core_top my_id my_rf io_raddr1", false,-1, 4,0);
         tracep->declBus(c+42,"SimTop my_core_top my_id my_rf io_raddr2", false,-1, 4,0);
         tracep->declBus(c+15,"SimTop my_core_top my_id my_rf io_waddr", false,-1, 4,0);
@@ -164,8 +164,8 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+14,"SimTop my_core_top my_id my_rf io_wen", false,-1);
         tracep->declQuad(c+30,"SimTop my_core_top my_id my_rf io_rdata1", false,-1, 63,0);
         tracep->declQuad(c+32,"SimTop my_core_top my_id my_rf io_rdata2", false,-1, 63,0);
-        tracep->declBit(c+166,"SimTop my_core_top my_id my_rf my_gpr clock", false,-1);
-        tracep->declBit(c+167,"SimTop my_core_top my_id my_rf my_gpr reset", false,-1);
+        tracep->declBit(c+176,"SimTop my_core_top my_id my_rf my_gpr clock", false,-1);
+        tracep->declBit(c+177,"SimTop my_core_top my_id my_rf my_gpr reset", false,-1);
         tracep->declBus(c+15,"SimTop my_core_top my_id my_rf my_gpr waddr", false,-1, 4,0);
         tracep->declBus(c+41,"SimTop my_core_top my_id my_rf my_gpr raddr1", false,-1, 4,0);
         tracep->declBus(c+42,"SimTop my_core_top my_id my_rf my_gpr raddr2", false,-1, 4,0);
@@ -246,11 +246,11 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+133,"SimTop my_core_top my_mem io_mem2wb_result", false,-1, 63,0);
         tracep->declBus(c+36,"SimTop my_core_top my_mem io_mem2wb_csr_num", false,-1, 11,0);
         tracep->declQuad(c+30,"SimTop my_core_top my_mem io_mem2wb_rs1", false,-1, 63,0);
-        tracep->declBit(c+189,"SimTop my_core_top my_mem io_data_mem_out_en", false,-1);
-        tracep->declBit(c+190,"SimTop my_core_top my_mem io_data_mem_out_wr", false,-1);
-        tracep->declQuad(c+191,"SimTop my_core_top my_mem io_data_mem_out_addr", false,-1, 63,0);
-        tracep->declQuad(c+195,"SimTop my_core_top my_mem io_data_mem_out_wdata", false,-1, 63,0);
-        tracep->declBus(c+197,"SimTop my_core_top my_mem io_data_mem_out_wmask", false,-1, 7,0);
+        tracep->declBit(c+23,"SimTop my_core_top my_mem io_data_mem_out_en", false,-1);
+        tracep->declBit(c+24,"SimTop my_core_top my_mem io_data_mem_out_wr", false,-1);
+        tracep->declQuad(c+135,"SimTop my_core_top my_mem io_data_mem_out_addr", false,-1, 63,0);
+        tracep->declQuad(c+32,"SimTop my_core_top my_mem io_data_mem_out_wdata", false,-1, 63,0);
+        tracep->declBus(c+207,"SimTop my_core_top my_mem io_data_mem_out_wmask", false,-1, 7,0);
         tracep->declQuad(c+135,"SimTop my_core_top my_mem maddr", false,-1, 63,0);
         tracep->declBus(c+137,"SimTop my_core_top my_mem rdata_b", false,-1, 7,0);
         tracep->declBus(c+138,"SimTop my_core_top my_mem rdata_h", false,-1, 15,0);
@@ -261,9 +261,7 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+32,"SimTop my_core_top my_mem my_dmem_port wdata", false,-1, 63,0);
         tracep->declBus(c+140,"SimTop my_core_top my_mem my_dmem_port wmask", false,-1, 7,0);
         tracep->declQuad(c+141,"SimTop my_core_top my_mem my_dmem_port rdata", false,-1, 63,0);
-        tracep->declQuad(c+210,"SimTop my_core_top my_mem my_dmem_port tmprdata", false,-1, 63,0);
-        tracep->declBit(c+166,"SimTop my_core_top my_wb clock", false,-1);
-        tracep->declBit(c+167,"SimTop my_core_top my_wb reset", false,-1);
+        tracep->declQuad(c+220,"SimTop my_core_top my_mem my_dmem_port tmprdata", false,-1, 63,0);
         tracep->declQuad(c+9,"SimTop my_core_top my_wb io_pc", false,-1, 63,0);
         tracep->declBit(c+14,"SimTop my_core_top my_wb io_mem2wb_gr_we", false,-1);
         tracep->declBus(c+28,"SimTop my_core_top my_wb io_mem2wb_csr_op", false,-1, 2,0);
@@ -272,34 +270,59 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+133,"SimTop my_core_top my_wb io_mem2wb_result", false,-1, 63,0);
         tracep->declBus(c+36,"SimTop my_core_top my_wb io_mem2wb_csr_num", false,-1, 11,0);
         tracep->declQuad(c+30,"SimTop my_core_top my_wb io_mem2wb_rs1", false,-1, 63,0);
+        tracep->declQuad(c+143,"SimTop my_core_top my_wb io_csr_op_csr_old", false,-1, 63,0);
+        tracep->declBit(c+145,"SimTop my_core_top my_wb io_csr_exc_intr_t", false,-1);
+        tracep->declQuad(c+146,"SimTop my_core_top my_wb io_csr_out_mepc", false,-1, 63,0);
+        tracep->declQuad(c+148,"SimTop my_core_top my_wb io_csr_out_mtvec", false,-1, 63,0);
         tracep->declBit(c+14,"SimTop my_core_top my_wb io_wb2rf_rf_we", false,-1);
         tracep->declBus(c+15,"SimTop my_core_top my_wb io_wb2rf_waddr", false,-1, 4,0);
         tracep->declQuad(c+16,"SimTop my_core_top my_wb io_wb2rf_wdata", false,-1, 63,0);
         tracep->declBit(c+6,"SimTop my_core_top my_wb io_exc_br_exc_br", false,-1);
         tracep->declQuad(c+7,"SimTop my_core_top my_wb io_exc_br_exc_target", false,-1, 63,0);
-        tracep->declBit(c+166,"SimTop my_core_top my_wb my_csr clock", false,-1);
-        tracep->declBit(c+167,"SimTop my_core_top my_wb my_csr reset", false,-1);
-        tracep->declBus(c+28,"SimTop my_core_top my_wb my_csr io_op_csr_op", false,-1, 2,0);
-        tracep->declBus(c+36,"SimTop my_core_top my_wb my_csr io_op_csr_num", false,-1, 11,0);
-        tracep->declQuad(c+30,"SimTop my_core_top my_wb my_csr io_op_csr_wdata", false,-1, 63,0);
-        tracep->declBit(c+143,"SimTop my_core_top my_wb my_csr io_exc_ecall", false,-1);
-        tracep->declBit(c+144,"SimTop my_core_top my_wb my_csr io_exc_mret", false,-1);
-        tracep->declQuad(c+9,"SimTop my_core_top my_wb my_csr io_exc_epc", false,-1, 63,0);
-        tracep->declQuad(c+145,"SimTop my_core_top my_wb my_csr io_exc_exc_code", false,-1, 62,0);
-        tracep->declQuad(c+147,"SimTop my_core_top my_wb my_csr io_op_csr_old", false,-1, 63,0);
-        tracep->declQuad(c+149,"SimTop my_core_top my_wb my_csr io_out_mepc", false,-1, 63,0);
-        tracep->declQuad(c+151,"SimTop my_core_top my_wb my_csr io_out_mtvec", false,-1, 63,0);
-        tracep->declBus(c+153,"SimTop my_core_top my_wb my_csr mstatus_sxl", false,-1, 1,0);
-        tracep->declBus(c+154,"SimTop my_core_top my_wb my_csr mstatus_uxl", false,-1, 1,0);
-        tracep->declBus(c+155,"SimTop my_core_top my_wb my_csr mstatus_mpp", false,-1, 1,0);
-        tracep->declBit(c+156,"SimTop my_core_top my_wb my_csr mstatus_mie", false,-1);
-        tracep->declBit(c+157,"SimTop my_core_top my_wb my_csr mstatus_mpie", false,-1);
-        tracep->declQuad(c+158,"SimTop my_core_top my_wb my_csr mcause", false,-1, 63,0);
-        tracep->declQuad(c+160,"SimTop my_core_top my_wb my_csr mepc", false,-1, 63,0);
-        tracep->declQuad(c+162,"SimTop my_core_top my_wb my_csr mtvec", false,-1, 63,0);
-        tracep->declQuad(c+164,"SimTop my_core_top my_wb my_csr mstatus_rval", false,-1, 63,0);
-        tracep->declQuad(c+151,"SimTop my_core_top my_wb my_csr mtvec_rval", false,-1, 63,0);
-        tracep->declQuad(c+149,"SimTop my_core_top my_wb my_csr mepc_rval", false,-1, 63,0);
+        tracep->declBus(c+28,"SimTop my_core_top my_wb io_csr_op_csr_op", false,-1, 2,0);
+        tracep->declBus(c+36,"SimTop my_core_top my_wb io_csr_op_csr_num", false,-1, 11,0);
+        tracep->declQuad(c+30,"SimTop my_core_top my_wb io_csr_op_csr_wdata", false,-1, 63,0);
+        tracep->declBit(c+150,"SimTop my_core_top my_wb io_csr_exc_ecall", false,-1);
+        tracep->declBit(c+151,"SimTop my_core_top my_wb io_csr_exc_mret", false,-1);
+        tracep->declQuad(c+9,"SimTop my_core_top my_wb io_csr_exc_epc", false,-1, 63,0);
+        tracep->declQuad(c+152,"SimTop my_core_top my_wb io_csr_exc_exc_code", false,-1, 62,0);
+        tracep->declBit(c+176,"SimTop my_core_top my_clint clock", false,-1);
+        tracep->declBit(c+177,"SimTop my_core_top my_clint reset", false,-1);
+        tracep->declBit(c+23,"SimTop my_core_top my_clint io_en", false,-1);
+        tracep->declBit(c+24,"SimTop my_core_top my_clint io_wr", false,-1);
+        tracep->declQuad(c+135,"SimTop my_core_top my_clint io_waddr", false,-1, 63,0);
+        tracep->declQuad(c+32,"SimTop my_core_top my_clint io_wdata", false,-1, 63,0);
+        tracep->declBit(c+154,"SimTop my_core_top my_clint io_has_intr_t", false,-1);
+        tracep->declQuad(c+155,"SimTop my_core_top my_clint mtime", false,-1, 63,0);
+        tracep->declQuad(c+157,"SimTop my_core_top my_clint mtimecmp", false,-1, 63,0);
+        tracep->declBit(c+176,"SimTop my_core_top my_csr clock", false,-1);
+        tracep->declBit(c+177,"SimTop my_core_top my_csr reset", false,-1);
+        tracep->declBus(c+28,"SimTop my_core_top my_csr io_op_csr_op", false,-1, 2,0);
+        tracep->declBus(c+36,"SimTop my_core_top my_csr io_op_csr_num", false,-1, 11,0);
+        tracep->declQuad(c+30,"SimTop my_core_top my_csr io_op_csr_wdata", false,-1, 63,0);
+        tracep->declBit(c+150,"SimTop my_core_top my_csr io_exc_ecall", false,-1);
+        tracep->declBit(c+151,"SimTop my_core_top my_csr io_exc_mret", false,-1);
+        tracep->declQuad(c+9,"SimTop my_core_top my_csr io_exc_epc", false,-1, 63,0);
+        tracep->declQuad(c+152,"SimTop my_core_top my_csr io_exc_exc_code", false,-1, 62,0);
+        tracep->declBit(c+154,"SimTop my_core_top my_csr io_clint_intr_t", false,-1);
+        tracep->declQuad(c+143,"SimTop my_core_top my_csr io_op_csr_old", false,-1, 63,0);
+        tracep->declQuad(c+146,"SimTop my_core_top my_csr io_out_mepc", false,-1, 63,0);
+        tracep->declQuad(c+148,"SimTop my_core_top my_csr io_out_mtvec", false,-1, 63,0);
+        tracep->declBit(c+145,"SimTop my_core_top my_csr io_exc_intr_t", false,-1);
+        tracep->declBus(c+159,"SimTop my_core_top my_csr mstatus_sxl", false,-1, 1,0);
+        tracep->declBus(c+160,"SimTop my_core_top my_csr mstatus_uxl", false,-1, 1,0);
+        tracep->declBus(c+161,"SimTop my_core_top my_csr mstatus_mpp", false,-1, 1,0);
+        tracep->declBit(c+162,"SimTop my_core_top my_csr mstatus_mie", false,-1);
+        tracep->declBit(c+163,"SimTop my_core_top my_csr mstatus_mpie", false,-1);
+        tracep->declQuad(c+164,"SimTop my_core_top my_csr mcause", false,-1, 63,0);
+        tracep->declQuad(c+166,"SimTop my_core_top my_csr mepc", false,-1, 63,0);
+        tracep->declQuad(c+168,"SimTop my_core_top my_csr mtvec", false,-1, 63,0);
+        tracep->declQuad(c+170,"SimTop my_core_top my_csr mip", false,-1, 63,0);
+        tracep->declQuad(c+172,"SimTop my_core_top my_csr mie", false,-1, 63,0);
+        tracep->declQuad(c+174,"SimTop my_core_top my_csr mstatus_rval", false,-1, 63,0);
+        tracep->declQuad(c+148,"SimTop my_core_top my_csr mtvec_rval", false,-1, 63,0);
+        tracep->declQuad(c+146,"SimTop my_core_top my_csr mepc_rval", false,-1, 63,0);
+        tracep->declBit(c+145,"SimTop my_core_top my_csr has_intr_t", false,-1);
     }
 }
 
@@ -346,7 +369,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullQData(oldp+1,((4ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc)),64);
         tracep->fullQData(oldp+3,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_target),64);
         tracep->fullBit(oldp+5,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_en));
-        tracep->fullBit(oldp+6,((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))));
+        tracep->fullBit(oldp+6,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_br));
         tracep->fullQData(oldp+7,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target),64);
         tracep->fullQData(oldp+9,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc),64);
         tracep->fullIData(oldp+11,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst),32);
@@ -593,74 +616,81 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullIData(oldp+139,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_w),32);
         tracep->fullCData(oldp+140,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___wmask_T_10),8);
         tracep->fullQData(oldp+141,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___my_dmem_port_rdata),64);
-        tracep->fullBit(oldp+143,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))));
-        tracep->fullBit(oldp+144,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type) 
-                                         >> 1U))));
-        tracep->fullQData(oldp+145,((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
-                                      == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
-                                      ? 0xbULL : 0ULL)),63);
-        tracep->fullQData(oldp+147,(((0x342U == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
+        tracep->fullQData(oldp+143,(((0x342U == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                                  >> 0x14U))
-                                      ? vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mcause
+                                      ? vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause
                                       : ((0x341U == 
                                           (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                            >> 0x14U))
                                           ? (0xfffffffffffffffcULL 
-                                             & vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mepc)
+                                             & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc)
                                           : ((0x305U 
                                               == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                                   >> 0x14U))
                                               ? (0xfffffffffffffffcULL 
-                                                 & vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec)
+                                                 & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec)
                                               : ((0x300U 
                                                   == 
                                                   (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                                    >> 0x14U))
-                                                  ? vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_rval
+                                                  ? vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_rval
                                                   : 0ULL))))),64);
-        tracep->fullQData(oldp+149,((0xfffffffffffffffcULL 
-                                     & vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mepc)),64);
-        tracep->fullQData(oldp+151,((0xfffffffffffffffcULL 
-                                     & vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec)),64);
-        tracep->fullCData(oldp+153,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_sxl),2);
-        tracep->fullCData(oldp+154,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_uxl),2);
-        tracep->fullCData(oldp+155,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mpp),2);
-        tracep->fullBit(oldp+156,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mie));
-        tracep->fullBit(oldp+157,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mpie));
-        tracep->fullQData(oldp+158,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mcause),64);
-        tracep->fullQData(oldp+160,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mepc),64);
-        tracep->fullQData(oldp+162,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec),64);
-        tracep->fullQData(oldp+164,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_rval),64);
-        tracep->fullBit(oldp+166,(vlSelf->clock));
-        tracep->fullBit(oldp+167,(vlSelf->reset));
-        tracep->fullQData(oldp+168,(vlSelf->io_core_inst_mem_in_rdata),64);
-        tracep->fullQData(oldp+170,(vlSelf->io_core_inst_mem_in_rvalid),64);
-        tracep->fullQData(oldp+172,(vlSelf->io_core_inst_mem_in_wvalid),64);
-        tracep->fullQData(oldp+174,(vlSelf->io_core_data_mem_in_rdata),64);
-        tracep->fullQData(oldp+176,(vlSelf->io_core_data_mem_in_rvalid),64);
-        tracep->fullQData(oldp+178,(vlSelf->io_core_data_mem_in_wvalid),64);
-        tracep->fullBit(oldp+180,(vlSelf->io_core_inst_mem_out_en));
-        tracep->fullBit(oldp+181,(vlSelf->io_core_inst_mem_out_wr));
-        tracep->fullQData(oldp+182,(vlSelf->io_core_inst_mem_out_addr),64);
-        tracep->fullBit(oldp+184,(vlSelf->io_core_inst_mem_out_rready));
-        tracep->fullBit(oldp+185,(vlSelf->io_core_inst_mem_out_wready));
-        tracep->fullQData(oldp+186,(vlSelf->io_core_inst_mem_out_wdata),64);
-        tracep->fullCData(oldp+188,(vlSelf->io_core_inst_mem_out_wmask),8);
-        tracep->fullBit(oldp+189,(vlSelf->io_core_data_mem_out_en));
-        tracep->fullBit(oldp+190,(vlSelf->io_core_data_mem_out_wr));
-        tracep->fullQData(oldp+191,(vlSelf->io_core_data_mem_out_addr),64);
-        tracep->fullBit(oldp+193,(vlSelf->io_core_data_mem_out_rready));
-        tracep->fullBit(oldp+194,(vlSelf->io_core_data_mem_out_wready));
-        tracep->fullQData(oldp+195,(vlSelf->io_core_data_mem_out_wdata),64);
-        tracep->fullCData(oldp+197,(vlSelf->io_core_data_mem_out_wmask),8);
-        tracep->fullQData(oldp+198,(vlSelf->io_core_debug_debug_pc),64);
-        tracep->fullQData(oldp+200,(vlSelf->io_core_debug_debug_nextpc),64);
-        tracep->fullBit(oldp+202,(vlSelf->io_core_debug_debug_rf_we));
-        tracep->fullCData(oldp+203,(vlSelf->io_core_debug_debug_rf_wnum),5);
-        tracep->fullQData(oldp+204,(vlSelf->io_core_debug_debug_rf_wdata),64);
-        tracep->fullQData(oldp+206,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___my_imem_port_rdata),64);
-        tracep->fullBit(oldp+208,(1U));
-        tracep->fullBit(oldp+209,(0U));
-        tracep->fullQData(oldp+210,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__my_dmem_port__DOT__tmprdata),64);
+        tracep->fullBit(oldp+145,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t));
+        tracep->fullQData(oldp+146,((0xfffffffffffffffcULL 
+                                     & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc)),64);
+        tracep->fullQData(oldp+148,((0xfffffffffffffffcULL 
+                                     & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec)),64);
+        tracep->fullBit(oldp+150,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))));
+        tracep->fullBit(oldp+151,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type) 
+                                         >> 1U))));
+        tracep->fullQData(oldp+152,((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
+                                      == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
+                                      ? 0xbULL : 0ULL)),63);
+        tracep->fullBit(oldp+154,((vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
+                                   >= vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp)));
+        tracep->fullQData(oldp+155,(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime),64);
+        tracep->fullQData(oldp+157,(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp),64);
+        tracep->fullCData(oldp+159,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl),2);
+        tracep->fullCData(oldp+160,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_uxl),2);
+        tracep->fullCData(oldp+161,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpp),2);
+        tracep->fullBit(oldp+162,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie));
+        tracep->fullBit(oldp+163,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie));
+        tracep->fullQData(oldp+164,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause),64);
+        tracep->fullQData(oldp+166,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc),64);
+        tracep->fullQData(oldp+168,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec),64);
+        tracep->fullQData(oldp+170,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip),64);
+        tracep->fullQData(oldp+172,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie),64);
+        tracep->fullQData(oldp+174,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_rval),64);
+        tracep->fullBit(oldp+176,(vlSelf->clock));
+        tracep->fullBit(oldp+177,(vlSelf->reset));
+        tracep->fullQData(oldp+178,(vlSelf->io_core_inst_mem_in_rdata),64);
+        tracep->fullQData(oldp+180,(vlSelf->io_core_inst_mem_in_rvalid),64);
+        tracep->fullQData(oldp+182,(vlSelf->io_core_inst_mem_in_wvalid),64);
+        tracep->fullQData(oldp+184,(vlSelf->io_core_data_mem_in_rdata),64);
+        tracep->fullQData(oldp+186,(vlSelf->io_core_data_mem_in_rvalid),64);
+        tracep->fullQData(oldp+188,(vlSelf->io_core_data_mem_in_wvalid),64);
+        tracep->fullBit(oldp+190,(vlSelf->io_core_inst_mem_out_en));
+        tracep->fullBit(oldp+191,(vlSelf->io_core_inst_mem_out_wr));
+        tracep->fullQData(oldp+192,(vlSelf->io_core_inst_mem_out_addr),64);
+        tracep->fullBit(oldp+194,(vlSelf->io_core_inst_mem_out_rready));
+        tracep->fullBit(oldp+195,(vlSelf->io_core_inst_mem_out_wready));
+        tracep->fullQData(oldp+196,(vlSelf->io_core_inst_mem_out_wdata),64);
+        tracep->fullCData(oldp+198,(vlSelf->io_core_inst_mem_out_wmask),8);
+        tracep->fullBit(oldp+199,(vlSelf->io_core_data_mem_out_en));
+        tracep->fullBit(oldp+200,(vlSelf->io_core_data_mem_out_wr));
+        tracep->fullQData(oldp+201,(vlSelf->io_core_data_mem_out_addr),64);
+        tracep->fullBit(oldp+203,(vlSelf->io_core_data_mem_out_rready));
+        tracep->fullBit(oldp+204,(vlSelf->io_core_data_mem_out_wready));
+        tracep->fullQData(oldp+205,(vlSelf->io_core_data_mem_out_wdata),64);
+        tracep->fullCData(oldp+207,(vlSelf->io_core_data_mem_out_wmask),8);
+        tracep->fullQData(oldp+208,(vlSelf->io_core_debug_debug_pc),64);
+        tracep->fullQData(oldp+210,(vlSelf->io_core_debug_debug_nextpc),64);
+        tracep->fullBit(oldp+212,(vlSelf->io_core_debug_debug_rf_we));
+        tracep->fullCData(oldp+213,(vlSelf->io_core_debug_debug_rf_wnum),5);
+        tracep->fullQData(oldp+214,(vlSelf->io_core_debug_debug_rf_wdata),64);
+        tracep->fullQData(oldp+216,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___my_imem_port_rdata),64);
+        tracep->fullBit(oldp+218,(1U));
+        tracep->fullBit(oldp+219,(0U));
+        tracep->fullQData(oldp+220,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__my_dmem_port__DOT__tmprdata),64);
     }
 }

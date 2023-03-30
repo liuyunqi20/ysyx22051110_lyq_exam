@@ -84,19 +84,25 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_4;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_5;
     // Body
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec_rval 
-        = (0xfffffffffffffffcULL & vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mepc_rval 
-        = (0xfffffffffffffffcULL & vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mepc);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_rval 
-        = (((QData)((IData)((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_sxl) 
-                              << 2U) | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_uxl)))) 
-            << 0x20U) | (QData)((IData)((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mpp) 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec_rval 
+        = (0xfffffffffffffffcULL & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc_rval 
+        = (0xfffffffffffffffcULL & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_rval 
+        = (((QData)((IData)((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl) 
+                              << 2U) | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_uxl)))) 
+            << 0x20U) | (QData)((IData)((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpp) 
                                           << 0xbU) 
-                                         | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mpie) 
+                                         | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie) 
                                              << 7U) 
-                                            | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mie) 
+                                            | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie) 
                                                << 3U))))));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t 
+        = (((vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
+             >= vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp) 
+            & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie)) 
+           & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie 
+                      >> 7U)));
     vlSelf->io_core_debug_debug_pc = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc;
     vlSelf->io_core_debug_debug_rf_wnum = (0x1fU & 
                                            (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
@@ -654,12 +660,15 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
                                                    ((0x3f3U 
                                                      == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN)) 
                                                     << 2U)))))));
+    vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_br 
+        = ((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
+           | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target 
         = (((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
-             ? (0xfffffffffffffffcULL & vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec)
+             ? (0xfffffffffffffffcULL & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec)
              : 0ULL) | ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
                          ? (4ULL + (0xfffffffffffffffcULL 
-                                    & vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mepc))
+                                    & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc))
                          : 0ULL));
     vlSelf->io_core_data_mem_out_en = vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_en;
     vlSelf->io_core_data_mem_out_wr = vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_wr;
@@ -1367,7 +1376,7 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
                                                      & (~ 
                                                         vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[2U]))))))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc 
-        = ((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
+        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_br)
             ? vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target
             : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_en)
                 ? vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_target
@@ -1542,15 +1551,15 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_wdata 
         = ((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op))
             ? ((0x342U == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
-                           >> 0x14U)) ? vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mcause
+                           >> 0x14U)) ? vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause
                 : ((0x341U == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                >> 0x14U)) ? (0xfffffffffffffffcULL 
-                                             & vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mepc)
+                                             & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc)
                     : ((0x305U == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                    >> 0x14U)) ? (0xfffffffffffffffcULL 
-                                                 & vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec)
+                                                 & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec)
                         : ((0x300U == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
-                                       >> 0x14U)) ? vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_rval
+                                       >> 0x14U)) ? vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_rval
                             : 0ULL)))) : vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_mem2wb_result);
     vlSelf->io_core_debug_debug_rf_wdata = vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_wdata;
 }
@@ -1613,6 +1622,7 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     vlSelf->io_core_debug_debug_rf_wnum = VL_RAND_RESET_I(5);
     vlSelf->io_core_debug_debug_rf_wdata = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_wdata = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_br = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_mem2wb_result = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result = VL_RAND_RESET_Q(64);
@@ -1662,21 +1672,28 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_w = VL_RAND_RESET_I(32);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___wmask_T_10 = VL_RAND_RESET_I(8);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__my_dmem_port__DOT__tmprdata = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_sxl = VL_RAND_RESET_I(2);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_uxl = VL_RAND_RESET_I(2);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mpp = VL_RAND_RESET_I(2);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mie = VL_RAND_RESET_I(1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mpie = VL_RAND_RESET_I(1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mcause = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mepc = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_rval = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec_rval = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mepc_rval = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___GEN = VL_RAND_RESET_I(4);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___csr_src_T_10 = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7 = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___T_2 = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_3 = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl = VL_RAND_RESET_I(2);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_uxl = VL_RAND_RESET_I(2);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpp = VL_RAND_RESET_I(2);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_rval = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec_rval = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc_rval = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___GEN = VL_RAND_RESET_I(6);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_src_T_16 = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7 = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_8 = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_2 = VL_RAND_RESET_I(1);
     vlSelf->__Vtask_SimTop__DOT__my_core_top__DOT__my_if__DOT__my_imem_port__DOT__cpu_dmem_read__0__rdata = 0;
     vlSelf->__Vtask_SimTop__DOT__my_core_top__DOT__my_mem__DOT__my_dmem_port__DOT__cpu_dmem_read__3__rdata = 0;
     for (int __Vi0=0; __Vi0<2; ++__Vi0) {
