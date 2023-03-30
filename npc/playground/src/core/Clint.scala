@@ -17,12 +17,16 @@ class Clint(w: Int) extends Module with HasClintConst{
     })
     val mtime    = RegInit(0.U(w.W))
     val mtimecmp = RegInit(0.U(w.W))
-    when(io.en && io.wr && (io.waddr === MTIMECMP_ADDR.U(w.W))){
+    val hit_mtime = io.waddr === MTIME_ADDR.U(w.W)
+    val hit_mtimecmp = io.waddr === MTIMECMP_ADDR.U(w.W)
+    val wen = io.en && io.wr
+    when(wen && hit_mtimecmp){
         mtimecmp := io.wdata
-        mtime    := 0.U(w.W)
     }
-    when(io.en && io.wr && (io.waddr === MTIME_ADDR.U(w.W))){
+    when(wen && hit_mtime){
         mtime    := io.wdata
+    } .elsewhen(wen && hit_mtime){
+        mtime    := 0.U(w.W)
     } .otherwise {
         mtime    := mtime + 1.U
     }
