@@ -38,7 +38,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
         val op    = new CsrOpBundle(w)
         val out   = new CsrOutBundle(w)
         val exc   = new CsrExcBundle(w)
-        val clint_int_t = Input(Bool())
+        val clint_intr_t = Input(Bool())
     })
     val mstatus_sxl  = RegInit(Mstatus_SXL_init.U(2.W))
     val mstatus_uxl  = RegInit(Mstatus_UXL_init.U(2.W))
