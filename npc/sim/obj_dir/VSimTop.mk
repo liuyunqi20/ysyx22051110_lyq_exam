@@ -37,6 +37,7 @@ VM_MODPREFIX = VSimTop
 VM_USER_CFLAGS = \
 	-I/home/llyyqq/Desktop/ysyx/ysyx-workbench/npc/sim/cpp/include/ \
 	-DDIFFTEST \
+	-DDUMPWAVE \
 	-DDEVICE \
 	-DHAS_VGA \
 	-DHAS_KEYBOARD \
