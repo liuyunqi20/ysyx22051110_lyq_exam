@@ -23,7 +23,7 @@ extern void __am_asm_trap(void);
 
 bool cte_init(Context*(*handler)(Event, Context*)) {
   // initialize mstatus (for difftest)
-  asm volatile("csrw mtvec, %0" : : "r"(0xa00001800));
+  asm volatile("csrw mstatus, %0" : : "r"(0xa00001800));
   // initialize exception entry
   asm volatile("csrw mtvec, %0" : : "r"(__am_asm_trap));
 

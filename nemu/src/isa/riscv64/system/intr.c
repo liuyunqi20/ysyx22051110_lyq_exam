@@ -19,6 +19,12 @@ uint64_t mepc;
 uint64_t mcause;
 uint64_t mtvec;
 uint64_t mstatus;
+#define MSTATUS_MASK 0x0000000f00001888
+#define MPIE_MASK    0x0000000000000080
+#define MIE_MASK     0x0000000000000008
+#define MPP_MASK     0x0000000000001800
+#define MTVEC_MASK   0xfffffffffffffffc
+#define MEPC_MASK    0xfffffffffffffffc
 
 word_t csr_rw(uint32_t csr_num, uint64_t wdata){
   word_t res;
@@ -65,14 +71,21 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
 #ifdef CONFIG_ETRACE
   printf("trigger exception %ld at pc = %lx\n", NO, epc);
 #endif
-  mepc = epc;
-  mcause = NO;
+  mepc = epc;                                       //set exc inst addr to mepc
+  mcause = NO;                                      //set exc code to mcause
+  uint64_t is_mie = mstatus & MIE_MASK;
+  mstatus &= ~MIE_MASK;                             //set mie to 0
+  mstatus = (is_mie << 4) | (mstatus & ~MPIE_MASK); //set mie to mpie
   //printf("epc: %lx\nmcause: %lx\nmstatus: %lx\n", mepc, mcause, mstatus);
   //printf("mtvec: %lx\n", mtvec);
   return mtvec;
 }
 
 word_t isa_intr_ret(){
+  uint64_t is_mpie = mstatus & MPIE_MASK;
+  mstatus  = (is_mpie >> 4) | (mstatus & ~MIE_MASK); //set mpie to mie
+  mstatus |= MPIE_MASK;                              // set mpie to 1'b1
+  mstatus |= MPP_MASK;                               //set mpp to 2'b11
   return mepc + 4;
 }
 
