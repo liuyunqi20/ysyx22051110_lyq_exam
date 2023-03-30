@@ -49,6 +49,11 @@ class Csr(w: Int) extends Module with HasCsrConst{
     val mtvec   = RegInit(0.U(w.W))
     val mip     = RegInit(0.U(w.W))
     val mie     = RegInit(0.U(w.W))
+    val mstatus_rval = Cat(0.U(28.W) , mstatus_sxl, mstatus_uxl, 0.U(19.W), 
+                            mstatus_mpp, 0.U(3.W), mstatus_mpie, 0.U(3.W), mstatus_mie, 0.U(3.W))
+    val mtvec_rval   = Cat(mtvec(w-1, 2), 0.U(2.W))
+    val mepc_rval    = Cat(mepc(w-1, 2), 0.U(2.W))
+    val mcause_rval  = mcause
     // ------------------- CSR inst ------------------- 
         val csr_1H  = MuxLookup(io.op.csr_num, 0.U(w.W), Seq(
             /* mstatus */ (Mstatus.U) -> ("h01".U),
@@ -58,10 +63,10 @@ class Csr(w: Int) extends Module with HasCsrConst{
         ))
         val csr_en  = io.op.csr_op.orR === 1.U
         val csr_src = Mux1H(Seq(
-            csr_1H(0) -> mstatus,
-            csr_1H(1) -> mtvec,
-            csr_1H(2) -> mepc,
-            csr_1H(3) -> mcause,
+            csr_1H(0) -> mstatus_rval,
+            csr_1H(1) -> mtvec_rval  ,
+            csr_1H(2) -> mepc_rval   ,
+            csr_1H(3) -> mcause_rval ,
         ))
         val csrrs_res = csr_src | io.op.csr_wdata
         val csrrc_res = csr_src & (~io.op.csr_wdata)   
@@ -72,8 +77,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
         ))
     // ------------------- CSR regs -------------------
         // ----- mstatus ----- 
-        val mstatus_rval = Cat(0.U(28.W) , mstatus_sxl, mstatus_uxl, 0.U(19.W), 
-                            mstatus_mpp, 0.U(3.W), mstatus_mpie, 0.U(3.W), mstatus_mie, 0.U(3.W))
+        
         when(io.exc.ecall || io.exc.intr){
             mstatus_mie  := 0.U(1.W)
             mstatus_mpie := mstatus_mie
@@ -89,19 +93,16 @@ class Csr(w: Int) extends Module with HasCsrConst{
             mstatus_mie  := csr_res(3)
         }
         // ----- mtvec ----- 
-        val mtvec_rval   = Cat(mtvec(w-1, 2), 0.U(2.W))
         when(csr_en && csr_1H(1)){
             mtvec   := csr_res
         }
         // ----- mepc ----- 
-        val mepc_rval    = Cat(mepc(w-1, 2), 0.U(2.W))
         when(io.exc.ecall || io.exc.intr){
             mepc    := io.exc.epc
         } .elsewhen(csr_en && csr_1H(2)){
             mepc    := csr_res
         }
         // ----- mcause ----- 
-        val mcause_rval  = mcause
         when(io.exc.ecall || io.exc.intr){
             mcause  := Cat(io.exc.intr.asUInt, io.exc.exc_code)
         } .elsewhen(csr_en && csr_1H(3)){
