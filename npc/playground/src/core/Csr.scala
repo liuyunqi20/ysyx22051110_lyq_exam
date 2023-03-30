@@ -24,7 +24,7 @@ class CsrOutBundle(w: Int) extends Bundle{
 
 class CsrExcBundle(w: Int) extends Bundle{
     val ecall      = Input(Bool())
-    val epc        = Input(UInt((w-1).W))
+    val epc        = Input(UInt(w.W))
     val exc_code   = Input(UInt((w-1).W))
     val intr       = Input(Bool())
 }
