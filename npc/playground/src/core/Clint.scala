@@ -9,19 +9,19 @@ trait HasClintConst{
 
 class Clint(w: Int) extends Module with HasClintConst{
     val io = IO(new Bundle{
-        val en  = Input(Bool())
-        val wr = Input(Bool())
-        val waddr = Input(UInt(w.W))
-        val wdata = Input(UInt(w.W))
+        val en         = Input(Bool())
+        val wr         = Input(Bool())
+        val waddr      = Input(UInt(w.W))
+        val wdata      = Input(UInt(w.W))
         val has_intr_t = Output(Bool())
     })
     val mtime    = RegInit(0.U(w.W))
     val mtimecmp = RegInit(0.U(w.W))
-    when(en && wr && (waddr === MTIMECMP_ADDR)){
-        mtimecmp := wdata
+    when(io.en && io.wr && (io.waddr === MTIMECMP_ADDR)){
+        mtimecmp := io.wdata
         mtime    := 0
-    } .elsewhen(en && wr && (waddr === MTIME_ADDR)){
-        mtime    := wdata
+    } .elsewhen(io.en && io.wr && (io.waddr === MTIME_ADDR)){
+        mtime    := io.wdata
     }
     io.has_intr_t := mtime >= mtimecmp
 }

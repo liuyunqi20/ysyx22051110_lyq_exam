@@ -54,6 +54,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
     val mtvec_rval   = Cat(mtvec(w-1, 2), 0.U(2.W))
     val mepc_rval    = Cat(mepc(w-1, 2), 0.U(2.W))
     val mcause_rval  = mcause
+    val has_intr_t   = io.clint.intr_t && (mstatus_mie === 1.U) && (mie(7) === 1.U)
     // ------------------- CSR inst ------------------- 
         val csr_1H  = MuxLookup(io.op.csr_num, 0.U(w.W), Seq(
             /* mstatus */ (Mstatus.U) -> ("h01".U),
@@ -110,8 +111,14 @@ class Csr(w: Int) extends Module with HasCsrConst{
         }
         // ----- mie ----- 
         when(csr_en && csr_1H(1)){
-            mtvec   := csr_res
+            mie     := csr_res
         }
+        // ----- mip ----- 
+        when(has_intr_t){
+            mip(7)  := 1.U(1.W)
+        }.elsewhen(csr_en && csr_1H(1)){
+            mip     := csr_res
+        } 
     // ------------------- CSR out port -------------------
     io.op.csr_old := MuxLookup(io.op.csr_num, 0.U(w.W), Seq(
             /* mstatus */ (Mstatus.U) -> mstatus_rval,
@@ -121,7 +128,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
     ))
     io.out.mepc   := mepc_rval
     io.out.mtvec  := mtvec_rval
-    io.exc.intr_t := io.clint.intr_t && (mstatus_mie === 1.U) && (mie(7) === 1.U)
+    io.exc.intr_t := has_intr_t
     io.exc.intr_s := 0.B
     io.exc.intr_e := 0.B
 }
