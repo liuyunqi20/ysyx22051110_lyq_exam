@@ -9,7 +9,7 @@ trait HasClintConst{
 
 class Clint(w: Int) extends Module with HasClintConst{
     val io = IO(new Bundle{
-        val en  = Input(Bool)
+        val en  = Input(Bool())
         val wr = Input(Bool())
         val waddr = Input(UInt(w.W))
         val wdata = Input(UInt(w.W))
