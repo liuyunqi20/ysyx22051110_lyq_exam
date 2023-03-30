@@ -63,7 +63,13 @@ VL_MODULE(VSimTop___024root) {
     CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__is_jal;
     CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_b;
     CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT___wmask_T_10;
+    CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_sxl;
+    CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_uxl;
+    CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mpp;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mie;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_mpie;
     CData/*3:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___GEN;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___T_2;
     SData/*8:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_br_type;
     SData/*9:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN;
     SData/*15:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_0;
@@ -93,10 +99,12 @@ VL_MODULE(VSimTop___024root) {
     QData/*32:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divw_res;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT___my_dmem_port_rdata;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__my_dmem_port__DOT__tmprdata;
-    QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mcause;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mepc;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec;
+    QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mstatus_rval;
+    QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mtvec_rval;
+    QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__mepc_rval;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___csr_src_T_10;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
     VlUnpacked<QData/*63:0*/, 32> SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file;
