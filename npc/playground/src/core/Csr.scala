@@ -30,6 +30,7 @@ class CsrExcBundle(w: Int) extends Bundle{
     val mret       = Input(Bool())
     val epc        = Input(UInt(w.W))
     val exc_code   = Input(UInt((w-1).W))
+    val intr_t     = Output(Bool())
 }
 
 class Csr(w: Int) extends Module with HasCsrConst{
@@ -79,7 +80,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
     // ------------------- CSR regs -------------------
         // ----- mstatus ----- 
         
-        when(io.exc.ecall || io.exc.intr){
+        when(io.exc.ecall || has_intr_t){
             mstatus_mie  := 0.U(1.W)
             mstatus_mpie := mstatus_mie
             mstatus_mpp  := 3.U(2.W)
@@ -98,14 +99,14 @@ class Csr(w: Int) extends Module with HasCsrConst{
             mtvec   := csr_res
         }
         // ----- mepc ----- 
-        when(io.exc.ecall || io.exc.intr){
+        when(io.exc.ecall || has_intr_t){
             mepc    := io.exc.epc
         } .elsewhen(csr_en && csr_1H(2)){
             mepc    := csr_res
         }
         // ----- mcause ----- 
-        when(io.exc.ecall || io.exc.intr){
-            mcause  := Cat(io.exc.intr.asUInt, io.exc.exc_code)
+        when(io.exc.ecall || has_intr_t){
+            mcause  := Cat(has_intr_t.asUInt, io.exc.exc_code)
         } .elsewhen(csr_en && csr_1H(3)){
             mcause  := csr_res
         }
@@ -129,6 +130,4 @@ class Csr(w: Int) extends Module with HasCsrConst{
     io.out.mepc   := mepc_rval
     io.out.mtvec  := mtvec_rval
     io.exc.intr_t := has_intr_t
-    io.exc.intr_s := 0.B
-    io.exc.intr_e := 0.B
 }
