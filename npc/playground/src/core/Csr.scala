@@ -7,7 +7,7 @@ trait HasCsrConst{
     val Mtvec   = 0x305
     val Mepc    = 0x341
     val Mcause  = 0x342
-    val Mstatus_init = 0xa00001800
+    val Mstatus_init = "ha00001800"
 }
 
 class CsrOpBundle(w: Int) extends Bundle{
