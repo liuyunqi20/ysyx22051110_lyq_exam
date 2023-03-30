@@ -16,21 +16,21 @@ class CsrOpBundle(w: Int) extends Bundle{
     val csr_old    = Output(UInt(w.W))
 }
 
-class CsrReadBundle(w: Int) extends Bundle{
-    val csr_raddr  = Input(UInt(12.W))
-    val csr_rdata  = Output(UInt(w.W))
+class CsrOutBundle(w: Int) extends Bundle{
+    val mepc       = Output(UInt(w.W))
+    val mtvec      = Output(UInt(w.W))
 }
 
 class CsrExcBundle(w: Int) extends Bundle{
     val ecall      = Input(Bool())
     val ecall_epc  = Input(UInt(w.W))
-    val ecall_code = Input(UInt(w.W))
+    val exc_code = Input(UInt(w.W))
 }
 
 class Csr(w: Int) extends Module with HasCsrConst{
     val io = IO(new Bundle{
         val op  = new CsrOpBundle(w)
-        val rd  = new CsrReadBundle(w)
+        val out  = new CsrOutBundle(w)
         val exc = new CsrExcBundle(w)
     })
     val mstatus = RegInit(0.U(w.W))
@@ -64,32 +64,28 @@ class Csr(w: Int) extends Module with HasCsrConst{
             /* mepc    */ (Mepc.U)    -> mepc   ,
             /* mcause  */ (Mcause.U)  -> mcause ,
         ))
-    // ------------------- CSR read port -------------------
-        io.rd.csr_rdata := MuxLookup(io.rd.csr_raddr, 0.U(w.W), Seq(
-            /* mstatus */ (Mstatus.U) -> mstatus,
-            /* mtvec   */ (Mtvec.U)   -> mtvec  ,
-            /* mepc    */ (Mepc.U)    -> mepc   ,
-            /* mcause  */ (Mcause.U)  -> mcause ,
-        ))
     // ------------------- CSR regs -------------------
-        // ----- mstatus
+        // ----- mstatus ----- 
         when(csr_en && csr_1H(0)){
             mstatus := csr_res
         }
-        // ----- mtvec
+        // ----- mtvec ----- 
         when(csr_en && csr_1H(1)){
             mtvec   := csr_res
         }
-        // ----- mepc
+        // ----- mepc ----- 
         when(io.exc.ecall){
             mepc    := io.exc.ecall_epc
         } .elsewhen(~io.exc.ecall && csr_en && csr_1H(2)){
             mepc    := csr_res
         }
-        // ----- mcause
+        // ----- mcause ----- 
         when(io.exc.ecall){
-            mcause  := io.exc.ecall_code
+            mcause  := io.exc.exc_code
         } .elsewhen(~io.exc.ecall && csr_en && csr_1H(3)){
             mcause  := csr_res
         }
+    // ------------------- CSR out port -------------------
+    io.out.mepc  := mepc
+    io.out.mtvec := mtvec 
 }
