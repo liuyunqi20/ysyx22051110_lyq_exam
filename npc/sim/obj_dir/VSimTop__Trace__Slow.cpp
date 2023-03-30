@@ -285,7 +285,7 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+150,"SimTop my_core_top my_wb io_csr_exc_ecall", false,-1);
         tracep->declBit(c+151,"SimTop my_core_top my_wb io_csr_exc_mret", false,-1);
         tracep->declQuad(c+9,"SimTop my_core_top my_wb io_csr_exc_epc", false,-1, 63,0);
-        tracep->declQuad(c+152,"SimTop my_core_top my_wb io_csr_exc_exc_code", false,-1, 62,0);
+        tracep->declQuad(c+152,"SimTop my_core_top my_wb io_csr_exc_exc_code", false,-1, 63,0);
         tracep->declBit(c+176,"SimTop my_core_top my_clint clock", false,-1);
         tracep->declBit(c+177,"SimTop my_core_top my_clint reset", false,-1);
         tracep->declBit(c+23,"SimTop my_core_top my_clint io_en", false,-1);
@@ -303,7 +303,7 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+150,"SimTop my_core_top my_csr io_exc_ecall", false,-1);
         tracep->declBit(c+151,"SimTop my_core_top my_csr io_exc_mret", false,-1);
         tracep->declQuad(c+9,"SimTop my_core_top my_csr io_exc_epc", false,-1, 63,0);
-        tracep->declQuad(c+152,"SimTop my_core_top my_csr io_exc_exc_code", false,-1, 62,0);
+        tracep->declQuad(c+152,"SimTop my_core_top my_csr io_exc_exc_code", false,-1, 63,0);
         tracep->declBit(c+154,"SimTop my_core_top my_csr io_clint_intr_t", false,-1);
         tracep->declQuad(c+143,"SimTop my_core_top my_csr io_op_csr_old", false,-1, 63,0);
         tracep->declQuad(c+146,"SimTop my_core_top my_csr io_out_mepc", false,-1, 63,0);
@@ -645,7 +645,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                          >> 1U))));
         tracep->fullQData(oldp+152,((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
                                       == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
-                                      ? 0xbULL : 0ULL)),63);
+                                      ? 0xbULL : 0ULL)),64);
         tracep->fullBit(oldp+154,((vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
                                    >= vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp)));
         tracep->fullQData(oldp+155,(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime),64);

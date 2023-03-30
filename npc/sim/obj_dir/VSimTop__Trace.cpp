@@ -329,7 +329,7 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                             >> 1U))));
             tracep->chgQData(oldp+151,((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
                                          == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
-                                         ? 0xbULL : 0ULL)),63);
+                                         ? 0xbULL : 0ULL)),64);
             tracep->chgBit(oldp+153,((vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
                                       >= vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp)));
             tracep->chgQData(oldp+154,(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime),64);
