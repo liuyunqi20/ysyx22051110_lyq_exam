@@ -36,6 +36,7 @@ class CsrExcBundle(w: Int) extends Bundle{
     val epc        = Input(UInt(w.W))
     val exc_code   = Input(UInt(w.W))
     val intr_t     = Output(Bool())
+    val mret_addr  = Output(UInt(w.W))
 }
 
 class Csr(w: Int) extends Module with HasCsrConst{
@@ -132,8 +133,10 @@ class Csr(w: Int) extends Module with HasCsrConst{
             mip     := csr_res
         } 
     // ------------------- CSR out port -------------------
-    io.op.csr_old := csr_src
-    io.out.mepc   := mepc_rval
-    io.out.mtvec  := mtvec_rval
-    io.exc.intr_t := has_intr_t
+    io.op.csr_old    := csr_src
+    io.out.mepc      := mepc_rval
+    io.out.mtvec     := mtvec_rval
+    io.exc.intr_t    := has_intr_t
+        //when intr return to epc, else return to epc + 4
+    io.exc.mret_addr := Mux(mcause(w-1) === 1.U, mepc_rval, mepc_rval + 4.U(w.W))
 }
