@@ -13,7 +13,7 @@ void do_syscall(Context *c) {
       break;
     case SYS_exit:
       printf("exit!\n"); 
-      halt(c->gpr[10]);
+      halt(1);
       break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
