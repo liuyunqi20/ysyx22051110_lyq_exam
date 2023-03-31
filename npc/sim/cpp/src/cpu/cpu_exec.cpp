@@ -18,6 +18,7 @@
 
 #define RESET_TIME 5
 #define MAX_STEP 0x7fffffff
+#define INTR_T_NO ( ((uint64_t)1 << 63) | 0x7 )
 
 static VerilatedContext * contextp = NULL;
 static VSimTop * SimTop = NULL;
@@ -134,6 +135,7 @@ void execute(uint64_t step){
         execute_once();
         g_nr_step++;
 #ifdef DIFFTEST
+        if(SimTop->io_core_debug_raise_intr) difftest_raise_intr(INTR_T_NO);
         difftest_step(SimTop->io_core_debug_debug_pc, SimTop->io_core_debug_debug_nextpc);
 #endif
         if(npc_state.state != NPC_RUNNING) break;

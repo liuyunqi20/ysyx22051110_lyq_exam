@@ -297,6 +297,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__3(VSimTop___024root* vlSelf
                                                   >> 0x20U))
                 : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___my_imem_port_rdata));
     }
+    vlSelf->io_core_debug_raise_intr = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t;
     vlSelf->io_core_debug_debug_pc = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__pc_seq 
         = (4ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc);

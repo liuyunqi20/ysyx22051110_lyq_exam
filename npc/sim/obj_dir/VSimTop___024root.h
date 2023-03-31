@@ -33,6 +33,7 @@ VL_MODULE(VSimTop___024root) {
     VL_OUT8(io_core_data_mem_out_wmask,7,0);
     VL_OUT8(io_core_debug_debug_rf_we,0,0);
     VL_OUT8(io_core_debug_debug_rf_wnum,4,0);
+    VL_OUT8(io_core_debug_raise_intr,0,0);
     VL_IN64(io_core_inst_mem_in_rdata,63,0);
     VL_IN64(io_core_inst_mem_in_rvalid,63,0);
     VL_IN64(io_core_inst_mem_in_wvalid,63,0);
