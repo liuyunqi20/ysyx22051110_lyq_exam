@@ -97,25 +97,33 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__pc_seq 
         = (4ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___GEN 
-        = ((0x304U == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
-                       >> 0x14U)) ? 0x20U : ((0x342U 
+        = ((0x344U == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
+                       >> 0x14U)) ? 0x20U : ((0x304U 
                                               == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                                   >> 0x14U))
-                                              ? 8U : 
-                                             ((0x341U 
-                                               == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
+                                              ? 0x10U
+                                              : ((0x342U 
+                                                  == 
+                                                  (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                                    >> 0x14U))
-                                               ? 4U
-                                               : ((0x305U 
+                                                  ? 8U
+                                                  : 
+                                                 ((0x341U 
                                                    == 
                                                    (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                                     >> 0x14U))
-                                                   ? 2U
+                                                   ? 4U
                                                    : 
-                                                  (0x300U 
-                                                   == 
-                                                   (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
-                                                    >> 0x14U))))));
+                                                  ((0x305U 
+                                                    == 
+                                                    (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
+                                                     >> 0x14U))
+                                                    ? 2U
+                                                    : 
+                                                   (0x300U 
+                                                    == 
+                                                    (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
+                                                     >> 0x14U)))))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2 
         = ((0U == (0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                             >> 0x14U))) ? 0ULL : vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file
