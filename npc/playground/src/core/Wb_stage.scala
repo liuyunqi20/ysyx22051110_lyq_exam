@@ -14,9 +14,9 @@ class Wb_stage(w: Int) extends Module{
     })
     // ------------------ intrrupt/exception ------------------ 
     io.exc_br.exc_br     := (io.mem2wb.exc_type.orR === 1.U) || (io.csr_exc.intr_t)
-    io.exc_br.exc_target := Mux1H(Seq(
-        /* ecall */ io.mem2wb.exc_type(0) -> (io.csr_out.mtvec),
-        /* mret  */ io.mem2wb.exc_type(1) -> (io.csr_out.mepc + 4.U(w.W)),
+    io.exc_br.exc_target := MuxCase(0.U(w.W), Array(
+        ( (io.mem2wb.exc_type(0) === 1.U) || io.csr_exc.intr_t ) -> (io.csr_out.mtvec),    /* trap entry */
+        (  io.mem2wb.exc_type(1) === 1.U                       ) -> (io.csr_out.mepc + 4.U(w.W)),  /*trap return */
     ))
     val exc_code    = MuxLookup(io.mem2wb.exc_type, 0.U(w.W), Seq(
         /* ecall  */ io.mem2wb.exc_type(0) -> (11.U(w.W)),
