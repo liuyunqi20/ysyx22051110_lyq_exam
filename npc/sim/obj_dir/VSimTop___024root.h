@@ -51,9 +51,9 @@ VL_MODULE(VSimTop___024root) {
     // LOCAL SIGNALS
     // Anonymous structures to workaround compiler member-count bugs
     struct {
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_br;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_out_en;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_en;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_gr_we;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_en;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_wr;
         CData/*6:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type;
@@ -65,8 +65,10 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_11;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__s1_lt_s2;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__is_jal;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__has_trap;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_b;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT___wmask_T_10;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT__wen;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_2;
         CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl;
@@ -113,16 +115,17 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip;
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie;
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16;
     };
     struct {
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
         VlUnpacked<QData/*63:0*/, 32> SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file;
     };
 
     // LOCAL VARIABLES
     CData/*4:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT____Vcellinp__my_rf__io_raddr1;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT____Vcellinp__my_dmem_port__en;
     CData/*0:0*/ __Vclklast__TOP__clock;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1;
