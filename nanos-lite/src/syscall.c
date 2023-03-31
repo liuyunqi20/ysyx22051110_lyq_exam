@@ -8,9 +8,13 @@ void do_syscall(Context *c) {
   a[3] = c->GPR4; //a2
   switch (a[0]) {
     case SYS_yield:
-      yield(); c->gpr[10] = 0; break;
+      yield(); 
+      c->gpr[10] = 0; 
+      break;
     case SYS_exit:
-      printf("exit!\n"); c->gpr[10] = 0; break;
+      printf("exit!\n"); 
+      halt(c->gpr[10]);
+      break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
