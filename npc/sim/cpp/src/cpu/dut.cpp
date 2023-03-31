@@ -18,7 +18,7 @@ static uint64_t intr_NO = 0;
 static uint64_t skip_dut_nr_inst = 0;
 
 void difftest_raise_intr(uint64_t irq_n){
-    printf("raise irq: %lx\n at pc =%lx\n", irq_n, cpu_pc);
+    printf("raise irq: %lx at pc =%lx\n", irq_n, cpu_pc);
     is_raise_intr = 1;
     intr_NO = irq_n;
     skip_dut_nr_inst = 0;
@@ -91,6 +91,15 @@ void difftest_step(vaddr_t pc, vaddr_t npc){
         ref_difftest_regcpy((uint64_t *)cpu_gpr + 1, pc, DIFFTEST_TO_REF);
         return;
     }
+    if(is_raise_intr) {
+        is_raise_intr -= 1;
+        ref_difftest_exec(1);
+        if(!is_raise_intr) {
+            printf("ref raise irq at pc= %lx\n", cpu_pc);
+            ref_difftest_raise_intr(intr_NO);
+        }
+        return;
+    }
     //REF execute one step
     ref_difftest_exec(1);
     //copy regs from REF
@@ -98,11 +107,4 @@ void difftest_step(vaddr_t pc, vaddr_t npc){
     //check reg and pc
     checkregs(&ref_r, pc);
     //check intr
-    if(is_raise_intr) {
-        is_raise_intr -= 1;
-        if(!is_raise_intr) {
-            printf("ref raise irq at pc= %lx\n", cpu_pc);
-            ref_difftest_raise_intr(intr_NO);
-        }
-    }
 }
