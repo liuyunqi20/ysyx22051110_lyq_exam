@@ -42,7 +42,9 @@ class Mem_stage(w: Int) extends Module{
         val mem2wb       = new MemtoWbBundle(w)
         val data_mem_in  = new MemInBundle(w)
         val data_mem_out = new MemOutBundle(w)
+        val has_intr     = Input(Bool())
     })    
+    val has_trap     = has_intr_t || (io.ex2mem.exc_type.orR === 1.U)
     //val (MT_B, MT_H, MT_W, MT_BU, MT_HU, MT_WU, MT_D) = 
         //("h01".U, "h02".U, "h04".U, "h08".U, "h10".U, "h20".U, "h40".U)
     val my_dmem_port = Module(new Data_mem_port(w))
@@ -105,7 +107,7 @@ class Mem_stage(w: Int) extends Module{
         io.ex2mem.mem_type(6) -> "hff".U((w/8).W),
     ))
     //to Data Memory
-    io.data_mem_out.en     := io.ex2mem.mem_en
+    io.data_mem_out.en     := io.ex2mem.mem_en && ~has_trap
     io.data_mem_out.wr     := io.ex2mem.mem_wr
     io.data_mem_out.addr   := maddr
     io.data_mem_out.rready := 1.B
@@ -113,7 +115,7 @@ class Mem_stage(w: Int) extends Module{
     io.data_mem_out.wdata  := io.ex2mem.mem_wdata
     io.data_mem_out.wmask  := wmask
     //to Data memory port
-    my_dmem_port.io.en     := io.ex2mem.mem_en
+    my_dmem_port.io.en     := io.ex2mem.mem_en && ~has_trap
     my_dmem_port.io.wr     := io.ex2mem.mem_wr
     my_dmem_port.io.addr   := maddr
     my_dmem_port.io.wdata  := io.ex2mem.mem_wdata

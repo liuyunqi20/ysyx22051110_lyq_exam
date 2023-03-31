@@ -32,6 +32,7 @@ class MycpuCoreTop(w: Int) extends Module{
     my_mem.io.ex2mem       <> my_ex.io.ex2mem
     my_mem.io.data_mem_in  <> io.core_data_mem_in
     my_mem.io.data_mem_out <> io.core_data_mem_out
+    my_mem.io.has_intr     := my_csr.io.exc.intr_t
     //Wb stage
     my_wb.io.mem2wb        <> my_mem.io.mem2wb
     my_wb.io.pc            := my_if.io.pc

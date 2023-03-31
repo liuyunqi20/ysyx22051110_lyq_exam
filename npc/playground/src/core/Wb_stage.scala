@@ -13,7 +13,8 @@ class Wb_stage(w: Int) extends Module{
         val csr_out     = Flipped(new CsrOutBundle(w))
     })
     // ------------------ intrrupt/exception ------------------ 
-    io.exc_br.exc_br     := (io.mem2wb.exc_type.orR === 1.U) || (io.csr_exc.intr_t)
+    val has_trap          = (io.mem2wb.exc_type.orR === 1.U) || (io.csr_exc.intr_t)
+    io.exc_br.exc_br     := has_trap
     io.exc_br.exc_target := MuxCase(0.U(w.W), Array(
         ( (io.mem2wb.exc_type(0) === 1.U) || io.csr_exc.intr_t ) -> (io.csr_out.mtvec),    /* trap entry */
         (  io.mem2wb.exc_type(1) === 1.U                       ) -> (io.csr_out.mepc + 4.U(w.W)),  /*trap return */
@@ -32,7 +33,7 @@ class Wb_stage(w: Int) extends Module{
     io.csr_exc.epc       := io.pc
     io.csr_exc.exc_code  := exc_code
     // ------------------ RF write back ------------------ 
-    io.wb2rf.rf_we := io.mem2wb.gr_we
+    io.wb2rf.rf_we := io.mem2wb.gr_we && ~has_trap
     io.wb2rf.waddr := io.mem2wb.dest
     io.wb2rf.wdata := Mux(io.mem2wb.csr_op.orR === 1.U, io.csr_op.csr_old, io.mem2wb.result)
 }
