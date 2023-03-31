@@ -5,6 +5,8 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 
 #define INTR_BIT ((uint64_t)1 << 63)
 
+#define NR_SYSCALL 20
+
 Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
@@ -17,7 +19,12 @@ Context* __am_irq_handle(Context *c) {
       }
     }else{
       switch (exc_code) {
-        case 11: ev.event = EVENT_YIELD; break;
+        case 11: 
+          if((c->gpr[17] >= 0) && (c->gpr[17] <= NR_SYSCALL)){
+            ev.event = EVENT_SYSCALL; break;
+          }else if(c->gpr[17] == -1){
+            ev.event = EVENT_YIELD; break;
+          }
         default: ev.event = EVENT_ERROR; break;
       }
     }
