@@ -132,12 +132,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
             mip     := csr_res
         } 
     // ------------------- CSR out port -------------------
-    io.op.csr_old := MuxLookup(io.op.csr_num, 0.U(w.W), Seq(
-            /* mstatus */ (Mstatus.U) -> mstatus_rval,
-            /* mtvec   */ (Mtvec.U)   -> mtvec_rval  ,
-            /* mepc    */ (Mepc.U)    -> mepc_rval   ,
-            /* mcause  */ (Mcause.U)  -> mcause_rval ,
-    ))
+    io.op.csr_old := csr_src
     io.out.mepc   := mepc_rval
     io.out.mtvec  := mtvec_rval
     io.exc.intr_t := has_intr_t
