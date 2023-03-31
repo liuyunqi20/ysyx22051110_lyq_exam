@@ -13,9 +13,9 @@ trait HasCsrConst{
     val Mstatus_SXL_init = 0x2
     val Mstatus_UXL_init = 0x2
     val Mstatus_MPP_init = 0x3
-    val Mip_MTIP         = "h000000080"
-    val Mie_MTIE         = "h000000080"
-    val Mcause_INT_T     = "h800000007"
+    val Mip_MTIP         = "h0000_0000_0000_0080"
+    val Mie_MTIE         = "h0000_0000_0000_0080"
+    val Mcause_INT_T     = "h8000_0000_0000_0007"
 }
 
 class CsrOpBundle(w: Int) extends Bundle{
