@@ -66,6 +66,10 @@ extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * r
     //printf("raddr: %lx\n", raddr);
     raddr = raddr & ~0x7;
     // ---------------- mmio ---------------- 
+      if((uint64_t)raddr == (uint64_t)MT_ADDR || (uint64_t)raddr == (uint64_t)MTCMP_ADDR){
+        difftest_skip_ref();
+        return;
+      }
       if(raddr == RTC_ADDR) { 
         struct timeval temp;
         gettimeofday(&temp, NULL);
