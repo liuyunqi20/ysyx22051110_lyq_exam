@@ -29,7 +29,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     ramdisk_read(&phdr, ehdr.e_phoff + (i * ehdr.e_phentsize), ehdr.e_phentsize);
     if(phdr.p_type == PT_LOAD){
       uintptr_t p_vaddr = phdr.p_vaddr;
-      printf("seg %d, sz: %d\n", i, phdr.p_filesz);
+      printf("seg %d, sz: %lx\n", i, phdr.p_filesz);
       ramdisk_read((void *)p_vaddr, phdr.p_offset, phdr.p_filesz);
       memset((void *)(p_vaddr + phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);
     }
