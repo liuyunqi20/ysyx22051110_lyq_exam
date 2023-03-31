@@ -12,7 +12,6 @@ Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
     uint64_t exc_code = (c->mcause) & ~INTR_BIT;
-    printf("%d\n", c->mcause);
     if(((c->mcause) & INTR_BIT)){
       switch (exc_code) { 
         case 7:  ev.event = EVENT_IRQ_TIMER; break;
