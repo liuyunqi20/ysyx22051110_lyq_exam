@@ -30,5 +30,5 @@ class Clint(w: Int) extends Module with HasClintConst{
     } .otherwise {
         mtime    := mtime + 1.U
     }
-    io.has_intr_t := (mtime >= mtimecmp) && !reset
+    io.has_intr_t := (mtime >= mtimecmp)
 }
