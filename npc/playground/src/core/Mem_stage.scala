@@ -44,7 +44,7 @@ class Mem_stage(w: Int) extends Module{
         val data_mem_out = new MemOutBundle(w)
         val has_intr     = Input(Bool())
     })    
-    val has_trap     = has_intr_t || (io.ex2mem.exc_type.orR === 1.U)
+    val has_trap     = has_intr || (io.ex2mem.exc_type.orR === 1.U)
     //val (MT_B, MT_H, MT_W, MT_BU, MT_HU, MT_WU, MT_D) = 
         //("h01".U, "h02".U, "h04".U, "h08".U, "h10".U, "h20".U, "h40".U)
     val my_dmem_port = Module(new Data_mem_port(w))
