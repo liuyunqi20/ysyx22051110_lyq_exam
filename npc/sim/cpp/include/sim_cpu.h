@@ -16,4 +16,5 @@ void set_npc_state(int state, uint64_t pc, uint32_t ret);
 
 void init_difftest(char *ref_so_file, long img_size, int port);
 void difftest_step(vaddr_t pc, vaddr_t npc);
+void difftest_raise_intr(uint64_t irq_n);
 #endif
