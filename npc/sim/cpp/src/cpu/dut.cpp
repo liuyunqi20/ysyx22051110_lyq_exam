@@ -18,7 +18,6 @@ static uint64_t intr_NO = 0;
 static uint64_t skip_dut_nr_inst = 0;
 
 void difftest_raise_intr(uint64_t irq_n){
-    printf("raise irq: %lx at pc =%lx\n", irq_n, cpu_pc);
     is_raise_intr = 2;
     intr_NO = irq_n;
     skip_dut_nr_inst = 0;
@@ -94,7 +93,6 @@ void difftest_step(vaddr_t pc, vaddr_t npc){
     if(is_raise_intr) {
         is_raise_intr -= 1;
         if(!is_raise_intr) {
-            printf("ref raise irq at pc= %lx\n", cpu_pc);
             ref_difftest_raise_intr(intr_NO);
             return;
         }
