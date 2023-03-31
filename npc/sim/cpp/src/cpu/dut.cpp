@@ -94,7 +94,6 @@ void difftest_step(vaddr_t pc, vaddr_t npc){
     if(is_raise_intr) {
         is_raise_intr -= 1;
         if(!is_raise_intr) {
-            ref_difftest_exec(1);
             printf("ref raise irq at pc= %lx\n", cpu_pc);
             ref_difftest_raise_intr(intr_NO);
             return;
