@@ -40,7 +40,9 @@ void difftest_exec(uint64_t n) {
 }
 
 void difftest_raise_intr(word_t NO) {
-  cpu.pc = isa_raise_intr(NO, cpu.pc);
+  uint64_t pre_pc = cpu.pc;
+  difftest_exec(1);
+  cpu.pc = isa_raise_intr(NO, pre_pc);
 }
 
 void difftest_init(int port) {
