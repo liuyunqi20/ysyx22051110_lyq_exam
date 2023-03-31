@@ -13,7 +13,15 @@ void (*ref_difftest_raise_intr)(uint64_t NO) = NULL;
 
 extern uint64_t cpu_pc;
 static int is_skip_ref = 0;
+static int is_raise_intr = 0;
+static uint64_t intr_NO = 0;
 static uint64_t skip_dut_nr_inst = 0;
+
+void difftest_raise_intr(uint64_t irq_n){
+    is_raise_intr = 2;
+    intr_NO = irq_n;
+    skip_dut_nr_inst = 0;
+}
 
 void difftest_skip_ref() {
   is_skip_ref = 2;
@@ -88,4 +96,11 @@ void difftest_step(vaddr_t pc, vaddr_t npc){
     ref_difftest_regcpy(&ref_r, cpu_pc, DIFFTEST_TO_DUT);
     //check reg and pc
     checkregs(&ref_r, pc);
+    //check intr
+    if(is_raise_intr) {
+        is_raise_intr -= 1;
+        if(!is_raise_intr) {
+            ref_difftest_raise_intr(intr_NO);
+        }
+    }
 }

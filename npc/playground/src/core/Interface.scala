@@ -18,13 +18,14 @@ import chisel3._
         val wmask  = Output(UInt((w/8).W))
     }
 
-// ----------------- Debug Bundle -----------------
+// ----------------- Output Bundle -----------------
     class DebugBundle(w: Int) extends Bundle{
         val debug_pc       = Output(UInt(w.W))
         val debug_nextpc   = Output(UInt(w.W))
         val debug_rf_we    = Output(Bool())
         val debug_rf_wnum  = Output(UInt(5.W))
         val debug_rf_wdata = Output(UInt(w.W))
+        val raise_intr     = Output(Bool())
     }
 
 // ----------------- Stage Interact Bundle -----------------

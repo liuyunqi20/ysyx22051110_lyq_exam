@@ -50,5 +50,6 @@ class MycpuCoreTop(w: Int) extends Module{
     io.core_debug.debug_rf_we    := my_wb.io.wb2rf.rf_we
     io.core_debug.debug_rf_wnum  := my_wb.io.wb2rf.waddr
     io.core_debug.debug_rf_wdata := my_wb.io.wb2rf.wdata
+    io.core_debug.raise_intr     := my_csr.io.csr_exc.intr_t
 
 }
