@@ -85,8 +85,8 @@ extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * r
         return;
       }
     // ---------------- memory ---------------- 
-    //if(!(raddr >= MBASE && raddr < (MBASE + MSIZE))){
-      //printf("pc: %lx r: %lx\n", cpu_pc, (uint64_t)raddr); wave_end(); }
+    if(!(raddr >= MBASE && raddr < (MBASE + MSIZE))){
+      printf("pc: %lx r: %lx\n", cpu_pc, (uint64_t)raddr); wave_end(); }
     assert(raddr >= MBASE && raddr < (MBASE + MSIZE));
     uint64_t ret;
     ret = (long long)vaddr_read(raddr, 8);
@@ -131,8 +131,8 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
         return;
       }
     // ---------------- memory ---------------- 
-    if(!(waddr >= MBASE && waddr < (MBASE + MSIZE)))
-      printf("pc: %lx w: %lx %lx\n", cpu_pc, (uint64_t)waddr, (uint64_t)wdata);
+    //if(!(waddr >= MBASE && waddr < (MBASE + MSIZE)))
+      //printf("pc: %lx w: %lx %lx\n", cpu_pc, (uint64_t)waddr, (uint64_t)wdata);
     assert(waddr >= MBASE && waddr < (MBASE + MSIZE));
     uint64_t temp_data = wdata;
     int len = 0;
