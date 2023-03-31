@@ -74,7 +74,7 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t;
-        CData/*5:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___GEN;
+        CData/*5:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT___GEN;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_5;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_2;
         SData/*8:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_br_type;
@@ -113,12 +113,9 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie;
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_rval;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16;
     };
     struct {
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec_rval;
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc_rval;
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_src_T_16;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
         VlUnpacked<QData/*63:0*/, 32> SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file;
     };

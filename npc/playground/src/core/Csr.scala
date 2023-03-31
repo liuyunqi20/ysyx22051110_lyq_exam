@@ -68,7 +68,7 @@ class Csr(w: Int) extends Module with HasCsrConst{
             /* mepc    */ (Mepc.U)    -> ("h04".U),
             /* mcause  */ (Mcause.U)  -> ("h08".U),
             /* mie     */ (Mie.U)     -> ("h10".U),
-            /* mip     */ (Mie.U)     -> ("h20".U),
+            /* mip     */ (Mip.U)     -> ("h20".U),
         ))
         val csr_en  = io.op.csr_op.orR === 1.U
         val csr_src = Mux1H(Seq(
