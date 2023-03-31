@@ -66,7 +66,8 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__is_jal;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_b;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT___wmask_T_10;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_3;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT__wen;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_2;
         CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl;
         CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_uxl;
         CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpp;
@@ -113,9 +114,9 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_rval;
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec_rval;
     };
     struct {
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec_rval;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc_rval;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_src_T_16;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;

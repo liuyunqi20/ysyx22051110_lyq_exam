@@ -1674,7 +1674,8 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__my_dmem_port__DOT__tmprdata = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_3 = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT__wen = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_2 = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl = VL_RAND_RESET_I(2);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_uxl = VL_RAND_RESET_I(2);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpp = VL_RAND_RESET_I(2);

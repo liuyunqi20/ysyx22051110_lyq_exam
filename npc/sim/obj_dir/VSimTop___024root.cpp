@@ -140,18 +140,21 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__3(VSimTop___024root* vlSelf
         __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime = 0ULL;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp = 0ULL;
     } else {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_3 
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT__wen 
             = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_en) 
                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_wr));
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_2 
+            = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT__wen) 
+               & (0x4000ULL == (0xfffffffffffffff8ULL 
+                                & vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result)));
         __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
-            = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_3) 
+            = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT__wen) 
                 & (0xbff8ULL == (0xfffffffffffffff8ULL 
                                  & vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result)))
                 ? vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2
-                : (1ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime));
-        if (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_3) 
-             & (0x4000ULL == (0xfffffffffffffff8ULL 
-                              & vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result)))) {
+                : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_2)
+                    ? 0ULL : (1ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime)));
+        if (vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_2) {
             vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp 
                 = vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2;
         }
