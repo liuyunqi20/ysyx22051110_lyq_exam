@@ -19,7 +19,7 @@ static uint64_t skip_dut_nr_inst = 0;
 
 void difftest_raise_intr(uint64_t irq_n){
     printf("raise irq: %lx at pc =%lx\n", irq_n, cpu_pc);
-    is_raise_intr = 1;
+    is_raise_intr = 2;
     intr_NO = irq_n;
     skip_dut_nr_inst = 0;
 }
