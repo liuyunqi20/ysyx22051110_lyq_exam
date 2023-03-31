@@ -26,6 +26,7 @@ uint64_t mip, mie;
 #define MPP_MASK     0x0000000000001800
 #define MTVEC_MASK   0xfffffffffffffffc
 #define MEPC_MASK    0xfffffffffffffffc
+#define IRQ_MASK     ((uint64_t)1 << 63)
 
 word_t csr_rw(uint32_t csr_num, uint64_t wdata){
   word_t res;
@@ -96,7 +97,11 @@ word_t isa_intr_ret(){
   mstatus  = (is_mpie >> 4) | (mstatus & ~MIE_MASK); //set mpie to mie
   mstatus |= MPIE_MASK;                              // set mpie to 1'b1
   mstatus |= MPP_MASK;                               //set mpp to 2'b11
-  return mepc + 4;
+  if(mcause & IRQ_MASK){ //intrrupt
+    return mepc;
+  }else{                 //exception
+    return mepc + 4;
+  }
 }
 
 word_t isa_query_intr() {
