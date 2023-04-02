@@ -6,11 +6,8 @@
 
 int main(){
     int count = 0;
-    printf("timer test begin: (0.5s)\n");
+    printf("timer test begin: \n");
     uint32_t cur_tick = NDL_GetTicks(); 
-    printf("%d\n", NDL_GetTicks());
-    for(int i =0 ; i < 10000; i++) ++i;
-    printf("%d\n" , NDL_GetTicks())
     while(count < 20){
         while((NDL_GetTicks() - cur_tick) / 6000 < 500000) {;}
         printf("What a nice day!\n");

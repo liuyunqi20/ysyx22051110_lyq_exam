@@ -47,6 +47,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 
 int rtc_gettimeofday(struct timeval *restrict tv, struct timezone *restrict tz){
   uint64_t t = io_read(AM_TIMER_UPTIME).us;
+  printf("get usec: %lx\n", t);
   (*tv).tv_usec = t;
   (*tv).tv_sec = t / 1000000;
   return 0;
