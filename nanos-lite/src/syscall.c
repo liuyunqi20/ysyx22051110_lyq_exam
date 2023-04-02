@@ -51,7 +51,7 @@ void do_syscall(Context *c) {
   a[3] = c->GPR4; //a2
   switch (a[0]) {
     case SYS_exit:
-      //printf("exit!\n"); 
+      printf("exit with %d!\n", a[1]); 
       halt(a[1]);
       break;
     case SYS_yield:
