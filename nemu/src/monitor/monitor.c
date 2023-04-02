@@ -25,7 +25,7 @@ void init_device();
 void init_sdb();
 void init_disasm(const char *triple);
 
-#define FUNC_TAB_SIZE 32
+#define FUNC_TAB_SIZE 256
 struct func_tab{
   char name_tab[FUNC_TAB_SIZE][64];
   word_t pc_tab[FUNC_TAB_SIZE];
@@ -75,7 +75,6 @@ static void init_ftrace(){
   }
   FILE *fp = fopen(elf_file, "rb");
   Assert(fp, "Can not open '%s'", elf_file);
-  printf("open\n");
   //read ELF header 
   Elf64_Ehdr ehdr;
   read_ehdr(&ehdr, fp);
@@ -84,7 +83,6 @@ static void init_ftrace(){
   fseek(fp, ehdr.e_shoff + ehdr.e_shstrndx * ehdr.e_shentsize, SEEK_SET);
   int ret = fread(&shstrtab_shdr, ehdr.e_shentsize, 1, fp);
   assert(ret == 1);
-  printf("seg\n");
   //printf("shstrtab: %lx %lx\n", shstrtab_shdr.sh_offset, shstrtab_shdr.sh_size);
   //check Section Table
   Elf64_Shdr symtab_shdr;
@@ -104,7 +102,6 @@ static void init_ftrace(){
       strtab_shdr = shdr;
     }
   }
-  printf("sym\n");
   //printf("symtab: %lx %lx\n", symtab_shdr.sh_offset, symtab_shdr.sh_size);
   //printf("strtab: %lx %lx\n", strtab_shdr.sh_offset, strtab_shdr.sh_size);
   //Find function symbol
