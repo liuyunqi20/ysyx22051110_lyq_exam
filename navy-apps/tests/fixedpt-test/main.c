@@ -16,7 +16,8 @@ void test_muli(){
     c = fixedpt_muli(a,b);
     printf("%x(15.3) * %x(-4) = %x\n", a, b, c);
     a = fixedpt_rconst(-1.0);
-    b = fixedpt_fromint(0x00ffffff);
+    b = fixedpt_fromint(0x007fffff);
+    c = fixedpt_muli(a,b);
     printf("%x(-1.0) * %x(max int) = %x\n", a, b, c);
 }
 
