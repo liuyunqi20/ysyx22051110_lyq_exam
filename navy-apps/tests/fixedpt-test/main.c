@@ -27,15 +27,15 @@ void test_divi(){
     a = fixedpt_rconst(16.8);
     b = fixedpt_fromint(4);
     c = fixedpt_divi(a,b);
-    printf("%x(16.8) * %x(4) = %x\n", a, b, c);
+    printf("%x(16.8) / %x(4) = %x\n", a, b, c);
     a = fixedpt_rconst(-20.4);
     b = fixedpt_fromint(5);
     c = fixedpt_divi(a,b);
-    printf("%x(-20.4) * %x(5) = %x\n", a, b, c);
+    printf("%x(-20.4) / %x(5) = %x\n", a, b, c);
     a = fixedpt_rconst(36.4);
     b = fixedpt_fromint(-7);
     c = fixedpt_divi(a,b);
-    printf("%x(36.4) * %x(-7) = %x\n", a, b, c);
+    printf("%x(36.4) / %x(-7) = %x\n", a, b, c);
 }
 
 void test_mul(){
@@ -65,15 +65,15 @@ void test_div(){
     a = fixedpt_rconst(24.6);
     b = fixedpt_rconst(6.2);
     c = fixedpt_div(a,b);
-    printf("%x(24.6) * %x(6.2) = %x\n", a, b, c);
+    printf("%x(24.6) / %x(6.2) = %x\n", a, b, c);
     a = fixedpt_rconst(24.6);
     b = fixedpt_rconst(-6.2);
     c = fixedpt_div(a,b);
-    printf("%x(24.6) * %x(-6.2) = %x\n", a, b, c);
+    printf("%x(24.6) / %x(-6.2) = %x\n", a, b, c);
     a = fixedpt_rconst(5.4);
     b = fixedpt_rconst(-10.8);
     c = fixedpt_div(a,b);
-    printf("%x(5.4) * %x(-10.8) = %x\n", a, b, c);
+    printf("%x(5.4) / %x(-10.8) = %x\n", a, b, c);
 }
 
 void test_abs(){

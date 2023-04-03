@@ -147,11 +147,7 @@ static inline fixedpt fixedpt_mul(fixedpt A, fixedpt B) {
 
 /* Divides two fixedpt numbers, returns the result. */
 static inline fixedpt fixedpt_div(fixedpt A, fixedpt B) {
-	int32_t hi_res = A / (B >> FIXEDPT_FBITS);
-	int32_t lo_res = 0;
-	if(B & 0xff)
-		lo_res = (int32_t)( ((int64_t)A << 8) / (B & 0xff) );
-	return hi_res + lo_res;
+	return (int32_t)( ((int64_t)A << 8) / (B) );
 }
 
 static inline fixedpt fixedpt_abs(fixedpt A) {
