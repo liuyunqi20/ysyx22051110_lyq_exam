@@ -47,6 +47,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   FILE * fd_dinfo = fopen("/proc/dispinfo", "r");
   char * ret = NULL;
   char * temp = NULL;
+  int h_flag = 0, w_flag = 0;
   while((ret = fgets(strbuf, sizeof(strbuf), fd_dinfo)) != NULL){
     printf("strbuf: %s\n", strbuf);
     char * w_pos = strstr(strbuf, "WIDTH");
@@ -59,6 +60,7 @@ void NDL_OpenCanvas(int *w, int *h) {
         *w = atoi(w_pos);
         printf("find w: %d\n", *w);
         screen_w = *w;
+        w_flag = 1;
     }else if(h_pos != NULL){
         while(*h_pos != ':' && *h_pos != ' ') h_pos++;
         while((*h_pos == ':' || *h_pos == ' ') && *h_pos != '\0') h_pos++;
@@ -68,8 +70,15 @@ void NDL_OpenCanvas(int *w, int *h) {
         *h = atoi(h_pos);
         printf("find h: %d\n", *h);
         screen_h = *h;
+        h_flag = 1;
     }
+    if(w_flag && h_flag)
+      break;
   }
+  if(!w_flag)
+    printf("screen width read failed\n");
+  if(!h_flag)
+    printf("screen height read failed\n");
   //close /proc/dispinfo
   fclose(fd_dinfo);
 }

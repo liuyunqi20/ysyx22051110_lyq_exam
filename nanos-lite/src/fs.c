@@ -77,10 +77,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
             (file_table[fd].size - file_table[fd].wr_ptr);
     return ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].wr_ptr, len);
   }else{
-    int ret = file_table[fd].write(buf, file_table[fd].wr_ptr, len);
-    if(ret >= file_table[fd].size)
-      return -1;
-    else return ret;
+    return file_table[fd].write(buf, file_table[fd].wr_ptr, len);
   }
 }
 
