@@ -44,8 +44,9 @@ void NDL_OpenCanvas(int *w, int *h) {
     close(fbctl);
   }
   char strbuf[64];
-  int fd_dinfo = (int)(uint64_t)fopen("/proc/dispinfo", "r");
-  int ret = read(fd_dinfo, strbuf, sizeof(strbuf));
+  FILE * fd_dinfo = fopen("/proc/dispinfo", "r");
+  printf("fd_dinfo: %d\n",(uint64_t)fd_dinfo);
+  int ret = fgets(strbuf, sizeof(strbuf), fd_dinfo);
   if(ret == 0) {
     printf("read /proc/dispinfo failed\n"); 
     return;
