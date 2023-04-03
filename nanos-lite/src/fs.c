@@ -64,7 +64,9 @@ size_t fs_read(int fd, void *buf, size_t len){
   if(file_table[fd].read == NULL){
     len = (file_table[fd].size - file_table[fd].wr_ptr) > len ? len : 
             (file_table[fd].size - file_table[fd].wr_ptr);
-    return ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].wr_ptr, len);
+    int ret = ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].wr_ptr, len);
+    file_table[fd].wr_ptr += ret;
+    return ret;
   }else{
     return file_table[fd].read(buf, file_table[fd].wr_ptr, len);
   }
@@ -75,7 +77,9 @@ size_t fs_write(int fd, const void *buf, size_t len){
   if(file_table[fd].write == NULL){
     len = (file_table[fd].size - file_table[fd].wr_ptr) > len ? len : 
             (file_table[fd].size - file_table[fd].wr_ptr);
-    return ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].wr_ptr, len);
+    int ret = ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].wr_ptr, len);
+    file_table[fd].wr_ptr += ret;
+    return ret;
   }else{
     int ret = file_table[fd].write(buf, file_table[fd].wr_ptr, len);
     file_table[fd].wr_ptr += ret;
