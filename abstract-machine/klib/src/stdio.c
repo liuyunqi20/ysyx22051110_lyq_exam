@@ -143,12 +143,16 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
   va_start(ap, fmt);
   vsnprintf(print_buf, n, fmt, ap);
   va_end(ap);
-  int i;
+  int i, res;
   int maxlen = n < 4096 ? n : 4096;
   for(i = 0; i < maxlen && print_buf[i]!='\0'; ++i)
     out[i] = print_buf[i];
+  res = i;
+  while(i < maxlen){
+    out[i++] = '\0';
+  }
   //printf("out: %s\n", out);
-  return i;
+  return res;
 }
 
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {

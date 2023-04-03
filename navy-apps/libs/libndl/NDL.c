@@ -45,51 +45,38 @@ void NDL_OpenCanvas(int *w, int *h) {
   }
   char strbuf[64];
   FILE * fd_dinfo = fopen("/proc/dispinfo", "r");
-  printf("fd_dinfo: %lx %d\n",(uint64_t)fd_dinfo, *(int *)fd_dinfo);
-  int ret = fgets(strbuf, sizeof(strbuf), fd_dinfo);
-  if(ret == 0) {
-    printf("read /proc/dispinfo failed\n"); 
-    return;
-  }
+  char * ret = NULL;
   char * temp = NULL;
-  //width
-  char * w_pos = strstr(strbuf, "WIDTH");
-  if(w_pos == NULL){
-    *w = 0;
-    printf("No canvas width\n");
-    return;
+  while((ret = fgets(strbuf, sizeof(strbuf), fd_dinfo)) != NULL){
+    char * w_pos = strstr(strbuf, "WIDTH");
+    char * h_pos = strstr(strbuf, "HEIGHT");
+    if(w_pos != NULL){
+        while(*w_pos != ':' && *w_pos != ' ') w_pos++;
+        while((*w_pos == ':' || *w_pos == ' ') && *w_pos != '\0') w_pos++;
+        temp = w_pos;
+        while(*temp != '\n' && *temp != '\0') temp++;
+        *w = atoi(w_pos);
+        screen_w = *w;
+    }else if(h_pos != NULL){
+        while(*h_pos != ':' && *h_pos != ' ') h_pos++;
+        while((*h_pos == ':' || *h_pos == ' ') && *h_pos != '\0') h_pos++;
+        temp = h_pos;
+        while(*temp != '\n' && *temp != '\0') temp++;
+        *temp = '\0';
+        *h = atoi(h_pos);
+        screen_h = *h;
+    }
   }
-  while(*w_pos != ':' && *w_pos != ' ') w_pos++;
-  while((*w_pos == ':' || *w_pos == ' ') && *w_pos != '\0') w_pos++;
-  temp = w_pos;
-  while(*temp != '\n' && *temp != '\0') temp++;
-  *w = atoi(w_pos);
-  screen_w = *w;
-  fgets(strbuf, sizeof(strbuf), fd_dinfo);
-  //height
-  char * h_pos = strstr(strbuf, "HEIGHT");
-  if(h_pos == NULL){
-    *h = 0;
-    printf("No canvas height\n");
-    return;
-  }
-  while(*h_pos != ':' && *h_pos != ' ') h_pos++;
-  while((*h_pos == ':' || *h_pos == ' ') && *h_pos != '\0') h_pos++;
-  temp = h_pos;
-  while(*temp != '\n' && *temp != '\0') temp++;
-  *temp = '\0';
-  *h = atoi(h_pos);
-  screen_h = *h;
   //close /proc/dispinfo
-  close(fd_dinfo);
+  fclose(fd_dinfo);
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  int fb_dev = (int)(uint64_t)fopen("/dev/fb", "w");
+  FILE * fb_dev = fopen("/dev/fb", "w");
   int offset = screen_w * y + x;
   for(int i = 0; i < h; ++i){
-    fseek((FILE *)(uint64_t)fb_dev, offset, SEEK_SET);
-    write(fb_dev, pixels, w);
+    fseek(fb_dev, offset, SEEK_SET);
+    fwrite((void *)pixels, w, 1, fb_dev);
     offset += screen_w;
   }
 }
