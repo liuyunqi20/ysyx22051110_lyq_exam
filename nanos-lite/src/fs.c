@@ -77,12 +77,14 @@ size_t fs_write(int fd, const void *buf, size_t len){
             (file_table[fd].size - file_table[fd].wr_ptr);
     return ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].wr_ptr, len);
   }else{
-    return file_table[fd].write(buf, file_table[fd].wr_ptr, len);
+    int ret = file_table[fd].write(buf, file_table[fd].wr_ptr, len);
+    file_table[fd].wr_ptr += ret;
+    return ret;
   }
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
-  printf("lseek off: %d\n", offset);
+  printf("fd: %d lseek off: %d\n", fd, offset);
   assert(fd >= 0 && fd < LENGTH(file_table));
   if(file_table[fd].read != NULL || file_table[fd].write != NULL)
     return -1;
