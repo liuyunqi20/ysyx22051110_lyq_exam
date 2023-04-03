@@ -82,6 +82,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
+  printf("lseek off: %d\n", offset);
   assert(fd >= 0 && fd < LENGTH(file_table));
   if(file_table[fd].read != NULL || file_table[fd].write != NULL)
     return -1;
