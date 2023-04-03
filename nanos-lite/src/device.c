@@ -45,7 +45,6 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   int w = io_read(AM_GPU_CONFIG).width;
   int h = io_read(AM_GPU_CONFIG).height;
   int ret = snprintf((char *)buf, len, "WIDTH : %d\nHEIGHT : %d\n", w, h);
-  printf("disp rd ret= %d\n",ret);
   return ret;
 }
 
@@ -53,6 +52,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   int screen_w = io_read(AM_GPU_CONFIG).width;
   int ty = offset / screen_w;
   int tx = offset % screen_w;
+  printf("offset: %d len: %d, tx: %d ty: %d\n", offset, len, tx, ty);
   io_write(AM_GPU_FBDRAW, tx, ty, (void *)buf, len, 1, true);
   return len;
 }
