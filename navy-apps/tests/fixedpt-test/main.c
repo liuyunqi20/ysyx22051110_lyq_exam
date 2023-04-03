@@ -88,7 +88,7 @@ void test_abs(){
 }
 
 void test_floor(){
-    printf("test abs:\n");
+    printf("test floor:\n");
     fixedpt a, b;
     a = fixedpt_rconst(5.3);
     b = fixedpt_floor(a);
@@ -96,6 +96,12 @@ void test_floor(){
     a = fixedpt_rconst(-19.2);
     b = fixedpt_floor(a);
     printf("floor( %x(-19.2) ) = %x\n", a, b);
+    a = fixedpt_rconst(12.0);
+    b = fixedpt_floor(a);
+    printf("floor( %x(12.0) ) = %x\n", a, b);
+    a = fixedpt_rconst(-11.0);
+    b = fixedpt_floor(a);
+    printf("floor( %x(-11.0) ) = %x\n", a, b);
 }
 
 void test_ceil(){
@@ -107,6 +113,12 @@ void test_ceil(){
     a = fixedpt_rconst(-19.2);
     b = fixedpt_ceil(a);
     printf("ceil( %x(-19.2) ) = %x\n", a, b);
+    a = fixedpt_rconst(7.0);
+    b = fixedpt_ceil(a);
+    printf("ceil( %x(7) ) = %x\n", a, b);
+    a = fixedpt_rconst(-9.0);
+    b = fixedpt_ceil(a);
+    printf("ceil( %x(-9.0) ) = %x\n", a, b);
 }
 
 int main(){

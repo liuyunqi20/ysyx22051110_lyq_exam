@@ -161,13 +161,14 @@ static inline fixedpt fixedpt_abs(fixedpt A) {
 }
 
 static inline fixedpt fixedpt_floor(fixedpt A) {
-	int32_t res = ((A >> 8) - 1) << 8;
-	return res;
+	return ((A >> 8)) << 8;
 }
 
 static inline fixedpt fixedpt_ceil(fixedpt A) {
-	int32_t res = ((A >> 8) + 1) << 8;
-	return res;
+	if((A & 0xff) == 0)	
+		return A;
+	else
+		return ((A >> 8) + 1) << 8;
 }
 
 /*
