@@ -151,7 +151,7 @@ static inline fixedpt fixedpt_div(fixedpt A, fixedpt B) {
 	int32_t lo_res = 0;
 	if(B & 0xff)
 		lo_res = A / (B & 0xff);
-	return hi_res + lo_res;
+	return hi_res;
 }
 
 static inline fixedpt fixedpt_abs(fixedpt A) {
