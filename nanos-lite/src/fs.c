@@ -60,7 +60,7 @@ int fs_open(const char *pathname, int flags, int mode){
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
-  printf("fs read fd %d len: %d\n");
+  printf("fs read fd %d len: %d\n", fd, len);
   assert(fd >= 0 && fd < LENGTH(file_table));
   if(file_table[fd].read == NULL){
     len = (file_table[fd].size - file_table[fd].wr_ptr) > len ? len : 
