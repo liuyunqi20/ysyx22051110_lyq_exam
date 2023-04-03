@@ -86,11 +86,9 @@ size_t fs_write(int fd, const void *buf, size_t len){
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
-  if(fd == 3)
-    printf("fd: %d lseek off: %d\n", fd, offset);
+  //if(fd == 3)
+    //printf("fd: %d lseek off: %d\n", fd, offset);
   assert(fd >= 0 && fd < LENGTH(file_table));
-  if(file_table[fd].read != NULL || file_table[fd].write != NULL)
-    return -1;
   switch(whence){
     case SEEK_SET:
       file_table[fd].wr_ptr = offset; break;
@@ -100,8 +98,6 @@ size_t fs_lseek(int fd, size_t offset, int whence){
       file_table[fd].wr_ptr = file_table[fd].wr_ptr + file_table[fd].size; break;
     default: assert(0);
   }
-  if(fd == 3)
-    printf("lseek: %d\n",file_table[fd].wr_ptr);
   return file_table[fd].wr_ptr;
 }
 
