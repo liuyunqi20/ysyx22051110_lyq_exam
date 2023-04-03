@@ -81,9 +81,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
     file_table[fd].wr_ptr += ret;
     return ret;
   }else{
-    int ret = file_table[fd].write(buf, file_table[fd].wr_ptr, len);
-    file_table[fd].wr_ptr += ret;
-    return ret;
+    return file_table[fd].write(buf, file_table[fd].wr_ptr, len);
   }
 }
 
