@@ -65,6 +65,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   while(*temp != '\n' && *temp != '\0') temp++;
   *w = atoi(w_pos);
   screen_w = *w;
+  fgets(strbuf, sizeof(strbuf), fd_dinfo);
   //height
   char * h_pos = strstr(strbuf, "HEIGHT");
   if(h_pos == NULL){
