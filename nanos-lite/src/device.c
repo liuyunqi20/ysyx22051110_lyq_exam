@@ -34,15 +34,25 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-  return 0;
+  AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
+  if (ev.keycode == AM_KEY_NONE) return 0;
+  char * tmp = (char *)buf;
+  int ret = snprintf(tmp, len, "%s %s\n", (ev.keydown ? "kd" : "ku"), keyname[ev.keycode]);
+  return ret;
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  return 0;
+  int w = io_read(AM_GPU_CONFIG).width;
+  int h = io_read(AM_GPU_CONFIG).height;
+  return snprintf((char *)buf, len, "WIDTH : %d\nHEIGHT : %d\n", w, h);
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  return 0;
+  int screen_w = io_read(AM_GPU_CONFIG).width;
+  int ty = offset / screen_w;
+  int tx = offset % screen_w;
+  io_write(AM_GPU_FBDRAW, tx, ty, (void *)buf, len, 1, true);
+  return len;
 }
 
 int rtc_gettimeofday(struct timeval *restrict tv, struct timezone *restrict tz){

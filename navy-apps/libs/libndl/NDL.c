@@ -16,7 +16,13 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  return 0;
+  FILE * fd_ev = fopen("/dev/events", "r");
+  char * ret = fgets(buf, len, fd_ev);
+  fclose(fd_ev);
+  if(ret != NULL)
+    return 1;
+  else
+    return 0;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
@@ -37,9 +43,53 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
+  char strbuf[64];
+  int fd_dinfo = (int)(uint64_t)fopen("/proc/dispinfo", "r");
+  int ret = read(fd_dinfo, strbuf, sizeof(strbuf));
+  if(ret == 0) {
+    printf("read /proc/dispinfo failed\n"); 
+    return;
+  }
+  char * temp = NULL;
+  //width
+  char * w_pos = strstr(strbuf, "WIDTH");
+  if(w_pos == NULL){
+    *w = 0;
+    printf("No canvas width\n");
+    return;
+  }
+  while(*w_pos != ':' && *w_pos != ' ') w_pos++;
+  while((*w_pos == ':' || *w_pos == ' ') && *w_pos != '\0') w_pos++;
+  temp = w_pos;
+  while(*temp != '\n' && *temp != '\0') temp++;
+  *w = atoi(w_pos);
+  screen_w = *w;
+  //height
+  char * h_pos = strstr(strbuf, "HEIGHT");
+  if(h_pos == NULL){
+    *h = 0;
+    printf("No canvas height\n");
+    return;
+  }
+  while(*h_pos != ':' && *h_pos != ' ') h_pos++;
+  while((*h_pos == ':' || *h_pos == ' ') && *h_pos != '\0') h_pos++;
+  temp = h_pos;
+  while(*temp != '\n' && *temp != '\0') temp++;
+  *temp = '\0';
+  *h = atoi(h_pos);
+  screen_h = *h;
+  //close /proc/dispinfo
+  close(fd_dinfo);
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+  int fb_dev = (int)(uint64_t)fopen("/dev/fb", "w");
+  int offset = screen_w * y + x;
+  for(int i = 0; i < h; ++i){
+    fseek((FILE *)(uint64_t)fb_dev, offset, SEEK_SET);
+    write(fb_dev, pixels, w);
+    offset += screen_w;
+  }
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {

@@ -139,11 +139,20 @@ int sprintf(char *out, const char *fmt, ...) {
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-  panic("Not implemented");
+  va_list ap;
+  va_start(ap, fmt);
+  vsnprintf(print_buf, n, fmt, ap);
+  va_end(ap);
+  int i;
+  int maxlen = n < 4096 ? n : 4096;
+  for(i = 0; i < maxlen && print_buf[i]!='\0'; ++i)
+    out[i] = print_buf[i];
+  //printf("out: %s\n", out);
+  return i;
 }
 
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
-  panic("Not implemented");
+  return vsprintf(out, fmt, ap);
 }
 
 #endif
