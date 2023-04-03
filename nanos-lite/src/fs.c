@@ -100,6 +100,8 @@ size_t fs_lseek(int fd, size_t offset, int whence){
       file_table[fd].wr_ptr = file_table[fd].wr_ptr + file_table[fd].size; break;
     default: assert(0);
   }
+  if(fd == 3)
+    printf("lseek: %d\n",file_table[fd].wr_ptr);
   return file_table[fd].wr_ptr;
 }
 
