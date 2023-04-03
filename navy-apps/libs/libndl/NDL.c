@@ -85,12 +85,12 @@ void NDL_OpenCanvas(int *w, int *h) {
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   FILE * fb_dev = fopen("/dev/fb", "w");
-  int offset = screen_w * y + x;
+  int offset_pix = screen_w * y + x;
   uint32_t * temp = (uint32_t *)pixels;
   for(int i = 0; i < h; ++i){
-    fseek(fb_dev, offset * sizeof(uint32_t), SEEK_SET);
+    fseek(fb_dev, offset_pix * sizeof(uint32_t), SEEK_SET);
     fwrite((void *)temp, w * sizeof(uint32_t), 1, fb_dev);
-    offset += screen_w;
+    offset_pix += screen_w;
     temp += w;
   }
 }
