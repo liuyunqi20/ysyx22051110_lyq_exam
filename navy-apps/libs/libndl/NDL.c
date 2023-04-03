@@ -48,6 +48,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   char * ret = NULL;
   char * temp = NULL;
   while((ret = fgets(strbuf, sizeof(strbuf), fd_dinfo)) != NULL){
+    printf("strbuf: %s\n", strbuf);
     char * w_pos = strstr(strbuf, "WIDTH");
     char * h_pos = strstr(strbuf, "HEIGHT");
     if(w_pos != NULL){
@@ -56,6 +57,7 @@ void NDL_OpenCanvas(int *w, int *h) {
         temp = w_pos;
         while(*temp != '\n' && *temp != '\0') temp++;
         *w = atoi(w_pos);
+        printf("find w: %d\n", *w);
         screen_w = *w;
     }else if(h_pos != NULL){
         while(*h_pos != ':' && *h_pos != ' ') h_pos++;
@@ -64,6 +66,7 @@ void NDL_OpenCanvas(int *w, int *h) {
         while(*temp != '\n' && *temp != '\0') temp++;
         *temp = '\0';
         *h = atoi(h_pos);
+        printf("find h: %d\n", *h);
         screen_h = *h;
     }
   }
