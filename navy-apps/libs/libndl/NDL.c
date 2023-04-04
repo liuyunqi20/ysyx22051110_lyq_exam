@@ -94,7 +94,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   //printf("x: %d y: %d w: %d h: %d\n", x, y, w, h);
   int offset_pix = screen_w * y + x;
   //to center
-  offset_pix += offset_center;
+  offset_pix += offset_center/2;
   printf("offcent : %d\n", offset_center);
   uint32_t * temp = (uint32_t *)pixels;
   for(int i = 0; i < h; ++i){
