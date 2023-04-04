@@ -69,7 +69,9 @@ size_t fs_read(int fd, void *buf, size_t len){
     file_table[fd].wr_ptr += ret;
     return ret;
   }else{
-    return file_table[fd].read(buf, file_table[fd].wr_ptr, len);
+    int ret = file_table[fd].read(buf, file_table[fd].wr_ptr, len);
+    file_table[fd].wr_ptr += ret;
+    return ret;
   }
 }
 
@@ -89,8 +91,8 @@ size_t fs_write(int fd, const void *buf, size_t len){
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
-  if(fd == 3)
-    printf("fd: %d lseek off: %d\n", fd, offset);
+  //if(fd == 3)
+    //printf("fd: %d lseek off: %d\n", fd, offset);
   assert(fd >= 0 && fd < LENGTH(file_table));
   switch(whence){
     case SEEK_SET:
