@@ -45,8 +45,8 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   if(dstrect == NULL){
     rect_x = 0;
     rect_y = 0;
-    rect_w = 0;
-    rect_h = 0;
+    rect_w = dst->w;
+    rect_h = dst->h;
   }else{
     rect_x = dstrect->x;
     rect_y = dstrect->y;
