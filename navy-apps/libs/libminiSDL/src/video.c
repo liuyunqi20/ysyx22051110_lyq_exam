@@ -65,10 +65,11 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     pix_ptr += dst->w;
   }
   if(color & dst->format->Amask){
+    assert(0);
     pix_ptr = (uint32_t *)dst->pixels;
     uint32_t alpha = color & dst->format->Amask;
-    for(int i = 0; i < dst->w; ++i)
-      for(int j = 0; j < dst->h; ++j){
+    for(int i = 0; i < dst->h; ++i)
+      for(int j = 0; j < dst->w; ++j){
         *pix_ptr = (*pix_ptr & ~(dst->format->Amask)) | alpha;
         pix_ptr++;
       }
