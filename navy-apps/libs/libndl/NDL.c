@@ -8,6 +8,7 @@
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
+static int offset_center = 0;
 
 uint32_t NDL_GetTicks() {
   struct timeval t;
@@ -43,9 +44,6 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
-  int set_flag = 1;
-  if((*w != 0) || (*h != 0))
-    set_flag = 0;
   char strbuf[64];
   FILE * fd_dinfo = fopen("/proc/dispinfo", "r");
   char * ret = NULL;
@@ -76,9 +74,12 @@ void NDL_OpenCanvas(int *w, int *h) {
     if(w_flag && h_flag)
       break;
   }
-  if(set_flag){
+  if((*w == 0) && (*h == 0)){
     *w = screen_w;
     *h = screen_h;
+    offset_center = 0;
+  }else{
+    offset_center = (screen_h - *h) * screen_w / 2 + (screen_w - *w) / 2;
   }
   if(!w_flag)
     printf("screen width read failed\n");
@@ -92,6 +93,8 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   FILE * fb_dev = fopen("/dev/fb", "w");
   //printf("x: %d y: %d w: %d h: %d\n", x, y, w, h);
   int offset_pix = screen_w * y + x;
+  //to center
+  offset_pix += offset_center;
   uint32_t * temp = (uint32_t *)pixels;
   for(int i = 0; i < h; ++i){
     //printf("offset_pix: %d\n", offset_pix);
