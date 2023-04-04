@@ -16,16 +16,44 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
-  printf("SDL_PollEvent not implemented\n");
-  return 0;
+  char buf[64];
+  if(!NDL_PollEvent(buf, sizeof(buf)))
+    return 0;
+  char * temp = NULL;
+  if((temp = strstr(buf, "kd")) && (temp == buf)){
+    ev->type = SDL_KEYDOWN;
+    ev->key.type = SDL_KEYDOWN;
+    buf[strlen(buf) - 1] = '\0';
+    temp += 2;
+    while((*temp) == ' ') temp++;
+    char keystr[16];
+    strncpy(keystr, temp, sizeof(keystr));
+    for(int i = 0; i < (sizeof(keyname)/sizeof(char *)); ++i)
+      if(!strcmp(keyname[i], keystr)){
+        ev->key.keysym.sym = i;
+        break;
+      }
+  }else if((temp = strstr(buf, "ku")) && (temp == buf)){
+    ev->type = SDL_KEYUP;
+    ev->key.type = SDL_KEYUP;
+    buf[strlen(buf) - 1] = '\0';
+    temp += 2;
+    while((*temp) == ' ') temp++;
+    char keystr[16];
+    strncpy(keystr, temp, sizeof(keystr));
+    for(int i = 0; i < (sizeof(keyname)/sizeof(char *)); ++i)
+      if(!strcmp(keyname[i], keystr)){
+        ev->key.keysym.sym = i;
+        break;
+      }
+  }else
+    ev->type = SDL_USEREVENT;
+  return 1;
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
-  if(!NDL_PollEvent(buf, sizeof(buf))){
-    event->type = 0xff;
-    return 0;
-  }
+  while(!NDL_PollEvent(buf, sizeof(buf))){;}
   char * temp = NULL;
   if((temp = strstr(buf, "kd")) && (temp == buf)){
     event->type = SDL_KEYDOWN;
