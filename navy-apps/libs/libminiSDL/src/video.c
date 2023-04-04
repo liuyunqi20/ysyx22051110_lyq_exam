@@ -80,8 +80,8 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   //printf("SDL_UpdateRect not implemented\n");
   if(w == 0 && h == 0 && w == 0 && h == 0){
-    w = 400;
-    h = 300;
+    w = s->w;
+    h = s->h;
   }
   NDL_DrawRect((uint32_t *)(s->pixels), x, y, w, h);
 }

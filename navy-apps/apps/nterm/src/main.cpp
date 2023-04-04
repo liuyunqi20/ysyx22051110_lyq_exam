@@ -1,7 +1,6 @@
 #include <nterm.h>
 #include <SDL.h>
 #include <SDL_bdf.h>
-#include <stdio.h>
 
 static const char *font_fname = "/share/fonts/Courier-7.bdf";
 static BDF_Font *font = NULL;
