@@ -76,6 +76,8 @@ size_t fs_read(int fd, void *buf, size_t len){
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
+  if(fd == 19)  
+    printf("len: %d offset: %d\n", file_table[fd].wr_ptr);
   assert(fd >= 0 && fd < LENGTH(file_table));
   if(file_table[fd].write == NULL){
     len = (file_table[fd].size - file_table[fd].wr_ptr) > len ? len : 
