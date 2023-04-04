@@ -93,6 +93,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     offset_pix += screen_w;
     temp += w;
   }
+  fclose(fb_dev);
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
