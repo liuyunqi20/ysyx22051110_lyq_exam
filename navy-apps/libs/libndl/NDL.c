@@ -43,6 +43,8 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
+  if(*w != 0 || *w != 0)
+    return;
   char strbuf[64];
   FILE * fd_dinfo = fopen("/proc/dispinfo", "r");
   char * ret = NULL;
