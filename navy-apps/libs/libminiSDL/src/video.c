@@ -8,14 +8,80 @@
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  int sr_x, sr_y, sr_w, sr_h;
+  int dr_x, dr_y;
+  if(srcrect){
+    sr_x = srcrect->x;
+    sr_y = srcrect->y;
+    sr_w = srcrect->w;
+    sr_h = srcrect->h;
+  }else{
+    sr_x = 0;
+    sr_y = 0;
+    sr_w = 0;
+    sr_h = 0;
+  }
+  if(dstrect){
+    dr_x = dstrect->x;
+    dr_y = dstrect->y;
+  }else{
+    dr_x = 0;
+    dr_y = 0;
+  }
+  uint8_t pixsize = dst->format->BytesPerPixel;
+  uint8_t * src_ptr = src->pixels + (sr_y * src->w * pixsize + sr_x * pixsize);
+  uint8_t * dst_ptr = dst->pixels + (dr_y * dst->w * pixsize + dr_x * pixsize);
+  for(int i = 0; i < sr_h; ++i){
+    for(int j = 0; j < (sr_w * pixsize); ++j){
+      *(dst_ptr + j) = *(src_ptr + j);
+    }
+    dst_ptr += dst->w * pixsize;
+    src_ptr += src->w * pixsize;
+  }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  printf("SDL_FillRect not implemented\n");
+  int rect_x, rect_y, rect_w, rect_h;
+  if(dstrect == NULL){
+    rect_x = 0;
+    rect_y = 0;
+    rect_w = 0;
+    rect_h = 0;
+  }else{
+    rect_x = dstrect->x;
+    rect_y = dstrect->y;
+    rect_w = dstrect->w;
+    rect_h = dstrect->h;
+  }
+  assert(dst);
+  assert((rect_x + rect_w) <= (dst->w));
+  assert((rect_y + rect_h) <= (dst->h));
+  assert(dst->format->BitsPerPixel == 32);
+  uint32_t * pix_ptr = (uint32_t *)dst->pixels + (rect_y * dst->w + rect_x);
+  for(int i = 0; i < rect_h; ++i){
+    for(int j = 0; j < rect_w; ++i){
+      *(pix_ptr + j) = color;
+    }
+    pix_ptr += dst->w;
+  }
+  if(color & dst->format->Amask){
+    pix_ptr = (uint32_t *)dst->pixels;
+    uint32_t alpha = color & dst->format->Amask;
+    for(int i = 0; i < dst->w; ++i)
+      for(int j = 0; j < dst->h; ++j){
+        *pix_ptr = (*pix_ptr & ~(dst->format->Amask)) | alpha;
+        pix_ptr++;
+      }
+  }
+  SDL_UpdateRect(dst, rect_x, rect_y, rect_w, rect_h);
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   //printf("SDL_UpdateRect not implemented\n");
+  if(w == 0 && h == 0 && w == 0 && h == 0){
+    w = 400;
+    h = 300;
+  }
   NDL_DrawRect((uint32_t *)(s->pixels), x, y, w, h);
 }
 
