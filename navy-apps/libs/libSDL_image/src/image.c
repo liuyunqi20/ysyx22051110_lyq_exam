@@ -13,7 +13,8 @@ SDL_Surface* IMG_Load_RW(SDL_RWops *src, int freesrc) {
 
 SDL_Surface* IMG_Load(const char *filename) {
   FILE * f = fopen(filename, "r");
-  int size = fseek(f, 0, SEEK_END);
+  fseek(f, 0, SEEK_END);
+  int size = ftell(f);
   printf("size of %s is %d\n", filename, size);
   fseek(f, 0, SEEK_SET);
   char * buf = SDL_malloc(size);
