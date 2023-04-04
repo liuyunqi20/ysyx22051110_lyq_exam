@@ -79,7 +79,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     *h = screen_h;
     offset_center = 0;
   }else{
-    offset_center = (screen_h - *h) * screen_w / 2 + (screen_w - *w) / 2;
+    offset_center = (screen_h-(*h))*screen_w/2 + (screen_w-(*w))/2;
   }
   if(!w_flag)
     printf("screen width read failed\n");
@@ -95,6 +95,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int offset_pix = screen_w * y + x;
   //to center
   offset_pix += offset_center;
+  printf("offcent : %d\n", offset_center);
   uint32_t * temp = (uint32_t *)pixels;
   for(int i = 0; i < h; ++i){
     //printf("offset_pix: %d\n", offset_pix);
