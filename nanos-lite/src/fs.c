@@ -56,6 +56,7 @@ int fs_open(const char *pathname, int flags, int mode){
       return i;
     }
   }
+  printf("failed %s\n",pathname);
   assert(0);  //no such file or directory
 }
 
