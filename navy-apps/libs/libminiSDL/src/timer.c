@@ -17,5 +17,7 @@ uint32_t SDL_GetTicks() {
 }
 
 void SDL_Delay(uint32_t ms) {
-  printf("SDL_Delay not implemented\n");
+  uint32_t now = SDL_GetTicks();
+  uint32_t count = ms * 1000;
+  while((SDL_GetTicks() - now) < count){;}
 }
