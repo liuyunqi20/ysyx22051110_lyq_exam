@@ -59,7 +59,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   assert(dst->format->BitsPerPixel == 32);
   uint32_t * pix_ptr = (uint32_t *)dst->pixels + (rect_y * dst->w + rect_x);
   for(int i = 0; i < rect_h; ++i){
-    for(int j = 0; j < rect_w; ++i){
+    for(int j = 0; j < rect_w; ++j){
       *(pix_ptr + j) = color;
     }
     pix_ptr += dst->w;
