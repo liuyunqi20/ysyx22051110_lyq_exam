@@ -102,6 +102,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   }
   uint8_t pixsize = s->format->BytesPerPixel;
   if(pixsize == 1){
+    int cur_y = y;
     uint32_t buf[400];
     SDL_Color * plt_color = s->format->palette->colors;
     uint8_t * color_idx_p = s->pixels + y * s->w + x;
@@ -111,7 +112,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         buf[j] = plt_color[color_idx].val;
       }
       color_idx_p += s->w;
-      NDL_DrawRect(buf, x, y, w, 1);
+      NDL_DrawRect(buf, x, cur_y, w, 1);
+      cur_y += 1;
     }
   }else{
     NDL_DrawRect((uint32_t *)(s->pixels), x, y, w, h);
