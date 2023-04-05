@@ -96,13 +96,14 @@ fixedpt fixedpt_sqrt(fixedpt A) {
 /* Returns the sine of the given fixedpt number. 
  * Note: the loss of precision is extraordinary! */
 fixedpt fixedpt_sin(fixedpt fp) {
+	printf("sin: %x\n",fp);
 	int sign = 1;
 	fixedpt sqr, result;
 	const fixedpt SK[2] = {
 		fixedpt_rconst(7.61e-03),
 		fixedpt_rconst(1.6605e-01)
 	};
-
+	printf("sin1\n");
 	fp %= 2 * FIXEDPT_PI;
 	if (fp < 0)
 		fp = FIXEDPT_PI * 2 + fp;
@@ -115,6 +116,7 @@ fixedpt fixedpt_sin(fixedpt fp) {
 		fp = (FIXEDPT_PI << 1) - fp;
 		sign = -1;
 	}
+	printf("sin2\n");
 	sqr = fixedpt_mul(fp, fp);
 	result = SK[0];
 	result = fixedpt_mul(result, sqr);
@@ -122,6 +124,7 @@ fixedpt fixedpt_sin(fixedpt fp) {
 	result = fixedpt_mul(result, sqr);
 	result += FIXEDPT_ONE;
 	result = fixedpt_mul(result, fp);
+	printf("e sin\n");
 	return sign * result;
 }
 
