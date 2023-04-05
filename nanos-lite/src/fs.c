@@ -62,7 +62,6 @@ int fs_open(const char *pathname, int flags, int mode){
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
-  printf("read %d\n",fd);
   assert(fd >= 0 && fd < LENGTH(file_table));
   if(file_table[fd].read == NULL){
     len = (file_table[fd].size - file_table[fd].wr_ptr) > len ? len : 
@@ -78,7 +77,6 @@ size_t fs_read(int fd, void *buf, size_t len){
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
-  printf("write %d\n",fd);
   assert(fd >= 0 && fd < LENGTH(file_table));
   if(file_table[fd].write == NULL){
     len = (file_table[fd].size - file_table[fd].wr_ptr) > len ? len : 
