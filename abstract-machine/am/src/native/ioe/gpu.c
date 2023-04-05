@@ -1,6 +1,7 @@
 #include <am.h>
 #include <SDL2/SDL.h>
 #include <fenv.h>
+#include <stdio.h>
 
 //#define MODE_800x600
 #ifdef MODE_800x600
@@ -43,6 +44,7 @@ void __am_gpu_init() {
 }
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
+  //printf("gpu config\n");
   *cfg = (AM_GPU_CONFIG_T) {
     .present = true, .has_accel = false,
     .width = W, .height = H,

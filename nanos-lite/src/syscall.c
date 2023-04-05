@@ -56,28 +56,28 @@ void do_syscall(Context *c) {
       break;
     case SYS_yield:
       yield(); 
-      c->gpr[10] = 0; 
+      c->GPR2 = 0; 
       break;
     case SYS_open:
-      c->gpr[10] = fs_open((char*)a[1], a[2], a[3]);
+      c->GPR2 = fs_open((char*)a[1], a[2], a[3]);
       break;
     case SYS_read:
-      c->gpr[10] = fs_read(a[1], (void *)a[2], a[3]);
+      c->GPR2 = fs_read(a[1], (void *)a[2], a[3]);
       break;
     case SYS_write:
-      c->gpr[10] = fs_write(a[1], (void *)a[2], a[3]);
+      c->GPR2 = fs_write(a[1], (void *)a[2], a[3]);
       break;
     case SYS_close:
-      c->gpr[10] = fs_close(a[1]);
+      c->GPR2 = fs_close(a[1]);
       break;
     case SYS_lseek:
-      c->gpr[10] = fs_lseek(a[1], a[2], a[3]);
+      c->GPR2 = fs_lseek(a[1], a[2], a[3]);
       break;
     case SYS_brk:
-      c->gpr[10] = brk((intptr_t)a[1]);
+      c->GPR2 = brk((intptr_t)a[1]);
       break;
     case SYS_gettimeofday:
-      c->gpr[10] = rtc_gettimeofday((void *)a[1], (void *)a[2]);
+      c->GPR2 = rtc_gettimeofday((void *)a[1], (void *)a[2]);
       break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }

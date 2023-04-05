@@ -5,10 +5,12 @@
 #include <BMP.h>
 
 int main() {
+  printf("bmp-test\n");
   NDL_Init(0);
   int w, h;
+  printf("bmp-load\n");
   void *bmp = BMP_Load("/share/pictures/projectn.bmp", &w, &h);
-  //printf("bmp w: %d, h: %d\n", w, h);
+  printf("bmp w: %d, h: %d\n", w, h);
   assert(bmp);
   NDL_OpenCanvas(&w, &h);
   NDL_DrawRect(bmp, 0, 0, w, h);
