@@ -92,6 +92,11 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  printf("SDL_GetKeystate not implemented\n");
-  return NULL;
+  static uint8_t keystate[(sizeof(keyname)/sizeof(char*))];
+  SDL_Event event;
+  while(SDL_PollEvent(&event)){
+    if(event.type == SDL_KEYDOWN)
+      keystate[(event.key.keysym.sym)] = 1;
+  }
+  return keystate;
 }
