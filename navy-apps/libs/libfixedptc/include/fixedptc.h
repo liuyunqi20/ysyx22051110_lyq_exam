@@ -130,15 +130,15 @@ typedef	__uint128_t fixedptud;
 /* Multiplies a fixedpt number with an integer, returns the result. */
 static inline fixedpt fixedpt_muli(fixedpt A, int B) {
 	printf("muli %x %x\n", A, B);
-	int64_t res = (int64_t)A * (int64_t)(B >> FIXEDPT_FBITS);
-	printf("muli %x\n", res);
+	int64_t res = (int64_t)A * (int64_t)(B);
+	printf("muli %lx\n", res);
 	return (fixedpt)res;
 }
 
 /* Divides a fixedpt number with an integer, returns the result. */
 static inline fixedpt fixedpt_divi(fixedpt A, int B) {
 	printf("divi %x %x\n", A, B);
-	int32_t res = A / (B >> FIXEDPT_FBITS);
+	int32_t res = A / (B);
 	printf("divi %x\n", res);
 	return (fixedpt)res;
 }
