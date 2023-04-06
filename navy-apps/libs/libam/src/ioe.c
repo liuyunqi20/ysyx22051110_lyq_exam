@@ -37,6 +37,7 @@ static void *lut[128] = {
 static void fail(void *buf) { printf("ioe not supported\n"); }
 
 bool ioe_init() {
+  printf("to ioe init\n");
   for (int i = 0; i < LENGTH(lut); i++)
     if (!lut[i]) lut[i] = fail;
   printf("heap start: %lx end: %lx\n", heap.start, heap.end);
