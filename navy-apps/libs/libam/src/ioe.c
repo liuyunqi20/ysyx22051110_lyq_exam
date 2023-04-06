@@ -9,13 +9,6 @@ void libam_timer_uptime(AM_TIMER_UPTIME_T *);
 void libam_gpu_config(AM_GPU_CONFIG_T *);
 void libam_gpu_status(AM_GPU_STATUS_T *);
 void libam_gpu_fbdraw(AM_GPU_FBDRAW_T *);
-void libam_audio_config(AM_AUDIO_CONFIG_T *);
-void libam_audio_ctrl(AM_AUDIO_CTRL_T *);
-void libam_audio_status(AM_AUDIO_STATUS_T *);
-void libam_audio_play(AM_AUDIO_PLAY_T *);
-void libam_disk_config(AM_DISK_CONFIG_T *cfg);
-void libam_disk_status(AM_DISK_STATUS_T *stat);
-void libam_disk_blkio(AM_DISK_BLKIO_T *io);
 
 static void libam_timer_config(AM_TIMER_CONFIG_T *cfg) { cfg->present = true; cfg->has_rtc = true; }
 static void libam_input_config(AM_INPUT_CONFIG_T *cfg) { cfg->present = true;  }
@@ -37,10 +30,11 @@ static void *lut[128] = {
 static void fail(void *buf) { printf("ioe not supported\n"); }
 
 bool ioe_init() {
-  printf("to ioe init\n");
   for (int i = 0; i < LENGTH(lut); i++)
     if (!lut[i]) lut[i] = fail;
   printf("heap start: %lx end: %lx\n", heap.start, heap.end);
+  libam_gpu_init();
+  libam_timer_init();
   return true;
 }
 
