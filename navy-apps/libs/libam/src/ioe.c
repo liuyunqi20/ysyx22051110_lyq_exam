@@ -1,5 +1,5 @@
 #include <am.h>
-
+#include <navy.h>
 void libam_timer_init();
 void libam_gpu_init();
 void libam_audio_init();
@@ -42,5 +42,5 @@ bool ioe_init() {
   return true;
 }
 
-void ioe_read (int reg, void *buf) { ((handler_t)lut[reg])(buf); }
-void ioe_write(int reg, void *buf) { ((handler_t)lut[reg])(buf); }
+void ioe_read (int reg, void *buf) { printf("ioer reg %d\n", reg); ((handler_t)lut[reg])(buf); }
+void ioe_write(int reg, void *buf) { printf("ioer reg %d\n", reg); ((handler_t)lut[reg])(buf); }
