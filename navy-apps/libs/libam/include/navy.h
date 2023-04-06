@@ -26,6 +26,7 @@ static inline void outl(uintptr_t addr, uint32_t data) { *(volatile uint32_t *)a
 #define AUDIO_SBUF_ADDR (MMIO_BASE   + 0x1200000)
 
 #define PMEM_START 0x83000000
+#define HEAP_START 0x86000000
 #define PMEM_SIZE (128 * 1024 * 1024)
 #define PMEM_END  ((uintptr_t)PMEM_START + PMEM_SIZE)
 
