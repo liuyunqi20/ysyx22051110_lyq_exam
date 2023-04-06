@@ -18,6 +18,6 @@ uint32_t SDL_GetTicks() {
 
 void SDL_Delay(uint32_t ms) {
   uint32_t now = SDL_GetTicks();
-  uint32_t count = ms * 1000;
+  uint32_t count = ms * 100;
   while((SDL_GetTicks() - now) < count){;}
 }
