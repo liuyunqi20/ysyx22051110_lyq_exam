@@ -1,6 +1,5 @@
 #include <am.h>
 #include <klib-macros.h>
-#include <stdio.h>
 
 void __am_timer_init();
 void __am_gpu_init();
@@ -53,7 +52,6 @@ bool ioe_init() {
   __am_gpu_init();
   __am_timer_init();
   __am_audio_init();
-  printf("hello?\n");
   return true;
 }
 

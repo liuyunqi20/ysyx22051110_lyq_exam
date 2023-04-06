@@ -33,8 +33,6 @@ bool ioe_init() {
   for (int i = 0; i < LENGTH(lut); i++)
     if (!lut[i]) lut[i] = fail;
   printf("heap start: %lx end: %lx\n", heap.start, heap.end);
-  libam_gpu_init();
-  libam_timer_init();
   return true;
 }
 
