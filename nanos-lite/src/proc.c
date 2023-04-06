@@ -27,7 +27,7 @@ void init_proc() {
   Log("Initializing processes...");
 
   // load program here
-  naive_uload(NULL, "/bin/161220016");
+  naive_uload(NULL, "/bin/171860599");
 }
 
 Context* schedule(Context *prev) {
