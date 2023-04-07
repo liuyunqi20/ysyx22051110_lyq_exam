@@ -11,6 +11,8 @@ static const char *keyname[] = {
   _KEYS(keyname)
 };
 
+static uint8_t keystate[(sizeof(keyname)/sizeof(char*))];
+
 int str2keysym(char * buf){
   char * temp = buf;
   buf[strlen(buf) - 1] = '\0';
@@ -40,10 +42,12 @@ int SDL_PollEvent(SDL_Event *ev) {
     ev->type = SDL_KEYDOWN;
     ev->key.type = SDL_KEYDOWN;
     ev->key.keysym.sym = str2keysym(buf);
+    keystate[ev->key.keysym.sym] = 1;
   }else if(buf[0] == 'k' && buf[0] == 'u'){
     ev->type = SDL_KEYUP;
     ev->key.type = SDL_KEYUP;
     ev->key.keysym.sym = str2keysym(buf);
+    keystate[ev->key.keysym.sym] = 0;
   }else
     ev->type = SDL_USEREVENT;
   return 1;
@@ -57,10 +61,12 @@ int SDL_WaitEvent(SDL_Event *event) {
     event->type = SDL_KEYDOWN;
     event->key.type = SDL_KEYDOWN;
     event->key.keysym.sym = str2keysym(buf);
+    keystate[event->key.keysym.sym] = 1;
   }else if(buf[0] == 'k' && buf[0] == 'u'){
     event->type = SDL_KEYUP;
     event->key.type = SDL_KEYUP;
     event->key.keysym.sym = str2keysym(buf);
+    keystate[event->key.keysym.sym] = 0;
   }else
     event->type = SDL_USEREVENT;
   return 1;
@@ -72,11 +78,12 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  static uint8_t keystate[(sizeof(keyname)/sizeof(char*))];
   SDL_Event event;
   while(SDL_PollEvent(&event)){
     if(event.type == SDL_KEYDOWN)
       keystate[(event.key.keysym.sym)] = 1;
+    else if(event.type == SDL_KEYUP)
+      keystate[(event.key.keysym.sym)] = 0;
   }
   return keystate;
 }
