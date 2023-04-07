@@ -1,6 +1,7 @@
 #include <common.h>
 #include "syscall.h"
 #include <fs.h>
+#include <proc.h>
 
 #define NR_SYSCALL 20
 
@@ -13,6 +14,7 @@ struct timezone {
   int tz_dsttime;         /* type of DST correction */
 };
 int rtc_gettimeofday(struct timeval *restrict tv, struct timezone *restrict tz);
+void naive_uload(PCB *pcb, const char *filename);
 
 #ifdef STRACE
 static const char * sys_name[NR_SYSCALL] = {
@@ -76,6 +78,9 @@ void do_syscall(Context *c) {
     case SYS_brk:
       c->GPR2 = brk((intptr_t)a[1]);
       break;
+    case SYS_execve:
+      naive_uload(NULL, (void *)a[1]);
+      halt(-1);
     case SYS_gettimeofday:
       c->GPR2 = rtc_gettimeofday((void *)a[1], (void *)a[2]);
       break;
