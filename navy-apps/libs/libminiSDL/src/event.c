@@ -20,6 +20,7 @@ int SDL_PollEvent(SDL_Event *ev) {
   if(!NDL_PollEvent(buf, sizeof(buf)))
     return 0;
   char * temp = NULL;
+  if(ev == NULL) return 1;
   if((temp = strstr(buf, "kd")) && (temp == buf)){
     ev->type = SDL_KEYDOWN;
     ev->key.type = SDL_KEYDOWN;
