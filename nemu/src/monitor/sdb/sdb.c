@@ -19,11 +19,25 @@
 #include <readline/history.h>
 #include <memory/vaddr.h>
 #include "sdb.h"
+#include <memory/paddr.h>
+#include <difftest-def.h>
 
 static int is_batch_mode = false;
+extern bool difftest_en;
 
 void init_regex();
 void init_wp_pool();
+
+extern uint64_t mepc;
+extern uint64_t mcause;
+extern uint64_t mtvec;
+extern uint64_t mstatus;
+extern uint64_t mip;
+extern uint64_t mie;
+int isa_set_csr_instseq(uintptr_t * addr);
+extern void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction);
+extern void (*ref_difftest_regcpy)(void *dut, bool direction);
+extern void (*ref_difftest_exec)(uint64_t n);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -59,6 +73,10 @@ static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
 static int cmd_w(char *args);
+static int cmd_detach(char * args);
+static int cmd_attach(char * args);
+static int cmd_save(char * args);
+static int cmd_load(char * args);
 
 static struct {
   const char *name;
@@ -73,7 +91,11 @@ static struct {
   { "si", "Execute by one step", cmd_si },
   { "info", "Print info", cmd_info },
   { "x", "Scan memory", cmd_x },
-  { "w", "Set watchpoint", cmd_w}
+  { "w", "Set watchpoint", cmd_w},
+  { "detach", "exit diff mode", cmd_detach},
+  { "attach", "enter diff mode", cmd_attach},
+  { "save", "save snapshot", cmd_save},
+  { "load", "load snapshot", cmd_load},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
@@ -166,6 +188,73 @@ static int cmd_w(char * args){
   WP * temp = new_wp(arg);
   printf("watchpoint %d: %s %lu\n", 
     temp->NO, temp->expr_str, temp->val);
+  return 0;
+}
+
+static int cmd_detach(char * args){
+  difftest_en = false;
+  return 0;
+}
+
+static int cmd_attach(char * args){
+  difftest_en = true;
+  //TODO: copy csr to ref
+  uintptr_t iaddr = 0;
+  int steps = isa_set_csr_instseq(&iaddr);
+  ref_difftest_memcpy(RESET_VECTOR, (void *)iaddr, steps * 4, DIFFTEST_TO_REF);
+    //TODO: set pc to insts
+  ref_difftest_exec(steps);
+  //copy memory from dut to ref
+  ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), CONFIG_MSIZE, DIFFTEST_TO_REF);
+  ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+  return 0;
+}
+
+static int cmd_save(char * args){
+  char * arg = strtok(NULL, " ");
+  if(arg == NULL){
+    printf("Usage: save [PATH]\n");
+    return 0;
+  }
+  FILE * fd = fopen(arg, "wb");
+  if(fd == NULL){
+    printf("failed to create snapshot %s\n", arg);
+    return 0;
+  }
+  fseek(fd, 0, SEEK_SET);
+  fwrite(&cpu, sizeof(cpu), 1, fd);
+  uint64_t csr_regs[6] = {mepc, mcause, mtvec, mstatus, mip, mie};
+  fwrite(csr_regs, sizeof(csr_regs), 1, fd);
+  fwrite(guest_to_host(RESET_VECTOR), CONFIG_MSIZE, 1, fd);
+  return 0;
+}
+
+static int cmd_load(char * args){
+  char * arg = strtok(NULL, " ");
+  if(arg == NULL){
+    printf("Usage: load [PATH]\n");
+    return 0;
+  }
+  FILE * fd = fopen(arg, "r");
+  if(fd == NULL){
+    printf("failed to open snapshot %s\n", arg);
+    return 0;
+  }
+  int ret;
+  fseek(fd, 0, SEEK_SET);
+  ret = fread(&cpu, sizeof(cpu), 1, fd);
+  if(!ret) printf("read cpu failed\n");
+  uint64_t csr_regs[6];
+  ret = fread(csr_regs, sizeof(csr_regs), 1, fd);
+  if(!ret) printf("read csr failed\n");
+  mepc    = csr_regs[0];
+  mcause  = csr_regs[1];
+  mtvec   = csr_regs[2];
+  mstatus = csr_regs[3];
+  mip     = csr_regs[4];
+  mie     = csr_regs[5];
+  ret = fread(guest_to_host(RESET_VECTOR), CONFIG_MSIZE, 1, fd);
+  if(!ret) printf("read memory failed\n");
   return 0;
 }
 

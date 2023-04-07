@@ -107,3 +107,9 @@ word_t isa_intr_ret(){
 word_t isa_query_intr() {
   return INTR_EMPTY;
 }
+
+int isa_set_csr_instseq(uintptr_t * addr){
+  //TODO: generate inst sequence to set REF csr regs
+  //return number of inst
+  return 0;
+}
