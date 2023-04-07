@@ -79,6 +79,7 @@ void do_syscall(Context *c) {
       c->GPR2 = brk((intptr_t)a[1]);
       break;
     case SYS_execve:
+      printf("sys exec %s\n", (char *)a[1]);
       naive_uload(NULL, (void *)a[1]);
       halt(-1);
     case SYS_gettimeofday:
