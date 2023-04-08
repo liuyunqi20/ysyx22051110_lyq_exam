@@ -24,11 +24,14 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
-  char * temp = NULL;
+  const char * temp = cmd;
   if((temp = strstr(cmd, "echo")) != NULL){
     temp += sizeof("echo");
     while(*temp == ' ') temp++;
     sh_printf("%s", temp);
+  }else{
+    while(*temp != ' ') temp++;
+    execve(temp, NULL, NULL);
   }
 }
 

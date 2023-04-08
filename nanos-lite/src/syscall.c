@@ -55,7 +55,7 @@ void do_syscall(Context *c) {
     case SYS_exit:
       //printf("exit with %d!\n", a[1]); 
       //halt(a[1]);
-      naive_uload(NULL, "/bin/menu");
+      naive_uload(NULL, "/bin/netrm");
       break;
     case SYS_yield:
       yield(); 
