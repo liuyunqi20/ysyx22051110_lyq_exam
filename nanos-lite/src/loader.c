@@ -1,6 +1,7 @@
 #include <proc.h>
 #include <elf.h>
 #include <fs.h>
+#include <stdio.h>
 
 #ifdef __LP64__
 # define Elf_Ehdr Elf64_Ehdr
@@ -45,6 +46,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
+  printf("load file %s\n", filename);
   uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = 0x%lx", entry);
   ((void(*)())entry) ();
