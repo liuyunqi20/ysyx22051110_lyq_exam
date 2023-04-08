@@ -32,7 +32,6 @@ static void sh_handle_cmd(const char *cmd) {
   }else{
     while(*temp != ' ') temp++;
     char * const argv[2] = {(char *)temp, NULL};
-    setenv("PATH", "/bin", 0);
     execvp(temp, argv);
   }
 }
@@ -40,6 +39,7 @@ static void sh_handle_cmd(const char *cmd) {
 void builtin_sh_run() {
   sh_banner();
   sh_prompt();
+  setenv("PATH", "/bin", 0);
 
   while (1) {
     SDL_Event ev;
