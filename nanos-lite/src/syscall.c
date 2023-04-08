@@ -53,8 +53,9 @@ void do_syscall(Context *c) {
   a[3] = c->GPR4; //a2
   switch (a[0]) {
     case SYS_exit:
-      printf("exit with %d!\n", a[1]); 
-      halt(a[1]);
+      //printf("exit with %d!\n", a[1]); 
+      //halt(a[1]);
+      naive_uload(NULL, "/bin/menu");
       break;
     case SYS_yield:
       yield(); 
