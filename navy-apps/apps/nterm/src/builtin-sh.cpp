@@ -30,7 +30,10 @@ static void sh_handle_cmd(const char *cmd) {
     while(*temp == ' ') temp++;
     sh_printf("%s", temp);
   }else{
-    temp = cmd;
+    char buf[64];
+    strncpy(buf, cmd, sizeof(buf));
+    buf[strlen(buf) - 1] = '\0';
+    const char * temp = buf;
     while((*temp) == ' ') temp++;
     char * const argv[2] = {(char *)temp, NULL};
     printf("execvp: %s\n", temp);
