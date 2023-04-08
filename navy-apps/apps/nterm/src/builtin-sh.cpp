@@ -32,7 +32,7 @@ static void sh_handle_cmd(const char *cmd) {
   }else{
     while(*temp != ' ') temp++;
     char * const argv[2] = {(char *)temp, NULL};
-    setenv("PATH", "/bin", 1);
+    setenv("PATH", "/bin", 0);
     execvp(temp, argv);
   }
 }
