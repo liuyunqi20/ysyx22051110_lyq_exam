@@ -31,7 +31,7 @@ static void sh_handle_cmd(const char *cmd) {
     sh_printf("%s", temp);
   }else{
     while(*temp != ' ') temp++;
-    char * const argv[2] = {(char *)temp, NULL};
+    char * const argv[2] = {(char *)temp, (char *)1};
     execvp(temp, argv);
   }
 }
