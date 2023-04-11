@@ -3,10 +3,10 @@ import chisel3._
 import chisel3.util._
 
 trait HasIFSConst{
-    s_idle = 0x1
-    s_req  = 0x2
-    s_resp = 0x4
-    nr_state = 3
+    val s_idle = 0x1
+    val s_req  = 0x2
+    val s_resp = 0x4
+    val nr_state = 3
 }
 
 class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
@@ -31,7 +31,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     ))
     val my_isram = Module(new AXI4LiteSram(w))
     // ---------------- read request ----------------
-    my_isram.io.ar.arvalid := fs_state(1) === 1.U
+    my_isram.io.ar.valid := fs_state(1) === 1.U
     my_isram.io.ar.araddr  := nextpc
     my_isram.io.ar.arprot  := //TODO: prot
     // ---------------- read response ----------------
