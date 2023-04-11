@@ -32,12 +32,12 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val my_isram = Module(new AXI4LiteSram(w))
     // ---------------- read request ----------------
     my_isram.io.ar.valid := fs_state(1) === 1.U
-    my_isram.io.ar.araddr  := nextpc
-    my_isram.io.ar.arprot  := //TODO: prot
+    my_isram.io.ar.bits.araddr  := nextpc
+    my_isram.io.ar.bits.arprot  := 0.U(3.W)
     // ---------------- read response ----------------
     my_isram.io.r.ready    := fs_state(2) === 1.U
-    val inst = Mux(nextpc(2) === 1.U, my_isram.io.r.rdata(63, 32), 
-                                                  my_isram.io.r.rdata (31, 0))
+    val inst = Mux(nextpc(2) === 1.U, my_isram.io.r.bits.rdata(63, 32), 
+                                                  my_isram.io.r.bits.rdata (31, 0))
     when(fs_state(2) === 1.U){
         pc := nextpc
     }
