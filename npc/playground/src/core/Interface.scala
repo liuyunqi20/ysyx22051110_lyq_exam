@@ -109,7 +109,7 @@ import chisel3._
         //val arvalid = Output(Bool())
         //val arready = Input(Bool())
         val araddr  = Output(UInt(w.W))
-        val arprot  = Output(3.W)
+        val arprot  = Output(UInt(3.W))
     }
 
     class AXI4LiteRD(w: Int) extends Bundle{
