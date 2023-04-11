@@ -22,7 +22,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         //from Mem stage to inform memory op is done (single cycle)
         //TODO: val ms_mem_ok = Input(Bool())
     })
-    val pc     = RegInit("h8000_0000".U(w.W))
+    val pc     = RegInit("h7ffff_fffc".U(w.W))
     val nextpc = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
                     Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
     val fs_state = RegInit(s_idle.U(nr_state.W))
