@@ -103,3 +103,38 @@ import chisel3._
         val exc_br     = Output(Bool())
         val exc_target = Output(UInt(w.W))
     }
+
+// ----------------- AXI4-Lite Sram Bundle -----------------
+    class AXI4LiteAR(w: Int) extends Bundle{
+        //val arvalid = Output(Bool())
+        //val arready = Input(Bool())
+        val araddr  = Output(UInt(w.W))
+        val arprot  = Output(3.W)
+    }
+
+    class AXI4LiteRD(w: Int) extends Bundle{
+        //val rvalid = Input(Bool())
+        //val rready = Output(Bool())
+        val rdata  = Input(UInt(w.W))
+        val rresp  = Input(UInt(2.W))
+    }
+
+    class AXI4LiteAW(w: Int) extends Bundle{
+        //val awvalid = Output(Bool())
+        //val awready = Input(Bool())
+        val awaddr  = Output(UInt(w.W))
+        val awprot  = Output(UInt(3.W))
+    }
+
+    class AXI4LiteWR(w: Int) extends Bundle{
+        //val wvalid = Output(Bool())
+        //val wready = Input(Bool())
+        val wdata  = Output(UInt(w.W))
+        val wstrb  = Output(UInt( (w/8).W ))
+    }
+
+    class AXI4LiteWB(w: Int) extends Bundle{
+        //val bvalid = Input(Bool())
+        //val bready = Output(Bool())
+        val bresp  = Input(UInt(2.W))
+    }
