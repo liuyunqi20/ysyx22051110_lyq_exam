@@ -102,7 +102,7 @@ void set_npc_state(int state, uint64_t pc, uint32_t ret){
 }
 
 void execute_once(){
-    //printf("start %lx\n", cpu_pc);
+    printf("start %lx\n", cpu_pc);
     uint64_t old_pc = cpu_pc;
     while(cpu_pc != old_pc){
         // ----------------- NEG ----------------- 
@@ -225,7 +225,7 @@ void init_cpu(){
     SimTop->eval();
     wave_dump();
     cpu_pc = SimTop->io_core_debug_debug_nextpc;
-    printf("[npc] cpu init success! cpupc%lx\n", cpu_pc);
+    printf("[npc] cpu init success!\n");
     npc_state.state = NPC_STOP;
 }
 
