@@ -69,9 +69,9 @@ class Write_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
 class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     val io = IO(new Bundle{
         val ar = Flipped(Decoupled(new AXI4LiteAR(w)))
-        val rd  = Decoupled(new AXI4LiteRD(w))
+        val rd = Decoupled(new AXI4LiteRD(w))
         val aw = Flipped(Decoupled(new AXI4LiteAW(w)))
-        val wt  = Flipped(Decoupled(new AXI4LiteWR(w)))
+        val wt = Flipped(Decoupled(new AXI4LiteWR(w)))
         val b  = Decoupled(new AXI4LiteWB(w))
     })
     val rstate = RegInit(s_idle.U(state_w.W))

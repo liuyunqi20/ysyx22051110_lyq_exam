@@ -139,3 +139,11 @@ import chisel3.util._
         //val bready = Output(Bool())
         val bresp  = Bits(2.W)
     }
+
+    class AXI4LiteBundle(w: Int) extends Bundle{
+        val ar = Decoupled(new AXI4LiteAR(w))
+        val rd = Flipped(Decoupled(new AXI4LiteRD(w)))
+        val aw = Decoupled(new AXI4LiteAW(w))
+        val wt = Decoupled(new AXI4LiteWR(w))
+        val b  = Flipped(Decoupled(new AXI4LiteWB(w)))
+    }

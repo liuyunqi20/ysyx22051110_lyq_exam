@@ -3,8 +3,6 @@ import chisel3._
 
 class MycpuCoreTop(w: Int) extends Module{
     val io = IO(new Bundle{
-        val core_inst_mem_in  = new MemInBundle(w)
-        val core_inst_mem_out = new MemOutBundle(w)
         val core_data_mem_in  = new MemInBundle(w)
         val core_data_mem_out = new MemOutBundle(w)
         val core_debug        = new DebugBundle(w)
@@ -16,9 +14,8 @@ class MycpuCoreTop(w: Int) extends Module{
     val my_wb    = Module(new Wb_stage(w))
     val my_clint = Module(new Clint(w))
     val my_csr   = Module(new Csr(w))
+    val my_isram = Module(new AXI4LiteSram(w))
     //IF stage
-    my_if.io.inst_mem_in   <> io.core_inst_mem_in
-    my_if.io.inst_mem_out  <> io.core_inst_mem_out
     my_if.io.branch        <> my_ex.io.branch
     my_if.io.exc_br        <> my_wb.io.exc_br
     //ID stage
@@ -36,6 +33,7 @@ class MycpuCoreTop(w: Int) extends Module{
     //Wb stage
     my_wb.io.mem2wb        <> my_mem.io.mem2wb
     my_wb.io.pc            := my_if.io.pc
+    my_wb.io.fs_mem_ok     := my_if.io.fs_mem_ok
     //CSR/CLINT
     my_csr.io.op           <> my_wb.io.csr_op
     my_csr.io.exc          <> my_wb.io.csr_exc
@@ -45,6 +43,12 @@ class MycpuCoreTop(w: Int) extends Module{
     my_clint.io.wr         := my_mem.io.data_mem_out.wr
     my_clint.io.waddr      := my_mem.io.data_mem_out.addr
     my_clint.io.wdata      := my_mem.io.data_mem_out.wdata
+    //AXI inst sram
+    my_isram.io.ar         <> my_if.io.inst_mem.ar
+    my_isram.io.rd         <> my_if.io.inst_mem.rd
+    my_isram.io.aw         <> my_if.io.inst_mem.aw
+    my_isram.io.wt         <> my_if.io.inst_mem.wt
+    my_isram.io.b          <> my_if.io.inst_mem.b
     //debug
     io.core_debug.debug_pc       := my_if.io.pc
     io.core_debug.debug_nextpc   := my_if.io.nextpc
