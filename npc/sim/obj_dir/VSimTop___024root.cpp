@@ -329,7 +329,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__3(VSimTop___024root* vlSelf
            & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie 
                       >> 7U)));
     if (vlSelf->reset) {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc = 0x7fffffffcULL;
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc = 0x7ffffffcULL;
     } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_fs_mem_ok_T_1) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc 
             = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap)

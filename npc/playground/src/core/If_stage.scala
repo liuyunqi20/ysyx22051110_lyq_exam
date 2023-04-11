@@ -37,10 +37,11 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     io.inst_mem.ar.bits.arprot  := 0.U(3.W)
     // ---------------- read response ----------------
     io.inst_mem.rd.ready := fs_state(2) === 1.U
-    val inst = Mux(pc(2) === 1.U, io.inst_mem.rd.bits.rdata(63, 32),
-                                  io.inst_mem.rd.bits.rdata(31, 0))
+    val inst = RegInit(0.U(32.W))
     when(io.inst_mem.rd.fire === 1.U){
         pc := nextpc
+        inst := Mux(nextpc(2) === 1.U, io.inst_mem.rd.bits.rdata(63, 32),
+                                  io.inst_mem.rd.bits.rdata(31, 0))
     }
     //sram write(ignored)
     io.inst_mem.aw.valid       := 0.B
