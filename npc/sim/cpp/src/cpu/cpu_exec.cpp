@@ -129,6 +129,7 @@ void execute_once(){
         //update current pc
         cpu_pc = SimTop->io_core_debug_debug_pc;
         VSimTop::catch_ebreak(&ebreak_f);
+        printf("cur_pc: %lx old_pc: %lx\n", cpu_pc, old_pc);
     }
 }
 
