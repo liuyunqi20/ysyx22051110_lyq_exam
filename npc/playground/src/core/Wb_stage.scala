@@ -35,7 +35,7 @@ class Wb_stage(w: Int) extends Module{
     io.csr_exc.epc       := io.pc
     io.csr_exc.exc_code  := exc_code
     // ------------------ RF write back ------------------ 
-    io.wb2rf.rf_we := io.mem2wb.gr_we && ~has_trap && fs_mem_ok
+    io.wb2rf.rf_we := io.mem2wb.gr_we && ~has_trap && io.fs_mem_ok
     io.wb2rf.waddr := io.mem2wb.dest
     io.wb2rf.wdata := Mux(io.mem2wb.csr_op.orR === 1.U, io.csr_op.csr_old, io.mem2wb.result)
 }
