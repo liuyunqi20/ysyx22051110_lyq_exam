@@ -25,9 +25,9 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
 
     val fs_state = RegInit(0.U(nr_state.W))
     fs_state := Mux1H(Seq(
-        /* s_idle */ fs_state(0) -> (s_req.U)
-        /* s_req  */ fs_state(1) -> Mux(my_isram.io.ar.fire, s_resp.U, s_req.U)
-        /* s_resp */ fs_state(2) -> Mux(my_isram.io.rd.fire, s_req.U, s_resp.U)
+        /* s_idle */ fs_state(0) -> (s_req.U),
+        /* s_req  */ fs_state(1) -> Mux(my_isram.io.ar.fire, s_resp.U, s_req.U),
+        /* s_resp */ fs_state(2) -> Mux(my_isram.io.rd.fire, s_req.U, s_resp.U),
     ))
     val my_isram = Module(new AXI4LiteSram(w))
     // ---------------- read request ----------------
