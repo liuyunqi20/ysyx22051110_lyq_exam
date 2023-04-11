@@ -22,16 +22,13 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val pc     = RegInit("h7fff_fffc".U(w.W))
     val nextpc = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
                     Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
-
+    val my_isram = Module(new AXI4LiteSram(w))
     val fs_state = RegInit(0.U(nr_state.W))
     fs_state := Mux1H(Seq(
         /* s_idle */ fs_state(0) -> (s_req.U),
-        ///* s_req  */ fs_state(1) -> Mux(my_isram.io.ar.fire, s_resp.U, s_req.U),
-        ///* s_resp */ fs_state(2) -> Mux(my_isram.io.rd.fire, s_req.U, s_resp.U),
-        fs_state(1) -> Mux(my_isram.io.ar.valid && my_isram.io.ar.ready, s_resp.U, s_req.U),
-        fs_state(2) -> Mux(my_isram.io.rd.valid && my_isram.io.rd.ready, s_req.U, s_resp.U),
+        /* s_req  */ fs_state(1) -> Mux(my_isram.io.ar.fire, s_resp.U, s_req.U),
+        /* s_resp */ fs_state(2) -> Mux(my_isram.io.rd.fire, s_req.U, s_resp.U),
     ))
-    val my_isram = Module(new AXI4LiteSram(w))
     // ---------------- read request ----------------
     my_isram.io.ar.valid        := fs_state(1) === 1.U
     my_isram.io.ar.bits.araddr  := nextpc
