@@ -99,7 +99,7 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     my_rmem_port.io.en   := rstate(1)
     my_rmem_port.io.wr   := 0.B
     my_rmem_port.io.addr := io.ar.bits.araddr
-    when(reset){
+    when(reset === 1.U){
         rdata_r := 0.U
     }.elsewhen(rstate(1) === 1.U){
         rdata_r := my_mem_port.io.rdata
