@@ -48,7 +48,6 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     my_isram.io.wt.bits.wdata  := 0.U
     my_isram.io.wt.bits.wstrb  := 0.U
     my_isram.io.b.ready        := 0.B
-    my_isram.io.b.bits.bresp   := 0.U
     //to SimTop
     io.inst_mem_out.en     := true.B
     io.inst_mem_out.wr     := false.B
