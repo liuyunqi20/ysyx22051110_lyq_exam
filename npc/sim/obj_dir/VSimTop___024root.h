@@ -60,6 +60,11 @@ VL_MODULE(VSimTop___024root) {
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_ex_sel;
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op;
         CData/*1:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type;
+        CData/*2:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT___T_1;
+        CData/*3:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__my_isram__DOT__rstate;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__my_isram__DOT___io_ar_ready_T_4;
+        CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__my_isram__DOT__unnamedblk1__DOT___rstate_T_5;
         CData/*6:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT___my_decoder_io_inst_type;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_5;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_11;
@@ -85,7 +90,7 @@ VL_MODULE(VSimTop___024root) {
         SData/*15:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_0;
         SData/*15:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_h;
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op;
-        IData/*31:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__inst;
+        IData/*31:0*/ SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst;
         IData/*16:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_1;
         VlWide<3>/*64:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN;
         IData/*31:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divuw_res;
@@ -99,15 +104,19 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_target;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_rs1;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_imm;
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT___my_imem_port_rdata;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__pc;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__my_isram__DOT___my_rmem_port_rdata;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__my_isram__DOT__rdata_r;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__my_isram__DOT__my_rmem_port__DOT__tmprdata;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT___my_alu_io_res;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__alu_res;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__pc_seq;
         QData/*32:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divw_res;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT___my_dmem_port_rdata;
+    };
+    struct {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__my_dmem_port__DOT__tmprdata;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp;
@@ -115,8 +124,6 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip;
-    };
-    struct {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
@@ -129,8 +136,8 @@ VL_MODULE(VSimTop___024root) {
     CData/*0:0*/ __Vclklast__TOP__clock;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1;
-    QData/*63:0*/ __Vtask_SimTop__DOT__my_core_top__DOT__my_if__DOT__my_imem_port__DOT__cpu_dmem_read__0__rdata;
-    QData/*63:0*/ __Vtask_SimTop__DOT__my_core_top__DOT__my_mem__DOT__my_dmem_port__DOT__cpu_dmem_read__3__rdata;
+    QData/*63:0*/ __Vtask_SimTop__DOT__my_core_top__DOT__my_if__DOT__my_isram__DOT__my_rmem_port__DOT__cpu_dmem_read__0__rdata;
+    QData/*63:0*/ __Vtask_SimTop__DOT__my_core_top__DOT__my_mem__DOT__my_dmem_port__DOT__cpu_dmem_read__4__rdata;
     VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
