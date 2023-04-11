@@ -90,6 +90,7 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+13,"SimTop my_core_top my_if pc", false,-1, 63,0);
         tracep->declQuad(c+16,"SimTop my_core_top my_if nextpc", false,-1, 63,0);
         tracep->declBus(c+20,"SimTop my_core_top my_if fs_state", false,-1, 2,0);
+        tracep->declBus(c+18,"SimTop my_core_top my_if inst", false,-1, 31,0);
         tracep->declBit(c+192,"SimTop my_core_top my_id clock", false,-1);
         tracep->declBit(c+193,"SimTop my_core_top my_id reset", false,-1);
         tracep->declQuad(c+13,"SimTop my_core_top my_id io_pc", false,-1, 63,0);
@@ -383,34 +384,34 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullBit(oldp+15,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
                                         >> 1U))));
         tracep->fullQData(oldp+16,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc),64);
-        tracep->fullIData(oldp+18,(vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst),32);
+        tracep->fullIData(oldp+18,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst),32);
         tracep->fullBit(oldp+19,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_fs_mem_ok_T_1));
         tracep->fullCData(oldp+20,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state),3);
         tracep->fullBit(oldp+21,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we));
-        tracep->fullCData(oldp+22,((0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst 
+        tracep->fullCData(oldp+22,((0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                              >> 7U))),5);
         tracep->fullQData(oldp+23,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_wdata),64);
         tracep->fullIData(oldp+25,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op),23);
         tracep->fullBit(oldp+26,(((0x37U != (0x7fU 
-                                             & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst)) 
+                                             & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                   & ((0x17U == (0x7fU 
-                                                & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst)) 
+                                                & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                      | (0x6fU == (0x7fU 
-                                                  & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))))));
+                                                  & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))))));
         tracep->fullBit(oldp+27,((((0x37U == (0x7fU 
-                                              & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst)) 
+                                              & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                    | (0x17U == (0x7fU 
-                                                & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))) 
+                                                & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                   | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_5))));
         tracep->fullSData(oldp+28,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_br_type),9);
         tracep->fullBit(oldp+29,((((((0x37U == (0x7fU 
-                                                & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst)) 
+                                                & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                      | (0x17U == (0x7fU 
-                                                  & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))) 
+                                                  & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                     | (0x6fU == (0x7fU 
-                                                 & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))) 
+                                                 & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                    | (0x67U == (0x7fU 
-                                                & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))) 
+                                                & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                   | (((((((0x63U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN)) 
                                           & (0xe3U 
                                              != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
@@ -535,21 +536,21 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                                    | (0x3f3U 
                                                       == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
                                                   | (0x73U 
-                                                     == vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst)) 
+                                                     == vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                                  | (0x30200073U 
-                                                    == vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst)))))))));
+                                                    == vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)))))))));
         tracep->fullBit(oldp+30,((((((((((((0x37U != 
                                             (0x7fU 
-                                             & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst)) 
+                                             & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                            & (0x17U 
                                               != (0x7fU 
-                                                  & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))) 
+                                                  & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                           & (0x6fU 
                                              != (0x7fU 
-                                                 & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))) 
+                                                 & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                          & (0x67U != 
                                             (0x7fU 
-                                             & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))) 
+                                             & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                         & (0x63U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
                                        & (0xe3U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
                                       & (0x263U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
@@ -571,19 +572,19 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullBit(oldp+34,(((((((((((((((((0x37U 
                                                  != 
                                                  (0x7fU 
-                                                  & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst)) 
+                                                  & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                                 & (0x17U 
                                                    != 
                                                    (0x7fU 
-                                                    & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))) 
+                                                    & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                                & (0x6fU 
                                                   != 
                                                   (0x7fU 
-                                                   & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))) 
+                                                   & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                               & (0x67U 
                                                  != 
                                                  (0x7fU 
-                                                  & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))) 
+                                                  & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                              & (0x63U 
                                                 != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
                                             & (0xe3U 
@@ -651,17 +652,17 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullQData(oldp+38,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_rs1),64);
         tracep->fullQData(oldp+40,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2),64);
         tracep->fullQData(oldp+42,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_imm),64);
-        tracep->fullSData(oldp+44,((vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst 
+        tracep->fullSData(oldp+44,((vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                     >> 0x14U)),12);
         tracep->fullBit(oldp+45,(((IData)((0x73U == 
                                            (0xfffffU 
-                                            & vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))) 
-                                  & (1U == (vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst 
+                                            & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
+                                  & (1U == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                             >> 0x14U)))));
-        tracep->fullQData(oldp+46,((QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst))),64);
+        tracep->fullQData(oldp+46,((QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))),64);
         tracep->fullCData(oldp+48,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_decoder_io_inst_type),7);
         tracep->fullCData(oldp+49,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT____Vcellinp__my_rf__io_raddr1),5);
-        tracep->fullCData(oldp+50,((0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT___my_if_io_if2id_inst 
+        tracep->fullCData(oldp+50,((0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                              >> 0x14U))),5);
         tracep->fullQData(oldp+51,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[0]),64);
         tracep->fullQData(oldp+53,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[1]),64);
