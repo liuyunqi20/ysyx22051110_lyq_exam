@@ -19,7 +19,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         val if2id        = new IftoIdBundle(w)
         val exc_br       = Flipped(new ExcBranchBundle(w))
     })
-    val pc     = RegInit("h7fff_fffc".U(w.W))
+    val pc     = RegInit("h8000_0000".U(w.W))
     val nextpc = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
                     Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
     val my_isram = Module(new AXI4LiteSram(w))

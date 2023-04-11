@@ -224,7 +224,7 @@ void init_cpu(){
     SimTop->clock = !SimTop->clock;
     SimTop->eval();
     wave_dump();
-    cpu_pc = SimTop->io_core_debug_debug_nextpc;
+    cpu_pc = SimTop->io_core_debug_debug_pc;
     printf("[npc] cpu init success!\n");
     npc_state.state = NPC_STOP;
 }
