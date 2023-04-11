@@ -68,11 +68,10 @@ class Write_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
 
 class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     val io = IO(new Bundle{
-
         val ar = Flipped(Decoupled(new AXI4LiteAR(w)))
-        val r  = Decoupled(new AXI4LiteRD(w))
+        val rd  = Decoupled(new AXI4LiteRD(w))
         val aw = Flipped(Decoupled(new AXI4LiteAW(w)))
-        val w  = Flipped(Decoupled(new AXI4LiteWR(w)))
+        val wt  = Flipped(Decoupled(new AXI4LiteWR(w)))
         val b  = Decoupled(new AXI4LiteWB(w))
     })
     val rstate = RegInit(s_idle.U(state_w.W))
@@ -92,9 +91,9 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     io.ar.ready     := rstate(0) || rstate(1)
     // --------------- read resp
     val rdata_r      = RegInit(0.U(w.W))
-    io.r.bits.rdata := rdata_r
-    io.r.bits.rresp := 0.U(2.W)
-    io.r.valid      := rstate(2)
+    io.rd.bits.rdata := rdata_r
+    io.rd.bits.rresp := 0.U(2.W)
+    io.rd.valid      := rstate(2)
     val my_rmem_port = Module(new Read_Mem_port(w))
     my_rmem_port.io.en   := rstate(1)
     my_rmem_port.io.wr   := 0.B
@@ -106,7 +105,7 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     // --------------- write request
     io.aw.ready     := wstate(0) || wstate(3)
     // --------------- write data
-    io.w.ready      := wstate(2)
+    io.wt.ready      := wstate(2)
     // --------------- write resp
     io.b.valid      := wstate(3)
     io.b.bits.bresp := 0.U(2.W)   
