@@ -83,7 +83,7 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     )) 
     wstate := Mux1H(Seq(
         /* Idle         */ wstate(0) -> Mux(io.aw.fire, s_write_req.U , s_idle.U      ),
-        /* Write Requst */ wstate(1) -> Mux(io.wt.fire , s_write_data.U, s_write_req.U ),
+        /* Write Requst */ wstate(1) -> Mux(io.wt.fire , s_write_data.U, s_write_req.U),
         /* Write Data   */ wstate(2) -> Mux(io.b.fire , s_write_resp.U, s_write_data.U),
         /* Write Resp   */ wstate(3) -> (s_idle.U),
     ))
@@ -95,7 +95,7 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     io.rd.bits.rresp := 0.U(2.W)
     io.rd.valid      := rstate(2)
     val my_rmem_port = Module(new Read_mem_port(w))
-    my_rmem_port.io.en   := rstate(1)
+    my_rmem_port.io.en   := rstate(1) === 1.U
     my_rmem_port.io.wr   := 0.B
     my_rmem_port.io.addr := io.ar.bits.araddr
     when(rstate(1) === 1.U){
