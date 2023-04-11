@@ -17,7 +17,7 @@ class Wb_stage(w: Int) extends Module{
     // ------------------ intrrupt/exception ------------------ 
     val has_trap          = (io.mem2wb.exc_type.orR === 1.U) || (io.csr_exc.intr_t)
     io.exc_br.exc_br     := has_trap
-    io.exc_br.exc_target := MuxCase(0.U(w.W), Array(
+    io.exc_br.exc_target := MuxCase(0.U(w.W), Seq(
         ( (io.mem2wb.exc_type(0) === 1.U) || io.csr_exc.intr_t ) -> (io.csr_out.mtvec),    /* trap entry */
         (  io.mem2wb.exc_type(1) === 1.U                       ) -> (io.csr_exc.mret_addr),  /*trap return */
     ))
