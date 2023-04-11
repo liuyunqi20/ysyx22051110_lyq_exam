@@ -26,16 +26,18 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val fs_state = RegInit(0.U(nr_state.W))
     fs_state := Mux1H(Seq(
         /* s_idle */ fs_state(0) -> (s_req.U),
-        /* s_req  */ fs_state(1) -> Mux(my_isram.io.ar.fire, s_resp.U, s_req.U),
-        /* s_resp */ fs_state(2) -> Mux(my_isram.io.rd.fire, s_req.U, s_resp.U),
+        ///* s_req  */ fs_state(1) -> Mux(my_isram.io.ar.fire, s_resp.U, s_req.U),
+        ///* s_resp */ fs_state(2) -> Mux(my_isram.io.rd.fire, s_req.U, s_resp.U),
+        fs_state(1) -> Mux(my_isram.io.ar.valid && my_isram.io.ar.ready, s_resp.U, s_req.U),
+        fs_state(2) -> Mux(my_isram.io.rd.valid && my_isram.io.rd.ready, s_req.U, s_resp.U),
     ))
     val my_isram = Module(new AXI4LiteSram(w))
     // ---------------- read request ----------------
-    my_isram.io.ar.valid := fs_state(1) === 1.U
+    my_isram.io.ar.valid        := fs_state(1) === 1.U
     my_isram.io.ar.bits.araddr  := nextpc
     my_isram.io.ar.bits.arprot  := 0.U(3.W)
     // ---------------- read response ----------------
-    my_isram.io.rd.ready    := fs_state(2) === 1.U
+    my_isram.io.rd.ready        := fs_state(2) === 1.U
     val inst = Mux(nextpc(2) === 1.U, my_isram.io.rd.bits.rdata(63, 32), 
                                       my_isram.io.rd.bits.rdata (31, 0))
     when(fs_state(2) === 1.U){
