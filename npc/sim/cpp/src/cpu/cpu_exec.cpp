@@ -104,7 +104,7 @@ void set_npc_state(int state, uint64_t pc, uint32_t ret){
 void execute_once(){
     //printf("start %lx\n", cpu_pc);
     uint64_t old_pc = cpu_pc;
-    while(cpu_pc != old_cpu){
+    while(cpu_pc != old_pc){
         // ----------------- NEG ----------------- 
         contextp->timeInc(1);
         SimTop->clock = !SimTop->clock;
