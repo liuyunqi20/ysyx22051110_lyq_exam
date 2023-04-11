@@ -109,33 +109,33 @@ import chisel3.util._
     class AXI4LiteAR(w: Int) extends Bundle{
         //val arvalid = Output(Bool())
         //val arready = Input(Bool())
-        val araddr  = UInt(w.W)
-        val arprot  = UInt(3.W)
+        val araddr  = Bits(w.W)
+        val arprot  = Bits(3.W)
     }
 
     class AXI4LiteRD(w: Int) extends Bundle{
         //val rvalid = Input(Bool())
         //val rready = Output(Bool())
-        val rdata  = UInt(w.W)
-        val rresp  = UInt(2.W)
+        val rdata  = Bits(w.W)
+        val rresp  = Bits(2.W)
     }
 
     class AXI4LiteAW(w: Int) extends Bundle{
         //val awvalid = Output(Bool())
         //val awready = Input(Bool())
-        val awaddr  = Output(UInt(w.W))
-        val awprot  = Output(UInt(3.W))
+        val awaddr  = Bits(w.W)
+        val awprot  = Bits(3.W)
     }
 
     class AXI4LiteWR(w: Int) extends Bundle{
         //val wvalid = Output(Bool())
         //val wready = Input(Bool())
-        val wdata  = Output(UInt(w.W))
-        val wstrb  = Output(UInt( (w/8).W ))
+        val wdata  = Bits(w.W)
+        val wstrb  = Bits( (w/8).W )
     }
 
     class AXI4LiteWB(w: Int) extends Bundle{
         //val bvalid = Input(Bool())
         //val bready = Output(Bool())
-        val bresp  = Input(UInt(2.W))
+        val bresp  = Bits(2.W)
     }

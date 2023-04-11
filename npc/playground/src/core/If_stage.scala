@@ -31,8 +31,8 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     ))
     // ---------------- read request ----------------
     my_isram.io.ar.valid        := fs_state(1) === 1.U
-    my_isram.io.ar.araddr  := nextpc
-    my_isram.io.ar.arprot  := 0.U(3.W)
+    my_isram.io.ar.bits.araddr  := nextpc
+    my_isram.io.ar.bits.arprot  := 0.U(3.W)
     // ---------------- read response ----------------
     my_isram.io.rd.ready        := fs_state(2) === 1.U
     val inst = Mux(pc(2) === 1.U, my_isram.io.rd.bits.rdata(63, 32),
