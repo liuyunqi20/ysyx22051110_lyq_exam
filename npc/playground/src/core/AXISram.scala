@@ -88,12 +88,12 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
         /* Write Resp   */ wstate(3) -> (s_idle.U),
     ))
     // --------------- read data
-    io.ar.ready     := rstate(0) || rstate(1)
+    io.ar.ready     := (rstate(0) === 1.U) || (rstate(1) === 1.U)
     // --------------- read resp
     val rdata_r      = RegInit(0.U(w.W))
     io.rd.bits.rdata := rdata_r
     io.rd.bits.rresp := 0.U(2.W)
-    io.rd.valid      := rstate(2)
+    io.rd.valid      := rstate(2) === 1.U
     val my_rmem_port = Module(new Read_mem_port(w))
     my_rmem_port.io.en   := rstate(1) === 1.U
     my_rmem_port.io.wr   := 0.B
