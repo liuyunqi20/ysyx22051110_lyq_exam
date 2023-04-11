@@ -103,30 +103,33 @@ void set_npc_state(int state, uint64_t pc, uint32_t ret){
 
 void execute_once(){
     //printf("start %lx\n", cpu_pc);
-    // ----------------- NEG ----------------- 
-    contextp->timeInc(1);
-    SimTop->clock = !SimTop->clock;
-    SimTop->eval();
-    wave_dump();
-    //output debug info
-    /*
-    fprintf(debug_trace_fp, "time = %ld pc=%lx wen=%d wnum=%d wdata=%lx\n",
-                contextp->time(), SimTop->io_core_debug_debug_pc, 
-                SimTop->io_core_debug_debug_rf_we,
-                SimTop->io_core_debug_debug_rf_wnum,
-                SimTop->io_core_debug_debug_rf_wdata);
-    */
+    uint64_t old_pc = cpu_pc;
+    while(cpu_pc != old_cpu){
+        // ----------------- NEG ----------------- 
+        contextp->timeInc(1);
+        SimTop->clock = !SimTop->clock;
+        SimTop->eval();
+        wave_dump();
+        //output debug info
+        /*
+        fprintf(debug_trace_fp, "time = %ld pc=%lx wen=%d wnum=%d wdata=%lx\n",
+                    contextp->time(), SimTop->io_core_debug_debug_pc, 
+                    SimTop->io_core_debug_debug_rf_we,
+                    SimTop->io_core_debug_debug_rf_wnum,
+                    SimTop->io_core_debug_debug_rf_wdata);
+        */
 #ifdef ITRACE
-    write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
+        write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
 #endif
-    // ----------------- POS -----------------
-    contextp->timeInc(1);
-    SimTop->clock = !SimTop->clock;
-    SimTop->eval();
-    wave_dump();
-    //update current pc
-    cpu_pc = SimTop->io_core_debug_debug_pc;
-    VSimTop::catch_ebreak(&ebreak_f);
+        // ----------------- POS -----------------
+        contextp->timeInc(1);
+        SimTop->clock = !SimTop->clock;
+        SimTop->eval();
+        wave_dump();
+        //update current pc
+        cpu_pc = SimTop->io_core_debug_debug_pc;
+        VSimTop::catch_ebreak(&ebreak_f);
+    }
 }
 
 void execute(uint64_t step){
@@ -155,7 +158,7 @@ void execute(uint64_t step){
 static void statistic(){
     // ----------------- Final model cleanup -----------------
     printf("total guest instructions %lu\n", g_nr_step);
-    if(npc_state.state == NPC_ABORT)
+    //if(npc_state.state == NPC_ABORT)
         dump_gpr(cpu_gpr);
     contextp->timeInc(1);
     wave_dump();
@@ -200,6 +203,7 @@ void init_cpu(){
     SimTop->eval();
     wave_dump();
     g_nr_step = 0;
+    //reset == 1 util negedge
     while (1) {
         contextp->timeInc(1);  
         SimTop->clock = !SimTop->clock;
@@ -214,11 +218,12 @@ void init_cpu(){
         SimTop->eval();
         wave_dump();
     }
+    //evaluate to first instruction posedge
     contextp->timeInc(1);
     SimTop->clock = !SimTop->clock;
     SimTop->eval();
     wave_dump();
-    cpu_pc = SimTop->io_core_debug_debug_pc;
+    cpu_pc = SimTop->io_core_debug_debug_nextpc;
     printf("[npc] cpu init success!\n");
     npc_state.state = NPC_STOP;
 }
