@@ -41,7 +41,15 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     when(fs_state(2) === 1.U){
         pc := nextpc
     }
-
+    //sram write(ignored)
+    my_isram.io.aw.valid       := 0.B
+    my_isram.io.aw.bits.awaddr := 0.U(w.W)
+    my_isram.io.aw.bits.awprot := 0.U
+    my_isram.io.wt.valid       := 0.B
+    my_isram.io.wt.bits.wdata  := 0.U
+    my_isram.io.wt.bits.wstrb  := 0.U
+    my_isram.io.b.ready        := 0.B
+    my_isram.io.b.bits.bresp   := 0.U
     //to SimTop
     io.inst_mem_out.en     := true.B
     io.inst_mem_out.wr     := false.B
