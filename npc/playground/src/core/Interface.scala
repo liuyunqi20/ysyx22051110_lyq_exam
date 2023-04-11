@@ -108,15 +108,15 @@ import chisel3._
     class AXI4LiteAR(w: Int) extends Bundle{
         //val arvalid = Output(Bool())
         //val arready = Input(Bool())
-        val araddr  = Output(UInt(w.W))
-        val arprot  = Output(UInt(3.W))
+        val araddr  = UInt(w.W)
+        val arprot  = UInt(3.W)
     }
 
     class AXI4LiteRD(w: Int) extends Bundle{
         //val rvalid = Input(Bool())
         //val rready = Output(Bool())
-        val rdata  = Input(UInt(w.W))
-        val rresp  = Input(UInt(2.W))
+        val rdata  = UInt(w.W)
+        val rresp  = UInt(2.W)
     }
 
     class AXI4LiteAW(w: Int) extends Bundle{
