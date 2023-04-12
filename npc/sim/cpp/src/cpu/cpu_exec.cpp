@@ -134,7 +134,8 @@ void execute_once(){
         VSimTop::catch_ebreak(&ebreak_f);
         count++;
     }
-    //printf("after one step: %lx\n", cpu_pc);
+    wave_end();
+    printf("after one step: %lx\n", cpu_pc);
 }
 
 void execute(uint64_t step){
