@@ -6,8 +6,7 @@ trait HasAXIstateConst{
     val state_w      = 3
     val s_idle       = 0x01
     //read
-    val s_read_data  = 0x02
-    val s_read_resp  = 0x04
+    val s_read_resp  = 0x02
     //write
     val s_write_data = 0x02
     val s_write_resp = 0x04
@@ -80,9 +79,8 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     val rstate = RegInit(s_idle.U(state_w.W))
     val wstate = RegInit(s_idle.U(state_w.W))
     rstate := Mux1H(Seq(
-        /* Idle      */ rstate(0) -> Mux(io.ar.fire    , s_read_data.U, s_idle.U),
-        /* Read data */ rstate(1) -> Mux(io.sram_rd_sel, s_read_resp.U, s_read_data.U),
-        /* Read Resp */ rstate(2) -> Mux(io.rd.fire    , s_read_resp.U, s_idle.U),
+        /* Idle      */ rstate(0) -> Mux(io.ar.fire && io.sram_rd_sel, s_read_data.U, s_idle.U),
+        /* Read Resp */ rstate(1) -> Mux(io.rd.fire    , s_read_resp.U, s_idle.U),
     )) 
     wstate := Mux1H(Seq(
         /* Idle       */ wstate(0) -> Mux(io.aw.fire, s_write_data.U, s_idle.U),
@@ -91,22 +89,17 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     ))
     // --------------- read req ---------------
     io.ar.ready      := rstate(0)
-    val raddr_r       = RegInit(0.U(w.W))
-    when(io.ar.fire){
-        raddr_r := io.ar.bits.araddr
-    }
-    // --------------- read data ---------------
-    io.sram_rd.en    := rstate(1)
+    io.sram_rd.en    := io.ar.valid
     io.sram_rd.wr    := 0.B
-    io.sram_rd.addr  := raddr_r
-    // --------------- read resp --------------- 
+    io.sram_rd.addr  := io.ar.bits.araddr
     val rdata_r       = RegInit(0.U(w.W))
-    when((rstate(1) === 1.U) && io.sram_rd_sel){
+    when(io.ar.fire){
         rdata_r := io.sram_rd.rdata
     }
+    // --------------- read resp --------------- 
     io.rd.bits.rdata := rdata_r
     io.rd.bits.rresp := 0.U(2.W)
-    io.rd.valid      := rstate(2) === 1.U
+    io.rd.valid      := rstate(1) === 1.U
 
     // --------------- write request --------------- 
     io.aw.ready     := wstate(0)
