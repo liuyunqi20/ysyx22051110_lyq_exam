@@ -9,6 +9,7 @@ trait HasArbiterConst{
     val nr_state = 3
 }
 
+
 class AXIArbiter(w: Int) extends Module with HasArbiterConst{
     val io = IO(new Bundle{
         //read
@@ -27,11 +28,15 @@ class AXIArbiter(w: Int) extends Module with HasArbiterConst{
     })
     // --------------------- read arbiter  ------------------------ 
     //generate arbiter input vector
-    val arbiter_src = Vec(2, Decoupled(Bits(w.W)))
-    arbiter_src(0).valid := io.rd_IFU.en  
-    arbiter_src(0).valid := io.rd_MSU.en
-    arbiter_src(1).bits  := io.rd_IFU.addr
-    arbiter_src(1).bits  := io.rd_IFU.addr
+    val arbiter_src = IO( Vec(2, Decoupled(Bits(w.W))) )
+    // arbiter_src(0).valid := io.rd_IFU.en  
+    // arbiter_src(0).valid := io.rd_MSU.en
+    // arbiter_src(1).bits  := io.rd_IFU.addr
+    // arbiter_src(1).bits  := io.rd_IFU.addr
+    arbiter_src.in(0)valid := io.rd_IFU.en  
+    arbiter_src.in(1)valid := io.rd_MSU.en
+    arbiter_src.in(0).bits  := io.rd_IFU.addr
+    arbiter_src.in(1).bits  := io.rd_IFU.addr
     //choose signal to read
     val arbiter_rd = Module(new Arbiter(UInt(w.W), 2))
     arbiter_rd.io.in <> arbiter_src
