@@ -80,6 +80,20 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     when(io.data_mem.rd.fire === 1.U){
         ms_rdata_r := io.data_mem.rd.bits.rdata
     }
+    // ------------------------ write ------------------------
+    io.data_mem.aw.valid       := (ms_state(0) || ms_state(3)) && io.ex2mem.mem_wr && ms_mem_en
+    io.data_mem.aw.bits.awaddr := maddr
+    io.data_mem.aw.bits.awprot := 0.U
+    io.data_mem.wt.valid       := ms_state(4)
+    io.data_mem.wt.bits.wdata  := io.ex2mem.mem_wdata
+    io.data_mem.wt.bits.wstrb  := wmask
+    io.data_mem.b.ready        := ms_state(5)
+    val ms_bresp_r = RegInit(0.U(2.W))
+    when(io.data_mem.b.fire === 1.U){
+        ms_bresp_r := io.data_mem.b.bits.bresp
+    }
+    val ms_mem_done = RegInit(0.U(1.W))
+    // ------------------------ mask read data ------------------------
     val mrdata       = ms_rdata_r
     val offset       = io.ex2mem.result(2, 0)
     //mask read data
@@ -110,19 +124,6 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         io.ex2mem.mem_type(5) -> Cat(Fill(w - 32, 0.U(1.W))   , mrdata(31, 0)),  //LWU
         io.ex2mem.mem_type(6) -> mrdata, //LD
     ))
-    // ------------------------ write ------------------------
-    io.data_mem.aw.valid       := (ms_state(0) || ms_state(3)) && io.ex2mem.mem_wr && ms_mem_en
-    io.data_mem.aw.bits.awaddr := maddr
-    io.data_mem.aw.bits.awprot := 0.U
-    io.data_mem.wt.valid       := ms_state(4)
-    io.data_mem.wt.bits.wdata  := io.ex2mem.mem_wdata
-    io.data_mem.wt.bits.wstrb  := wmask
-    io.data_mem.b.ready        := ms_state(5)
-    val ms_bresp_r = RegInit(0.U(2.W))
-    when(io.data_mem.b.fire === 1.U){
-        ms_bresp_r := io.data_mem.b.bits.bresp
-    }
-    val ms_mem_done = RegInit(0.U(1.W))
     // ------------------------ to Wb stage ------------------------
     //control
     io.mem2wb.gr_we        := io.ex2mem.gr_we
