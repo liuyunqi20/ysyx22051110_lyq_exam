@@ -106,7 +106,7 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     }
     io.rd.bits.rdata := rdata_r
     io.rd.bits.rresp := 0.U(2.W)
-    io.rd.valid      := rstate(2) && io.sram_rd_sel
+    io.rd.valid      := rstate(2)
 
     // --------------- write request --------------- 
     io.aw.ready     := wstate(0)
