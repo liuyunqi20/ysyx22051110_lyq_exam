@@ -95,18 +95,17 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     when(io.ar.fire){
         raddr_r := io.ar.bits.araddr
     }
-    // --------------- read data --------------- 
     io.sram_rd.en    := rstate(1)
     io.sram_rd.wr    := 0.B
     io.sram_rd.addr  := raddr_r
     // --------------- read resp --------------- 
-    io.rd.bits.rdata := rdata_r
-    io.rd.bits.rresp := 0.U(2.W)
-    io.rd.valid      := rstate(2)
     val rdata_r       = RegInit(0.U(w.W))
     when((rstate(1) === 1.U) && io.sram_rd_sel){
         rdata_r := io.sram_rd.rdata
     }
+    io.rd.bits.rdata := rdata_r
+    io.rd.bits.rresp := 0.U(2.W)
+    io.rd.valid      := rstate(2) && io.sram_rd_sel
 
     // --------------- write request --------------- 
     io.aw.ready     := wstate(0)
