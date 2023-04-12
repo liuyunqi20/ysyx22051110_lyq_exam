@@ -80,7 +80,7 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     val wstate = RegInit(s_idle.U(state_w.W))
     rstate := Mux1H(Seq(
         /* Idle      */ rstate(0) -> Mux(io.ar.fire && io.sram_rd_sel, s_read_resp.U, s_idle.U),
-        /* Read Resp */ rstate(1) -> Mux(io.rd.fire    , s_read_resp.U, s_idle.U),
+        /* Read Resp */ rstate(1) -> Mux(io.rd.fire    , s_idle.U, s_read_resp.U),
     )) 
     wstate := Mux1H(Seq(
         /* Idle       */ wstate(0) -> Mux(io.aw.fire, s_write_data.U, s_idle.U),
