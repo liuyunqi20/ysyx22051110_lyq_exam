@@ -77,16 +77,16 @@ class MycpuCoreTop(w: Int) extends Module{
     my_isram.io.aw         <> my_if.io.inst_mem.aw
     my_isram.io.wt         <> my_if.io.inst_mem.wt
     my_isram.io.b          <> my_if.io.inst_mem.b
-    my_isram.io.rd_sel     := my_arbit.io.sel_rd_IFU
-    my_isram.io.wt_sel     := my_arbit.io.sel_wt_IFU
+    my_isram.io.sram_rd_sel := my_arbit.io.sel_rd_IFU
+    my_isram.io.sram_rd_sel := my_arbit.io.sel_wt_IFU
     // MSU to AXI data sram
     my_dsram.io.ar         <> my_mem.io.data_mem.ar
     my_dsram.io.rd         <> my_mem.io.data_mem.rd
     my_dsram.io.aw         <> my_mem.io.data_mem.aw
     my_dsram.io.wt         <> my_mem.io.data_mem.wt
     my_dsram.io.b          <> my_mem.io.data_mem.b
-    my_dsram.io.rd_sel     := my_arbit.io.sel_rd_MSU
-    my_dsram.io.wt_sel     := my_arbit.io.sel_wt_MSU
+    my_dsram.io.sram_rd_sel := my_arbit.io.sel_rd_MSU
+    my_dsram.io.sram_wt_sel := my_arbit.io.sel_wt_MSU
     // memory Arbiter
     my_arbit.io.rd_IFU     <> my_isram.io.sram_rd
     my_arbit.io.wt_IFU     <> my_isram.io.sram_wt
