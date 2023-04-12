@@ -84,10 +84,14 @@ class MycpuCoreTop(w: Int) extends Module{
     my_dsram.io.wt         <> my_mem.io.data_mem.wt
     my_dsram.io.b          <> my_mem.io.data_mem.b
     // memory Arbiter
-    my_arbit.io.rd_IFU <> my_isram.io.sram_rd
-    my_arbit.io.wt_IFU <> my_isram.io.sram_wt
-    my_arbit.io.rd_MSU <> my_dsram.io.sram_rd
-    my_arbit.io.wt_MSU <> my_dsram.io.sram_wt
+    my_arbit.io.rd_IFU     <> my_isram.io.sram_rd
+    my_arbit.io.shk_rd_IFU <> my_isram.io.sram_rd_shk
+    my_arbit.io.wt_IFU     <> my_isram.io.sram_wt
+    my_arbit.io.shk_wt_IFU <> my_isram.io.sram_wt_shk
+    my_arbit.io.rd_MSU     <> my_dsram.io.sram_rd
+    my_arbit.io.shk_rd_MSU <> my_dsram.io.sram_rd_shk
+    my_arbit.io.wt_MSU     <> my_dsram.io.sram_wt
+    my_arbit.io.shk_wt_MSU <> my_dsram.io.sram_wt_shk
     // pmem access port 
     my_arbit.io.mem_rd.en    <> my_rmem_port.io.en
     my_arbit.io.mem_rd.wr    <> my_rmem_port.io.wr
