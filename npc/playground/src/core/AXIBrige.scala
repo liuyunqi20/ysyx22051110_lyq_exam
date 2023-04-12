@@ -112,7 +112,7 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     val wdata_r       = RegInit(0.U(w.W))
     val wmask_r       = RegInit(0.U((w/8).W))
     when(io.wt.fire){
-        waddr_r := io.wt.bits.wdata
+        wdata_r := io.wt.bits.wdata
         wmask_r := io.wt.bits.wstrb
     }
     // --------------- write resp --------------- 
@@ -120,7 +120,7 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     io.b.bits.bresp  := 0.U(2.W)
     io.sram_wt.en    := wstate(2)
     io.sram_wt.wr    := 1.B
-    io.sram_wt.addr  := io.aw.bits.awaddr
-    io.sram_wt.wdata := io.wt.bits.wdata
-    io.sram_wt.wmask := io.wt.bits.wstrb
+    io.sram_wt.addr  := waddr_r
+    io.sram_wt.wdata := wdata_r
+    io.sram_wt.wmask := wmask_r
 }
