@@ -27,14 +27,14 @@ class AXIArbiter(w: Int) extends Module with HasArbiterConst{
     })
     // --------------------- read arbiter  ------------------------ 
     //generate arbiter input vector
-    val arbiter_in = IO(new Bundle{Vec(2, Decoupled(Bits(w.W)))})
-    arbiter_in(0).valid := io.rd_IFU.en  
-    arbiter_in(0).valid := io.rd_MSU.en
-    arbiter_in(1).bits  := io.rd_IFU.addr
-    arbiter_in(1).bits  := io.rd_IFU.addr
+    val arbiter_src = IO(new Bundle{val in = Vec(2, Decoupled(Bits(w.W)))})
+    arbiter_src.in(0).valid := io.rd_IFU.en  
+    arbiter_src.in(0).valid := io.rd_MSU.en
+    arbiter_src.in(1).bits  := io.rd_IFU.addr
+    arbiter_src.in(1).bits  := io.rd_IFU.addr
     //choose signal to read
     val arbiter_rd = Module(new Arbiter(UInt(w.W), 2))
-    arbiter_rd.io.in <> arbiter_in
+    arbiter_rd.io.in <> arbiter_src
     arbiter_rd.io.out.ready := 1.B
     io.mem_rd.en    := arbiter_rd.io.out.valid
     io.mem_rd.wr    := 0.B
