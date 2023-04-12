@@ -9,7 +9,7 @@ trait HasArbiterConst{
     val nr_state = 3
 }
 
-class AXIArbiter(w: Int) extends Module{
+class AXIArbiter(w: Int) extends Module with HasArbiterConst{
     val io = IO(new Bundle{
         //read
         val rd_IFU     = Flipped(new ReadMemBundle(w))
