@@ -33,10 +33,10 @@ class AXIArbiter(w: Int) extends Module with HasArbiterConst{
     // arbiter_src(0).valid := io.rd_MSU.en
     // arbiter_src(1).bits  := io.rd_IFU.addr
     // arbiter_src(1).bits  := io.rd_IFU.addr
-    arbiter_src.in(0)valid := io.rd_IFU.en  
-    arbiter_src.in(1)valid := io.rd_MSU.en
-    arbiter_src.in(0).bits  := io.rd_IFU.addr
-    arbiter_src.in(1).bits  := io.rd_IFU.addr
+    arbiter_src.in(0).valid := io.rd_IFU.en  
+    arbiter_src.in(1).valid := io.rd_MSU.en
+    arbiter_src.in(0).bits := io.rd_IFU.addr
+    arbiter_src.in(1).bits := io.rd_IFU.addr
     //choose signal to read
     val arbiter_rd = Module(new Arbiter(UInt(w.W), 2))
     arbiter_rd.io.in <> arbiter_src
