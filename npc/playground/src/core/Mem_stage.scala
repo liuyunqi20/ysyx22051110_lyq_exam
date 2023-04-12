@@ -2,83 +2,30 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
-class Data_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
-    val io = IO(new Bundle{
-        val en    = Input(Bool())
-        val wr    = Input(Bool())
-        val addr  = Input(UInt(w.W))
-        val wdata = Input(UInt(w.W))
-        val wmask = Input(UInt((w/8).W))
-        val rdata = Output(UInt(w.W))
-    })
-    setInline("Data_mem_port",
-        """module Data_mem_port(
-        |   input           en   ,
-        |   input           wr   ,
-        |   input  [63 : 0] addr ,
-        |   input  [63 : 0] wdata,
-        |   input  [7  : 0] wmask,
-        |   output [63 : 0] rdata
-        |   );
-        |       wire [63 : 0] tmprdata;
-        |       assign rdata = tmprdata;
-        |       import "DPI-C" function void cpu_dmem_read(
-        |           input bit en, input bit wr, input longint raddr, 
-        |           output longint rdata);
-        |       import "DPI-C" function void cpu_dmem_write(
-        |           input bit en, input bit wr, input longint waddr, 
-        |           input longint wdata, input byte wmask);
-        |       always @(*) begin
-        |           cpu_dmem_read(en, wr, addr, rdata);
-        |           cpu_dmem_write(en, wr, addr, wdata, wmask);
-        |       end
-        |   endmodule
-        """.stripMargin)
+trait HasMEMSconst{
+    val s_idle   = 0x1
+    val s_rreq   = 0x2
+    val s_rresp  = 0x4
+    val s_wreq   = 0x8
+    val s_wdata  = 0x10
+    val s_wresp  = 0x20
+    val nr_state = 6
 }
 
-class Mem_stage(w: Int) extends Module{
+class Mem_stage(w: Int) extends Module with HasMEMSconst{
     val io = IO(new Bundle{
         val ex2mem       = Flipped(new ExtoMemBundle(w))
         val mem2wb       = new MemtoWbBundle(w)
-        val data_mem_in  = new MemInBundle(w)
-        val data_mem_out = new MemOutBundle(w)
         val has_intr     = Input(Bool())
+        val data_mem     = new AXI4LiteBundle(w)
+        //fetch inst done
+        val fs_mem_ok    = Input(Bool())
     })    
     val has_trap     = io.has_intr || (io.ex2mem.exc_type.orR === 1.U)
     //val (MT_B, MT_H, MT_W, MT_BU, MT_HU, MT_WU, MT_D) = 
         //("h01".U, "h02".U, "h04".U, "h08".U, "h10".U, "h20".U, "h40".U)
-    val my_dmem_port = Module(new Data_mem_port(w))
+    //val my_dmem_port = Module(new Data_mem_port(w))
     val maddr        = Cat(io.ex2mem.result(w-1, 3), 0.U(3.W))
-    val mrdata       = my_dmem_port.io.rdata
-    val offset       = io.ex2mem.result(2, 0)
-    // -------------- mask read data -------------- 
-    val rdata_b = MuxLookup(offset, 0.U(8.W), Seq(
-        "b000".U -> mrdata(7 , 0) ,        
-        "b001".U -> mrdata(15, 8) ,        
-        "b010".U -> mrdata(23, 16),        
-        "b011".U -> mrdata(31, 24),        
-        "b100".U -> mrdata(39, 32),        
-        "b101".U -> mrdata(47, 40),        
-        "b110".U -> mrdata(55, 48),        
-        "b111".U -> mrdata(63, 56),        
-    ))
-    val rdata_h = MuxLookup(offset, 0.U(16.W), Seq(
-        "b000".U -> mrdata(15, 0) ,
-        "b010".U -> mrdata(31, 16),
-        "b100".U -> mrdata(47, 32),
-        "b110".U -> mrdata(63, 48),
-    ))
-    val rdata_w = Mux(offset(2) === 1.U, mrdata(63, 32), mrdata(31, 0))
-    // -------------- select read data -------------- 
-    val rdata = Mux1H(Seq(
-        io.ex2mem.mem_type(0) -> Cat(Fill(w - 8 , rdata_b(7)) , rdata_b(7, 0)),  //LB
-        io.ex2mem.mem_type(1) -> Cat(Fill(w - 16, rdata_h(15)), rdata_h(15, 0)), //LH
-        io.ex2mem.mem_type(2) -> Cat(Fill(w - 32, rdata_w(31)), rdata_w(31, 0)), //LW
-        io.ex2mem.mem_type(3) -> Cat(Fill(w - 8 , 0.U(1.W))   , rdata_b(7, 0)),  //LBU
-        io.ex2mem.mem_type(4) -> Cat(Fill(w - 16, 0.U(1.W))   , rdata_h(15, 0)), //LHU
-        io.ex2mem.mem_type(5) -> Cat(Fill(w - 32, 0.U(1.W))   , mrdata(31, 0)),  //LWU
-        io.ex2mem.mem_type(6) -> mrdata, //LD
-    ))
     // -------------- write mask -------------- 
     val wmask_b = MuxLookup(offset, 0.U(8.W), Seq(
         "b000".U -> "h01".U ,
@@ -106,26 +53,82 @@ class Mem_stage(w: Int) extends Module{
         io.ex2mem.mem_type(2) -> wmask_w,   
         io.ex2mem.mem_type(6) -> "hff".U((w/8).W),
     ))
-    //to Data Memory
-    io.data_mem_out.en     := io.ex2mem.mem_en && ~has_trap
-    io.data_mem_out.wr     := io.ex2mem.mem_wr
-    io.data_mem_out.addr   := maddr
-    io.data_mem_out.rready := 1.B
-    io.data_mem_out.wready := 1.B
-    io.data_mem_out.wdata  := io.ex2mem.mem_wdata
-    io.data_mem_out.wmask  := wmask
-    //to Data memory port
+    /*
     my_dmem_port.io.en     := io.ex2mem.mem_en && ~has_trap
     my_dmem_port.io.wr     := io.ex2mem.mem_wr
     my_dmem_port.io.addr   := maddr
     my_dmem_port.io.wdata  := io.ex2mem.mem_wdata
     my_dmem_port.io.wmask  := wmask
-    //to Wb stage
-        //control
+    */
+    // ------------------ AXI data memory State machine ------------------ 
+    val ms_mem_en = io.ex2mem.mem_en && ~has_trap
+    val ms_state = RegInit(s_idle.U(nr_state.W))
+    ms_state := Mux1H(Seq(
+        /* s_idle  */ ms_state(0) -> Mux(ms_mem_en, Mux(io.ex2mem.mem_wr, s_wreq.U, s_rreq.U), s_idle.U),
+        /* s_rreq  */ ms_state(1) -> Mux(io.data_mem.ar.fire, s_rresp.U, s_rreq.U ),
+        /* s_rresp */ ms_state(2) -> Mux(io.data_mem.rd.fire, s_idle.U , s_rresp.U),
+        /* s_wreq  */ ms_state(3) -> Mux(io.data_mem.aw.fire, s_wdata.U, s_wreq.U ),
+        /* s_wdata */ ms_state(4) -> Mux(io.data_mem.wt.fire, s_wresp.U, s_wdata.U),
+        /* s_wresp */ ms_state(5) -> Mux(io.data_mem.b.fire , s_idle.U , s_wresp.U),
+    ))
+    // ------------------------ read ------------------------
+    io.data_mem.ar.valid       := (ms_state(0) || ms_state(1)) && ~io.ex2mem.mem_wr && ms_mem_en
+    io.data_mem.ar.bits.araddr := maddr
+    io.data_mem.ar.bits.arprot := 0.U
+    io.data_mem.rd.ready       := ms_state(2)
+    val ms_rdata_r = RegInit(0.U(w.W))
+    when(io.data_mem.rd.fire === 1.U){
+        ms_rdata_r := io.data_mem.rd.bits.rdata
+    }
+    val mrdata       = ms_rdata_r
+    val offset       = io.ex2mem.result(2, 0)
+    //mask read data
+    val rdata_b = MuxLookup(offset, 0.U(8.W), Seq(
+        "b000".U -> mrdata(7 , 0) ,        
+        "b001".U -> mrdata(15, 8) ,        
+        "b010".U -> mrdata(23, 16),        
+        "b011".U -> mrdata(31, 24),        
+        "b100".U -> mrdata(39, 32),        
+        "b101".U -> mrdata(47, 40),        
+        "b110".U -> mrdata(55, 48),        
+        "b111".U -> mrdata(63, 56),        
+    ))
+    val rdata_h = MuxLookup(offset, 0.U(16.W), Seq(
+        "b000".U -> mrdata(15, 0) ,
+        "b010".U -> mrdata(31, 16),
+        "b100".U -> mrdata(47, 32),
+        "b110".U -> mrdata(63, 48),
+    ))
+    val rdata_w = Mux(offset(2) === 1.U, mrdata(63, 32), mrdata(31, 0))
+    //select read data
+    val rdata = Mux1H(Seq(
+        io.ex2mem.mem_type(0) -> Cat(Fill(w - 8 , rdata_b(7)) , rdata_b(7, 0)),  //LB
+        io.ex2mem.mem_type(1) -> Cat(Fill(w - 16, rdata_h(15)), rdata_h(15, 0)), //LH
+        io.ex2mem.mem_type(2) -> Cat(Fill(w - 32, rdata_w(31)), rdata_w(31, 0)), //LW
+        io.ex2mem.mem_type(3) -> Cat(Fill(w - 8 , 0.U(1.W))   , rdata_b(7, 0)),  //LBU
+        io.ex2mem.mem_type(4) -> Cat(Fill(w - 16, 0.U(1.W))   , rdata_h(15, 0)), //LHU
+        io.ex2mem.mem_type(5) -> Cat(Fill(w - 32, 0.U(1.W))   , mrdata(31, 0)),  //LWU
+        io.ex2mem.mem_type(6) -> mrdata, //LD
+    ))
+    // ------------------------ write ------------------------
+    io.data_mem.aw.valid       := (ms_state(0) || ms_state(3)) && io.ex2mem.mem_wr && ms_mem_en
+    io.data_mem.aw.bits.awaddr := maddr
+    io.data_mem.aw.bits.awprot := 0.U
+    io.data_mem.wt.valid       := ms_state(4)
+    io.data_mem.wt.bits.wdata  := io.ex2mem.mem_wdata
+    io.data_mem.wt.bits.wstrb  := wmask
+    io.data_mem.b.ready        := ms_state(5)
+    val ms_bresp_r = RegInit(0.U(2.W))
+    when(io.data_mem.b.fire === 1.U){
+        ms_bresp_r := io.data_mem.b.bits.bresp
+    }
+    val ms_mem_done = RegInit(0.U(1.W))
+    // ------------------------ to Wb stage ------------------------
+    //control
     io.mem2wb.gr_we        := io.ex2mem.gr_we
     io.mem2wb.csr_op       := io.ex2mem.csr_op
     io.mem2wb.exc_type     := io.ex2mem.exc_type
-        //data
+    //data
     io.mem2wb.dest         := io.ex2mem.dest
     io.mem2wb.result       := Mux(io.ex2mem.wb_sel, rdata, io.ex2mem.result)
     io.mem2wb.csr_num      := io.ex2mem.csr_num

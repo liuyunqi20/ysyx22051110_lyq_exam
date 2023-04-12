@@ -2,23 +2,6 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
-// ----------------- Memory Bundle -----------------
-    class MemInBundle(val w: Int) extends Bundle{
-        val rdata  = Input(UInt(w.W))
-        val rvalid = Input(UInt(w.W))
-        val wvalid = Input(UInt(w.W))
-    }
-
-    class MemOutBundle(val w: Int) extends Bundle{
-        val en     = Output(Bool())
-        val wr     = Output(Bool())
-        val addr   = Output(UInt(w.W))
-        val rready = Output(Bool())
-        val wready = Output(Bool())
-        val wdata  = Output(UInt(w.W))
-        val wmask  = Output(UInt((w/8).W))
-    }
-
 // ----------------- Output Bundle -----------------
     class DebugBundle(w: Int) extends Bundle{
         val debug_pc       = Output(UInt(w.W))
@@ -146,4 +129,19 @@ import chisel3.util._
         val aw = Decoupled(new AXI4LiteAW(w))
         val wt = Decoupled(new AXI4LiteWR(w))
         val b  = Flipped(Decoupled(new AXI4LiteWB(w)))
+    }
+
+    class ReadMemBundle(w: Int) extends Bundle{
+        val en    = Output(Bool())
+        val wr    = Output(Bool())
+        val addr  = Output(UInt(w.W))
+        val rdata = Input(UInt(w.W))
+    }
+
+    class WriteMemBundle(w: Int) extends Bundle{
+        val en    = Output(Bool())
+        val wr    = Output(Bool())
+        val addr  = Output(UInt(w.W))
+        val wdata = Output(UInt(w.W))
+        val wmask = Output(UInt((w/8).W))
     }

@@ -17,7 +17,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         val inst_mem     = new AXI4LiteBundle(w)
         val if2id        = new IftoIdBundle(w)
         val exc_br       = Flipped(new ExcBranchBundle(w))
-        //to Wb_stage for Regfile write enable (single cycle)
+        //inform fetching inst is done
         val fs_mem_ok    = Output(Bool())
         //from Mem stage to inform memory op is done (single cycle)
         //TODO: val ms_mem_ok = Input(Bool())

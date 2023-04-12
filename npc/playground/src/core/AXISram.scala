@@ -73,6 +73,8 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
         val aw = Flipped(Decoupled(new AXI4LiteAW(w)))
         val wt = Flipped(Decoupled(new AXI4LiteWR(w)))
         val b  = Decoupled(new AXI4LiteWB(w))
+        val sram_rd = new ReadMemBundle(w)
+        val sram_wt = new WriteMemBundle(w)
     })
     val rstate = RegInit(s_idle.U(state_w.W))
     val wstate = RegInit(s_idle.U(state_w.W))
@@ -94,12 +96,11 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     io.rd.bits.rdata := rdata_r
     io.rd.bits.rresp := 0.U(2.W)
     io.rd.valid      := rstate(2) === 1.U
-    val my_rmem_port = Module(new Read_mem_port(w))
-    my_rmem_port.io.en   := rstate(1) === 1.U
-    my_rmem_port.io.wr   := 0.B
-    my_rmem_port.io.addr := io.ar.bits.araddr
+    io.sram_rd.en   := rstate(1) === 1.U
+    io.sram_rd.wr   := 0.B
+    io.sram_rd.addr := io.ar.bits.araddr
     when(rstate(1) === 1.U){
-        rdata_r := my_rmem_port.io.rdata
+        rdata_r := io.sram_rd.rdata
     }
 
     // --------------- write request
@@ -110,10 +111,9 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     io.b.valid      := wstate(3)
     io.b.bits.bresp := 0.U(2.W)   
 
-    val my_wmem_port = Module(new Write_mem_port(w))
-    my_wmem_port.io.en    := wstate(1) || wstate(2) || wstate(3) 
-    my_wmem_port.io.wr    := 1.B
-    my_wmem_port.io.addr  := io.aw.bits.awaddr
-    my_wmem_port.io.wdata := io.wt.bits.wdata
-    my_wmem_port.io.wmask := io.wt.bits.wstrb
+    io.sram_wt.en    := wstate(1) || wstate(2) || wstate(3) 
+    io.sram_wt.wr    := 1.B
+    io.sram_wt.addr  := io.aw.bits.awaddr
+    io.sram_wt.wdata := io.wt.bits.wdata
+    io.sram_wt.wmask := io.wt.bits.wstrb
 }
