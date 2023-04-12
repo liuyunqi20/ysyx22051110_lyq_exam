@@ -32,11 +32,11 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         /* s_resp */ fs_state(2) -> Mux(io.inst_mem.rd.fire, s_req.U, s_resp.U),
     ))
     // ---------------- read request ----------------
-    io.inst_mem.ar.valid        := fs_state(1) === 1.U
+    io.inst_mem.ar.valid        := fs_state(1)
     io.inst_mem.ar.bits.araddr  := nextpc
     io.inst_mem.ar.bits.arprot  := 0.U(3.W)
     // ---------------- read response ----------------
-    io.inst_mem.rd.ready := fs_state(2) === 1.U
+    io.inst_mem.rd.ready := fs_state(2)
     val inst = RegInit(0.U(32.W))
     when(io.inst_mem.rd.fire === 1.U){
         pc := nextpc

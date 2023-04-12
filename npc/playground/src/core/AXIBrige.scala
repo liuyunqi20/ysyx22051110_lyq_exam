@@ -95,6 +95,7 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     when(io.ar.fire){
         raddr_r := io.ar.bits.araddr
     }
+    // --------------- read data ---------------
     io.sram_rd.en    := rstate(1)
     io.sram_rd.wr    := 0.B
     io.sram_rd.addr  := raddr_r
