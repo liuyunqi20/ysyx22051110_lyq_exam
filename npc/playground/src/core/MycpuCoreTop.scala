@@ -30,9 +30,7 @@ NOTE: Arbiter module arbits in read-read and write-write requests from IFU and
 
 class MycpuCoreTop(w: Int) extends Module{
     val io = IO(new Bundle{
-        val core_data_mem_in  = new MemInBundle(w)
-        val core_data_mem_out = new MemOutBundle(w)
-        val core_debug        = new DebugBundle(w)
+        val core_debug = new DebugBundle(w)
     });
     val my_if        = Module(new If_stage(w, w))
     val my_id        = Module(new Id_stage(w))
@@ -58,9 +56,8 @@ class MycpuCoreTop(w: Int) extends Module{
     my_ex.io.id2ex         <> my_id.io.id2ex
     //MEM stage
     my_mem.io.ex2mem       <> my_ex.io.ex2mem
-    my_mem.io.data_mem_in  <> io.core_data_mem_in
-    my_mem.io.data_mem_out <> io.core_data_mem_out
     my_mem.io.has_intr     := my_csr.io.exc.intr_t
+    my_mem.io.fs_mem_ok    := my_if.io.fs_mem_ok
     //Wb stage
     my_wb.io.mem2wb        <> my_mem.io.mem2wb
     my_wb.io.pc            := my_if.io.pc
