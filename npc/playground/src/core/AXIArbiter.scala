@@ -48,7 +48,7 @@ class AXIArbiter(w: Int) extends Module with HasArbiterConst{
     // arbiter_src(1).valid := io.rd_MSU.en
     // arbiter_src(0).bits  := io.rd_IFU.addr
     // arbiter_src(1).bits  := io.rd_MSU.addr
-    val arbiter_src = Moudle(new ToArbiter(w))
+    val arbiter_src = Module(new ToArbiter(w))
     arbiter_src.io.rd_IFU_en   := io.rd_IFU.en
     arbiter_src.io.rd_MSU_en   := io.rd_MSU.en
     arbiter_src.io.rd_IFU_addr := io.rd_IFU.addr
