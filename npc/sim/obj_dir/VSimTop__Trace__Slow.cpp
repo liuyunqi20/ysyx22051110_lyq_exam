@@ -441,7 +441,8 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullQData(oldp+3,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_target),64);
         tracep->fullBit(oldp+5,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_en));
         tracep->fullBit(oldp+6,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rstate))));
-        tracep->fullBit(oldp+7,(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_rd_valid_T_1));
+        tracep->fullBit(oldp+7,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rstate) 
+                                       >> 2U))));
         tracep->fullQData(oldp+8,(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rdata_r),64);
         tracep->fullBit(oldp+10,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap));
         tracep->fullQData(oldp+11,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target),64);
@@ -859,7 +860,8 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullIData(oldp+141,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remuw_res),32);
         tracep->fullBit(oldp+142,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t));
         tracep->fullBit(oldp+143,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate))));
-        tracep->fullBit(oldp+144,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_rd_valid_T_1));
+        tracep->fullBit(oldp+144,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate) 
+                                         >> 2U))));
         tracep->fullQData(oldp+145,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rdata_r),64);
         tracep->fullBit(oldp+147,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate))));
         tracep->fullBit(oldp+148,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate) 

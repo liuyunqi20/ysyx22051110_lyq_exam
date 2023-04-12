@@ -35,7 +35,8 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
             tracep->chgQData(oldp+2,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_target),64);
             tracep->chgBit(oldp+4,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_en));
             tracep->chgBit(oldp+5,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rstate))));
-            tracep->chgBit(oldp+6,(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_rd_valid_T_1));
+            tracep->chgBit(oldp+6,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rstate) 
+                                          >> 2U))));
             tracep->chgQData(oldp+7,(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rdata_r),64);
             tracep->chgBit(oldp+9,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap));
             tracep->chgQData(oldp+10,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target),64);
@@ -482,7 +483,8 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
             tracep->chgIData(oldp+140,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remuw_res),32);
             tracep->chgBit(oldp+141,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t));
             tracep->chgBit(oldp+142,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate))));
-            tracep->chgBit(oldp+143,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_rd_valid_T_1));
+            tracep->chgBit(oldp+143,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate) 
+                                            >> 2U))));
             tracep->chgQData(oldp+144,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rdata_r),64);
             tracep->chgBit(oldp+146,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate))));
             tracep->chgBit(oldp+147,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate) 

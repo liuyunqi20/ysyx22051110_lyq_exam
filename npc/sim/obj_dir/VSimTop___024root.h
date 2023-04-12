@@ -65,11 +65,9 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_2;
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT__my_isram__DOT__rstate;
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_rd_valid_T_1;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_isram__DOT__unnamedblk1__DOT___T;
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate;
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_rd_valid_T_1;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_b_valid_T_1;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT__unnamedblk1__DOT___T;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_arbit__DOT___arbiter_src_io_out_0_valid;
@@ -95,10 +93,10 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_imm;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__pc;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc;
-    };
-    struct {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT___my_alu_io_res;
+    };
+    struct {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__alu_res;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__pc_seq;
         QData/*32:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divw_res;
