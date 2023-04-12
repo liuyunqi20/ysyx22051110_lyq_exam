@@ -3,15 +3,14 @@ import chisel3._
 import chisel3.util._
 
 trait HasAXIstateConst{
-    val state_w      = 4
+    val state_w      = 3
     val s_idle       = 0x01
     //read
     val s_read_data  = 0x02
     val s_read_resp  = 0x04
     //write
-    val s_write_req  = 0x02
-    val s_write_data = 0x04
-    val s_write_resp = 0x08
+    val s_write_data = 0x02
+    val s_write_resp = 0x04
 }
 
 class Read_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
@@ -74,50 +73,61 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
         val wt = Flipped(Decoupled(new AXI4LiteWR(w)))
         val b  = Decoupled(new AXI4LiteWB(w))
         val sram_rd     = new ReadMemBundle(w)
-        val sram_rd_shk = Flipped(Decoupled(Bits(0.W)))
+        val sram_rd_sel = Input(Bool())
         val sram_wt     = new WriteMemBundle(w)
-        val sram_wt_shk = Flipped(Decoupled(Bits(0.W)))
+        val sram_wt_sel = Input(Bool())
     })
     val rstate = RegInit(s_idle.U(state_w.W))
     val wstate = RegInit(s_idle.U(state_w.W))
     rstate := Mux1H(Seq(
-        /* Idle        */ rstate(0) -> Mux(io.ar.fire, s_read_data.U, s_idle.U),
-        /* Read data   */ rstate(1) -> (s_read_resp.U),
-        /* Read Resp   */ rstate(2) -> Mux(io.rd.fire, s_read_resp.U, s_idle.U),
+        /* Idle      */ rstate(0) -> Mux(io.ar.fire    , s_read_data.U, s_idle.U),
+        /* Read data */ rstate(1) -> Mux(io.sram_rd_sel, s_read_resp.U, s_read_data.U),
+        /* Read Resp */ rstate(2) -> Mux(io.rd.fire    , s_read_resp.U, s_idle.U),
     )) 
     wstate := Mux1H(Seq(
-        /* Idle         */ wstate(0) -> Mux(io.aw.fire, s_write_req.U , s_idle.U),
-        /* Write Requst */ wstate(1) -> Mux(io.wt.fire , s_write_data.U, s_write_req.U),
-        /* Write Data   */ wstate(2) -> Mux(io.b.fire , s_write_resp.U, s_write_data.U),
-        /* Write Resp   */ wstate(3) -> (s_idle.U),
+        /* Idle       */ wstate(0) -> Mux(io.aw.fire, s_write_data.U, s_idle.U),
+        /* Write Data */ wstate(1) -> Mux(io.wt.fire, s_write_resp.U, s_write_data.U),
+        /* Write Resp */ wstate(2) -> Mux(io.b.fire , s_idle.U      , s_write_resp.U),
     ))
-    // --------------- read data
-    io.ar.ready := (rstate(0) === 1.U) || (rstate(1) === 1.U)
-    // --------------- read resp
-    val rdata_r           = RegInit(0.U(w.W))
-    io.rd.bits.rdata     := rdata_r
-    io.rd.bits.rresp     := 0.U(2.W)
-    io.rd.valid          := (rstate(2) === 1.U) && (io.sram_rd_shk.fire === 1.U)
-    io.sram_rd.en        := rstate(1) === 1.U
-    io.sram_rd.wr        := 0.B
-    io.sram_rd.addr      := io.ar.bits.araddr
-    io.sram_rd_shk.ready := rstate(2) === 1.U
-    when(rstate(1) === 1.U){
+    // --------------- read req ---------------
+    io.ar.ready      := rstate(0)
+    val raddr_r       = RegInit(0.U(w.W))
+    when(io.ar.fire){
+        raddr_r := io.ar.bits.araddr
+    }
+    // --------------- read data --------------- 
+    io.sram_rd.en    := rstate(1)
+    io.sram_rd.wr    := 0.B
+    io.sram_rd.addr  := raddr_r
+    // --------------- read resp --------------- 
+    io.rd.bits.rdata := rdata_r
+    io.rd.bits.rresp := 0.U(2.W)
+    io.rd.valid      := rstate(2)
+    val rdata_r       = RegInit(0.U(w.W))
+    when((rstate(1) === 1.U) && io.sram_rd_sel){
         rdata_r := io.sram_rd.rdata
     }
 
-    // --------------- write request
-    io.aw.ready     := wstate(0) || wstate(3)
-    // --------------- write data
-    io.wt.ready     := wstate(2)
-    // --------------- write resp
-    io.b.valid      := wstate(3)
-    io.b.bits.bresp := 0.U(2.W)
-
-    io.sram_wt.en    := wstate(1) || wstate(2) || wstate(3) 
+    // --------------- write request --------------- 
+    io.aw.ready     := wstate(0)
+    val waddr_r      = RegInit(0.U(w.W))
+    when(io.aw.fire){
+        waddr_r := io.aw.bits.awaddr
+    }
+    // --------------- write data --------------- 
+    io.wt.ready      := wstate(1)
+    val wdata_r       = RegInit(0.U(w.W))
+    val wmask_r       = RegInit(0.U((w/8).W))
+    when(io.wt.fire){
+        waddr_r := io.wt.bits.wdata
+        wmask_r := io.wt.bits.wstrb
+    }
+    // --------------- write resp --------------- 
+    io.b.valid       := wstate(3) && io.sram_wt_sel
+    io.b.bits.bresp  := 0.U(2.W)
+    io.sram_wt.en    := wstate(1)
     io.sram_wt.wr    := 1.B
     io.sram_wt.addr  := io.aw.bits.awaddr
     io.sram_wt.wdata := io.wt.bits.wdata
     io.sram_wt.wmask := io.wt.bits.wstrb
-    io.sram_wt_shk.ready := wstate(3) === 1.U
 }
