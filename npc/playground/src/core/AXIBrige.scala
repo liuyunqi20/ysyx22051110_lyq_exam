@@ -122,9 +122,9 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
         wmask_r := io.wt.bits.wstrb
     }
     // --------------- write resp --------------- 
-    io.b.valid       := wstate(3) && io.sram_wt_sel
+    io.b.valid       := wstate(2) && io.sram_wt_sel
     io.b.bits.bresp  := 0.U(2.W)
-    io.sram_wt.en    := wstate(1)
+    io.sram_wt.en    := wstate(2)
     io.sram_wt.wr    := 1.B
     io.sram_wt.addr  := io.aw.bits.awaddr
     io.sram_wt.wdata := io.wt.bits.wdata
