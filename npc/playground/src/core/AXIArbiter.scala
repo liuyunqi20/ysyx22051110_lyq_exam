@@ -11,7 +11,7 @@ class AXIArbiter(w: Int) extends Module{
         val mem_rd = new ReadMemBundle(w)
         val mem_wt = new WriteMemBundle(w)
     })
-    mem_rd <> rd_IFU
-    mem_wt <> wr_MSU
+    io.mem_rd <> io.rd_IFU
+    io.mem_wt <> io.wr_MSU
 
 }
