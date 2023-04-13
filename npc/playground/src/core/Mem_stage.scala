@@ -141,5 +141,5 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.mem2wb.csr_num      := io.ex2mem.csr_num
     io.mem2wb.rs1          := io.ex2mem.rs1
     // ------------------------ to IF stage ------------------------ 
-    io.ms_mem_ok           := (ms_mem_en === 0.U) || io.data_mem.rd.fire || io.data_mem.b.fire
+    io.ms_mem_ok           := (ms_mem_en === 0.U) || io.data_mem.rd.fire || io.data_mem.b.fire || ms_wait_fs
 }
