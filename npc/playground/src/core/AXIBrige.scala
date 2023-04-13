@@ -100,14 +100,19 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     }
     when(io.ar.fire && ~io.sram_rd_sel){ //req shakehand ok but no data
         rd_wait_sel := 1.B
-    }.elsewhen(io.rd.fire){ //data comes back
+    }.elsewhen(rdata_arrive){ //data comes back
         rd_wait_sel := 0.B
     }
     // --------------- read resp --------------- 
+    val resp_data_ok  = RegInit(0.B)
     io.rd.bits.rdata := rdata_r
     io.rd.bits.rresp := 0.U(2.W)
-    io.rd.valid      := rdata_arrive && rstate(1)
-
+    io.rd.valid      := resp_data_ok && rstate(1)
+    when(rdata_arrive){
+        resp_data_ok := 1.B
+    }.elsewhen(io.rd.fire){
+        resp_data_ok := 0.B
+    }
 
     // --------------- write request --------------- 
     io.aw.ready     := wstate(0)
