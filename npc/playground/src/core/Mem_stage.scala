@@ -62,7 +62,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     my_dmem_port.io.wmask  := wmask
     */
     // ------------------ AXI data memory State machine ------------------ 
-    val ms_wait_fs = RegInit(Bool())
+    val ms_wait_fs = RegInit(0.B)
     val ms_mem_en = io.ex2mem.mem_en && ~has_trap && ~ms_wait_fs
     val ms_state = RegInit(s_idle.U(nr_state.W))
     val rd_req = ms_mem_en && ~io.ex2mem.mem_wr

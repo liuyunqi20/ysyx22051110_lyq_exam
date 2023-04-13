@@ -25,7 +25,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val pc     = RegInit("h7fff_fffc".U(w.W))
     val nextpc = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
                     Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
-    val fs_wait_ms =  RegInit(Bool())
+    val fs_wait_ms =  RegInit(0.B)
     val fs_state = RegInit(s_idle.U(nr_state.W))
     fs_state := Mux1H(Seq(
         /* s_idle */ fs_state(0) -> (s_req.U),
