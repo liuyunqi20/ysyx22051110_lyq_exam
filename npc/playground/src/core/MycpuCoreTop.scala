@@ -47,8 +47,7 @@ class MycpuCoreTop(w: Int) extends Module{
     //IF stage
     my_if.io.branch        <> my_ex.io.branch
     my_if.io.exc_br        <> my_wb.io.exc_br
-    my_if.io.ms_mem_ok     := my_mem.io.ms_mem_ok
-    my_if.io.ms_wait_fs    := my_mem.io.
+    my_if.io.if2mem        <> my_mem.io.if2mem
     //ID stage
     my_id.io.pc            := my_if.io.pc
     my_id.io.if2id         <> my_if.io.if2id
@@ -58,8 +57,7 @@ class MycpuCoreTop(w: Int) extends Module{
     my_ex.io.id2ex         <> my_id.io.id2ex
     //MEM stage
     my_mem.io.ex2mem       <> my_ex.io.ex2mem
-    my_mem.io.has_intr     := my_csr.io.exc.intr_t
-    my_mem.io.fs_mem_ok    := my_if.io.fs_mem_ok
+    my_mem.io.has_intr     := my_csr.io.exc.intr_t    
     //Wb stage
     my_wb.io.mem2wb        <> my_mem.io.mem2wb
     my_wb.io.pc            := my_if.io.pc
