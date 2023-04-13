@@ -37,20 +37,36 @@ int init_image(){
     else {
         int isize = 0x4;
         uint64_t iaddr = 0x80000000;
-        //mov $5, 0
-        vaddr_write(iaddr, isize, 0x00100293);
+        //mov $6, 1
+        vaddr_write(iaddr, isize, 0x00100313);
         iaddr += isize;
-        for(int i = 0; i < 16; ++i){
-            //addi $5, $5, 1
-            vaddr_write(iaddr, isize, 0x00128293);
-            iaddr += isize;
+        //auipc $5, 0
+        vaddr_write(iaddr, isize, 0x00000297);
+        iaddr += isize;
+        //addi $5, $5, 0x1000
+        vaddr_write(iaddr, isize, 0x10028293);
+        iaddr += isize;
+        for(int i = 0; i < 4; ++i){
+            //sw $6, 0($5)
+            vaddr_write(iaddr            , isize, 0x0062a023);
+            //sw $6, 4($5)
+            vaddr_write(iaddr + isize    , isize, 0x0062a223);
+            //lw $7, 0($5)
+            vaddr_write(iaddr + isize * 2, isize, 0x0002a223);
+            //lw $7, 4($5)
+            vaddr_write(iaddr + isize * 3, isize, 0x0002a383);
+            //addi $5, $5, 8
+            vaddr_write(iaddr + isize * 4, isize, 0x00828293);
+            //addi $6, $6, 1
+            vaddr_write(iaddr + isize * 5, isize, 0x00130313);
+            iaddr += isize * 6;
         }
         //mv a0, 0
         vaddr_write(iaddr, isize, 0x00000513);
         iaddr += isize;
         //ebreak
         vaddr_write(iaddr, isize, 0x00100073);
-        image_size = 76;
+        image_size = 116;
     }
     return image_size;
 }
