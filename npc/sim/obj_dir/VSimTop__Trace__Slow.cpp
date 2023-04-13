@@ -65,13 +65,13 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+20,"SimTop my_core_top my_if io_inst_mem_rd_ready", false,-1);
         tracep->declBus(c+21,"SimTop my_core_top my_if io_if2id_inst", false,-1, 31,0);
         tracep->declBit(c+22,"SimTop my_core_top my_if io_if2mem_fs_mem_ok", false,-1);
-        tracep->declBit(c+23,"SimTop my_core_top my_if io_fs_next_ready", false,-1);
+        tracep->declBit(c+23,"SimTop my_core_top my_if io_fs_next_ok", false,-1);
         tracep->declQuad(c+15,"SimTop my_core_top my_if pc", false,-1, 63,0);
         tracep->declQuad(c+18,"SimTop my_core_top my_if nextpc", false,-1, 63,0);
         tracep->declBit(c+24,"SimTop my_core_top my_if fs_wait_ms", false,-1);
         tracep->declBus(c+25,"SimTop my_core_top my_if fs_state", false,-1, 2,0);
         tracep->declBus(c+21,"SimTop my_core_top my_if inst", false,-1, 31,0);
-        tracep->declBit(c+23,"SimTop my_core_top my_if fs_next_ready", false,-1);
+        tracep->declBit(c+23,"SimTop my_core_top my_if fs_next_ok", false,-1);
         tracep->declBit(c+238,"SimTop my_core_top my_id clock", false,-1);
         tracep->declBit(c+239,"SimTop my_core_top my_id reset", false,-1);
         tracep->declQuad(c+15,"SimTop my_core_top my_id io_pc", false,-1, 63,0);
@@ -253,7 +253,7 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+146,"SimTop my_core_top my_wb io_csr_exc_intr_t", false,-1);
         tracep->declQuad(c+177,"SimTop my_core_top my_wb io_csr_exc_mret_addr", false,-1, 63,0);
         tracep->declQuad(c+179,"SimTop my_core_top my_wb io_csr_out_mtvec", false,-1, 63,0);
-        tracep->declBit(c+23,"SimTop my_core_top my_wb io_fs_next_ready", false,-1);
+        tracep->declBit(c+23,"SimTop my_core_top my_wb io_fs_next_ok", false,-1);
         tracep->declBit(c+26,"SimTop my_core_top my_wb io_wb2rf_rf_we", false,-1);
         tracep->declBus(c+27,"SimTop my_core_top my_wb io_wb2rf_waddr", false,-1, 4,0);
         tracep->declQuad(c+28,"SimTop my_core_top my_wb io_wb2rf_wdata", false,-1, 63,0);
@@ -476,7 +476,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                         >> 2U))));
         tracep->fullIData(oldp+21,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst),32);
         tracep->fullBit(oldp+22,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T));
-        tracep->fullBit(oldp+23,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ready));
+        tracep->fullBit(oldp+23,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok));
         tracep->fullBit(oldp+24,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms));
         tracep->fullCData(oldp+25,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state),3);
         tracep->fullBit(oldp+26,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we));

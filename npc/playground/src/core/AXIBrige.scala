@@ -87,11 +87,17 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
         /* Write Data */ wstate(1) -> Mux(io.wt.fire, s_write_resp.U, s_write_data.U),
         /* Write Resp */ wstate(2) -> Mux(io.b.fire , s_idle.U      , s_write_resp.U),
     ))
+    /* 
+            Sram read enabled when ar signals shaking hands. If read data comes immediately
+        when ar shaking hands, then rdata_r stores the data and response to master at next
+        posedge. If read data does not come when ar shaking hands, then rd_wait_sel will pull 
+        high at next posedge to keep sram enabled util data arrives.
+    */
     // --------------- read req ---------------
     val rd_wait_sel   = RegInit(0.B)
     val rdata_r       = RegInit(0.U(w.W))
     io.ar.ready      := rstate(0)
-    io.sram_rd.en    := io.ar.valid || (rstate(1) && rd_wait_sel)
+    io.sram_rd.en    := io.ar.fire || (rstate(1) && rd_wait_sel)
     io.sram_rd.wr    := 0.B
     io.sram_rd.addr  := io.ar.bits.araddr
     val rdata_arrive  = io.sram_rd.en && io.sram_rd_sel
@@ -113,7 +119,12 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     }.elsewhen(io.rd.fire){
         resp_data_ok := 0.B
     }
-
+    /*
+            Write address is store to register when aw shaking hands. Write data and mask
+        are stored when wt shaking hands. In b stage, sram write is enabled util write data
+        success. b_wait_ready is for blocking sram write enable signal when write is done 
+        but wait shaking hands.
+    */
     // --------------- write request --------------- 
     io.aw.ready     := wstate(0)
     val waddr_r      = RegInit(0.U(w.W))
@@ -129,11 +140,17 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
         wmask_r := io.wt.bits.wstrb
     }
     // --------------- write resp --------------- 
+    val b_wait_ready  = RegInit(0.B)
     io.b.valid       := wstate(2) && io.sram_wt_sel
     io.b.bits.bresp  := 0.U(2.W)
-    io.sram_wt.en    := wstate(2)
+    io.sram_wt.en    := wstate(2) && ~b_wait_ready
     io.sram_wt.wr    := 1.B
     io.sram_wt.addr  := waddr_r
     io.sram_wt.wdata := wdata_r
     io.sram_wt.wmask := wmask_r
+    when(io.b.fire){
+        b_wait_ready := 0.B
+    }.elsewhen(io.b.valid && ~io.b.ready){
+        b_wait_ready := 1.B
+    }
 }

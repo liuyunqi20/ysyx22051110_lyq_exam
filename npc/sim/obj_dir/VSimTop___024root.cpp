@@ -137,10 +137,10 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__resp_data_ok;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_isram__DOT__rstate 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rstate;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rd_wait_sel 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rd_wait_sel;
+    __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state 
+        = vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_dsram__DOT__resp_data_ok 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__resp_data_ok;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate 
@@ -163,24 +163,17 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__waddr_r = 0ULL;
     }
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate 
-        = ((IData)(vlSelf->reset) ? 1U : ((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate))
-                                             ? 1U : 0U) 
-                                           | ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate))
-                                               ? 2U
-                                               : 0U)) 
-                                          | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate))
-                                              ? 4U : 0U)));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms 
-        = (1U & ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T)
-                                                ? (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok))
-                                                : (
-                                                   (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___T_2)) 
-                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms)))));
     if (vlSelf->reset) {
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate = 1U;
         __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state = 1U;
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state = 1U;
     } else {
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate 
+            = ((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate))
+                  ? 1U : 0U) | ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate))
+                                 ? 2U : 0U)) | ((4U 
+                                                 & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate))
+                                                 ? 4U
+                                                 : 0U));
         __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state 
             = (((2U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
                        << 1U)) | ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state))
@@ -190,30 +183,13 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state))
                    ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T)
                        ? 2U : 4U) : 0U));
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state 
-            = (((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
-                   ? ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rd_req) 
-                        & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate)) 
-                       & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_ar_valid_T_1))
-                       ? 2U : ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__wt_req) 
-                                 & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate)) 
-                                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_aw_valid_T_1))
-                                ? 4U : 1U)) : 0U) | 
-                 ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
-                   ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1)
-                       ? 1U : 2U) : 0U)) | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
-                                             ? ((1U 
-                                                 & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate) 
-                                                     >> 1U) 
-                                                    & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
-                                                       >> 2U)))
-                                                 ? 8U
-                                                 : 4U)
-                                             : 0U)) 
-               | ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
-                   ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_3)
-                       ? 1U : 8U) : 0U));
     }
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms 
+        = (1U & ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T)
+                                                ? (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok))
+                                                : (
+                                                   (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___T_2)) 
+                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms)))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs 
         = (1U & ((~ (IData)(vlSelf->reset)) & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1) 
                                                 | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_3))
@@ -223,6 +199,39 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                     ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs) 
                                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T))) 
                                                    & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)))));
+    __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state 
+        = ((IData)(vlSelf->reset) ? 1U : (((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
+                                              ? ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rd_req) 
+                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate)) 
+                                                  & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_ar_valid_T_1))
+                                                  ? 2U
+                                                  : 
+                                                 ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__wt_req) 
+                                                    & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate)) 
+                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_aw_valid_T_1))
+                                                   ? 4U
+                                                   : 1U))
+                                              : 0U) 
+                                            | ((2U 
+                                                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
+                                                ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1)
+                                                    ? 1U
+                                                    : 2U)
+                                                : 0U)) 
+                                           | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
+                                               ? ((1U 
+                                                   & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate) 
+                                                       >> 1U) 
+                                                      & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
+                                                         >> 2U)))
+                                                   ? 8U
+                                                   : 4U)
+                                               : 0U)) 
+                                          | ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
+                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_3)
+                                                  ? 1U
+                                                  : 8U)
+                                              : 0U)));
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r = 0ULL;
     } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1) {
@@ -452,7 +461,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                       >> 7U)));
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc = 0x7ffffffcULL;
-    } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ready) {
+    } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc 
             = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap)
                 ? vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target
@@ -462,7 +471,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     }
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst = 0U;
-    } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ready) {
+    } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
             = ((1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc 
                               >> 2U))) ? (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rdata_r 
@@ -1502,10 +1511,14 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_ar_valid_T_1) 
            | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate) 
                >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rd_wait_sel)));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ready 
-        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T) 
-            & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs))) 
-           | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___T_2));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok 
+        = (((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T) 
+              & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms))) 
+             & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)) 
+            | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___T_2) 
+               & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)))) 
+           | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T) 
+              & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok)));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
         = (((0x37U != (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
             & ((0x17U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
@@ -1605,7 +1618,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                              | (0x73U == vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                             | (0x30200073U == vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))))))) 
             & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap))) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ready));
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divw_res 
         = (0x1ffffffffULL & VL_DIVS_QQQ(33, (((QData)((IData)(
                                                               (1U 
