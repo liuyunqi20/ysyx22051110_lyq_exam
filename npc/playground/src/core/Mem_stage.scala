@@ -20,6 +20,8 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         val data_mem     = new AXI4LiteBundle(w)
         //fetch inst done
         val fs_mem_ok    = Input(Bool())
+        //mem accress done
+        val ms_mem_ok    = Output(Bool())
     })    
     val has_trap     = io.has_intr || (io.ex2mem.exc_type.orR === 1.U)
     //val (MT_B, MT_H, MT_W, MT_BU, MT_HU, MT_WU, MT_D) = 
@@ -133,4 +135,8 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.mem2wb.result       := Mux(io.ex2mem.wb_sel, rdata, io.ex2mem.result)
     io.mem2wb.csr_num      := io.ex2mem.csr_num
     io.mem2wb.rs1          := io.ex2mem.rs1
+    // ------------------------ to IF stage ------------------------ 
+    val ms_rd_ok           := ms_mem_en && 
+    val ms_wt_ok           :=  
+    io.ms_mem_ok           := (ms_mem_en === 0.U) || 
 }

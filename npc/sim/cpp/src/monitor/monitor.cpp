@@ -44,7 +44,7 @@ int init_image(){
         vaddr_write(iaddr, isize, 0x00000297);
         iaddr += isize;
         //addi $5, $5, 0x1000
-        vaddr_write(iaddr, isize, 0x10028293);
+        vaddr_write(iaddr, isize, 0x0fc28293);
         iaddr += isize;
         for(int i = 0; i < 4; ++i){
             //sw $6, 0($5)
