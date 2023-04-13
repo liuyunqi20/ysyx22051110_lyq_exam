@@ -127,10 +127,10 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     QData/*63:0*/ __Vdlyvval__SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file__v0;
     QData/*63:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime;
     // Body
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rd_done_r 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rd_done_r;
+    __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state 
+        = vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state 
@@ -178,7 +178,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                 & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_aw_valid_T_1))
                                 ? 4U : 1U)) : 0U) | 
                  ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
-                   ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_ms_mem_ok_T_1)
+                   ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1)
                        ? 1U : 2U) : 0U)) | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
                                              ? ((1U 
                                                  & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate) 
@@ -189,8 +189,23 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                  : 4U)
                                              : 0U)) 
                | ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
-                   ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_ms_mem_ok_T_3)
+                   ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_3)
                        ? 1U : 8U) : 0U));
+    }
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs 
+        = (1U & ((~ (IData)(vlSelf->reset)) & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1) 
+                                                | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_3))
+                                                ? (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T))
+                                                : (
+                                                   (~ 
+                                                    ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs) 
+                                                     & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T))) 
+                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)))));
+    if (vlSelf->reset) {
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r = 0ULL;
+    } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1) {
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r 
+            = vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rdata_r;
     }
     if (vlSelf->reset) {
         __Vdly__SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate = 1U;
@@ -216,22 +231,11 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rd_done_r)));
     }
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms 
-        = (1U & ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_fs_mem_ok_T_1)
-                                                ? (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_ms_mem_ok))
+        = (1U & ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T)
+                                                ? (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok))
                                                 : (
-                                                   (~ 
-                                                    ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms) 
-                                                     & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_ms_mem_ok))) 
+                                                   (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___T_2)) 
                                                    & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms)))));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs 
-        = (1U & ((~ (IData)(vlSelf->reset)) & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_ms_mem_ok_T_1) 
-                                                | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_ms_mem_ok_T_3))
-                                                ? (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_fs_mem_ok_T_1))
-                                                : (
-                                                   (~ 
-                                                    ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs) 
-                                                     & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_fs_mem_ok_T_1))) 
-                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)))));
     __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state 
         = ((IData)(vlSelf->reset) ? 1U : (((2U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
                                                   << 1U)) 
@@ -242,7 +246,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                    : 2U)
                                                : 0U)) 
                                           | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state))
-                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_fs_mem_ok_T_1)
+                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T)
                                                   ? 2U
                                                   : 4U)
                                               : 0U)));
@@ -268,12 +272,6 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                 & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_isram_io_sram_rd_en))) 
                | ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__unnamedblk1__DOT___T_3)) 
                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rd_done_r)));
-    }
-    if (vlSelf->reset) {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r = 0ULL;
-    } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_ms_mem_ok_T_1) {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r 
-            = vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rdata_r;
     }
     if (vlSelf->reset) {
         __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime = 0ULL;
@@ -428,15 +426,15 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[__Vdlyvdim0__SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file__v0] 
             = __Vdlyvval__SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file__v0;
     }
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_ar_valid_T_2 
-        = (1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
-                  >> 1U) & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms))));
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rdata_r = 0ULL;
     } else if ((1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_isram_io_sram_rd_en)))) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rdata_r 
             = vlSelf->SimTop__DOT__my_core_top__DOT___my_rmem_port_rdata;
     }
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_ar_valid_T_2 
+        = (1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
+                  >> 1U) & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms))));
     if (vlSelf->reset) {
         __Vdly__SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate = 1U;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__waddr_r = 0ULL;
@@ -481,7 +479,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                       >> 7U)));
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc = 0x7ffffffcULL;
-    } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_fs_mem_ok_T_1) {
+    } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ready) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc 
             = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap)
                 ? vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target
@@ -491,7 +489,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     }
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst = 0U;
-    } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_fs_mem_ok_T_1) {
+    } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ready) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
             = ((1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc 
                               >> 2U))) ? (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rdata_r 
@@ -514,7 +512,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                                                 (1U 
                                                                                 & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate) 
                                                                                 >> 2U)), 1U, vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__waddr_r, vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wmask_r));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_ms_mem_ok_T_3 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_3 
         = (1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
                   >> 3U) & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate) 
                             >> 2U)));
@@ -1009,14 +1007,14 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
              | (0x2e3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
             | (0x363U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
            | (0x3e3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN)));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_rd_valid_T_1 
-        = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_isram_io_sram_rd_en)) 
-                 & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate) 
-                    >> 1U)));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_rd_valid_T_1 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_isram_io_sram_rd_en) 
            & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rstate) 
               >> 1U));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_rd_valid_T_1 
+        = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_isram_io_sram_rd_en)) 
+                 & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate) 
+                    >> 1U)));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op 
         = (((IData)(SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_14) 
             | (IData)(SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_15))
@@ -1388,12 +1386,12 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                       == vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_1))
                                                    ? 2U
                                                    : (IData)(SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___csignals_T_175))))))));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_ms_mem_ok_T_1 
-        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
-            >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_rd_valid_T_1));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_fs_mem_ok_T_1 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T 
         = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
             >> 2U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_rd_valid_T_1));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1 
+        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
+            >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_rd_valid_T_1));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__wt_req 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_mem_en) 
            & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_wr));
@@ -1458,10 +1456,115 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = ((IData)((0U != (0x30U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_decoder_io_inst_type))))
             ? 0U : (0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                              >> 0xfU)));
-    vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_ms_mem_ok 
+    vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok 
         = (1U & (((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_mem_en)) 
-                  | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_ms_mem_ok_T_1)) 
-                 | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_ms_mem_ok_T_3)));
+                  | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1)) 
+                 | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_3)));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_aw_valid_T_1 
+        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__wt_req));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_ar_valid_T_1 
+        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rd_req));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+        = ((((0x37U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
+             | (0x17U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
+            | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_5))
+            ? vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_imm
+            : vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2);
+    vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_rs1 
+        = ((0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT____Vcellinp__my_rf__io_raddr1))
+            ? 0ULL : vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file
+           [vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT____Vcellinp__my_rf__io_raddr1]);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___T_2 
+        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok) 
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+        = (((0x37U != (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
+            & ((0x17U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
+               | (0x6fU == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))))
+            ? vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc
+            : vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_rs1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ready 
+        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T) 
+            & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs))) 
+           | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___T_2));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divw_res 
+        = (0x1ffffffffULL & VL_DIVS_QQQ(33, (((QData)((IData)(
+                                                              (1U 
+                                                               & (IData)(
+                                                                         (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+                                                                          >> 0x1fU))))) 
+                                              << 0x20U) 
+                                             | (QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1))), 
+                                        (((QData)((IData)(
+                                                          (1U 
+                                                           & (IData)(
+                                                                     (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+                                                                      >> 0x1fU))))) 
+                                          << 0x20U) 
+                                         | (QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2)))));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divuw_res 
+        = VL_DIV_III(32, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1), (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remw_res 
+        = VL_MODDIVS_III(32, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1), (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remuw_res 
+        = VL_MODDIV_III(32, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1), (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
+    VL_EXTEND_WQ(65,64, __Vtemp5, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    VL_EXTEND_WQ(65,64, __Vtemp6, ((- (QData)((IData)(
+                                                      (1U 
+                                                       & (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
+                                                          >> 1U))))) 
+                                   ^ vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
+    VL_ADD_W(3, __Vtemp7, __Vtemp5, __Vtemp6);
+    VL_EXTEND_WI(65,1, __Vtemp8, (1U & (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
+                                        >> 1U)));
+    VL_ADD_W(3, __Vtemp9, __Vtemp7, __Vtemp8);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[0U] 
+        = __Vtemp9[0U];
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[1U] 
+        = __Vtemp9[1U];
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[2U] 
+        = (1U & __Vtemp9[2U]);
+    __Vtemp11[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    __Vtemp11[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+                             >> 0x20U));
+    __Vtemp11[2U] = (IData)((- (QData)((IData)((1U 
+                                                & (IData)(
+                                                          (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+                                                           >> 0x3fU)))))));
+    __Vtemp11[3U] = (IData)(((- (QData)((IData)((1U 
+                                                 & (IData)(
+                                                           (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+                                                            >> 0x3fU)))))) 
+                             >> 0x20U));
+    __Vtemp12[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
+    __Vtemp12[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+                             >> 0x20U));
+    __Vtemp12[2U] = (IData)((- (QData)((IData)((1U 
+                                                & ((~ 
+                                                    (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
+                                                     >> 0xdU)) 
+                                                   & (IData)(
+                                                             (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+                                                              >> 0x3fU))))))));
+    __Vtemp12[3U] = (IData)(((- (QData)((IData)((1U 
+                                                 & ((~ 
+                                                     (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
+                                                      >> 0xdU)) 
+                                                    & (IData)(
+                                                              (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+                                                               >> 0x3fU))))))) 
+                             >> 0x20U));
+    VL_MUL_W(4, __Vtemp13, __Vtemp11, __Vtemp12);
+    SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[0U] 
+        = __Vtemp13[0U];
+    SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[1U] 
+        = __Vtemp13[1U];
+    SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[2U] 
+        = __Vtemp13[2U];
+    SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[3U] 
+        = __Vtemp13[3U];
     vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we 
         = (((((((0x37U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                 | (0x17U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
@@ -1555,106 +1658,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                              | (0x73U == vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                             | (0x30200073U == vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))))))) 
             & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap))) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_fs_mem_ok_T_1));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_aw_valid_T_1 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__wt_req));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_ar_valid_T_1 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rd_req));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
-        = ((((0x37U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
-             | (0x17U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
-            | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_5))
-            ? vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_imm
-            : vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2);
-    vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_rs1 
-        = ((0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT____Vcellinp__my_rf__io_raddr1))
-            ? 0ULL : vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file
-           [vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT____Vcellinp__my_rf__io_raddr1]);
-    vlSelf->io_core_debug_debug_rf_we = vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we;
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
-        = (((0x37U != (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
-            & ((0x17U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
-               | (0x6fU == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))))
-            ? vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc
-            : vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_rs1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divw_res 
-        = (0x1ffffffffULL & VL_DIVS_QQQ(33, (((QData)((IData)(
-                                                              (1U 
-                                                               & (IData)(
-                                                                         (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
-                                                                          >> 0x1fU))))) 
-                                              << 0x20U) 
-                                             | (QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1))), 
-                                        (((QData)((IData)(
-                                                          (1U 
-                                                           & (IData)(
-                                                                     (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
-                                                                      >> 0x1fU))))) 
-                                          << 0x20U) 
-                                         | (QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2)))));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divuw_res 
-        = VL_DIV_III(32, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1), (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remw_res 
-        = VL_MODDIVS_III(32, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1), (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remuw_res 
-        = VL_MODDIV_III(32, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1), (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
-    VL_EXTEND_WQ(65,64, __Vtemp5, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    VL_EXTEND_WQ(65,64, __Vtemp6, ((- (QData)((IData)(
-                                                      (1U 
-                                                       & (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
-                                                          >> 1U))))) 
-                                   ^ vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
-    VL_ADD_W(3, __Vtemp7, __Vtemp5, __Vtemp6);
-    VL_EXTEND_WI(65,1, __Vtemp8, (1U & (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
-                                        >> 1U)));
-    VL_ADD_W(3, __Vtemp9, __Vtemp7, __Vtemp8);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[0U] 
-        = __Vtemp9[0U];
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[1U] 
-        = __Vtemp9[1U];
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[2U] 
-        = (1U & __Vtemp9[2U]);
-    __Vtemp11[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    __Vtemp11[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
-                             >> 0x20U));
-    __Vtemp11[2U] = (IData)((- (QData)((IData)((1U 
-                                                & (IData)(
-                                                          (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
-                                                           >> 0x3fU)))))));
-    __Vtemp11[3U] = (IData)(((- (QData)((IData)((1U 
-                                                 & (IData)(
-                                                           (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
-                                                            >> 0x3fU)))))) 
-                             >> 0x20U));
-    __Vtemp12[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
-    __Vtemp12[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
-                             >> 0x20U));
-    __Vtemp12[2U] = (IData)((- (QData)((IData)((1U 
-                                                & ((~ 
-                                                    (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
-                                                     >> 0xdU)) 
-                                                   & (IData)(
-                                                             (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
-                                                              >> 0x3fU))))))));
-    __Vtemp12[3U] = (IData)(((- (QData)((IData)((1U 
-                                                 & ((~ 
-                                                     (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
-                                                      >> 0xdU)) 
-                                                    & (IData)(
-                                                              (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
-                                                               >> 0x3fU))))))) 
-                             >> 0x20U));
-    VL_MUL_W(4, __Vtemp13, __Vtemp11, __Vtemp12);
-    SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[0U] 
-        = __Vtemp13[0U];
-    SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[1U] 
-        = __Vtemp13[1U];
-    SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[2U] 
-        = __Vtemp13[2U];
-    SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[3U] 
-        = __Vtemp13[3U];
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ready));
     __Vtemp15[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
     __Vtemp15[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                              >> 0x20U));
@@ -1791,6 +1795,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                              >> 0x1fU))))) 
                                  << 0x20U) | (QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remuw_res)))
                              : 0ULL));
+    vlSelf->io_core_debug_debug_rf_we = vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT___my_alu_io_res 
         = (SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_4 
            | SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_5);
