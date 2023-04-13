@@ -2,7 +2,7 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
-// ----------------- Output Bundle -----------------
+// ----------------- Debug Bundle -----------------
     class DebugBundle(w: Int) extends Bundle{
         val debug_pc       = Output(UInt(w.W))
         val debug_nextpc   = Output(UInt(w.W))
@@ -88,7 +88,7 @@ import chisel3.util._
         val exc_target = Output(UInt(w.W))
     }
 
-// ----------------- AXI4-Lite Sram Bundle -----------------
+// ----------------- Memory Access Bundle -----------------
     class AXI4LiteAR(w: Int) extends Bundle{
         //val arvalid = Output(Bool())
         //val arready = Input(Bool())
@@ -145,3 +145,16 @@ import chisel3.util._
         val wdata = Output(UInt(w.W))
         val wmask = Output(UInt((w/8).W))
     }
+
+    class IFtoMemBundle(w: Int) extends Bundle{
+        //inst data is arriving in this cycle
+        val fs_mem_ok    = Output(Bool())
+        //inst data already arrived and wait for MSU to finish
+        val fs_wait_ms   = Output(Bool())
+        //data mem access is done in this cycle
+        val ms_mem_ok    = Input(Bool())
+        //MSU is done and wait for IFU to finish
+        val ms_wait_fs   = Input(Bool())
+    }
+
+

@@ -17,10 +17,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         val inst_mem     = new AXI4LiteBundle(w)
         val if2id        = new IftoIdBundle(w)
         val exc_br       = Flipped(new ExcBranchBundle(w))
-        //inform fetching inst is done
-        val fs_mem_ok    = Output(Bool())
-        //from Mem stage to inform memory op is done (single cycle)
-        val ms_mem_ok    = Input(Bool())
+        val if2mem       = new IFtoMemBundle(w)
     })
     val pc     = RegInit("h7fff_fffc".U(w.W))
     val nextpc = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
@@ -39,15 +36,15 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     // ---------------- read response ----------------
     io.inst_mem.rd.ready := fs_state(2)
     val inst = RegInit(0.U(32.W))
-    val fs_next_ready = (io.inst_mem.rd.fire && ~fs_wait_ms) || (io.ms_mem_ok && fs_wait_ms)
+    val fs_next_ready = (io.inst_mem.rd.fire && ~io.if2mem.ms_wait_fs) || (io.if2mem.ms_mem_ok && fs_wait_ms)
     when(fs_next_ready){
         pc := nextpc
         inst := Mux(nextpc(2) === 1.U, io.inst_mem.rd.bits.rdata(63, 32),
                                   io.inst_mem.rd.bits.rdata(31, 0))
     }
     when(io.inst_mem.rd.fire === 1.U){
-        fs_wait_ms := ~(io.ms_mem_ok)
-    }.elsewhen(fs_wait_ms && io.ms_mem_ok){
+        fs_wait_ms := ~(io.if2mem.ms_mem_ok)
+    }.elsewhen(fs_wait_ms && io.if2mem.ms_mem_ok){
         fs_wait_ms := 0.B
     }
     //sram write(ignored)
@@ -64,7 +61,8 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     //to ID stage
     io.if2id.inst := inst
     //to Wb stage
-    io.fs_mem_ok  := io.inst_mem.rd.fire === 1.U || fs_wait_ms
+    io.if2mem.fs_mem_ok  := io.inst_mem.rd.fire
+    io.if2mem.fs_wait_ms        := fs_wait_ms
 }
 
 
