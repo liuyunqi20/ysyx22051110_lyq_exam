@@ -63,7 +63,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     */
     // ------------------ AXI data memory State machine ------------------ 
     val ms_wait_fs = RegInit(0.U(1.W))
-    val ms_mem_en = io.ex2mem.mem_en && ~has_trap && ~ms_wait_fs
+    val ms_mem_en = io.ex2mem.mem_en && ~has_trap && (ms_wait_fs === 0.U)
     val ms_state = RegInit(s_idle.U(nr_state.W))
     val rd_req = ms_mem_en && ~io.ex2mem.mem_wr
     val wt_req = ms_mem_en &&  io.ex2mem.mem_wr
@@ -101,7 +101,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         ms_wait_fs := 0.U
     }
     // ------------------------ mask read data ------------------------ 
-    val mrdata       = Mux(ms_wait_fs, ms_rdata_r, io.data_mem.rd.bits.rdata)
+    val mrdata       = Mux(ms_wait_fs === 1.U, ms_rdata_r, io.data_mem.rd.bits.rdata)
     //mask read data
     val rdata_b = MuxLookup(offset, 0.U(8.W), Seq(
         "b000".U -> mrdata(7 , 0) ,        
