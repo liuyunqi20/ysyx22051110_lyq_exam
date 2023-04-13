@@ -45,7 +45,7 @@ VL_MODULE(VSimTop___024root) {
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_ar_valid_T_2;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT___T_2;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT___T_3;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok;
         CData/*6:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT___my_decoder_io_inst_type;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_5;
