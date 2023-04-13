@@ -92,7 +92,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.data_mem.b.ready        := ms_state(3)
     //WARNNING: b.bresp is ignored
     // ------------------------ MSU wait FSU ------------------------ 
-    when(io.data_mem.rd.fire || io.data_mem.b.fire){
+    when((io.data_mem.rd.fire || io.data_mem.b.fire) && ~io.if2mem.fs_wait_ms){
         ms_wait_fs := ~(io.if2mem.fs_mem_ok)
     }.elsewhen(ms_wait_fs && io.if2mem.fs_mem_ok){
         ms_wait_fs := 0.B

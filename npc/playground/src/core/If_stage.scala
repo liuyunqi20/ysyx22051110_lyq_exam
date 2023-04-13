@@ -46,7 +46,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         inst := Mux(nextpc(2) === 1.U, io.inst_mem.rd.bits.rdata(63, 32),
                                   io.inst_mem.rd.bits.rdata(31, 0))
     }
-    when(io.inst_mem.rd.fire === 1.U){
+    when(io.inst_mem.rd.fire && ~io.if2mem.ms_wait_fs){
         fs_wait_ms := ~(io.if2mem.ms_mem_ok)
     }.elsewhen(fs_wait_ms && io.if2mem.ms_mem_ok){
         fs_wait_ms := 0.B
