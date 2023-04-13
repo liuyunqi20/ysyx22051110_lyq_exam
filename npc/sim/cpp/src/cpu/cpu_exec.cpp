@@ -159,7 +159,7 @@ void execute(uint64_t step){
 static void statistic(){
     // ----------------- Final model cleanup -----------------
     printf("total guest instructions %lu\n", g_nr_step);
-    if(npc_state.state == NPC_ABORT)
+    //if(npc_state.state == NPC_ABORT)
         dump_gpr(cpu_gpr);
     contextp->timeInc(1);
     wave_dump();
