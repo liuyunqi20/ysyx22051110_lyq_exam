@@ -88,7 +88,7 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
         /* Write Resp */ wstate(2) -> Mux(io.b.fire , s_idle.U      , s_write_resp.U),
     ))
     // --------------- read req ---------------
-    val rd_wait_sel     = RegInit(0.B)
+    val rd_wait_sel   = RegInit(0.B)
     val rdata_r       = RegInit(0.U(w.W))
     io.ar.ready      := rstate(0)
     io.sram_rd.en    := io.ar.valid || (rstate(1) && rd_wait_sel)
