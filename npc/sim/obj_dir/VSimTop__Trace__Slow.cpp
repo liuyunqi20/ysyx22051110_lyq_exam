@@ -330,7 +330,7 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBus(c+221,"SimTop my_core_top my_isram io_sram_wt_wmask", false,-1, 7,0);
         tracep->declBus(c+222,"SimTop my_core_top my_isram rstate", false,-1, 2,0);
         tracep->declBus(c+223,"SimTop my_core_top my_isram wstate", false,-1, 2,0);
-        tracep->declBit(c+224,"SimTop my_core_top my_isram rd_done_r", false,-1);
+        tracep->declBit(c+224,"SimTop my_core_top my_isram rd_wait_sel", false,-1);
         tracep->declQuad(c+8,"SimTop my_core_top my_isram rdata_r", false,-1, 63,0);
         tracep->declBit(c+213,"SimTop my_core_top my_isram rdata_arrive", false,-1);
         tracep->declQuad(c+217,"SimTop my_core_top my_isram waddr_r", false,-1, 63,0);
@@ -364,7 +364,7 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBus(c+227,"SimTop my_core_top my_dsram io_sram_wt_wmask", false,-1, 7,0);
         tracep->declBus(c+228,"SimTop my_core_top my_dsram rstate", false,-1, 2,0);
         tracep->declBus(c+229,"SimTop my_core_top my_dsram wstate", false,-1, 2,0);
-        tracep->declBit(c+230,"SimTop my_core_top my_dsram rd_done_r", false,-1);
+        tracep->declBit(c+230,"SimTop my_core_top my_dsram rd_wait_sel", false,-1);
         tracep->declQuad(c+149,"SimTop my_core_top my_dsram rdata_r", false,-1, 63,0);
         tracep->declBit(c+231,"SimTop my_core_top my_dsram rdata_arrive", false,-1);
         tracep->declQuad(c+185,"SimTop my_core_top my_dsram waddr_r", false,-1, 63,0);
@@ -945,7 +945,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullQData(oldp+209,((0xfffffffffffffffcULL 
                                      & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc)),64);
         tracep->fullQData(oldp+211,(vlSelf->SimTop__DOT__my_core_top__DOT___my_rmem_port_rdata),64);
-        tracep->fullBit(oldp+213,(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_sram_rd_en_T_3));
+        tracep->fullBit(oldp+213,(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_sram_rd_en_T_2));
         tracep->fullBit(oldp+214,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate))));
         tracep->fullBit(oldp+215,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate) 
                                          >> 1U))));
@@ -956,17 +956,17 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullCData(oldp+221,(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wmask_r),8);
         tracep->fullCData(oldp+222,(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rstate),3);
         tracep->fullCData(oldp+223,(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate),3);
-        tracep->fullBit(oldp+224,(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rd_done_r));
-        tracep->fullBit(oldp+225,((1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_sram_rd_en_T_3)))));
-        tracep->fullBit(oldp+226,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_sram_rd_en_T_3));
+        tracep->fullBit(oldp+224,(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT__rd_wait_sel));
+        tracep->fullBit(oldp+225,((1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_sram_rd_en_T_2)))));
+        tracep->fullBit(oldp+226,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_sram_rd_en_T_2));
         tracep->fullCData(oldp+227,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wmask_r),8);
         tracep->fullCData(oldp+228,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate),3);
         tracep->fullCData(oldp+229,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate),3);
-        tracep->fullBit(oldp+230,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rd_done_r));
+        tracep->fullBit(oldp+230,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rd_wait_sel));
         tracep->fullBit(oldp+231,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rdata_arrive));
-        tracep->fullBit(oldp+232,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_sram_rd_en_T_3) 
-                                   | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_sram_rd_en_T_3))));
-        tracep->fullQData(oldp+233,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_sram_rd_en_T_3)
+        tracep->fullBit(oldp+232,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_sram_rd_en_T_2) 
+                                   | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_sram_rd_en_T_2))));
+        tracep->fullQData(oldp+233,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_sram_rd_en_T_2)
                                       ? vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc
                                       : (0xfffffffffffffff8ULL 
                                          & vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result))),64);

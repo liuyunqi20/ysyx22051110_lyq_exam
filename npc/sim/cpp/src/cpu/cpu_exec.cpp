@@ -130,7 +130,7 @@ void execute_once(){
         cpu_pc = SimTop->io_core_debug_debug_pc;
         VSimTop::catch_ebreak(&ebreak_f);
     }
-    //wave_end();
+    wave_end();
     //printf("after one step: %lx\n", cpu_pc);
 }
 
