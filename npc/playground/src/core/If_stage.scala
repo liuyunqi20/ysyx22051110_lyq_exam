@@ -33,7 +33,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         /* s_resp */ fs_state(2) -> Mux(io.inst_mem.rd.fire, s_req.U, s_resp.U),
     ))
     // ---------------- read request ----------------
-    io.inst_mem.ar.valid        := fs_state(1) && ~fs_wait_ms
+    io.inst_mem.ar.valid        := fs_state(1) && (fs_wait_ms === 0.U)
     io.inst_mem.ar.bits.araddr  := nextpc
     io.inst_mem.ar.bits.arprot  := 0.U(3.W)
     // ---------------- read response ----------------
@@ -44,7 +44,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         inst := Mux(nextpc(2) === 1.U, io.inst_mem.rd.bits.rdata(63, 32),
                                   io.inst_mem.rd.bits.rdata(31, 0))
         fs_wait_ms := ~(io.ms_mem_ok)
-    }.elsewhen(fs_wait_ms && io.ms_mem_ok){
+    }.elsewhen(fs_wait_ms & io.ms_mem_ok){
         fs_wait_ms := 0.U
     }
     //sram write(ignored)
