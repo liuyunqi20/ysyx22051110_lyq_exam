@@ -31,7 +31,6 @@ VL_MODULE(VSimTop___024root) {
     // LOCAL SIGNALS
     // Anonymous structures to workaround compiler member-count bugs
     struct {
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_isram_io_sram_rd_en;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_wt_bits_wstrb;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok;
@@ -76,6 +75,7 @@ VL_MODULE(VSimTop___024root) {
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT__my_isram__DOT__rstate;
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT__my_isram__DOT__wstate;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_isram__DOT__rd_done_r;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_sram_rd_en_T_3;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_isram__DOT___io_rd_valid_T_1;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_isram__DOT__wmask_r;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_isram__DOT__unnamedblk1__DOT___T;
@@ -83,6 +83,8 @@ VL_MODULE(VSimTop___024root) {
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rstate;
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wstate;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rd_done_r;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_sram_rd_en_T_3;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT__rdata_arrive;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_rd_valid_T_1;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT__wmask_r;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dsram__DOT___io_b_valid_T_1;
@@ -93,10 +95,10 @@ VL_MODULE(VSimTop___024root) {
         SData/*8:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_br_type;
         SData/*9:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN;
         SData/*15:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_0;
-        SData/*15:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_h;
-        IData/*22:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op;
     };
     struct {
+        SData/*15:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_h;
+        IData/*22:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op;
         IData/*31:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__inst;
         IData/*16:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_1;
         VlWide<3>/*64:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN;
