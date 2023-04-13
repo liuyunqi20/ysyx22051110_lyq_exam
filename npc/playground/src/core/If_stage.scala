@@ -25,23 +25,27 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val pc     = RegInit("h7fff_fffc".U(w.W))
     val nextpc = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
                     Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
+    val fs_wait_ms =  RegInit(0.U(1.W))
     val fs_state = RegInit(s_idle.U(nr_state.W))
     fs_state := Mux1H(Seq(
         /* s_idle */ fs_state(0) -> (s_req.U),
         /* s_req  */ fs_state(1) -> Mux(io.inst_mem.ar.fire, s_resp.U, s_req.U),
-        /* s_resp */ fs_state(2) -> Mux(io.inst_mem.rd.fire && ms_mem_ok, s_req.U, s_resp.U),
+        /* s_resp */ fs_state(2) -> Mux(io.inst_mem.rd.fire, s_req.U, s_resp.U),
     ))
     // ---------------- read request ----------------
-    io.inst_mem.ar.valid        := fs_state(1)
+    io.inst_mem.ar.valid        := fs_state(1) && ~fs_wait_ms
     io.inst_mem.ar.bits.araddr  := nextpc
     io.inst_mem.ar.bits.arprot  := 0.U(3.W)
     // ---------------- read response ----------------
     io.inst_mem.rd.ready := fs_state(2)
     val inst = RegInit(0.U(32.W))
-    when(io.inst_mem.rd.fire === 1.U && io.ms_mem_ok){
+    when(io.inst_mem.rd.fire === 1.U){
         pc := nextpc
         inst := Mux(nextpc(2) === 1.U, io.inst_mem.rd.bits.rdata(63, 32),
                                   io.inst_mem.rd.bits.rdata(31, 0))
+        fs_wait_ms := ~(io.ms_mem_ok)
+    }.elsewhen(fs_wait_ms && io.ms_mem_ok){
+        fs_wait_ms := 0.U
     }
     //sram write(ignored)
     io.inst_mem.aw.valid       := 0.B
