@@ -37,9 +37,9 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     // ---------------- read response ----------------
     io.inst_mem.rd.ready := fs_state(2)
     val inst              = RegInit(0.U(32.W))
-    val fs_next_ready     = (io.inst_mem.rd.fire && ~fs_wait_ms && ms_wait_fs) 
-                        || (io.if2mem.ms_mem_ok && fs_wait_ms)
-                        || (io.inst_mem.rd.fire && io.if2mem.ms_mem_ok)
+    val fs_next_ready     = (io.inst_mem.rd.fire && ~fs_wait_ms &&  io.if2mem.ms_wait_fs)  //MSU ok before IFU
+                         || (io.if2mem.ms_mem_ok &&  fs_wait_ms && ~io.if2mem.ms_wait_fs)  //IFU ok before MSU
+                         || (io.inst_mem.rd.fire &&  io.if2mem.ms_mem_ok)  //IFU MSU ok at the same time
     when(fs_next_ready){
         pc   := nextpc
         inst := Mux(nextpc(2) === 1.U, io.inst_mem.rd.bits.rdata(63, 32),
