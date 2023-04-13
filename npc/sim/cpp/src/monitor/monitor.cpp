@@ -52,9 +52,9 @@ int init_image(){
             //sw $6, 4($5)
             vaddr_write(iaddr + isize    , isize, 0x0062a223);
             //lw $7, 0($5)
-            vaddr_write(iaddr + isize * 2, isize, 0x0002a223);
+            vaddr_write(iaddr + isize * 2, isize, 0x0002a383);
             //lw $7, 4($5)
-            vaddr_write(iaddr + isize * 3, isize, 0x0002a383);
+            vaddr_write(iaddr + isize * 3, isize, 0x0042a383);
             //addi $5, $5, 8
             vaddr_write(iaddr + isize * 4, isize, 0x00828293);
             //addi $6, $6, 1
