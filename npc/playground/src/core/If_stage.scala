@@ -18,7 +18,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         val if2id        = new IftoIdBundle(w)
         val exc_br       = Flipped(new ExcBranchBundle(w))
         val if2mem       = new IFtoMemBundle(w)
-        val fs_next_ready = Output(Bool())
+        val fs_next_ok   = Output(Bool())
     })
     val pc         = RegInit("h7fff_fffc".U(w.W))
     val nextpc     = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
@@ -37,10 +37,11 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     // ---------------- read response ----------------
     io.inst_mem.rd.ready := fs_state(2)
     val inst              = RegInit(0.U(32.W))
-    val fs_next_ready     = (io.inst_mem.rd.fire && ~fs_wait_ms &&  io.if2mem.ms_wait_fs)  //MSU ok before IFU
-                         || (io.if2mem.ms_mem_ok &&  fs_wait_ms && ~io.if2mem.ms_wait_fs)  //IFU ok before MSU
-                         || (io.inst_mem.rd.fire &&  io.if2mem.ms_mem_ok)  //IFU MSU ok at the same time
-    when(fs_next_ready){
+    val fs_ahead_ms       = (io.inst_mem.rd.fire && ~fs_wait_ms &&  io.if2mem.ms_wait_fs) //MSU ok before IFU
+    val ms_ahead_fs       = (io.if2mem.ms_mem_ok &&  fs_wait_ms && ~io.if2mem.ms_wait_fs) //IFU ok before MSU
+    val fs_same_ms        = (io.inst_mem.rd.fire &&  io.if2mem.ms_mem_ok) //IFU MSU ok at the same time
+    val fs_next_ok        = fs_ahead_ms || ms_ahead_fs || fs_same_ms
+    when(fs_next_ok){
         pc   := nextpc
         inst := Mux(nextpc(2) === 1.U, io.inst_mem.rd.bits.rdata(63, 32),
                                   io.inst_mem.rd.bits.rdata(31, 0))
@@ -66,7 +67,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     //to Wb stage
     io.if2mem.fs_mem_ok  := io.inst_mem.rd.fire
     io.if2mem.fs_wait_ms := fs_wait_ms
-    io.fs_next_ready     := fs_next_ready
+    io.fs_next_ok        := fs_next_ok
 }
 
 

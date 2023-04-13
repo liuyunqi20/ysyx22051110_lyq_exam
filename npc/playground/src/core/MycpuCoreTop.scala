@@ -61,7 +61,7 @@ class MycpuCoreTop(w: Int) extends Module{
     //Wb stage
     my_wb.io.mem2wb        <> my_mem.io.mem2wb
     my_wb.io.pc            := my_if.io.pc
-    my_wb.io.fs_next_ready := my_if.io.fs_next_ready
+    my_wb.io.fs_next_ok := my_if.io.fs_next_ok
     //CSR/CLINT
     my_csr.io.op           <> my_wb.io.csr_op
     my_csr.io.exc          <> my_wb.io.csr_exc
