@@ -12,7 +12,7 @@ class Wb_stage(w: Int) extends Module{
         val csr_exc     = Flipped(new CsrExcBundle(w))
         val csr_out     = Flipped(new CsrOutBundle(w))
         //from IF_stage to indicate inst fetch is done
-        val fs_mem_ok   = Input(Bool())
+        val fs_next_ready   = Input(Bool())
     })
     // ------------------ intrrupt/exception ------------------ 
     val has_trap          = (io.mem2wb.exc_type.orR === 1.U) || (io.csr_exc.intr_t)
@@ -35,7 +35,7 @@ class Wb_stage(w: Int) extends Module{
     io.csr_exc.epc       := io.pc
     io.csr_exc.exc_code  := exc_code
     // ------------------ RF write back ------------------ 
-    io.wb2rf.rf_we := io.mem2wb.gr_we && ~has_trap && io.fs_mem_ok
+    io.wb2rf.rf_we := io.mem2wb.gr_we && ~has_trap && io.fs_next_ready
     io.wb2rf.waddr := io.mem2wb.dest
     io.wb2rf.wdata := Mux(io.mem2wb.csr_op.orR === 1.U, io.csr_op.csr_old, io.mem2wb.result)
 }

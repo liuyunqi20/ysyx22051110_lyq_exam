@@ -18,13 +18,14 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         val if2id        = new IftoIdBundle(w)
         val exc_br       = Flipped(new ExcBranchBundle(w))
         val if2mem       = new IFtoMemBundle(w)
+        val fs_next_ready = Output(Bool())
     })
-    val pc     = RegInit("h7fff_fffc".U(w.W))
-    val nextpc = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
+    val pc         = RegInit("h7fff_fffc".U(w.W))
+    val nextpc     = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
                     Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
     val fs_wait_ms =  RegInit(0.B)
-    val fs_state = RegInit(s_idle.U(nr_state.W))
-    fs_state := Mux1H(Seq(
+    val fs_state   = RegInit(s_idle.U(nr_state.W))
+    fs_state      := Mux1H(Seq(
         /* s_idle */ fs_state(0) -> (s_req.U),
         /* s_req  */ fs_state(1) -> Mux(io.inst_mem.ar.fire, s_resp.U, s_req.U),
         /* s_resp */ fs_state(2) -> Mux(io.inst_mem.rd.fire, s_req.U, s_resp.U),
@@ -35,10 +36,10 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     io.inst_mem.ar.bits.arprot  := 0.U(3.W)
     // ---------------- read response ----------------
     io.inst_mem.rd.ready := fs_state(2)
-    val inst = RegInit(0.U(32.W))
-    val fs_next_ready = (io.inst_mem.rd.fire && ~io.if2mem.ms_wait_fs) || (io.if2mem.ms_mem_ok && fs_wait_ms)
+    val inst              = RegInit(0.U(32.W))
+    val fs_next_ready     = (io.inst_mem.rd.fire && ~io.if2mem.ms_wait_fs) || (io.if2mem.ms_mem_ok && fs_wait_ms)
     when(fs_next_ready){
-        pc := nextpc
+        pc   := nextpc
         inst := Mux(nextpc(2) === 1.U, io.inst_mem.rd.bits.rdata(63, 32),
                                   io.inst_mem.rd.bits.rdata(31, 0))
     }
@@ -62,7 +63,8 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     io.if2id.inst := inst
     //to Wb stage
     io.if2mem.fs_mem_ok  := io.inst_mem.rd.fire
-    io.if2mem.fs_wait_ms        := fs_wait_ms
+    io.if2mem.fs_wait_ms := fs_wait_ms
+    io.fs_next_ready     := fs_next_ready
 }
 
 
