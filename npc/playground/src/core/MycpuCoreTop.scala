@@ -2,25 +2,22 @@ package mycpu
 import chisel3._
 
 /*    
-    IFU and MSU are linked to AXI module use AXI4-Lite Interface. AXI module
+    IFU and MSU are linked to AXI Arbiter module. AXI module
 transforms signal to pmem port and requests to Arbiter module. Arbiter module
 choose one master to access memory. Pmem port also links to clint module in 
 order to set timer registers.
-             _______      _______________              _________
-            |       |    |               |            |         |
-            |  IFU  |--->|      AXI      |----------->|         |
-            |_______|    |_______________|            |         |    
-                                                      |         |----------> pmem_read
-               ...                                    | Arbiter |      
-             _______      _______________             |         |----------> pmem_write
-            |       |    |               |            |         |     
-            |  MSU  |--->|      AXI      |----|------>|         |      
-            |_______|    |_______________|    |       |_________|          
-                                              |
-                                              |        _______
-                                              |------>|       |
-                                                      | clint |
-                                                      |_______|
+             _______                  _________             _______________
+            |       |                |         |           |  ___________  |
+            |  IFU  |--------------->|         |           | |           | |   
+            |_______|                |         |------------>| AXI-Read  |---------> pmem_read
+                                     |         |           | |___________| |
+                                     | Arbiter |           |  ___________  |
+             _______                 |         |           | |           | |    
+            |       |                |         |------------>| AXI-Write |-----|---> pmem_write
+            |  MSU  |--------------->|         |           | |___________| |   |      _______
+            |_______|                |_________|           |_______________|   |     |       |
+                                                                               |---->| Clint |
+                                                                                     |_______|
 
 NOTE: Arbiter module arbits in read-read and write-write requests from IFU and
       MSU. pmem_read and pmem_write are designed to be used by IFU and MSU 
@@ -32,18 +29,17 @@ class MycpuCoreTop(w: Int) extends Module{
     val io = IO(new Bundle{
         val core_debug = new DebugBundle(w)
     });
-    val my_if        = Module(new If_stage(w, w))
-    val my_id        = Module(new Id_stage(w))
-    val my_ex        = Module(new Ex_stage(w))
-    val my_mem       = Module(new Mem_stage(w))
-    val my_wb        = Module(new Wb_stage(w))
-    val my_clint     = Module(new Clint(w))
-    val my_csr       = Module(new Csr(w))
-    val my_isram     = Module(new AXI4LiteSram(w))
-    val my_dsram     = Module(new AXI4LiteSram(w))
-    val my_arbit     = Module(new AXIArbiter(w))
-    val my_rmem_port = Module(new Read_mem_port(w))
-    val my_wmem_port = Module(new Write_mem_port(w))
+    val my_if         = Module(new If_stage(w, w))
+    val my_id         = Module(new Id_stage(w))
+    val my_ex         = Module(new Ex_stage(w))
+    val my_mem        = Module(new Mem_stage(w))
+    val my_wb         = Module(new Wb_stage(w))
+    val my_clint      = Module(new Clint(w))
+    val my_csr        = Module(new Csr(w))
+    val my_axi_bridge = Module(new AXI4LiteSram(w))
+    val my_arbiter    = Module(new AXIArbiter(w, 2))
+    val my_rmem_port  = Module(new Read_mem_port(w))
+    val my_wmem_port  = Module(new Write_mem_port(w))
     //IF stage
     my_if.io.branch        <> my_ex.io.branch
     my_if.io.exc_br        <> my_wb.io.exc_br
@@ -61,7 +57,7 @@ class MycpuCoreTop(w: Int) extends Module{
     //Wb stage
     my_wb.io.mem2wb        <> my_mem.io.mem2wb
     my_wb.io.pc            := my_if.io.pc
-    my_wb.io.fs_next_ok := my_if.io.fs_next_ok
+    my_wb.io.fs_next_ok    := my_if.io.fs_next_ok
     //CSR/CLINT
     my_csr.io.op           <> my_wb.io.csr_op
     my_csr.io.exc          <> my_wb.io.csr_exc
@@ -71,37 +67,19 @@ class MycpuCoreTop(w: Int) extends Module{
     my_clint.io.wr         := my_dsram.io.sram_wt.wr
     my_clint.io.waddr      := my_dsram.io.sram_wt.addr
     my_clint.io.wdata      := my_dsram.io.sram_wt.wdata
-    // IFU to AXI inst sram
-    my_isram.io.ar         <> my_if.io.inst_mem.ar
-    my_isram.io.rd         <> my_if.io.inst_mem.rd
-    my_isram.io.aw         <> my_if.io.inst_mem.aw
-    my_isram.io.wt         <> my_if.io.inst_mem.wt
-    my_isram.io.b          <> my_if.io.inst_mem.b
-    my_isram.io.sram_rd_sel := my_arbit.io.sel_rd_IFU
-    my_isram.io.sram_wt_sel := my_arbit.io.sel_wt_IFU
-    // MSU to AXI data sram
-    my_dsram.io.ar         <> my_mem.io.data_mem.ar
-    my_dsram.io.rd         <> my_mem.io.data_mem.rd
-    my_dsram.io.aw         <> my_mem.io.data_mem.aw
-    my_dsram.io.wt         <> my_mem.io.data_mem.wt
-    my_dsram.io.b          <> my_mem.io.data_mem.b
-    my_dsram.io.sram_rd_sel := my_arbit.io.sel_rd_MSU
-    my_dsram.io.sram_wt_sel := my_arbit.io.sel_wt_MSU
-    // memory Arbiter
-    my_arbit.io.rd_IFU     <> my_isram.io.sram_rd
-    my_arbit.io.wt_IFU     <> my_isram.io.sram_wt
-    my_arbit.io.rd_MSU     <> my_dsram.io.sram_rd
-    my_arbit.io.wt_MSU     <> my_dsram.io.sram_wt
-    // pmem access port 
-    my_arbit.io.mem_rd.en    <> my_rmem_port.io.en
-    my_arbit.io.mem_rd.wr    <> my_rmem_port.io.wr
-    my_arbit.io.mem_rd.addr  <> my_rmem_port.io.addr
-    my_arbit.io.mem_rd.rdata <> my_rmem_port.io.rdata
-    my_arbit.io.mem_wt.en    <> my_wmem_port.io.en
-    my_arbit.io.mem_wt.wr    <> my_wmem_port.io.wr
-    my_arbit.io.mem_wt.addr  <> my_wmem_port.io.addr
-    my_arbit.io.mem_wt.wdata <> my_wmem_port.io.wdata
-    my_arbit.io.mem_wt.wmask <> my_wmem_port.io.wmask
+    // IFU/MSU to arbiter   &   arbiter to AXI bridge
+    my_arbiter.io.in(0)      <> my_if.io.inst_mem
+    my_arbiter.io.in(1)      <> my_mem.io.data_mem
+    my_axi_bridge.io.ar      <> my_arbiter.io.out.ar
+    my_axi_bridge.io.rd      <> my_arbiter.io.out.rd
+    my_axi_bridge.io.aw      <> my_arbiter.io.out.aw
+    my_axi_bridge.io.wt      <> my_arbiter.io.out.wt
+    my_axi_bridge.io.b       <> my_arbiter.io.out.b
+    //AXI bridge to pmem port
+    my_axi_bridge.io.sram_rd      <> my_rmem_port.io
+    my_axi_bridge.io.sram_wt      <> my_wmem_port.io
+    my_axi_bridge.io.sram_rd_resp := my_axi_bridge.io.sram_rd.en
+    my_axi_bridge.io.sram_wt_resp := my_axi_bridge.io.sram_wt.en
     //debug
     io.core_debug.debug_pc       := my_if.io.pc
     io.core_debug.debug_nextpc   := my_if.io.nextpc

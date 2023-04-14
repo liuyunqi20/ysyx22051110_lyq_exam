@@ -71,10 +71,20 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
         val aw = Flipped(Decoupled(new AXI4LiteAW(w)))
         val wt = Flipped(Decoupled(new AXI4LiteWR(w)))
         val b  = Decoupled(new AXI4LiteWB(w))
-        val sram_rd     = new ReadMemBundle(w)
-        val sram_rd_sel = Input(Bool())
-        val sram_wt     = new WriteMemBundle(w)
-        val sram_wt_sel = Input(Bool())
+        val sram_rd       = new ReadMemBundle(w)
+        val sram_wt       = new WriteMemBundle(w)
+        /*
+        NOTE: resp signals pull high when pmem read/write done. 
+            This signals is reserved for simulating pmem access 
+            latency.
+                In current NPC, pmem_read/write returns very fast, 
+            so resp is always set to 1.U when pemem enabled.
+            (check MycpuCoreTop.scala).
+        */
+        val sram_rd_resp  = Input(Bool())
+        val sram_wt_resp  = Input(Bool())
+
+
     })
     val rstate = RegInit(s_idle.U(state_w.W))
     val wstate = RegInit(s_idle.U(state_w.W))
@@ -100,11 +110,11 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     io.sram_rd.en    := io.ar.fire || (rstate(1) && rd_wait_sel)
     io.sram_rd.wr    := 0.B
     io.sram_rd.addr  := io.ar.bits.araddr
-    val rdata_arrive  = io.sram_rd.en && io.sram_rd_sel
+    val rdata_arrive  = io.sram_rd.en && io.sram_rd_resp 
     when(rdata_arrive){  //data comes back
         rdata_r   := io.sram_rd.rdata
     }
-    when(io.ar.fire && ~io.sram_rd_sel){ //req shakehand ok but no data
+    when(io.ar.fire && ~io.sram_rd_resp ){ //req shakehand ok but no data
         rd_wait_sel := 1.B
     }.elsewhen(rdata_arrive){ //data comes back
         rd_wait_sel := 0.B
@@ -141,7 +151,7 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     }
     // --------------- write resp --------------- 
     val b_wait_ready  = RegInit(0.B)
-    io.b.valid       := wstate(2) && io.sram_wt_sel
+    io.b.valid       := wstate(2) && io.sram_wt_resp
     io.b.bits.bresp  := 0.U(2.W)
     io.sram_wt.en    := wstate(2) && ~b_wait_ready
     io.sram_wt.wr    := 1.B
