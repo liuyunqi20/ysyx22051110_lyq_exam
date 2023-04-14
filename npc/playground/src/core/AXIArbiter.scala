@@ -11,7 +11,7 @@ trait HasArbiterConst{
 class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
     val io = IO(new Bundle{
         val in  = Flipped(Vec(nr_src, new AXI4LiteBundle(w)))
-        val out = Flipped(new AXI4LiteBundle(w))
+        val out = new AXI4LiteBundle(w)
     })
     /*
         Choose one read port and interact with AXI module.
