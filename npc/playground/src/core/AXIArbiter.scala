@@ -19,7 +19,7 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
     val arbiter_rd = Module(new Arbiter(new AXI4LiteAR(w), nr_src))
     val rd_chosen  = RegInit(0.U(log2Ceil(nr_src).W))  //record which port for current issue
     when(io.out.ar.fire){
-        rd_chosen := arbiter_rd.io.out.chosen
+        rd_chosen := arbiter_rd.io.chosen
     }
     // --------------------------- read arbiter in --------------------------- 
     //arbiter for read request
@@ -45,7 +45,7 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
     val arbiter_wt = Module(new Arbiter(new AXI4LiteAR(w), nr_src))
     val wt_chosen  = RegInit(0.U(log2Ceil(nr_src).W))  //record which port for current issue
     when(io.out.ar.fire){
-        wt_chosen := arbiter_wt.io.out.wt_chosen
+        wt_chosen := arbiter_wt.io.chosen
     }
     // --------------------------- write arbiter in --------------------------- 
     //arbiter for write request
