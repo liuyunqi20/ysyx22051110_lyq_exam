@@ -59,10 +59,10 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
     io.out.aw.bits            <> arbiter_wt.io.out.bits
     // --------------------------- write data&response --------------------------- 
     for( i <- 0 until nr_src){
-        io.in(i).wt.ready := io.out.wt.ready
+        io.in(i).wt.ready := io.out.wt.ready && (rd_chosen === i.U)
         io.in(i).wt.bits  <> io.out.wt.bits
         io.out.wt.valid   := io.in(i).wt.valid && (wt_chosen === i.U)
-        io.in(i).b.valid  := io.out.b.valid
+        io.in(i).b.valid  := io.out.b.valid && (rd_chosen === i.U)
         io.in(i).b.bits   <> io.out.b.bits
         io.out.b.ready    := io.in(i).b.ready && (wt_chosen === i.U)
     }
