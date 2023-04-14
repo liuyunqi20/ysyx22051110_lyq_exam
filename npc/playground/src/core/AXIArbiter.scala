@@ -60,7 +60,7 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
     // --------------------------- write data&response --------------------------- 
     val port_chosen        = Vec(nr_src, Bool())
     for( i <- 0 until nr_src){
-        port_chosen(i)     = wt_chosen === i.U
+        port_chosen(i)     = (wt_chosen === i.U)
         io.in(i).wt.ready := io.out.wt.ready
         io.in(i).wt.bits  <> io.out.wt.bits
         io.out.wt.valid   := io.in(i).wt.valid && port_chosen(i)
