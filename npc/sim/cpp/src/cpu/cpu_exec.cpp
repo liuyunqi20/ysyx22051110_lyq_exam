@@ -104,9 +104,9 @@ void set_npc_state(int state, uint64_t pc, uint32_t ret){
 void execute_once(){
     //printf("start %lx\n", cpu_pc);
     uint64_t old_pc = cpu_pc;
-    //int cnt  = 0;
+    int cnt  = 0;
     while(cpu_pc == old_pc){ 
-        //if(cnt >= 5) break;
+        if(cnt >= 5) {wave_end(); break;}
         // ----------------- NEG ----------------- 
         contextp->timeInc(1);
         SimTop->clock = !SimTop->clock;
@@ -131,7 +131,7 @@ void execute_once(){
         //update current pc
         cpu_pc = SimTop->io_core_debug_debug_pc;
         VSimTop::catch_ebreak(&ebreak_f);
-        //cnt++;
+        cnt++;
     }
     //wave_end();
     //printf("after one step: %lx\n", cpu_pc);
