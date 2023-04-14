@@ -3,9 +3,7 @@ import chisel3._
 import chisel3.util._
 
 trait HasArbiterConst{
-    val s_idle   = 0x1
-    val s_rresp  = 0x2
-    val nr_state = 2
+
 }
 
 class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
@@ -42,7 +40,7 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
     /*
         Choose one write port and interact with AXI module.
     */
-    val arbiter_wt = Module(new Arbiter(new AXI4LiteAR(w), nr_src))
+    val arbiter_wt = Module(new Arbiter(new AXI4LiteAW(w), nr_src))
     val wt_chosen  = RegInit(0.U(log2Ceil(nr_src).W))  //record which port for current issue
     when(io.out.ar.fire){
         wt_chosen := arbiter_wt.io.chosen
