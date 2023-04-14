@@ -19,11 +19,11 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
     val arbiter_rd = Module(new Arbiter(new AXI4LiteAR(w), nr_src))
     val rd_chosen  = RegInit(0.U(log2Ceil(nr_src).W))  //record which port for current issue
     when(io.out.ar.fire){
-        rd_chosen := arbiter_rd.io.out.rd_chosen
+        rd_chosen := arbiter_rd.io.out.chosen
     }
     // --------------------------- read arbiter in --------------------------- 
     //arbiter for read request
-    for( i <- 0 util nr_src){
+    for( i <- 0 until nr_src){
         arbiter_rd.io.in(i).valid := io.in(i).ar.valid
         arbiter_rd.io.in(i).bits  <> io.in(i).ar.bits
         io.in(i).ar.ready         := arbiter_rd.io.in(i).ready
@@ -33,7 +33,7 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
     io.out.ar.valid           := arbiter_rd.io.out.valid
     io.out.ar.bits            <> arbiter_rd.io.out.bits
     // --------------------------- read response --------------------------- 
-    for( i <- 0 util nr_src){
+    for( i <- 0 until nr_src){
         io.in(i).rd.valid := io.out.rd.valid && (rd_chosen === i.U)
         io.in(i).rd.bits  <> io.out.rd.bits
     }
@@ -49,7 +49,7 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
     }
     // --------------------------- write arbiter in --------------------------- 
     //arbiter for write request
-    for( i <- 0 util nr_src){
+    for( i <- 0 until nr_src){
         arbiter_wt.io.in(i).valid := io.in(i).aw.valid
         arbiter_wt.io.in(i).bits  <> io.in(i).aw.bits
         io.in(i).aw.ready         := arbiter_wt.io.in(i).ready
@@ -59,7 +59,7 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
     io.out.aw.valid           := arbiter_wt.io.out.valid
     io.out.aw.bits            <> arbiter_wt.io.out.bits
     // --------------------------- write data&response --------------------------- 
-    for( i <- 0 util nr_src){
+    for( i <- 0 until nr_src){
         io.in(i).wt.ready := io.out.wt.ready && (wt_chosen === i.U)
         io.in(i).wt.bits  <> io.out.wt.bits
         io.in(i).b.valid  := io.out.b.valid && (wt_chosen === i.U)

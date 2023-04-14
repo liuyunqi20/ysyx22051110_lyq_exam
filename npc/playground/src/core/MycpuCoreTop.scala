@@ -63,10 +63,10 @@ class MycpuCoreTop(w: Int) extends Module{
     my_csr.io.exc          <> my_wb.io.csr_exc
     my_csr.io.out          <> my_wb.io.csr_out
     my_csr.io.clint_intr_t := my_clint.io.has_intr_t
-    my_clint.io.en         := my_dsram.io.sram_wt.en
-    my_clint.io.wr         := my_dsram.io.sram_wt.wr
-    my_clint.io.waddr      := my_dsram.io.sram_wt.addr
-    my_clint.io.wdata      := my_dsram.io.sram_wt.wdata
+    my_clint.io.en         <> my_axi_bridge.io.sram_wt.en
+    my_clint.io.wr         := my_axi_bridge.io.sram_wt.wr
+    my_clint.io.waddr      := my_axi_bridge.io.sram_wt.addr
+    my_clint.io.wdata      := my_axi_bridge.io.sram_wt.wdata
     // IFU/MSU to arbiter   &   arbiter to AXI bridge
     my_arbiter.io.in(0)      <> my_if.io.inst_mem
     my_arbiter.io.in(1)      <> my_mem.io.data_mem
