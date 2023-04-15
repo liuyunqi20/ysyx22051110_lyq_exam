@@ -92,12 +92,11 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_arbiter__DOT___arbiter_rd_io_out_valid;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__rd_chosen;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__unnamedblk1__DOT___T_1;
         SData/*8:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_br_type;
         SData/*9:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN;
+        SData/*15:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_0;
     };
     struct {
-        SData/*15:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_0;
         SData/*15:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_h;
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op;
         IData/*31:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__inst;

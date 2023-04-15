@@ -37,17 +37,21 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     // ---------------- read response ----------------
     io.inst_mem.rd.ready := fs_state(2)
     val inst              = RegInit(0.U(32.W))
+    val rdata_buf          = RegInit(0.U(w.W))
     val fs_ahead_ms       = (io.inst_mem.rd.fire && ~fs_wait_ms &&  io.if2mem.ms_wait_fs) //MSU ok before IFU
     val ms_ahead_fs       = (io.if2mem.ms_mem_ok &&  fs_wait_ms && ~io.if2mem.ms_wait_fs) //IFU ok before MSU
     val fs_same_ms        = (io.inst_mem.rd.fire &&  io.if2mem.ms_mem_ok) //IFU MSU ok at the same time
+    //when IFU and MSU both done memory access fs_next_ok pulls high and update cpu pc
     val fs_next_ok        = fs_ahead_ms || ms_ahead_fs || fs_same_ms
+    val fs_inst_data      = Mux(fs_wait_ms, rdata_buf, io.inst_mem.rd.bits.rdata)
     when(fs_next_ok){
         pc   := nextpc
-        inst := Mux(nextpc(2) === 1.U, io.inst_mem.rd.bits.rdata(63, 32),
-                                  io.inst_mem.rd.bits.rdata(31, 0))
+        inst := Mux(nextpc(2) === 1.U, fs_inst_data(63, 32),
+                                       fs_inst_data(31, 0))
     }
     when(io.inst_mem.rd.fire && ~io.if2mem.ms_wait_fs){
         fs_wait_ms := ~(io.if2mem.ms_mem_ok)
+        rdata_buf  := io.inst_mem.rd.bits.rdata
     }.elsewhen(fs_wait_ms && io.if2mem.ms_mem_ok){
         fs_wait_ms := 0.B
     }
