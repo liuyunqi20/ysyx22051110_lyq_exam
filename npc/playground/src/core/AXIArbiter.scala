@@ -2,11 +2,7 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
-trait HasArbiterConst{
-
-}
-
-class AXIArbiter(w: Int, nr_src: Int) extends Module with HasArbiterConst{
+class AXIArbiter(w: Int, nr_src: Int) extends Module{
     val io = IO(new Bundle{
         val in  = Flipped(Vec(nr_src, new AXI4LiteBundle(w)))
         val out = new AXI4LiteBundle(w)

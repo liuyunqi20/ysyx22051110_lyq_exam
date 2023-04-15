@@ -34,7 +34,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     io.inst_mem.ar.valid        := fs_state(1) && ~fs_wait_ms
     io.inst_mem.ar.bits.araddr  := nextpc
     io.inst_mem.ar.bits.arprot  := 0.U(3.W)
-    // ---------------- read response ----------------
+    // ---------------- read response ---------------- 
     io.inst_mem.rd.ready := fs_state(2)
     val inst              = RegInit(0.U(32.W))
     val rdata_buf          = RegInit(0.U(w.W))

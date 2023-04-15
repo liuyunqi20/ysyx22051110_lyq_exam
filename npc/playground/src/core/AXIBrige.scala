@@ -74,11 +74,11 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
         val sram_rd       = new ReadMemBundle(w)
         val sram_wt       = new WriteMemBundle(w)
         /*
-        NOTE: resp signals pull high when pmem read/write done. 
-            This signals is reserved for simulating pmem access 
+        NOTE: resp signals pull high when pmem_read/write is done. 
+            These signals are reserved for simulating pmem access 
             latency.
                 In current NPC, pmem_read/write returns very fast, 
-            so resp is always set to 1.U when pemem enabled.
+            so resp is always set to 1.U when pmem enabled.
             (check MycpuCoreTop.scala).
         */
         val sram_rd_resp  = Input(Bool())
@@ -99,9 +99,9 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
     ))
     /* 
             Sram read enabled when ar signals shaking hands. If read data comes immediately
-        when ar shaking hands, then rdata_r stores the data and response to master at next
+        when ar shaking hands, then rdata_r stores the data and response to master after next
         posedge. If read data does not come when ar shaking hands, then rd_wait_sel will pull 
-        high at next posedge to keep sram enabled util data arrives.
+        high after next posedge to keep sram enabled until data arrives.
     */
     // --------------- read req ---------------
     val rd_wait_sel   = RegInit(0.B)
@@ -130,10 +130,10 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
         resp_data_ok := 0.B
     }
     /*
-            Write address is store to register when aw shaking hands. Write data and mask
-        are stored when wt shaking hands. In b stage, sram write is enabled util write data
-        success. b_wait_ready is for blocking sram write enable signal when write is done 
-        but wait shaking hands.
+            Write address is store to register when aw shaking hands. Write data and mask 
+        are stored when wt shaking hands. In b stage, sram write is enabled until write data 
+        success. b_wait_ready is for avoiding to enable sram write repeatedly when write is 
+        done but wait for b.ready from master. 
     */
     // --------------- write request --------------- 
     io.aw.ready     := wstate(0)
