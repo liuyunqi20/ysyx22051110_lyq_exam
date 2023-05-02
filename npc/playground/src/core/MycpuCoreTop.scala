@@ -35,7 +35,7 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module{
     my_csr.io.op           <> my_wb.io.csr_op
     my_csr.io.exc          <> my_wb.io.csr_exc
     my_csr.io.out          <> my_wb.io.csr_out
-    my_csr.io.clint_intr_t := my_clint.io.has_intr_t
+    my_csr.io.clint_intr_t := 0.B
     //debug
     io.core_debug.debug_pc       := my_if.io.pc
     io.core_debug.debug_nextpc   := my_if.io.nextpc
