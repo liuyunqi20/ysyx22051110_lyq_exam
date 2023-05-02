@@ -2,6 +2,17 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
+// ----------------- CPU-core Memory Access Bundle ----------------- 
+    class CPUMemBundle(w: Int) extends Bundle{
+        val en      = Output(Bool())
+        val wr      = Output(Bool())
+        val addr    = Output(UInt(w.W))
+        val rdata   = Input(UInt(w.W))
+        val wdata   = Output(UInt(w.W))
+        val addr_ok = Input(Bool())
+        val data_ok = Input(Bool())
+    }
+
 // ----------------- Debug Bundle -----------------
     class DebugBundle(w: Int) extends Bundle{
         val debug_pc       = Output(UInt(w.W))
@@ -88,7 +99,7 @@ import chisel3.util._
         val exc_target = Output(UInt(w.W))
     }
 
-// ----------------- Memory Access Bundle -----------------
+// ----------------- AXI Memory Access Bundle -----------------
     class AXI4LiteAR(w: Int) extends Bundle{
         //val arvalid = Output(Bool())
         //val arready = Input(Bool())
@@ -131,14 +142,14 @@ import chisel3.util._
         val b  = Flipped(Decoupled(new AXI4LiteWB(w)))
     }
 
-    class ReadMemBundle(w: Int) extends Bundle{
+    class DPIReadMemBundle(w: Int) extends Bundle{
         val en    = Output(Bool())
         val wr    = Output(Bool())
         val addr  = Output(UInt(w.W))
         val rdata = Input(UInt(w.W))
     }
 
-    class WriteMemBundle(w: Int) extends Bundle{
+    class DPIWriteMemBundle(w: Int) extends Bundle{
         val en    = Output(Bool())
         val wr    = Output(Bool())
         val addr  = Output(UInt(w.W))

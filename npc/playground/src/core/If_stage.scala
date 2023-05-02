@@ -3,10 +3,10 @@ import chisel3._
 import chisel3.util._
 
 trait HasIFSConst{
-    val s_idle = 0x1
-    val s_req  = 0x2
-    val s_resp = 0x4
-    val nr_state = 3
+    val s_idle = 0x1 
+    val s_req  = 0x2 
+    val s_resp = 0x4 
+    val nr_state = 3 
 }
 
 class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{

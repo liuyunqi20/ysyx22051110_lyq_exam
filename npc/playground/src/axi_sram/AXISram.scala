@@ -64,15 +64,15 @@ class Write_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
         """.stripMargin)
 }
 
-class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
+class AXI4LiteSramDriver(w: Int) extends Module with HasAXIstateConst{
     val io = IO(new Bundle{
         val ar = Flipped(Decoupled(new AXI4LiteAR(w)))
         val rd = Decoupled(new AXI4LiteRD(w))
         val aw = Flipped(Decoupled(new AXI4LiteAW(w)))
         val wt = Flipped(Decoupled(new AXI4LiteWR(w)))
         val b  = Decoupled(new AXI4LiteWB(w))
-        val sram_rd       = new ReadMemBundle(w)
-        val sram_wt       = new WriteMemBundle(w)
+        val sram_rd       = new DPIReadMemBundle(w)
+        val sram_wt       = new DPIWriteMemBundle(w)
         /*
         NOTE: resp signals pull high when pmem_read/write is done. 
             These signals are reserved for simulating pmem access 
@@ -164,3 +164,33 @@ class AXI4LiteSram(w: Int) extends Module with HasAXIstateConst{
         b_wait_ready := 1.B
     }
 }
+
+class AXI4LiteSramTop(w: Int, nr_mport: Int) extends Module with HasAXIstateConst{
+    val io = IO(new Bundle{
+        val in  = Flipped(Vec(nr_mport, new AXI4LiteBundle(w)))
+    })
+    val my_arbiter    = Module(new AXIArbiter(w, nr_mport))
+    val my_axi_sram_driver = Module(new AXI4LiteSramDriver(w))
+    val my_rmem_port  = Module(new Read_mem_port(w))
+    val my_wmem_port  = Module(new Write_mem_port(w))
+    val my_clint      = Module(new Clint(w))
+    //Arbiter
+    for( i <- 0 until nr_mport){
+        my_arbiter.io.in(i) <> io.in(i)
+    }
+    my_axi_sram_driver.io.ar <> my_arbiter.io.out.ar
+    my_axi_sram_driver.io.rd <> my_arbiter.io.out.rd
+    my_axi_sram_driver.io.aw <> my_arbiter.io.out.aw
+    my_axi_sram_driver.io.wt <> my_arbiter.io.out.wt
+    my_axi_sram_driver.io.b  <> my_arbiter.io.out.b
+    //Memory Access using DPI-C
+    my_axi_sram_driver.io.sram_rd      <> my_rmem_port.io
+    my_axi_sram_driver.io.sram_wt      <> my_wmem_port.io
+    my_axi_sram_driver.io.sram_rd_resp := my_axi_sram_driver.io.sram_rd.en
+    my_axi_sram_driver.io.sram_wt_resp := my_axi_sram_driver.io.sram_wt.en
+    //clint
+    my_clint.io.en         <> my_axi_sram_driver.io.sram_wt.en
+    my_clint.io.wr         := my_axi_sram_driver.io.sram_wt.wr
+    my_clint.io.waddr      := my_axi_sram_driver.io.sram_wt.addr
+    my_clint.io.wdata      := my_axi_sram_driver.io.sram_wt.wdata   
+}   
