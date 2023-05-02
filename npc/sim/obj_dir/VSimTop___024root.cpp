@@ -48,8 +48,8 @@ VL_INLINE_OPT void VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_core_top__DOT
 
 extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long* rdata);
 
-VL_INLINE_OPT void VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_core_top__DOT__my_rmem_port__DOT__cpu_dmem_read_TOP(CData/*0:0*/ en, CData/*0:0*/ wr, QData/*63:0*/ raddr, QData/*63:0*/ &rdata) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_core_top__DOT__my_rmem_port__DOT__cpu_dmem_read_TOP\n"); );
+VL_INLINE_OPT void VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_axi_sram__DOT__my_rmem_port__DOT__cpu_dmem_read_TOP(CData/*0:0*/ en, CData/*0:0*/ wr, QData/*63:0*/ raddr, QData/*63:0*/ &rdata) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_axi_sram__DOT__my_rmem_port__DOT__cpu_dmem_read_TOP\n"); );
     // Body
     svBit en__Vcvt;
     for (size_t en__Vidx = 0; en__Vidx < 1; ++en__Vidx) en__Vcvt = en;
@@ -64,8 +64,8 @@ VL_INLINE_OPT void VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_core_top__DOT
 
 extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wdata, char wmask);
 
-VL_INLINE_OPT void VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_core_top__DOT__my_wmem_port__DOT__cpu_dmem_write_TOP(CData/*0:0*/ en, CData/*0:0*/ wr, QData/*63:0*/ waddr, QData/*63:0*/ wdata, CData/*7:0*/ wmask) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_core_top__DOT__my_wmem_port__DOT__cpu_dmem_write_TOP\n"); );
+VL_INLINE_OPT void VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_axi_sram__DOT__my_wmem_port__DOT__cpu_dmem_write_TOP(CData/*0:0*/ en, CData/*0:0*/ wr, QData/*63:0*/ waddr, QData/*63:0*/ wdata, CData/*7:0*/ wmask) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_axi_sram__DOT__my_wmem_port__DOT__cpu_dmem_write_TOP\n"); );
     // Body
     svBit en__Vcvt;
     for (size_t en__Vidx = 0; en__Vidx < 1; ++en__Vidx) en__Vcvt = en;
@@ -80,10 +80,10 @@ VL_INLINE_OPT void VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_core_top__DOT
     cpu_dmem_write(en__Vcvt, wr__Vcvt, waddr__Vcvt, wdata__Vcvt, wmask__Vcvt);
 }
 
-VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf) {
+VL_INLINE_OPT void VSimTop___024root___sequent__TOP__2(VSimTop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VSimTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VSimTop___024root___sequent__TOP__1\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VSimTop___024root___sequent__TOP__2\n"); );
     // Variables
     CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___csignals_T_175;
     CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_2;
@@ -101,12 +101,12 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     CData/*3:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state;
     CData/*0:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie;
     CData/*0:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie;
-    CData/*2:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate;
-    CData/*0:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rd_wait_sel;
-    CData/*0:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__resp_data_ok;
-    CData/*2:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate;
-    CData/*0:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__b_wait_ready;
-    CData/*0:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen;
+    CData/*0:0*/ __Vdly__SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen;
+    CData/*2:0*/ __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate;
+    CData/*0:0*/ __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_wait_sel;
+    CData/*0:0*/ __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__resp_data_ok;
+    CData/*2:0*/ __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate;
+    CData/*0:0*/ __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready;
     IData/*31:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT___alu_res_T_4;
     VlWide<4>/*127:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2;
     VlWide<3>/*95:0*/ __Vtemp2;
@@ -128,28 +128,25 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_4;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_5;
     QData/*63:0*/ __Vdlyvval__SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file__v0;
-    QData/*63:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime;
     // Body
+    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen 
+        = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rd_wait_sel 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rd_wait_sel;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__resp_data_ok 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__resp_data_ok;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__b_wait_ready 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__b_wait_ready;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime;
+    __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs 
+        = vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs;
+    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_wait_sel 
+        = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_wait_sel;
+    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__resp_data_ok 
+        = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__resp_data_ok;
+    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate 
+        = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate;
+    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready 
+        = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready;
+    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate 
+        = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie 
@@ -157,24 +154,48 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms;
     __Vdlyvset__SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file__v0 = 0U;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state 
-        = ((IData)(vlSelf->reset) ? 1U : (((2U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
-                                                  << 1U)) 
-                                           | ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state))
-                                               ? (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate) 
-                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_ar_valid_T_2))
-                                                   ? 4U
-                                                   : 2U)
-                                               : 0U)) 
-                                          | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state))
-                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T)
-                                                  ? 2U
-                                                  : 4U)
-                                              : 0U)));
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen 
-        = ((~ (IData)(vlSelf->reset)) & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate) 
+    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen 
+        = ((~ (IData)(vlSelf->reset)) & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
                                           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_aw_valid_T_1)) 
-                                         | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen)));
+                                         | (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)));
+    if (vlSelf->reset) {
+        __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state = 1U;
+        __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state = 1U;
+    } else {
+        __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state 
+            = (((2U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
+                       << 1U)) | ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state))
+                                   ? (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate) 
+                                       & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_ar_valid_T_2))
+                                       ? 4U : 2U) : 0U)) 
+               | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state))
+                   ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T)
+                       ? 2U : 4U) : 0U));
+        __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state 
+            = (((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
+                   ? ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rd_req) 
+                        & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_ar_valid_T_2)) 
+                           & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))) 
+                       & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_ar_valid_T_1))
+                       ? 2U : ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__wt_req) 
+                                 & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate)) 
+                                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_aw_valid_T_1))
+                                ? 4U : 1U)) : 0U) | 
+                 ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
+                   ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1)
+                       ? 1U : 2U) : 0U)) | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
+                                             ? (((((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                                                   >> 1U) 
+                                                  & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)) 
+                                                 & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
+                                                    >> 2U))
+                                                 ? 8U
+                                                 : 4U)
+                                             : 0U)) 
+               | ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
+                   ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_3)
+                       ? 1U : 8U) : 0U));
+    }
     __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs 
         = (1U & ((~ (IData)(vlSelf->reset)) & ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1) 
                                                  | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_3)) 
@@ -185,64 +206,56 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                     ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs) 
                                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T))) 
                                                    & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)))));
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state 
-        = ((IData)(vlSelf->reset) ? 1U : (((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
-                                              ? ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rd_req) 
-                                                   & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_ar_valid_T_2)) 
-                                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate))) 
-                                                  & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_ar_valid_T_1))
-                                                  ? 2U
-                                                  : 
-                                                 ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__wt_req) 
-                                                    & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate)) 
-                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_aw_valid_T_1))
-                                                   ? 4U
-                                                   : 1U))
-                                              : 0U) 
-                                            | ((2U 
-                                                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
-                                                ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1)
-                                                    ? 1U
-                                                    : 2U)
-                                                : 0U)) 
-                                           | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
-                                               ? ((
-                                                   (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate) 
-                                                     >> 1U) 
-                                                    & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen)) 
-                                                   & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
-                                                      >> 2U))
-                                                   ? 8U
-                                                   : 4U)
-                                               : 0U)) 
-                                          | ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
-                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_3)
-                                                  ? 1U
-                                                  : 8U)
-                                              : 0U)));
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r = 0ULL;
     } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r 
-            = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rdata_r;
+            = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_r;
     }
     if (vlSelf->reset) {
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime = 0ULL;
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp = 0xffffffffffffffffULL;
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate = 1U;
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__waddr_r = 0ULL;
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wdata_r = 0ULL;
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wmask_r = 0U;
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready = 0U;
     } else {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_2 
-            = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge_io_sram_wt_en) 
-               & (0x4000ULL == vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__waddr_r));
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
-            = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge_io_sram_wt_en) 
-                & (0xbff8ULL == vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__waddr_r))
-                ? vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wdata_r
-                : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_2)
-                    ? 0ULL : (1ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime)));
-        if (vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_2) {
-            vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp 
-                = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wdata_r;
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_6 
+            = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_b_ready) 
+               & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_b_valid_T_1));
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_4 
+            = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+               & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_aw_valid_T_1));
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_5 
+            = (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                >> 1U) & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen) 
+                          & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
+                             >> 2U)));
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate 
+            = ((((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))
+                  ? ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_4)
+                      ? 2U : 1U) : 0U) | ((2U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))
+                                           ? ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_5)
+                                               ? 4U
+                                               : 2U)
+                                           : 0U)) | 
+               ((4U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))
+                 ? ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_6)
+                     ? 1U : 4U) : 0U));
+        if (vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_4) {
+            vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__waddr_r 
+                = (0xfffffffffffffff8ULL & vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result);
         }
+        if (vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_5) {
+            vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wdata_r 
+                = vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2;
+            vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wmask_r 
+                = vlSelf->SimTop__DOT___my_core_top_io_axi_sram_1_wt_bits_wstrb;
+        }
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready 
+            = ((~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_6)) 
+               & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_b_valid_T_1) 
+                   & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_b_ready))) 
+                  | (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready)));
     }
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl = 2U;
@@ -256,9 +269,6 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip = 0ULL;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie = 0ULL;
     } else {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_5 
-            = (1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type) 
-                     | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t)));
         vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7 
             = ((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op))
                   ? vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_rs1
@@ -272,7 +282,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_2 
             = ((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op)) 
                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___GEN));
-        if ((1U & (~ (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_5) 
+        if ((1U & (~ (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type) 
                        | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type) 
                           >> 1U)) | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_2)))))) {
             vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl 
@@ -282,10 +292,14 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                 = (3U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7 
                                  >> 0x20U)));
         }
-        if (vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_5) {
+        if ((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))) {
             vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpp = 3U;
             __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie 
                 = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie;
+            vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause 
+                = (((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
+                    == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
+                    ? 0xbULL : 0ULL);
             vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc 
                 = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc;
         } else {
@@ -303,42 +317,33 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                      : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie))));
             if (((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op)) 
                  & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___GEN) 
+                    >> 3U))) {
+                vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause 
+                    = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
+            }
+            if (((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op)) 
+                 & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___GEN) 
                     >> 2U))) {
                 vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc 
                     = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
             }
         }
         __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie 
-            = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_5)) 
+            = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
                      & ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
                          ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie)
                          : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___T_2)
                              ? (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7 
                                         >> 3U)) : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie)))));
-        if ((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))) {
-            vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause 
-                = (((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
-                    == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
-                    ? 0xbULL : 0ULL);
-        } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t) {
-            vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause = 0x8000000000000007ULL;
-        } else if (((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op)) 
-                    & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___GEN) 
-                       >> 3U))) {
-            vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause 
-                = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
-        }
         if (((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op)) 
              & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___GEN) 
                 >> 1U))) {
             vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec 
                 = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
         }
-        if (vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t) {
-            vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip = 0x80ULL;
-        } else if (((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op)) 
-                    & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___GEN) 
-                       >> 5U))) {
+        if (((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op)) 
+             & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___GEN) 
+                >> 5U))) {
             vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip 
                 = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
         }
@@ -359,72 +364,33 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
             = (0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                         >> 7U));
     }
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
-        = __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime;
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie 
-        = __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie;
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen 
+        = __Vdly__SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen;
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready 
+        = __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready;
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate 
+        = __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie 
         = __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie;
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie 
+        = __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie;
     if (__Vdlyvset__SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file__v0) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[__Vdlyvdim0__SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file__v0] 
             = __Vdlyvval__SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file__v0;
     }
-    if (vlSelf->reset) {
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate = 1U;
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__waddr_r = 0ULL;
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wdata_r = 0ULL;
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wmask_r = 0U;
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__b_wait_ready = 0U;
-    } else {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_6 
-            = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_arbiter_io_out_b_ready) 
-               & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_b_valid_T_1));
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_4 
-            = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate) 
-               & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_aw_valid_T_1));
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_5 
-            = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate) 
-                >> 1U) & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen) 
-                          & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
-                             >> 2U)));
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate 
-            = ((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate))
-                  ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_4)
-                      ? 2U : 1U) : 0U) | ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate))
-                                           ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_5)
-                                               ? 4U
-                                               : 2U)
-                                           : 0U)) | 
-               ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate))
-                 ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_6)
-                     ? 1U : 4U) : 0U));
-        if (vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_4) {
-            vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__waddr_r 
-                = (0xfffffffffffffff8ULL & vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result);
-        }
-        if (vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_5) {
-            vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wdata_r 
-                = vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2;
-            vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wmask_r 
-                = vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_wt_bits_wstrb;
-        }
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__b_wait_ready 
-            = ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_6)) 
-               & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_b_valid_T_1) 
-                   & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_arbiter_io_out_b_ready))) 
-                  | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__b_wait_ready)));
-    }
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t 
-        = (((vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
-             >= vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp) 
-            & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie)) 
-           & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie 
-                      >> 7U)));
+    VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_axi_sram__DOT__my_wmem_port__DOT__cpu_dmem_write_TOP(
+                                                                                (1U 
+                                                                                & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                                                                                >> 2U) 
+                                                                                & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready)))), 1U, vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__waddr_r, vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wmask_r));
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_b_valid_T_1 
+        = (IData)(((4U == (4U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))) 
+                   & (0U == (1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready)))));
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc = 0x7ffffffcULL;
     } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc 
-            = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap)
+            = ((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
                 ? vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target
                 : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_en)
                     ? vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_target
@@ -438,7 +404,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
             vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT__fs_inst_data 
                 = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms)
                     ? vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__rdata_buf
-                    : vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rdata_r);
+                    : vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_r);
             vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                 = ((1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc 
                                   >> 2U))) ? (IData)(
@@ -453,18 +419,8 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                       : ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___T_3)) 
                          & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms))));
     }
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen 
-        = __Vdly__SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen;
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__b_wait_ready 
-        = __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__b_wait_ready;
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate 
-        = __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate;
-    vlSelf->io_core_debug_raise_intr = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms 
         = __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms;
-    vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge_io_sram_wt_en 
-        = (1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate) 
-                  >> 2U) & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__b_wait_ready))));
     vlSelf->io_core_debug_debug_pc = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__pc_seq 
         = (4ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc);
@@ -473,7 +429,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     } else if (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T) 
                 & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)))) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__rdata_buf 
-            = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rdata_r;
+            = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_r;
     }
     vlSelf->io_core_debug_debug_rf_wnum = (0x1fU & 
                                            (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
@@ -527,10 +483,6 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN 
         = ((0x380U & (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                       >> 5U)) | (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst));
-    VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_core_top__DOT__my_wmem_port__DOT__cpu_dmem_write_TOP(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge_io_sram_wt_en, 1U, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__waddr_r, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wmask_r));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_b_valid_T_1 
-        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__wstate) 
-            >> 2U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge_io_sram_wt_en));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs 
         = __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16 
@@ -960,38 +912,38 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
             | (0x363U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
            | (0x3e3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN)));
     if (vlSelf->reset) {
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate = 1U;
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rd_wait_sel = 0U;
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rdata_r = 0ULL;
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__resp_data_ok = 0U;
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate = 1U;
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_wait_sel = 0U;
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_r = 0ULL;
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__resp_data_ok = 0U;
     } else {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_3 
-            = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__rd_chosen)
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_3 
+            = (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen)
                  ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
                     >> 1U) : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
-                              >> 2U)) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_rd_valid_T_1));
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT__rdata_arrive 
-            = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_sram_rd_en_T_3;
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate 
-            = (((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate))
-                 ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___T)
-                     ? 2U : 1U) : 0U) | ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate))
-                                          ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_3)
+                              >> 2U)) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_valid_T_1));
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT__rdata_arrive 
+            = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_3;
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate 
+            = (((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))
+                 ? ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___T)
+                     ? 2U : 1U) : 0U) | ((2U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))
+                                          ? ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_3)
                                               ? 1U : 2U)
                                           : 0U));
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rd_wait_sel 
-            = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___T) 
-                & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_sram_rd_en_T_3))) 
-               | ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT__rdata_arrive)) 
-                  & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rd_wait_sel)));
-        if (vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT__rdata_arrive) {
-            vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rdata_r 
-                = vlSelf->SimTop__DOT__my_core_top__DOT___my_rmem_port_rdata;
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_wait_sel 
+            = (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___T) 
+                & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_3))) 
+               | ((~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT__rdata_arrive)) 
+                  & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_wait_sel)));
+        if (vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT__rdata_arrive) {
+            vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_r 
+                = vlSelf->SimTop__DOT__my_axi_sram__DOT___my_rmem_port_rdata;
         }
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__resp_data_ok 
-            = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT__rdata_arrive) 
-               | ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__unnamedblk1__DOT___T_3)) 
-                  & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__resp_data_ok)));
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__resp_data_ok 
+            = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT__rdata_arrive) 
+               | ((~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_3)) 
+                  & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__resp_data_ok)));
     }
     vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op 
         = (((IData)(SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_14) 
@@ -1069,8 +1021,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                     ? 4U
                                                     : (IData)(SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___csignals_T_929)))))));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target 
-        = ((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type) 
-                  | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t)))
+        = ((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
             ? (0xfffffffffffffffcULL & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec)
             : ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
                 ? ((1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause 
@@ -1079,9 +1030,6 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                     : (4ULL + (0xfffffffffffffffcULL 
                                & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc)))
                 : 0ULL));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap 
-        = ((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
-           | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_mem_en 
         = (((((((((((((0x37U != (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                       & (0x17U != (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
@@ -1104,8 +1052,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                   | (0xa3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
                  | (0x123U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
                 | (0x1a3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN)))) 
-            & (~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t) 
-                  | (0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))))) 
+            & (0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))) 
            & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_br_type 
         = ((IData)(SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_3)
@@ -1364,12 +1311,12 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                       == vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_1))
                                                    ? 2U
                                                    : (IData)(SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___csignals_T_175))))))));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rd_wait_sel 
-        = __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rd_wait_sel;
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_wait_sel 
+        = __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_wait_sel;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state 
         = __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state;
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__resp_data_ok 
-        = __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__resp_data_ok;
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__resp_data_ok 
+        = __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__resp_data_ok;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state 
         = __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__wt_req 
@@ -1439,20 +1386,20 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__mrdata 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)
             ? vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r
-            : vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rdata_r);
-    vlSelf->SimTop__DOT__my_core_top__DOT___my_arbiter_io_out_b_ready 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen) 
+            : vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_r);
+    vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_b_ready 
+        = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen) 
            & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
               >> 3U));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_3 
         = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
-            >> 3U) & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_b_valid_T_1) 
-                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__wt_chosen)));
+            >> 3U) & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_b_valid_T_1) 
+                      & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)));
     if (vlSelf->reset) {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__rd_chosen = 0U;
-    } else if (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate) 
-                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT___arbiter_rd_io_out_valid))) {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__rd_chosen 
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen = 0U;
+    } else if (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate) 
+                & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT___arbiter_rd_io_out_valid))) {
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen 
             = (1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_ar_valid_T_2)));
     }
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_aw_valid_T_1 
@@ -1474,20 +1421,20 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_ar_valid_T_2 
         = (1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
                   >> 1U) & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms))));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate 
-        = __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate;
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate 
+        = __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
         = (((0x37U != (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
             & ((0x17U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                | (0x6fU == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))))
             ? vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc
             : vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_rs1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT___arbiter_rd_io_out_valid 
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT___arbiter_rd_io_out_valid 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_ar_valid_T_2) 
            | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_ar_valid_T_1));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_rd_valid_T_1 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__resp_data_ok) 
-           & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate) 
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_valid_T_1 
+        = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__resp_data_ok) 
+           & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate) 
               >> 1U));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divw_res 
         = (0x1ffffffffULL & VL_DIVS_QQQ(33, (((QData)((IData)(
@@ -1564,17 +1511,17 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = __Vtemp10[2U];
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[3U] 
         = __Vtemp10[3U];
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___T 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT___arbiter_rd_io_out_valid));
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___T 
+        = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate) 
+           & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT___arbiter_rd_io_out_valid));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2mem_fs_mem_ok_T 
         = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
-            >> 2U) & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_rd_valid_T_1) 
-                      & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__rd_chosen))));
+            >> 2U) & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_valid_T_1) 
+                      & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1 
         = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state) 
-            >> 1U) & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_rd_valid_T_1) 
-                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_arbiter__DOT__rd_chosen)));
+            >> 1U) & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_valid_T_1) 
+                      & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen)));
     __Vtemp12[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
     __Vtemp12[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                              >> 0x20U));
@@ -1711,10 +1658,10 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                              >> 0x1fU))))) 
                                  << 0x20U) | (QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remuw_res)))
                              : 0ULL));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_sram_rd_en_T_3 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___T) 
-           | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rstate) 
-               >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT__rd_wait_sel)));
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_3 
+        = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___T) 
+           | (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate) 
+               >> 1U) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_wait_sel)));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok 
         = (1U & (((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_mem_en)) 
                   | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_if2mem_ms_mem_ok_T_1)) 
@@ -1891,7 +1838,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                               | (0x3f3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
                              | (0x73U == vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                             | (0x30200073U == vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))))))) 
-            & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap))) 
+            & (~ (IData)((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))))) 
            & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_target 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__is_jal)
@@ -1929,12 +1876,12 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                         vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[2U]))))))));
     vlSelf->io_core_debug_debug_rf_we = vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap)
+        = ((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
             ? vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target
             : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_en)
                 ? vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_target
                 : (4ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc)));
-    vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_wt_bits_wstrb 
+    vlSelf->SimTop__DOT___my_core_top_io_axi_sram_1_wt_bits_wstrb 
         = (0xffU & (((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type))
                         ? ((7U == (7U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result)))
                             ? 0x80U : ((6U == (7U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result)))
@@ -2034,14 +1981,14 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                               >> 0x20U))
             : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__mrdata));
     vlSelf->io_core_debug_debug_nextpc = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc;
-    VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_core_top__DOT__my_rmem_port__DOT__cpu_dmem_read_TOP(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge__DOT___io_sram_rd_en_T_3, 0U, 
+    VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_axi_sram__DOT__my_rmem_port__DOT__cpu_dmem_read_TOP(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_3, 0U, 
                                                                                 ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_ar_valid_T_2)
                                                                                  ? vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc
                                                                                  : 
                                                                                 (0xfffffffffffffff8ULL 
-                                                                                & vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result)), vlSelf->__Vtask_SimTop__DOT__my_core_top__DOT__my_rmem_port__DOT__cpu_dmem_read__2__rdata);
-    vlSelf->SimTop__DOT__my_core_top__DOT___my_rmem_port_rdata 
-        = vlSelf->__Vtask_SimTop__DOT__my_core_top__DOT__my_rmem_port__DOT__cpu_dmem_read__2__rdata;
+                                                                                & vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result)), vlSelf->__Vtask_SimTop__DOT__my_axi_sram__DOT__my_rmem_port__DOT__cpu_dmem_read__2__rdata);
+    vlSelf->SimTop__DOT__my_axi_sram__DOT___my_rmem_port_rdata 
+        = vlSelf->__Vtask_SimTop__DOT__my_axi_sram__DOT__my_rmem_port__DOT__cpu_dmem_read__2__rdata;
     vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_mem2wb_result 
         = ((((((((((((0x37U != (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                      & (0x17U != (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
@@ -2103,7 +2050,7 @@ void VSimTop___024root___eval(VSimTop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VSimTop___024root___eval\n"); );
     // Body
     if (((IData)(vlSelf->clock) & (~ (IData)(vlSelf->__Vclklast__TOP__clock)))) {
-        VSimTop___024root___sequent__TOP__1(vlSelf);
+        VSimTop___024root___sequent__TOP__2(vlSelf);
         vlSelf->__Vm_traceActivity[1U] = 1U;
     }
     // Final
