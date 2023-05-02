@@ -40,7 +40,7 @@ class SimTop(w: Int) extends Module with HasConfigConst{
     val my_core_top = Module(new MycpuCoreTop(w, nr_mport))
     val my_axi_sram = Module(new AXI4LiteSramTop(w, nr_mport))
     for( i <- 0 until nr_mport){
-        my_core_top.axi_sram(i) <> my_axi_sram.in(i)
+        my_core_top.io.axi_sram(i) <> my_axi_sram.io.in(i)
     }
     io.core_debug <> my_core_top.io.core_debug
 }
