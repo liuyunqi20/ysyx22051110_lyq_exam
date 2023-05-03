@@ -39,10 +39,10 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module{
     my_csr.io.out          <> my_wb.io.csr_out
     my_csr.io.clint_intr_t := 0.B
     //Memory Access
-    io.axi_sram(0)         <> my_axi_bridge0.out
-    my_axi_bridge0.in      <> my_if.io.inst_mem
-    io.axi_sram(1)         <> my_axi_bridge1.out
-    my_axi_bridge1.in      <> my_mem.io.data_mem
+    io.axi_sram(0)         <> my_axi_bridge0.io.out
+    my_axi_bridge0.io.in      <> my_if.io.inst_mem
+    io.axi_sram(1)         <> my_axi_bridge1.io.out
+    my_axi_bridge1.io.in      <> my_mem.io.data_mem
     //debug
     io.core_debug.debug_pc       := my_if.io.pc
     io.core_debug.debug_nextpc   := my_if.io.nextpc
