@@ -106,7 +106,7 @@ void execute_once(){
     uint64_t old_pc = cpu_pc;
     int cnt  = 0;
     while(cpu_pc == old_pc){ 
-        if(cnt >= 5) {wave_end(); break;}
+        if(cnt >= 5) {wave_end(); assert(0);}
         // ----------------- NEG ----------------- 
         contextp->timeInc(1);
         SimTop->clock = !SimTop->clock;
@@ -132,7 +132,6 @@ void execute_once(){
         cpu_pc = SimTop->io_core_debug_debug_pc;
         VSimTop::catch_ebreak(&ebreak_f);
         cnt++;
-        printf("after one step: %lx\n", cpu_pc);
     }
     //wave_end();
     //printf("after one step: %lx\n", cpu_pc);
