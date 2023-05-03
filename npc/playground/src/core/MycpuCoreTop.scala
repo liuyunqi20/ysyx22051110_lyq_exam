@@ -5,7 +5,7 @@ import chisel3.util._
 class MycpuCoreTop(w: Int, nr_mport: Int) extends Module{
     val io = IO(new Bundle{
         val core_debug = new DebugBundle(w)
-        val axi_sram   = Vec(nr_mport, new AXI4LiteBundle(w))
+        val axi_sram   = Vec(nr_mport, new CPUMemBundle(w))
     });
     val my_if         = Module(new If_stage(w, w))
     val my_id         = Module(new Id_stage(w))
