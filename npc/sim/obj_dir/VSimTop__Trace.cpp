@@ -520,18 +520,20 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
             tracep->chgIData(oldp+165,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divuw_res),32);
             tracep->chgIData(oldp+166,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remw_res),32);
             tracep->chgIData(oldp+167,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remuw_res),32);
-            tracep->chgBit(oldp+168,(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_data_ok));
-            tracep->chgQData(oldp+169,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_mem2wb_result),64);
-            tracep->chgBit(oldp+171,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_en));
-            tracep->chgBit(oldp+172,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_mem_en));
-            tracep->chgCData(oldp+173,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state),2);
-            tracep->chgQData(oldp+174,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r),64);
-            tracep->chgQData(oldp+176,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__mrdata),64);
-            tracep->chgCData(oldp+178,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_b),8);
-            tracep->chgSData(oldp+179,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_h),16);
-            tracep->chgIData(oldp+180,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_w),32);
-            tracep->chgQData(oldp+181,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16),64);
-            tracep->chgQData(oldp+183,(((1U & (IData)(
+            tracep->chgBit(oldp+168,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_addr_ok_T) 
+                                      | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_addr_ok_T_1))));
+            tracep->chgBit(oldp+169,(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_data_ok));
+            tracep->chgQData(oldp+170,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_mem2wb_result),64);
+            tracep->chgBit(oldp+172,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_en));
+            tracep->chgBit(oldp+173,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_mem_en));
+            tracep->chgCData(oldp+174,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state),2);
+            tracep->chgQData(oldp+175,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r),64);
+            tracep->chgQData(oldp+177,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__mrdata),64);
+            tracep->chgCData(oldp+179,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_b),8);
+            tracep->chgSData(oldp+180,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_h),16);
+            tracep->chgIData(oldp+181,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_w),32);
+            tracep->chgQData(oldp+182,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16),64);
+            tracep->chgQData(oldp+184,(((1U & (IData)(
                                                       (vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause 
                                                        >> 0x3fU)))
                                          ? (0xfffffffffffffffcULL 
@@ -539,34 +541,27 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                          : (4ULL + 
                                             (0xfffffffffffffffcULL 
                                              & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc)))),64);
-            tracep->chgQData(oldp+185,((0xfffffffffffffffcULL 
+            tracep->chgQData(oldp+186,((0xfffffffffffffffcULL 
                                         & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec)),64);
-            tracep->chgBit(oldp+187,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))));
-            tracep->chgBit(oldp+188,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type) 
+            tracep->chgBit(oldp+188,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))));
+            tracep->chgBit(oldp+189,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type) 
                                             >> 1U))));
-            tracep->chgQData(oldp+189,((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
+            tracep->chgQData(oldp+190,((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
                                          == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
                                          ? 0xbULL : 0ULL)),64);
-            tracep->chgCData(oldp+191,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl),2);
-            tracep->chgCData(oldp+192,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_uxl),2);
-            tracep->chgCData(oldp+193,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpp),2);
-            tracep->chgBit(oldp+194,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie));
-            tracep->chgBit(oldp+195,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie));
-            tracep->chgQData(oldp+196,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause),64);
-            tracep->chgQData(oldp+198,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc),64);
-            tracep->chgQData(oldp+200,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec),64);
-            tracep->chgQData(oldp+202,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip),64);
-            tracep->chgQData(oldp+204,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie),64);
-            tracep->chgQData(oldp+206,((0xfffffffffffffffcULL 
+            tracep->chgCData(oldp+192,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl),2);
+            tracep->chgCData(oldp+193,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_uxl),2);
+            tracep->chgCData(oldp+194,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpp),2);
+            tracep->chgBit(oldp+195,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie));
+            tracep->chgBit(oldp+196,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie));
+            tracep->chgQData(oldp+197,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause),64);
+            tracep->chgQData(oldp+199,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc),64);
+            tracep->chgQData(oldp+201,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec),64);
+            tracep->chgQData(oldp+203,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip),64);
+            tracep->chgQData(oldp+205,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie),64);
+            tracep->chgQData(oldp+207,((0xfffffffffffffffcULL 
                                         & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc)),64);
-            tracep->chgCData(oldp+208,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state),4);
-            tracep->chgBit(oldp+209,(((((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_ar_valid_T_3)) 
-                                        & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate)) 
-                                       & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_ar_valid_T_3)) 
-                                      | ((((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-                                           >> 1U) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)) 
-                                         & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
-                                            >> 2U)))));
+            tracep->chgCData(oldp+209,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state),4);
             tracep->chgCData(oldp+210,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state),4);
             tracep->chgBit(oldp+211,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_valid_T_1));
             tracep->chgBit(oldp+212,((1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
