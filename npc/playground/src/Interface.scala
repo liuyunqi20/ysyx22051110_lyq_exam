@@ -9,6 +9,7 @@ import chisel3.util._
         val addr    = Output(UInt(w.W))
         val rdata   = Input(UInt(w.W))
         val wdata   = Output(UInt(w.W))
+        val wstrb   = Output(UInt((w/8).W))
         val addr_ok = Input(Bool())
         val data_ok = Input(Bool())
     }

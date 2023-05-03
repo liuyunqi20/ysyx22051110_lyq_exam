@@ -4,10 +4,8 @@ import chisel3.util._
 
 trait HasMEMSconst{
     val s_idle   = 0x1
-    val s_rresp   = 0x2
-    val s_wdata   = 0x4
-    val s_wresp  = 0x8
-    val nr_state = 4
+    val s_wr_resp = 0x2
+    val nr_state = 2
 }
 
 class Mem_stage(w: Int) extends Module with HasMEMSconst{
@@ -15,7 +13,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         val ex2mem       = Flipped(new ExtoMemBundle(w))
         val mem2wb       = new MemtoWbBundle(w)
         val has_intr     = Input(Bool())
-        val data_mem     = new AXI4LiteBundle(w)
+        val data_mem     = new CPUMemBundle(w)
         val if2mem       = Flipped(new IFtoMemBundle(w))
     })    
     val has_trap     = io.has_intr || (io.ex2mem.exc_type.orR === 1.U)
@@ -62,43 +60,30 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     val ms_wait_fs = RegInit(0.B)
     val ms_mem_en = io.ex2mem.mem_en && ~has_trap && ~ms_wait_fs
     val ms_state = RegInit(s_idle.U(nr_state.W))
-    val rd_req = ms_mem_en && ~io.ex2mem.mem_wr
-    val wt_req = ms_mem_en &&  io.ex2mem.mem_wr
-    val rd_req_ok = rd_req && io.data_mem.ar.fire
-    val wt_req_ok = wt_req && io.data_mem.aw.fire
     ms_state := Mux1H(Seq(
-        /* Idle       */ ms_state(0) -> Mux(rd_req_ok, s_rresp.U, Mux(wt_req_ok, s_wdata.U, s_idle.U)),
-        /* Read Req   */ ms_state(1) -> Mux(io.data_mem.rd.fire, s_idle.U , s_rresp.U),
-        /* Write data */ ms_state(2) -> Mux(io.data_mem.wt.fire, s_wresp.U, s_wdata.U),
-        /* Write Resp */ ms_state(3) -> Mux(io.data_mem.b.fire , s_idle.U , s_wresp.U),
+        /* Idle    */ ms_state(0) -> Mux(ms_mem_en, s_wr_resp.U, s_idle.U),
+        /* WR RESP */ ms_state(1) -> Mux(io.data_mem.data_ok, s_idle.U, s_wr_resp.U),
     ))
     // ------------------------ read ------------------------
-    io.data_mem.ar.valid       := ms_state(0) && rd_req 
-    io.data_mem.ar.bits.araddr := maddr
-    io.data_mem.ar.bits.arprot := 0.U
-    io.data_mem.rd.ready       := ms_state(1)
     val ms_rdata_r = RegInit(0.U(w.W))
-    when(io.data_mem.rd.fire === 1.U){
-        ms_rdata_r := io.data_mem.rd.bits.rdata
+    when(io.data_mem.data_ok === 1.U){
+        ms_rdata_r := io.data_mem.rdata
     }
     //WARNNING: rd.rresp is ignored
-    // ------------------------ write ------------------------
-    io.data_mem.aw.valid       := ms_state(0) && wt_req
-    io.data_mem.aw.bits.awaddr := maddr
-    io.data_mem.aw.bits.awprot := 0.U
-    io.data_mem.wt.valid       := ms_state(2)
-    io.data_mem.wt.bits.wdata  := io.ex2mem.mem_wdata
-    io.data_mem.wt.bits.wstrb  := wmask
-    io.data_mem.b.ready        := ms_state(3)
+    io.data_mem.en    := ms_mem_en && ~ms_wait_fs
+    io.data_mem.wr    := io.ex2mem.mem_wr
+    io.data_mem.addr  := maddr
+    io.data_mem.wdata := io.ex2mem.mem_wdata
+    io.data_mem.wstrb := wmask
     //WARNNING: b.bresp is ignored
     // ------------------------ MSU wait FSU ------------------------ 
-    when((io.data_mem.rd.fire || io.data_mem.b.fire) && ~io.if2mem.fs_wait_ms){
+    when(io.data_mem.data_ok && ~io.if2mem.fs_wait_ms){
         ms_wait_fs := ~(io.if2mem.fs_mem_ok)
     }.elsewhen(ms_wait_fs && io.if2mem.fs_mem_ok){
         ms_wait_fs := 0.B
     }
     // ------------------------ mask read data ------------------------ 
-    val mrdata       = Mux(ms_wait_fs, ms_rdata_r, io.data_mem.rd.bits.rdata)
+    val mrdata       = Mux(ms_wait_fs, ms_rdata_r, io.data_mem.rdata)
     //mask read data
     val rdata_b = MuxLookup(offset, 0.U(8.W), Seq(
         "b000".U -> mrdata(7 , 0) ,        
@@ -138,6 +123,6 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.mem2wb.csr_num      := io.ex2mem.csr_num
     io.mem2wb.rs1          := io.ex2mem.rs1
     // ------------------------ to IF stage ------------------------ 
-    io.if2mem.ms_mem_ok           := (ms_mem_en === 0.U) || io.data_mem.rd.fire || io.data_mem.b.fire
+    io.if2mem.ms_mem_ok           := (ms_mem_en === 0.U) || io.data_mem.data_ok
     io.if2mem.ms_wait_fs          := ms_wait_fs
 }
