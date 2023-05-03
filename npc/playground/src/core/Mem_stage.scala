@@ -70,7 +70,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         ms_rdata_r := io.data_mem.rdata
     }
     //WARNNING: rd.rresp is ignored
-    io.data_mem.en    := ms_mem_en && ~ms_wait_fs
+    io.data_mem.en    := ms_mem_en && ~ms_wait_fs && ms_state(0)
     io.data_mem.wr    := io.ex2mem.mem_wr
     io.data_mem.addr  := maddr
     io.data_mem.wdata := io.ex2mem.mem_wdata

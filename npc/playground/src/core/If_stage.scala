@@ -38,7 +38,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     io.inst_mem.wstrb := 0.U
     // ---------------- read response ---------------- 
     val inst              = RegInit(0.U(32.W))
-    val rdata_buf          = RegInit(0.U(w.W))
+    val rdata_buf         = RegInit(0.U(w.W))
     val fs_ahead_ms       = (io.inst_mem.data_ok && ~fs_wait_ms &&  io.if2mem.ms_wait_fs) //MSU ok before IFU
     val ms_ahead_fs       = (io.if2mem.ms_mem_ok &&  fs_wait_ms && ~io.if2mem.ms_wait_fs) //IFU ok before MSU
     val fs_same_ms        = (io.inst_mem.data_ok &&  io.if2mem.ms_mem_ok) //IFU MSU ok at the same time
