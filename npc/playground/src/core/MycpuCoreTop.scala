@@ -5,14 +5,16 @@ import chisel3.util._
 class MycpuCoreTop(w: Int, nr_mport: Int) extends Module{
     val io = IO(new Bundle{
         val core_debug = new DebugBundle(w)
-        val axi_sram   = Vec(nr_mport, new CPUMemBundle(w))
+        val axi_sram   = Vec(nr_mport, new AXI4LiteBundle(w))
     });
-    val my_if         = Module(new If_stage(w, w))
-    val my_id         = Module(new Id_stage(w))
-    val my_ex         = Module(new Ex_stage(w))
-    val my_mem        = Module(new Mem_stage(w))
-    val my_wb         = Module(new Wb_stage(w))
-    val my_csr        = Module(new Csr(w))
+    val my_if          = Module(new If_stage(w, w))
+    val my_id          = Module(new Id_stage(w))
+    val my_ex          = Module(new Ex_stage(w))
+    val my_mem         = Module(new Mem_stage(w))
+    val my_wb          = Module(new Wb_stage(w))
+    val my_csr         = Module(new Csr(w))
+    val my_axi_bridge0 = Module(new AXIBridge(w))
+    val my_axi_bridge1 = Module(new AXIBridge(w))
     //IF stage
     my_if.io.branch        <> my_ex.io.branch
     my_if.io.exc_br        <> my_wb.io.exc_br
@@ -37,8 +39,10 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module{
     my_csr.io.out          <> my_wb.io.csr_out
     my_csr.io.clint_intr_t := 0.B
     //Memory Access
-    io.axi_sram(0)         <> my_if.io.inst_mem
-    io.axi_sram(1)         <> my_mem.io.data_mem
+    io.axi_sram(0)         <> my_axi_bridge0.out
+    my_axi_bridge0.in      <> my_if.io.inst_mem
+    io.axi_sram(1)         <> my_axi_bridge1.out
+    my_axi_bridge1.in      <> my_mem.io.data_mem
     //debug
     io.core_debug.debug_pc       := my_if.io.pc
     io.core_debug.debug_nextpc   := my_if.io.nextpc
