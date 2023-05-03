@@ -41,6 +41,7 @@ class AXIBridge(w: Int) extends Module with HasAXIBridgeConst{
     io.out.wt.valid       := state(2)
     io.out.wt.bits.wdata  := wdata_r
     io.out.wt.bits.wstrb  := wstrb_r
+    io.out.b.ready        := state(3)
     //read/write ok
     io.in.addr_ok := io.out.ar.fire || io.out.wt.fire
     io.in.data_ok := io.out.rd.fire || io.out.b.fire 
