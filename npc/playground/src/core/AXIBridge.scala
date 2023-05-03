@@ -17,17 +17,17 @@ class AXIBridge(w: Int) extends Module with HasAXIBridgeConst{
     })
     val state = RegInit(s_idle.U(state_w.W))
     state := Mux1H(Seq(
-        /* IDLE    */state(0) -> Mux(io.out.ar.fire, s_read_resp.U , Mux(io.out.aw.fire, s_write_data, s_idle.U)),
-        /* RD RESP */state(1) -> Mux(io.out.rd.fire, s_idle.U      , s_read_resp.U),
-        /* WT DATA */state(2) -> Mux(io.out.wt.fire, s_write_resp.U, s_write_data.U),
-        /* WT RESP */state(3) -> Mux(io.out.b.fire , s_idle.U      , s_write_resp.U),
+        /* IDLE    */ state(0) -> Mux(io.out.ar.fire, s_read_resp.U , Mux(io.out.aw.fire, s_write_data.U, s_idle.U)),
+        /* RD RESP */ state(1) -> Mux(io.out.rd.fire, s_idle.U      , s_read_resp.U),
+        /* WT DATA */ state(2) -> Mux(io.out.wt.fire, s_write_resp.U, s_write_data.U),
+        /* WT RESP */ state(3) -> Mux(io.out.b.fire , s_idle.U      , s_write_resp.U),
     ))
     //read
     io.out.ar.valid       := io.in.en && ~io.in.wr && state(0)
     io.out.ar.bits.araddr := io.in.addr
     io.out.ar.bits.arprot := 0.U(3.W)
     io.out.rd.ready       := state(1)
-    io.in.rdata           := io.out.rd.rdata
+    io.in.rdata           := io.out.rd.bits.rdata
     //write
     val wdata_r = RegInit(0.U(w.W))
     val wstrb_r = RegInit(0.U((w/8).W))
