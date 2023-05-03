@@ -29,18 +29,18 @@ class AXIBridge(w: Int) extends Module with HasAXIBridgeConst{
     io.out.rd.ready       := state(1)
     io.in.rdata           := io.out.rd.bits.rdata
     //write
-    val wdata_r = RegInit(0.U(w.W))
-    val wstrb_r = RegInit(0.U((w/8).W))
-    when(io.in.addr_ok){
-        wdata_r := io.in.wdata
-        wstrb_r := io.in.wstrb
-    }
+    // val wdata_r = RegInit(0.U(w.W))
+    // val wstrb_r = RegInit(0.U((w/8).W))
+    // when(io.out.aw.fire){
+    //     wdata_r := io.in.wdata
+    //     wstrb_r := io.in.wstrb
+    // }
     io.out.aw.valid       := io.in.en && io.in.wr && state(0)
     io.out.aw.bits.awaddr := io.in.addr
     io.out.aw.bits.awprot := 0.U(3.W)
     io.out.wt.valid       := state(2)
-    io.out.wt.bits.wdata  := wdata_r
-    io.out.wt.bits.wstrb  := wstrb_r
+    io.out.wt.bits.wdata  := io.in.wdata
+    io.out.wt.bits.wstrb  := io.in.wstrb
     io.out.b.ready        := state(3)
     //read/write ok
     io.in.addr_ok := io.out.ar.fire || io.out.wt.fire
