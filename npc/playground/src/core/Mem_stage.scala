@@ -61,7 +61,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     val ms_mem_en = io.ex2mem.mem_en && ~has_trap && ~ms_wait_fs
     val ms_state = RegInit(s_idle.U(nr_state.W))
     ms_state := Mux1H(Seq(
-        /* Idle    */ ms_state(0) -> Mux(ms_mem_en, s_wr_resp.U, s_idle.U),
+        /* Idle    */ ms_state(0) -> Mux(ms_mem_en && io.data_mem.addr_ok, s_wr_resp.U, s_idle.U),
         /* WR RESP */ ms_state(1) -> Mux(io.data_mem.data_ok, s_idle.U, s_wr_resp.U),
     ))
     // ------------------------ read ------------------------
