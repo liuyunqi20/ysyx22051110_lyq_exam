@@ -5,6 +5,7 @@
 #include "VSimTop___024root.cpp"
 #include "VSimTop__Dpi.cpp"
 #include "VSimTop__Trace.cpp"
+#include "VSimTop__ConstPool_0.cpp"
 #include "VSimTop___024root__Slow.cpp"
 #include "VSimTop__Syms.cpp"
 #include "VSimTop__Trace__Slow.cpp"

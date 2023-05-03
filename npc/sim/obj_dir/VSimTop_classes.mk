@@ -31,6 +31,7 @@ VM_CLASSES_FAST += \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
+	VSimTop__ConstPool_0 \
 	VSimTop___024root__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
