@@ -63,7 +63,7 @@ class CacheStage2(config: CacheConfig) extends Module{
         s2_valid := io.s1_to_s2.valid
     }
     //buffer (stage 1 to 2 reg)
-    val rd_buf = RegInit(VecInit(config.nr_ways, Seq(
+    val rd_buf = RegInit(Vec(config.nr_ways, Seq(
             /* V    */ 0.U(1.W),
             /* D    */ 0.U(1.W),
             /* TAG  */ 0.U(config.tag_width.W),
@@ -124,8 +124,8 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         }
         val mem_out  = new CPUMemBundle(config.w)
     })
-    val s3_ready_go = Wire(UInt(1.W))
-    val s3_valid           = RegInit(0.U(1.W))
+    val s3_ready_go    = Wire(UInt(1.W))
+    val s3_valid       = RegInit(0.B)
     io.s2_to_s3.ready := (!s3_valid || s3_ready_go)
     when(io.s2_to_s3.ready){
         s3_valid := io.s2_to_s3.valid
@@ -141,12 +141,12 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val hit_r          = RegInit(0.U(1.W))
     val target_way_r   = RegInit(0.U(config.ways_width.W))
     val refill_buf     = RegInit(0.U((config.block_size * 8).W))
-    val target_line_r  = RegInit(Seq(
+    val target_line_r  = RegInit(VecInit(Seq(
             /* V    */ 0.U(1.W),
             /* D    */ 0.U(1.W),
             /* TAG  */ 0.U(config.tag_width.W),
             /* DATA */ 0.U((config.block_size * 8).W),
-        ))
+        )))
     when(io.s2_to_s3.fire){
         wr_r           := io.s2_to_s3.bits.wr
         wdata_r        := io.s2_to_s3.bits.wdata
@@ -174,7 +174,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val wb_addr     = Cat(target_line_r(2), index_r, 0.U(config.offset_width.W))
     val burst_last  = io.mem_out.ret.valid && io.mem_out.ret.last
     // -------------------------------- Refill --------------------------------
-    val refill_addr = Cat(tag_r, index_r, 0.U(config.offset_width.w))
+    val refill_addr = Cat(tag_r, index_r, 0.U(config.offset_width.W))
     // -------------------------------- Burst counter --------------------------------
     when((wb_en || state(2)) && io.mem_out.req.ready){ // when wb and refill request ok
         cnt := 0.U
@@ -182,7 +182,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         cnt := cnt + 1.U
     }
     // -------------------------------- memory read/write --------------------------------
-    io.mem_out.req.bits.valid    := s3_valid && ((state(0) && !hit_r) || (state(1) && burst_last))
+    io.mem_out.req.valid    := s3_valid && ((state(0) && !hit_r) || (state(1) && burst_last))
     io.mem_out.req.bits.wr       := state(1)
     io.mem_out.req.bits.addr     := Mux(state(0), wb_addr, refill_addr)
     io.mem_out.req.bits.wdata    := target_word
