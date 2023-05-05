@@ -89,7 +89,7 @@ class CacheStage2(config: CacheConfig) extends Module{
         }
     }
     //hit check
-    var hit1H: UInt((config.nr_ways).W);
+    var hit1H = 0.U((config.nr_ways).W);
     for( i <- 0 until config.nr_ways){
         hit1H(i) = (tag_r === rd_buf(i)(2))
     }
@@ -124,7 +124,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         }
         val mem_out  = new CPUMemBundle(config.w)
     })
-    var s3_ready_go: UInt(1.W);
+    var s3_ready_go = 0.U(1.W);
     val s3_valid           = RegInit(0.U(1.W))
     val io.s2_to_s3.ready := ~s3_valid || s3_ready_go
     when(io.s2_to_s3.ready){
