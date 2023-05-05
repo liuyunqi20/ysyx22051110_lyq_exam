@@ -178,7 +178,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     // -------------------------------- Burst counter --------------------------------
     when((wb_en || state(2)) && io.mem_out.req.ready){ // when wb and refill request ok
         cnt := 0.U
-    } .elsewhen(io.mem_out.ret.ret_valid){
+    } .elsewhen(io.mem_out.ret.valid){
         cnt := cnt + 1.U
     }
     // -------------------------------- memory read/write --------------------------------
@@ -208,8 +208,8 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
                  (state(3) && burst_last) ||            //miss(refill)
                  (state(4) && io.mem_out.ret.valid) //mmio
     // -------------------------------- CPU commit -------------------------------- 
-    io.cpu.rdata   := Mux(state(4), io.mem_out.ret.ret_data, target_word)
-    io.cpu.valid   := io.mem_out.ret.ret_last
+    io.cpu.rdata   := Mux(state(4), io.mem_out.ret.rdata, target_word)
+    io.cpu.valid   := io.mem_out.ret.last
     io.cpu.last    := io.cpu.valid
 }
 
