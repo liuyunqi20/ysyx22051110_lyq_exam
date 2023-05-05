@@ -268,7 +268,7 @@ object CacheTop{
         new CacheTop(w, nr_lines, nr_ways, block_size)
     def getTagWidth(w: Int, nr_lines: Int, block_size: Int): Int = 
         w - log2Ceil(nr_lines) - log2Ceil(block_size)
-    def getIndexWidth = (_) -> log2Ceil(_)
-    def getOffsetWidth = (_) -> log2Ceil(_)
-    def getWaysWidth = (_) -> log2Ceil(_)
+    def getIndexWidth(n: Int) = (_) -> log2Ceil(_)
+    def getOffsetWidth(n: Int) = (_) -> log2Ceil(_)
+    def getWaysWidth(n: Int) = (_) -> log2Ceil(_)
 }

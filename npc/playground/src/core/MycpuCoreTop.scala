@@ -23,8 +23,8 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val my_mem         = Module(new Mem_stage(w))
     val my_wb          = Module(new Wb_stage(w))
     val my_csr         = Module(new Csr(w))
-    val my_axi_bridge0 = Module(new AXIBridge(w))
-    val my_axi_bridge1 = Module(new AXIBridge_old(w)) //TODO change old
+    val my_axi_bridge0 = Module(new AXIBridge(w, ICache_block_size))
+    val my_axi_bridge1 = Module(new AXIBridge(w, ICache_block_size)) //TODO change old
     //val my_mmc         = Module(new MemoryMappingController(w, nr_mmc_port))
     //ICache: 
     val my_icache      = Moudle(new CacheTop(w, ICache_nr_lines, 

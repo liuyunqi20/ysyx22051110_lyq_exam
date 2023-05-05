@@ -31,7 +31,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         /* s_resp */ fs_state(2) -> Mux(io.inst_mem.ret.valid, s_req.U, s_resp.U),
     ))
     // ---------------- read request ----------------
-    io.inst_mem.req.bits.valid    := fs_state(1) && ~fs_wait_ms
+    io.inst_mem.req.valid         := fs_state(1) && ~fs_wait_ms
     io.inst_mem.req.bits.wr       := 0.B
     io.inst_mem.req.bits.addr     := nextpc
     io.inst_mem.req.bits.wdata    := 0.U
@@ -45,7 +45,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val fs_same_ms        = (io.inst_mem.ret.valid &&  io.if2mem.ms_mem_ok) //IFU MSU ok at the same time
     //when IFU and MSU both done memory access fs_next_ok pulls high and update cpu pc
     val fs_next_ok        = fs_ahead_ms || ms_ahead_fs || fs_same_ms
-    val fs_inst_data      = Mux(fs_wait_ms, rdata_buf, io.inst_mem.rdata)
+    val fs_inst_data      = Mux(fs_wait_ms, rdata_buf, io.inst_mem.ret.rdata)
     when(fs_next_ok){
         pc   := nextpc
         inst := Mux(nextpc(2) === 1.U, fs_inst_data(63, 32),
@@ -63,7 +63,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     //to ID stage
     io.if2id.inst := inst
     //to Wb stage
-    io.if2mem.fs_mem_ok  := io.inst_mem.data_ok
+    io.if2mem.fs_mem_ok  := io.inst_mem.ret.valid
     io.if2mem.fs_wait_ms := fs_wait_ms
     io.fs_next_ok        := fs_next_ok
 }
