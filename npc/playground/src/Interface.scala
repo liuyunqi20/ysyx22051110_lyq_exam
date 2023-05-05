@@ -234,10 +234,3 @@ import chisel3.util._
         val target_way   = Bits(config.ways_width.W)
         val target_line  = new CacheLineBundle(config.tag_width, config.block_size)
     }
-// ----------------- Memory Mapping Bundle ----------------- 
-
-    class MMBundle(w: Int) extends Bundle{
-        val addr = Input(UInt(w.W))
-        val is_mmio  = Output(Bool())
-        val is_clint = Output(Bool())
-    }
