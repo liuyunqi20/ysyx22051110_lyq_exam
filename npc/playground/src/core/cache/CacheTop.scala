@@ -89,7 +89,7 @@ class CacheStage2(config: CacheConfig) extends Module{
         }
     }
     //hit check
-    var hit1H: UInt(config.nr_ways.W);
+    var hit1H: UInt((config.nr_ways).W);
     for( i <- 0 until config.nr_ways){
         hit1H(i) = (tag_r === rd_buf(i)(2))
     }
