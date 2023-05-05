@@ -37,7 +37,7 @@ class CacheStage1(config: CacheConfig) extends Module{
     val index    = io.cpu.bits.addr(config.index_width + config.offset_width - 1, config.offset_width)
     val offset   = io.cpu.bits.addr(config.offset_width - 1, 0)
     io.rd_index := index
-    io.s1_to_s2.bits.valid    := io.cpu.valid
+    io.s1_to_s2.valid         := io.cpu.valid
     io.s1_to_s2.bits.wr       := io.cpu.bits.wr
     io.s1_to_s2.bits.wdata    := io.cpu.bits.wdata
     io.s1_to_s2.bits.wstrb    := io.cpu.bits.wstrb
@@ -56,10 +56,9 @@ class CacheStage2(config: CacheConfig) extends Module{
         val s1_to_s2 = Flipped(Decoupled(new CacheStage1to2Bundle(config)))
         val s2_to_s3 = Decoupled(new CacheStage2to3Bundle(config))
     })
-    val s2_ready_go        = true.B
-    val s2_valid           = RegInit(0.U(1.W))
+    val s2_ready_go        = 1.B
+    val s2_valid           = RegInit(0.B)
     io.s1_to_s2.ready := (!s2_valid || (s2_ready_go && io.s2_to_s3.ready))
-    io.s2_to_s3.valid := (s2_valid && s2_ready_go)
     when(io.s1_to_s2.ready){
         s2_valid := io.s1_to_s2.valid
     }
@@ -100,6 +99,7 @@ class CacheStage2(config: CacheConfig) extends Module{
     replace1H := Cat(replace1H(config.nr_ways - 2, 0), replace1H(config.nr_ways - 1))
     //to stage3
     val target_way1H = Mux(hit, hit1H, replace1H) //choosed bit array for hit/replace
+    io.s2_to_s3.valid := (s2_valid && s2_ready_go)
     io.s2_to_s3.bits.wr           := wr_r
     io.s2_to_s3.bits.wdata        := wdata_r
     io.s2_to_s3.bits.wstrb        := wstrb_r
