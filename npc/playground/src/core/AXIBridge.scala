@@ -10,9 +10,10 @@ trait HasAXIBridgeConst{
     val s_write_resp      = 0x08
 }
 
-class AXIBridge(w: Int) extends Module with HasAXIBridgeConst{
+class AXIBridge(w: Int, block_size: Int) extends Module with HasAXIBridgeConst{
     val io = IO(new Bundle{
-        val in  = Flipped(new CPUMemBundle(w))
+        val en  = Input(Bool())
+        val in  = Flipped(new CPUMemBundle(w, block_size))
         val out = new AXI4LiteBundle(w)
     })
     val state = RegInit(s_idle.U(state_w.W))
@@ -23,26 +24,27 @@ class AXIBridge(w: Int) extends Module with HasAXIBridgeConst{
         /* WT RESP */ state(3) -> Mux(io.out.b.fire , s_idle.U      , s_write_resp.U),
     ))
     //read
-    io.out.ar.valid       := io.in.en && ~io.in.wr && state(0)
-    io.out.ar.bits.araddr := io.in.addr
+    io.out.ar.valid       := io.in.req.valid && ~io.in.req.wr && state(0) && io.en
+    io.out.ar.bits.araddr := io.in.req.addr
     io.out.ar.bits.arprot := 0.U(3.W)
     io.out.rd.ready       := state(1)
-    io.in.rdata           := io.out.rd.bits.rdata
+    io.in.ret.rdata       := io.out.rd.bits.rdata
     //write
     // val wdata_r = RegInit(0.U(w.W))
     // val wstrb_r = RegInit(0.U((w/8).W))
     // when(io.out.aw.fire){
-    //     wdata_r := io.in.wdata
-    //     wstrb_r := io.in.wstrb
+    //     wdata_r := io.in.req.wdata
+    //     wstrb_r := io.in.req.wstrb
     // }
-    io.out.aw.valid       := io.in.en && io.in.wr && state(0)
-    io.out.aw.bits.awaddr := io.in.addr
+    io.out.aw.valid       := io.in.req.valid && io.in.req.wr && state(0) && io.en
+    io.out.aw.bits.awaddr := io.in.req.addr
     io.out.aw.bits.awprot := 0.U(3.W)
     io.out.wt.valid       := state(2)
-    io.out.wt.bits.wdata  := io.in.wdata
-    io.out.wt.bits.wstrb  := io.in.wstrb
+    io.out.wt.bits.wdata  := io.in.req.wdata
+    io.out.wt.bits.wstrb  := io.in.req.wstrb
     io.out.b.ready        := state(3)
     //read/write ok
-    io.in.addr_ok := io.out.ar.fire || io.out.wt.fire
-    io.in.data_ok := io.out.rd.fire || io.out.b.fire 
+    io.in.req.ready := io.out.ar.fire || io.out.wt.fire
+    io.in.ret.valid := io.out.rd.fire || io.out.b.fire 
+    io.in.ret.last  := io.in.ret.valid
 }

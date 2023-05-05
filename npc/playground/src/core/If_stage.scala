@@ -27,21 +27,22 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val fs_state   = RegInit(s_idle.U(nr_state.W))
     fs_state      := Mux1H(Seq(
         /* s_idle */ fs_state(0) -> (s_req.U),
-        /* s_req  */ fs_state(1) -> Mux(io.inst_mem.addr_ok, s_resp.U, s_req.U),
-        /* s_resp */ fs_state(2) -> Mux(io.inst_mem.data_ok, s_req.U, s_resp.U),
+        /* s_req  */ fs_state(1) -> Mux(io.inst_mem.req.fire, s_resp.U, s_req.U),
+        /* s_resp */ fs_state(2) -> Mux(io.inst_mem.ret.valid, s_req.U, s_resp.U),
     ))
     // ---------------- read request ----------------
-    io.inst_mem.en    := fs_state(1) && ~fs_wait_ms
-    io.inst_mem.wr    := 0.B
-    io.inst_mem.addr  := nextpc
-    io.inst_mem.wdata := 0.U
-    io.inst_mem.wstrb := 0.U
+    io.inst_mem.req.valid    := fs_state(1) && ~fs_wait_ms
+    io.inst_mem.req.wr       := 0.B
+    io.inst_mem.req.addr     := nextpc
+    io.inst_mem.req.wdata    := 0.U
+    io.inst_mem.req.wstrb    := 0.U
+    io.inst_mem.req.mthrough := 1.U //TODO
     // ---------------- read response ---------------- 
     val inst              = RegInit(0.U(32.W))
     val rdata_buf         = RegInit(0.U(w.W))
-    val fs_ahead_ms       = (io.inst_mem.data_ok && ~fs_wait_ms &&  io.if2mem.ms_wait_fs) //MSU ok before IFU
+    val fs_ahead_ms       = (io.inst_mem.ret.valid && ~fs_wait_ms &&  io.if2mem.ms_wait_fs) //MSU ok before IFU
     val ms_ahead_fs       = (io.if2mem.ms_mem_ok &&  fs_wait_ms && ~io.if2mem.ms_wait_fs) //IFU ok before MSU
-    val fs_same_ms        = (io.inst_mem.data_ok &&  io.if2mem.ms_mem_ok) //IFU MSU ok at the same time
+    val fs_same_ms        = (io.inst_mem.ret.valid &&  io.if2mem.ms_mem_ok) //IFU MSU ok at the same time
     //when IFU and MSU both done memory access fs_next_ok pulls high and update cpu pc
     val fs_next_ok        = fs_ahead_ms || ms_ahead_fs || fs_same_ms
     val fs_inst_data      = Mux(fs_wait_ms, rdata_buf, io.inst_mem.rdata)
@@ -50,9 +51,9 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         inst := Mux(nextpc(2) === 1.U, fs_inst_data(63, 32),
                                        fs_inst_data(31, 0))
     }
-    when(io.inst_mem.data_ok && ~io.if2mem.ms_wait_fs){
+    when(io.inst_mem.ret.valid && ~io.if2mem.ms_wait_fs){
         fs_wait_ms := ~(io.if2mem.ms_mem_ok)
-        rdata_buf  := io.inst_mem.rdata
+        rdata_buf  := io.inst_mem.ret.rdata
     }.elsewhen(fs_wait_ms && io.if2mem.ms_mem_ok){
         fs_wait_ms := 0.B
     }

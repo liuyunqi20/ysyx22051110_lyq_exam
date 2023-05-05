@@ -2,7 +2,17 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
-class MycpuCoreTop(w: Int, nr_mport: Int) extends Module{
+trait HasCoreTopConst{
+    val nr_mmc_port       = 1
+    val ICache_nr_lines   = 16
+    val ICache_nr_ways    = 4
+    val ICache_block_size = 32
+    val DCache_nr_lines   = 16
+    val DCache_nr_ways    = 4
+    val DCache_block_size = 32
+}
+
+class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val io = IO(new Bundle{
         val core_debug = new DebugBundle(w)
         val axi_sram   = Vec(nr_mport, new AXI4LiteBundle(w))
@@ -14,7 +24,11 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module{
     val my_wb          = Module(new Wb_stage(w))
     val my_csr         = Module(new Csr(w))
     val my_axi_bridge0 = Module(new AXIBridge(w))
-    val my_axi_bridge1 = Module(new AXIBridge(w))
+    val my_axi_bridge1 = Module(new AXIBridge_old(w)) //TODO change old
+    //val my_mmc         = Module(new MemoryMappingController(w, nr_mmc_port))
+    //ICache: 
+    val my_icache      = Moudle(new CacheTop(w, ICache_nr_lines, 
+                                    ICache_nr_ways, ICache_block_size))
     //IF stage
     my_if.io.branch        <> my_ex.io.branch
     my_if.io.exc_br        <> my_wb.io.exc_br
@@ -39,10 +53,12 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module{
     my_csr.io.out          <> my_wb.io.csr_out
     my_csr.io.clint_intr_t := 0.B
     //Memory Access
+    my_icache.io.in        <> my_if.io.inst_mem
+    my_axi_bridge0.io.in   <> my_icache.io.out
     io.axi_sram(0)         <> my_axi_bridge0.io.out
-    my_axi_bridge0.io.in   <> my_if.io.inst_mem
-    io.axi_sram(1)         <> my_axi_bridge1.io.out
+        //TODO: dcache mmc axi-bridge
     my_axi_bridge1.io.in   <> my_mem.io.data_mem
+    io.axi_sram(1)         <> my_axi_bridge1.io.out
     //debug
     io.core_debug.debug_pc       := my_if.io.pc
     io.core_debug.debug_nextpc   := my_if.io.nextpc

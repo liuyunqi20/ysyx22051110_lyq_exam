@@ -61,29 +61,30 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     val ms_mem_en = io.ex2mem.mem_en && ~has_trap && ~ms_wait_fs
     val ms_state = RegInit(s_idle.U(nr_state.W))
     ms_state := Mux1H(Seq(
-        /* Idle    */ ms_state(0) -> Mux(ms_mem_en && io.data_mem.addr_ok, s_wr_resp.U, s_idle.U),
-        /* WR RESP */ ms_state(1) -> Mux(io.data_mem.data_ok, s_idle.U, s_wr_resp.U),
+        /* Idle    */ ms_state(0) -> Mux(io.data_mem.req.fire, s_wr_resp.U, s_idle.U),
+        /* WR RESP */ ms_state(1) -> Mux(io.data_mem.ret.valid, s_idle.U, s_wr_resp.U),
     ))
     // ------------------------ read ------------------------
     val ms_rdata_r = RegInit(0.U(w.W))
-    when(io.data_mem.data_ok === 1.U){
-        ms_rdata_r := io.data_mem.rdata
+    when(io.data_mem.ret.valid === 1.U){
+        ms_rdata_r := io.data_mem.ret.rdata
     }
     //WARNNING: rd.rresp is ignored
-    io.data_mem.en    := ms_mem_en && ~ms_wait_fs && ms_state(0)
-    io.data_mem.wr    := io.ex2mem.mem_wr
-    io.data_mem.addr  := maddr
-    io.data_mem.wdata := io.ex2mem.mem_wdata
-    io.data_mem.wstrb := wmask
+    io.data_mem.req.valid    := ms_mem_en && ~ms_wait_fs && ms_state(0)
+    io.data_mem.req.wr       := io.ex2mem.mem_wr
+    io.data_mem.req.addr     := maddr
+    io.data_mem.req.wdata    := io.ex2mem.mem_wdata
+    io.data_mem.req.wstrb    := wmask
+    io.data_mem.req.mthrough := 1.U
     //WARNNING: b.bresp is ignored
     // ------------------------ MSU wait FSU ------------------------ 
-    when(io.data_mem.data_ok && ~io.if2mem.fs_wait_ms){
+    when(io.data_mem.ret.valid && ~io.if2mem.fs_wait_ms){
         ms_wait_fs := ~(io.if2mem.fs_mem_ok)
     }.elsewhen(ms_wait_fs && io.if2mem.fs_mem_ok){
         ms_wait_fs := 0.B
     }
     // ------------------------ mask read data ------------------------ 
-    val mrdata       = Mux(ms_wait_fs, ms_rdata_r, io.data_mem.rdata)
+    val mrdata       = Mux(ms_wait_fs, ms_rdata_r, io.data_mem.ret.rdata)
     //mask read data
     val rdata_b = MuxLookup(offset, 0.U(8.W), Seq(
         "b000".U -> mrdata(7 , 0) ,        
@@ -123,6 +124,6 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.mem2wb.csr_num      := io.ex2mem.csr_num
     io.mem2wb.rs1          := io.ex2mem.rs1
     // ------------------------ to IF stage ------------------------ 
-    io.if2mem.ms_mem_ok           := (ms_mem_en === 0.U) || io.data_mem.data_ok
+    io.if2mem.ms_mem_ok           := (ms_mem_en === 0.U) || io.data_mem.ret.valid
     io.if2mem.ms_wait_fs          := ms_wait_fs
 }

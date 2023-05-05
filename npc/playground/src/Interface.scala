@@ -3,15 +3,24 @@ import chisel3._
 import chisel3.util._
 
 // ----------------- CPU-core Memory Access Bundle ----------------- 
+
+    class CPUMemReqBundle(w: Int) extends Bundle{
+        val wr        = Bits(1.W)
+        val addr      = Bits(w.W)
+        val wdata     = Bits(w.W)
+        val wstrb     = Bits((w/8).W)
+        val mthrough  = Bits(1.W)
+    }
+
+    class CPUMemRespBundle(w: Int) extends Bundle{
+        val rdata = Input(UInt(w.W))
+        val valid = Input(Bool())
+        val last  = Input(Bool())
+    }
+
     class CPUMemBundle(w: Int) extends Bundle{
-        val en      = Output(Bool())
-        val wr      = Output(Bool())
-        val addr    = Output(UInt(w.W))
-        val rdata   = Input(UInt(w.W))
-        val wdata   = Output(UInt(w.W))
-        val wstrb   = Output(UInt((w/8).W))
-        val addr_ok = Input(Bool())
-        val data_ok = Input(Bool())
+        val req = Decoupled(new CPUMemReqBundle(w))
+        val ret = new CPUMemRespBundle(w)
     }
 
 // ----------------- Debug Bundle -----------------
@@ -170,4 +179,65 @@ import chisel3.util._
         //
     }
 
+// ----------------- Cache Bundle -----------------
+    
+    class CacheMemWRBundle(w: Int, block_size: Int) extends Bundle{
+        val req = Decoupled({
+            val wr    = Bits(1.W)
+            val mtype = Bits(3.W)
+            val addr  = Bits(w.W)
+            val wstrb = Bits((w/8).W)
+            val wdata = Bits((block_size * 8).W)
+        })
+        val ret = new Bundle{
+            val ret_valid = Input(Bool())
+            val ret_data  = Input(UInt(w.W))
+            val ret_last  = Input(UInt())
+        }
+    }
 
+    class CacheLineBundle(w: Int, tag_width: Int, block_size: Int) extends Bundle{
+        val valid = Bits(1.W)
+        val dirty = Bits(1.W)
+        val tag   = Bits(tag_width.W)
+        val data  = Vec(block_size * 8 / w, Bits(w.W))
+        //val data  = Bits((block_size * 8).W)
+    }
+
+    class CacheStage1to2Bundle(config: CacheConfig) extends Bundle{
+        //write
+        val wr       = Bits(1.W)
+        val wdata    = Bits(config.w.W)
+        val wstrb    = Bits((config.w / 8).W)
+        val mthrough  = Bits(1.W)
+        //addr
+        val tag      = Bits(config.tag_width.W)
+        val index    = Bits(config.index_width.W)
+        val offset   = Bits(config.offset_width.W)
+        //cache read set
+        val rd_lines = Vec(config.nr_ways, 
+            new CacheLineBundle(config.w, config.tag_width, config.block_size))
+    } 
+
+    class CacheStage2to3Bundle(config: CacheConfig) extends Bundle{
+        //write
+        val wr           = Bits(1.W)
+        val wdata        = Bits(config.w.W)
+        val wstrb        = Bits((config.w / 8).W)
+        val mthrough     = Bits(1.W)
+        //addr
+        val tag          = Bits(config.tag_width.W)
+        val index        = Bits(config.index_width.W)
+        val offset       = Bits(config.offset_width.W)
+        //hit check / replace choose
+        val hit          = Bits(1.W)
+        val target_way   = Bits(config.ways_width.W)
+        val target_line  = new CacheLineBundle(config.tag_width, config.block_size)
+    }
+// ----------------- Memory Mapping Bundle ----------------- 
+
+    class MMBundle(w: Int) extends Bundle{
+        val addr = Input(UInt(w.W))
+        val is_mmio  = Output(Bool())
+        val is_clint = Output(Bool())
+    }
