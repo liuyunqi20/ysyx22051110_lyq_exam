@@ -64,8 +64,8 @@ class CacheStage2(config: CacheConfig) extends Module{
     }
     //buffer (stage 1 to 2 reg)
     val rd_buf = RegInit(Vec(config.nr_ways, Seq(
-            /* V    */ 0.U(1.W),
-            /* D    */ 0.U(1.W),
+            /* V    */ 0.B,
+            /* D    */ 0.B,
             /* TAG  */ 0.U(config.tag_width.W),
             /* DATA */ 0.U((config.block_size * 8).W),
     )))
@@ -142,8 +142,8 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val target_way_r   = RegInit(0.U(config.ways_width.W))
     val refill_buf     = RegInit(0.U((config.block_size * 8).W))
     val target_line_r  = RegInit(VecInit(Seq(
-            /* V    */ 0.U(1.W),
-            /* D    */ 0.U(1.W),
+            /* V    */ 0.B,
+            /* D    */ 0.B,
             /* TAG  */ 0.U(config.tag_width.W),
             /* DATA */ 0.U((config.block_size * 8).W),
         )))
@@ -166,7 +166,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     // -------------------------------- word select -------------------------------- 
     val target_word = Mux(state(3),  //when refill ok, return rdata from refill buffer
                         refill_buf((word_cnt + 1.U) * config.w.asUInt - 1.U, word_cnt * config.w.asUInt),
-                        target_line_r(3)((word_cnt + 1.U) * config.w.asUInt - 1, word_cnt * config.w.asUInt))
+                        target_line_r(3)((word_cnt + 1.U) * config.w.asUInt - 1.U, word_cnt * config.w.asUInt))
     // -------------------------------- Hit --------------------------------
     val hit         = hit_r && state(0)
     // -------------------------------- Write Back --------------------------------
@@ -225,8 +225,8 @@ class CacheTop(w: Int, nr_lines: Int, nr_ways: Int, block_size: Int) extends Mod
     val stage3 = Module(new CacheStage3(config))
     val cache_mem = RegInit(Vec(nr_ways, VecInit(Seq.fill(nr_lines)(
         List(
-            0.U(1.W),
-            0.U(1.W),
+            0.B,
+            0.B,
             0.U(config.tag_width.W),
             0.U((block_size * 8).W),
         )
