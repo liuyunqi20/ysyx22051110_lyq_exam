@@ -60,7 +60,7 @@ class CacheStage2(config: CacheConfig) extends Module{
     val s2_ready_go        = true.B
     val s2_valid           = RegInit(0.U(1.W))
     val io.s1_to_s2.ready := (s2_valid || (s2_ready_go && io.s2_to_s3.ready))
-    val io.s2_to_s3.valid := (s2_valid && s2_ready_go)
+    val io.s2_to_s3.valid = (s2_valid && s2_ready_go)
     when(io.s1_to_s2.ready){
         s2_valid := io.s1_to_s2.valid
     }
