@@ -60,17 +60,17 @@ class CacheStage2(config: CacheConfig) extends Module{
     val s2_ready_go        = true.B
     val s2_valid           = RegInit(0.U(1.W))
     val io.s1_to_s2.ready := (s2_valid || (s2_ready_go && io.s2_to_s3.ready))
-    val io.s2_to_s3.valid = (s2_valid && s2_ready_go)
+    val io.s2_to_s3.valid := (s2_valid && s2_ready_go)
     when(io.s1_to_s2.ready){
         s2_valid := io.s1_to_s2.valid
     }
     //buffer (stage 1 to 2 reg)
-    val rd_buf = RegInit(Vec(config.nr_ways, Seq(
+    val rd_buf = RegInit(Vec(config.nr_ways, {
             /* V    */ 0.U(1.W),
             /* D    */ 0.U(1.W),
             /* TAG  */ 0.U(config.tag_width.W),
             /* DATA */ 0.U((block_size * 8).W),
-        )))
+    }))
     val wr_r       = RegInit(0.U(1.W))
     val wdata_r    = RegInit(0.U(config.w.W))
     val wstrb_r    = RegInit(0.U((config.w / 8).W))
