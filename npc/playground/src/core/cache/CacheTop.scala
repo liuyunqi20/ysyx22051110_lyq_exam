@@ -57,7 +57,7 @@ class CacheStage2(config: CacheConfig) extends Module{
     })
     val s2_ready_go        = 1.B
     val s2_valid           = RegInit(0.U(1.W))
-    val io.s1_to_s2.ready  = ~s2_valid || (s2_ready_go && io.s2_to_s3.ready)
+    val io.s1_to_s2.ready := ~s2_valid || (s2_ready_go && io.s2_to_s3.ready)
     val io.s2_to_s3.valid := s2_valid && s2_ready_go
     when(io.s1_to_s2.ready){
         s2_valid := io.s1_to_s2.valid
@@ -89,7 +89,7 @@ class CacheStage2(config: CacheConfig) extends Module{
         }
     }
     //hit check
-    var hit1H: UInt(config.nr_ways.W)
+    var hit1H: UInt(config.nr_ways.W);
     for( i <- 0 until config.nr_ways){
         hit1H(i) = (tag_r === rd_buf(i)(2))
     }
@@ -99,13 +99,13 @@ class CacheStage2(config: CacheConfig) extends Module{
     replace1H := Cat(replace1H(config.nr_ways - 2, 0), replace1H(config.nr_ways - 1))
     //to stage3
     val target_way1H = Mux(hit, hit1H, replace1H) //choosed bit array for hit/replace
-    io.s2_to_s3.wr       := wr_r
-    io.s2_to_s3.wdata    := wdata_r
-    io.s2_to_s3.wstrb    := wstrb_r
-    io.s2_to_s3.mthrough := mthrough_r
-    io.s2_to_s3.index    := index_r
-    io.s2_to_s3.tag      := tag_r
-    io.s2_to_s3.offset   := offset_r
+    io.s2_to_s3.wr           := wr_r
+    io.s2_to_s3.wdata        := wdata_r
+    io.s2_to_s3.wstrb        := wstrb_r
+    io.s2_to_s3.mthrough     := mthrough_r
+    io.s2_to_s3.index        := index_r
+    io.s2_to_s3.tag          := tag_r
+    io.s2_to_s3.offset       := offset_r
     io.s2_to_s3.hit          := hit
     io.s2_to_s3.target_way   := OHToUInt(target_way1H)
     io.s2_to_s3.target_line  := Mux1H(for( i <- 0 until config.nr_ways) 
@@ -124,9 +124,9 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         }
         val mem_out  = new CPUMemBundle(config.w)
     })
-    var s3_ready_go: UInt(1.W)
-    val s3_valid          = RegInit(0.U(1.W))
-    val io.s2_to_s3.ready = ~s3_valid || s3_ready_go
+    var s3_ready_go: UInt(1.W);
+    val s3_valid           = RegInit(0.U(1.W))
+    val io.s2_to_s3.ready := ~s3_valid || s3_ready_go
     when(io.s2_to_s3.ready){
         s3_valid := io.s2_to_s3.valid
     }
@@ -185,8 +185,8 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val io.mem_out.req.valid    := s3_valid && ((state(0) && ~hit_r) || (state(1) && burst_last))
     val io.mem_out.req.wr       := state(1)
     val io.mem_out.req.addr     := Mux(state(0), wb_addr, refill_addr)
-    val io.mem_out.req.wdata    := target_line_r(3)((cnt + 1) * config.w - 1, cnt * config.w)
-    val io.mem_out.req.wstrb    := Fill((config.w / 8), 1.U(1.W))
+    val io.mem_out.req.wdata    := target_word
+    val io.mem_out.req.wstrb    := Fill(((config.w) / 8), 1.U(1.W))
     val io.mem_out.req.mthrough := mthrough_r
     // -------------------------------- write to cache line --------------------------------
     val io.wt_en    := s3_valid && ((state(0) && hit_r && wr_r) || (state(2) && burst_last))
