@@ -168,10 +168,10 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
                         refill_buf((word_cnt + 1.U) * config.w.asUInt - 1.U, word_cnt * config.w.asUInt),
                         target_line_r(3)((word_cnt + 1.U) * config.w.asUInt - 1, word_cnt * config.w.asUInt))
     // -------------------------------- Hit --------------------------------
-    val hit         = (hit_r == 1.U) && state(0)
+    val hit         = (hit_r === 1.U) && state(0)
     // -------------------------------- Write Back --------------------------------
     val wb_en       = target_line_r(0) && target_line_r(1) && !hit_r && state(0)// need write back
-    val wb_addr     = Cat(target_line_r(2), index_r, 0.U(config.offset_width.w))
+    val wb_addr     = Cat(target_line_r(2), index_r, 0.U(config.offset_width.W))
     val burst_last  = io.mem_out.ret.ret_valid && io.mem_out.ret.ret_last
     // -------------------------------- Refill --------------------------------
     val refill_addr = Cat(tag_r, index_r, 0.U(config.offset_width.w))
