@@ -70,12 +70,12 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         ms_rdata_r := io.data_mem.ret.rdata
     }
     //WARNNING: rd.rresp is ignored
-    io.data_mem.req.valid    := ms_mem_en && ~ms_wait_fs && ms_state(0)
-    io.data_mem.req.wr       := io.ex2mem.mem_wr
-    io.data_mem.req.addr     := maddr
-    io.data_mem.req.wdata    := io.ex2mem.mem_wdata
-    io.data_mem.req.wstrb    := wmask
-    io.data_mem.req.mthrough := 1.U
+    io.data_mem.req.bits.valid    := ms_mem_en && ~ms_wait_fs && ms_state(0)
+    io.data_mem.req.bits.wr       := io.ex2mem.mem_wr
+    io.data_mem.req.bits.addr     := maddr
+    io.data_mem.req.bits.wdata    := io.ex2mem.mem_wdata
+    io.data_mem.req.bits.wstrb    := wmask
+    io.data_mem.req.bits.mthrough := 1.U
     //WARNNING: b.bresp is ignored
     // ------------------------ MSU wait FSU ------------------------ 
     when(io.data_mem.ret.valid && ~io.if2mem.fs_wait_ms){

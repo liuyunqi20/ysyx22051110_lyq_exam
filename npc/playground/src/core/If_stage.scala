@@ -31,12 +31,12 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         /* s_resp */ fs_state(2) -> Mux(io.inst_mem.ret.valid, s_req.U, s_resp.U),
     ))
     // ---------------- read request ----------------
-    io.inst_mem.req.valid    := fs_state(1) && ~fs_wait_ms
-    io.inst_mem.req.wr       := 0.B
-    io.inst_mem.req.addr     := nextpc
-    io.inst_mem.req.wdata    := 0.U
-    io.inst_mem.req.wstrb    := 0.U
-    io.inst_mem.req.mthrough := 1.U //TODO
+    io.inst_mem.req.bits.valid    := fs_state(1) && ~fs_wait_ms
+    io.inst_mem.req.bits.wr       := 0.B
+    io.inst_mem.req.bits.addr     := nextpc
+    io.inst_mem.req.bits.wdata    := 0.U
+    io.inst_mem.req.bits.wstrb    := 0.U
+    io.inst_mem.req.bits.mthrough := 1.U //TODO
     // ---------------- read response ---------------- 
     val inst              = RegInit(0.U(32.W))
     val rdata_buf         = RegInit(0.U(w.W))
