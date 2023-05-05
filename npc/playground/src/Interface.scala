@@ -197,10 +197,10 @@ import chisel3.util._
     }
 
     class CacheLineBundle(w: Int, tag_width: Int, block_size: Int) extends Bundle{
-        val valid = Bits(1.W)
-        val dirty = Bits(1.W)
-        val tag   = Bits(tag_width.W)
-        val data  = Vec(block_size * 8 / w, Bits(w.W))
+        val valid = Input(UInt(1.W))
+        val dirty = Input(UInt(1.W))
+        val tag   = Input(UInt(tag_width.W))
+        val data  = Vec(block_size * 8 / w, UInt((w.W)))
         //val data  = Bits((block_size * 8).W)
     }
 
