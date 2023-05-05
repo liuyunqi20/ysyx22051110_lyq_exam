@@ -165,8 +165,8 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val word_cnt    = Mux(state(1), cnt, offset_r(config.offset_width - 1, log2Ceil(config.w / 8)))  
     // -------------------------------- word select --------------------------------
     val target_word = Mux(state(3),  //when refill ok, return rdata from refill buffer
-                        refill_buf((word_cnt + 1) * config.w - 1, word_cnt * config.w),
-                        target_line_r(3)((word_cnt + 1) * config.w - 1, word_cnt * config.w))
+                        refill_buf((word_cnt + 1) * config.w.asUInt - 1, word_cnt * config.w.asUInt),
+                        target_line_r(3)((word_cnt + 1) * config.w.asUInt - 1, word_cnt * config.w.asUInt))
     // -------------------------------- Hit --------------------------------
     val hit         = hit_r && state(0)
     // -------------------------------- Write Back --------------------------------
