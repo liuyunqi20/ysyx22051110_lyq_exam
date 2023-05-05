@@ -57,7 +57,7 @@ class CacheStage2(config: CacheConfig) extends Module{
         val s1_to_s2 = Flipped(Decoupled(new CacheStage1to2Bundle(config)))
         val s2_to_s3 = Decoupled(new CacheStage2to3Bundle(config))
     })
-    val s2_ready_go        = 1.B
+    val s2_ready_go        = true.B
     val s2_valid           = RegInit(0.U(1.W))
     val io.s1_to_s2.ready := ((s2_valid === 0.U) || (s2_ready_go && io.s2_to_s3.ready))
     val io.s2_to_s3.valid := (s2_valid && s2_ready_go)
