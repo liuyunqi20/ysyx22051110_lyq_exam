@@ -57,8 +57,8 @@ class CacheStage2(config: CacheConfig) extends Module{
     })
     val s2_ready_go        = 1.B
     val s2_valid           = RegInit(0.U(1.W))
-    val io.s1_to_s2.ready := !s2_valid || (s2_ready_go && io.s2_to_s3.ready)
-    val io.s2_to_s3.valid := s2_valid && s2_ready_go
+    val io.s1_to_s2.ready := (!s2_valid || (s2_ready_go && io.s2_to_s3.ready))
+    val io.s2_to_s3.valid := (s2_valid && s2_ready_go)
     when(io.s1_to_s2.ready){
         s2_valid := io.s1_to_s2.valid
     }
@@ -126,7 +126,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     })
     var s3_ready_go = 0.U(1.W);
     val s3_valid           = RegInit(0.U(1.W))
-    val io.s2_to_s3.ready := !s3_valid || s3_ready_go
+    val io.s2_to_s3.ready := (!s3_valid || s3_ready_go)
     when(io.s2_to_s3.ready){
         s3_valid := io.s2_to_s3.valid
     }
