@@ -46,9 +46,9 @@ class CacheStage1(config: CacheConfig) extends Module{
     io.s1_to_s2.bits.tag      := tag
     io.s1_to_s2.bits.index    := index
     io.s1_to_s2.bits.offset   := offset
-    for( i <- 0 until config.nr_ways){
-        io.s1_to_s2.bits.rd_lins(i) <> io.rd_lines(i)
-    }
+    //for( i <- 0 until config.nr_ways){
+        //io.s1_to_s2.bits.rd_lins(i) <> io.rd_lines(i)
+    //}
     io.req_ok := io.s1_to_s2.fire
 }
 
