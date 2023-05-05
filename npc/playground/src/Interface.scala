@@ -232,5 +232,5 @@ import chisel3.util._
         //hit check / replace choose
         val hit          = Bits(1.W)
         val target_way   = Bits(config.ways_width.W)
-        val target_line  = new CacheLineBundle(config.tag_width, config.block_size)
+        val target_line  = new CacheLineBundle(config.w, config.tag_width, config.block_size)
     }

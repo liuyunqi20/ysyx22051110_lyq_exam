@@ -18,7 +18,7 @@ trait HasCacheStage3Const{
     val s_mmio       = 0x10
 }
 
-class CacheConfig(w: Int, nr_lines: Int, nr_ways: Int, block_size: Int){
+class CacheConfig(val w: Int, val nr_lines: Int, val nr_ways: Int, val block_size: Int){
     val tag_width:    Int = CacheTop.getTagWidth(w, nr_lines, block_size)
     val index_width:  Int = CacheTop.getIndexWidth(nr_lines)
     val offset_width: Int = CacheTop.getOffsetWidth(block_size)
