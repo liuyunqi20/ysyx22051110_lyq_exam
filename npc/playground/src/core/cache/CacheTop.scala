@@ -67,7 +67,7 @@ class CacheStage2(config: CacheConfig) extends Module{
             /* V    */ 0.U(1.W),
             /* D    */ 0.U(1.W),
             /* TAG  */ 0.U(config.tag_width.W),
-            /* DATA */ 0.U((block_size * 8).W),
+            /* DATA */ 0.U((config.block_size * 8).W),
     )))
     val wr_r       = RegInit(0.U(1.W))
     val wdata_r    = RegInit(0.U(config.w.W))
@@ -261,7 +261,7 @@ object CacheTop{
         new CacheTop(w, nr_lines, nr_ways, block_size)
     def getTagWidth(w: Int, nr_lines: Int, block_size: Int): Int = 
         w - log2Ceil(nr_lines) - log2Ceil(block_size)
-    def getIndexWidth  = (n: Int) => log2Ceil(_)
-    def getOffsetWidth = (n: Int) => log2Ceil(_)
-    def getWaysWidth   = (n: Int) => log2Ceil(_)
+    def getIndexWidth  = (n: Int) => log2Ceil(n)
+    def getOffsetWidth = (n: Int) => log2Ceil(n)
+    def getWaysWidth   = (n: Int) => log2Ceil(n)
 }
