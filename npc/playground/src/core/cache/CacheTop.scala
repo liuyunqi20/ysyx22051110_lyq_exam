@@ -27,29 +27,28 @@ class CacheConfig(val w: Int, val nr_lines: Int, val nr_ways: Int, val block_siz
 
 class CacheStage1(config: CacheConfig) extends Module{
     val io = IO(new Bundle{
-        val cpu      = new CPUMemReqBundle(config.w)
-        val req_ok   = Output(Bool())
+        val cpu      = Flipped(Decoupled(new CPUMemReqBundle(config.w)))
         val rd_index = Output(UInt(config.index_width.W))
         val rd_lines = Vec(config.nr_ways, 
                 new CacheLineBundle(config.w, config.tag_width, config.block_size))
         val s1_to_s2 = Decoupled(new CacheStage1to2Bundle(config))
     })
-    val tag      = io.cpu.req.bits.addr(config.w - 1, config.w - config.tag_width)
-    val index    = io.cpu.req.bits.addr(config.index_width + config.offset_width - 1, config.offset_width)
-    val offset   = io.cpu.req.bits.addr(config.offset_width - 1, 0)
+    val tag      = io.cpu.bits.addr(config.w - 1, config.w - config.tag_width)
+    val index    = io.cpu.bits.addr(config.index_width + config.offset_width - 1, config.offset_width)
+    val offset   = io.cpu.bits.addr(config.offset_width - 1, 0)
     io.rd_index := index
-    io.s1_to_s2.bits.valid    := io.cpu.req.valid
-    io.s1_to_s2.bits.wr       := io.cpu.req.bits.wr
-    io.s1_to_s2.bits.wdata    := io.cpu.req.bits.wdata
-    io.s1_to_s2.bits.wstrb    := io.cpu.req.bits.wstrb
-    io.s1_to_s2.bits.mthrough := io.cpu.req.bits.mthrough
+    io.s1_to_s2.bits.valid    := io.cpu.valid
+    io.s1_to_s2.bits.wr       := io.cpu.bits.wr
+    io.s1_to_s2.bits.wdata    := io.cpu.bits.wdata
+    io.s1_to_s2.bits.wstrb    := io.cpu.bits.wstrb
+    io.s1_to_s2.bits.mthrough := io.cpu.bits.mthrough
     io.s1_to_s2.bits.tag      := tag
     io.s1_to_s2.bits.index    := index
     io.s1_to_s2.bits.offset   := offset
     for( i <- 0 until config.nr_ways){
         io.s1_to_s2.bits.rd_lins(i) <> io.rd_lines(i)
     }
-    io.req_ok := io.s1_to_s2.fire
+    io.cpu.ready := io.s1_to_s2.fire
 }
 
 class CacheStage2(config: CacheConfig) extends Module{
@@ -115,7 +114,7 @@ class CacheStage2(config: CacheConfig) extends Module{
 
 class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val io = IO(new Bundle{
-        val cpu      = new CacheCPURespBundle(config.w)
+        val cpu      = Flipped(new CacheCPURespBundle(config.w))
         val s2_to_s3 = Flipped(Decoupled(new CacheStage2to3Bundle(config)))
         val wt = new Bundle{
             val wt_en    = Output(Bool())
@@ -209,8 +208,9 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
                  (state(3) && burst_last) ||            //miss(refill)
                  (state(4) && io.mem_out.ret.valid) //mmio
     // -------------------------------- CPU commit -------------------------------- 
-    io.cpu.ret.rdata   := Mux(state(4), io.mem_out.ret.ret_data, target_word)
-    io.cpu.ret.valid   := io.mem_out.ret.ret_last
+    io.cpu.rdata   := Mux(state(4), io.mem_out.ret.ret_data, target_word)
+    io.cpu.valid   := io.mem_out.ret.ret_last
+    io.cpu.last    := io.cpu.valid
 }
 
 class CacheTop(w: Int, nr_lines: Int, nr_ways: Int, block_size: Int) extends Module with HasCacheConst{
@@ -250,15 +250,8 @@ class CacheTop(w: Int, nr_lines: Int, nr_ways: Int, block_size: Int) extends Mod
     stage1.io.s1_to_s2 <> stage2.io.s1_to_s2
     stage2.io.s2_to_s3 <> stage3.io.s2_to_s3
     //CPU 
-    stage1.io.cpu.req.valid         := io.in.req.valid
-    stage1.io.cpu.req.bits.wr       := io.in.req.bits.wr
-    stage1.io.cpu.req.bits.addr     := io.in.req.bits.addr
-    stage1.io.cpu.req.bits.wdata    := io.in.req.bits.wdata
-    stage1.io.cpu.req.bits.wstrb    := io.in.req.bits.wstrb
-    stage1.io.cpu.req.bits.mthrough := io.in.req.bits.mthrough
-    io.in.ret.rdata   := stage3.io.cpu.ret.rdata
-    io.in.ret.ready   := stage1.io.req_ok
-    io.in.ret.data_ok := stage3.io.cpu.ret.valid
+    stage1.io.cpu <> io.in.req
+    stage3.io.cpu <> io.in.ret
     io.out <> stage3.io.mem_out
 }
 
