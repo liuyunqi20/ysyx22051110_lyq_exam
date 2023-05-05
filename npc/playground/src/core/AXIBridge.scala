@@ -24,7 +24,7 @@ class AXIBridge(w: Int, block_size: Int) extends Module with HasAXIBridgeConst{
         /* WT RESP */ state(3) -> Mux(io.out.b.fire , s_idle.U      , s_write_resp.U),
     ))
     //read
-    io.out.ar.valid       := io.in.req.valid && (io.in.req.bits.wr == 0.U) && state(0) && io.en
+    io.out.ar.valid       := io.in.req.valid && (io.in.req.bits.wr === 0.U) && state(0) && io.en
     io.out.ar.bits.araddr := io.in.req.bits.addr
     io.out.ar.bits.arprot := 0.U(3.W)
     io.out.rd.ready       := state(1)
@@ -36,7 +36,7 @@ class AXIBridge(w: Int, block_size: Int) extends Module with HasAXIBridgeConst{
     //     wdata_r := io.in.req.wdata
     //     wstrb_r := io.in.req.wstrb
     // }
-    io.out.aw.valid       := io.in.req.valid && (io.in.req.bits.wr == 1.U) && state(0) && io.en
+    io.out.aw.valid       := io.in.req.valid && (io.in.req.bits.wr === 1.U) && state(0) && io.en
     io.out.aw.bits.awaddr := io.in.req.bits.addr
     io.out.aw.bits.awprot := 0.U(3.W)
     io.out.wt.valid       := state(2)
