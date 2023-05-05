@@ -162,7 +162,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val state       = RegInit(s_idle.U(nr_state.W))
     val cnt         = RegInit(0.U(log2Ceil( config.block_size * 8 / config.w ).W))
     //when write back, use word counter( offset_r is word-align )
-    val word_cnt    = Mux(state(1), cnt, offset_r(config.offset_width - 1.U, log2Ceil(config.w / 8)))  
+    val word_cnt    = Mux(state(1), cnt, offset_r(config.offset_width - 1, log2Ceil(config.w / 8)))  
     // -------------------------------- word select -------------------------------- 
     val target_word = Mux(state(3),  //when refill ok, return rdata from refill buffer
                         refill_buf((word_cnt + 1.U) * config.w.asUInt - 1.U, word_cnt * config.w.asUInt),
@@ -172,7 +172,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     // -------------------------------- Write Back --------------------------------
     val wb_en       = target_line_r(0) && target_line_r(1) && !hit_r && state(0)// need write back
     val wb_addr     = Cat(target_line_r(2), index_r, 0.U(config.offset_width.W))
-    val burst_last  = io.mem_out.ret.ret_valid && io.mem_out.ret.ret_last
+    val burst_last  = io.mem_out.ret.valid && io.mem_out.ret.last
     // -------------------------------- Refill --------------------------------
     val refill_addr = Cat(tag_r, index_r, 0.U(config.offset_width.w))
     // -------------------------------- Burst counter --------------------------------
