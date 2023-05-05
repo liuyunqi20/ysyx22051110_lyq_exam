@@ -46,9 +46,9 @@ class CacheStage1(config: CacheConfig) extends Module{
     io.s1_to_s2.bits.tag      := tag
     io.s1_to_s2.bits.index    := index
     io.s1_to_s2.bits.offset   := offset
-    //for( i <- 0 until config.nr_ways){
-        //io.s1_to_s2.bits.rd_lins(i) <> io.rd_lines(i)
-    //}
+    for( i <- 0 until config.nr_ways){
+        io.s1_to_s2.bits.rd_lins(i) <> io.rd_lines(i)
+    }
     io.req_ok := io.s1_to_s2.fire
 }
 
@@ -59,7 +59,7 @@ class CacheStage2(config: CacheConfig) extends Module{
     })
     val s2_ready_go        = true.B
     val s2_valid           = RegInit(0.U(1.W))
-    val io.s1_to_s2.ready := (s2_valid || (s2_ready_go && io.s2_to_s3.ready))
+    val io.s1_to_s2.ready := (!s2_valid || (s2_ready_go && io.s2_to_s3.ready))
     val io.s2_to_s3.valid := (s2_valid && s2_ready_go)
     when(io.s1_to_s2.ready){
         s2_valid := io.s1_to_s2.valid
@@ -91,9 +91,9 @@ class CacheStage2(config: CacheConfig) extends Module{
         }
     }
     //hit check
-    var hit1H = 0.U((config.nr_ways).W);
+    val hit1H = Wire(UInt((config.nr_ways).W));
     for( i <- 0 until config.nr_ways){
-        hit1H(i) = (tag_r === rd_buf(i)(2))
+        hit1H(i) := (tag_r === rd_buf(i)(2))
     }
     val hit = hit1H.orR
     //replace choose
