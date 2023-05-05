@@ -69,10 +69,10 @@ class CacheStage2(config: CacheConfig) extends Module{
             /* TAG  */ 0.U(config.tag_width.W),
             /* DATA */ 0.U((config.block_size * 8).W),
     )))
-    val wr_r       = RegInit(0.U(1.W))
+    val wr_r       = RegInit(0.B)
     val wdata_r    = RegInit(0.U(config.w.W))
     val wstrb_r    = RegInit(0.U((config.w / 8).W))
-    val mthrough_r = RegInit(0.U(1.W))
+    val mthrough_r = RegInit(0.B)
     val tag_r      = RegInit(0.U(config.tag_width.W))
     val index_r    = RegInit(0.U(config.index_width.W))
     val offset_r   = RegInit(0.U(config.offset_width.W))
@@ -134,7 +134,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val wr_r           = RegInit(0.B)
     val wdata_r        = RegInit(0.U((config.w.W)))
     val wstrb_r        = RegInit(0.U((config.w / 8).W))
-    val mthrough_r     = RegInit(0.U(1.W))
+    val mthrough_r     = RegInit(0.B)
     val tag_r          = RegInit(0.U(config.tag_width.W))
     val index_r        = RegInit(0.U(config.index_width.W))
     val offset_r       = RegInit(0.U(config.offset_width.W))
