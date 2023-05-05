@@ -124,7 +124,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         }
         val mem_out  = new CPUMemBundle(config.w)
     })
-    var s3_ready_go = 0.U(1.W);
+    val s3_ready_go = Wire(UInt(1.W))
     val s3_valid           = RegInit(0.U(1.W))
     io.s2_to_s3.ready := (!s3_valid || s3_ready_go)
     when(io.s2_to_s3.ready){
@@ -140,12 +140,12 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val offset_r       = RegInit(0.U(config.offset_width.W))
     val hit_r          = RegInit(0.U(1.W))
     val target_way_r   = RegInit(0.U(config.ways_width.W))
-    val refill_buf     = RegInit(0.U((block_size * 8).W))
+    val refill_buf     = RegInit(0.U((config.block_size * 8).W))
     val target_line_r  = RegInit(Seq(
             /* V    */ 0.U(1.W),
             /* D    */ 0.U(1.W),
             /* TAG  */ 0.U(config.tag_width.W),
-            /* DATA */ 0.U((block_size * 8).W),
+            /* DATA */ 0.U((config.block_size * 8).W),
         ))
     when(io.s2_to_s3.fire){
         wr_r           := io.s2_to_s3.bits.wr
@@ -162,7 +162,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val state       = RegInit(s_idle.U(nr_state.W))
     val cnt         = RegInit(0.U(log2Ceil( config.block_size * 8 / config.w ).W))
     //when write back, use word counter( offset_r is word-align )
-    val word_cnt    = Mux(state(1), cnt, offset_r(config.offset_width.W - 1, log2Ceil(config.w / 8)))  
+    val word_cnt    = Mux(state(1), cnt, offset_r(config.offset_width - 1, log2Ceil(config.w / 8)))  
     // -------------------------------- word select --------------------------------
     val target_word = Mux(state(3),  //when refill ok, return rdata from refill buffer
                         refill_buf((word_cnt + 1) * config.w - 1, word_cnt * config.w),
@@ -204,7 +204,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         /* REFILL     */ state(3) -> Mux(burst_last, s_idle.U, s_refill.U),
         /* MMIO       */ state(4) -> Mux(io.mem_out.ret.valid, s_idle.U, s_mmio.U),
     ))
-    s3_ready_go = hit ||                                //hit
+    s3_ready_go := hit ||                                //hit
                  (state(3) && burst_last) ||            //miss(refill)
                  (state(4) && io.mem_out.ret.valid) //mmio
     // -------------------------------- CPU commit -------------------------------- 
@@ -217,7 +217,6 @@ class CacheTop(w: Int, nr_lines: Int, nr_ways: Int, block_size: Int) extends Mod
     val io = IO(new Bundle{
         val in  = Flipped(new CPUMemBundle(w))
         val out = new CPUMemBundle(w)
-        val mm  = Flipped(new MMBundle(w, block_size))
     })
 
     val config = new CacheConfig(w, nr_lines, nr_ways, block_size)
