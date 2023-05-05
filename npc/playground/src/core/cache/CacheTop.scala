@@ -124,7 +124,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         }
         val mem_out  = new CPUMemBundle(config.w)
     })
-    val s3_ready_go    = Wire(UInt(1.W))
+    val s3_ready_go    = Wire(Bool())
     val s3_valid       = RegInit(0.B)
     io.s2_to_s3.ready := (!s3_valid || s3_ready_go)
     when(io.s2_to_s3.ready){
