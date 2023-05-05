@@ -46,7 +46,7 @@ class CacheStage1(config: CacheConfig) extends Module{
     io.s1_to_s2.bits.index    := index
     io.s1_to_s2.bits.offset   := offset
     for( i <- 0 until config.nr_ways){
-        io.s1_to_s2.bits.rd_lins(i) <> io.rd_lines(i)
+        io.s1_to_s2.bits.rd_lines(i) <> io.rd_lines(i)
     }
     io.cpu.ready := io.s1_to_s2.fire
 }
@@ -114,7 +114,7 @@ class CacheStage2(config: CacheConfig) extends Module{
 
 class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val io = IO(new Bundle{
-        val cpu      = Flipped(new CacheCPURespBundle(config.w))
+        val cpu      = Flipped(new CPUMemRespBundle(config.w))
         val s2_to_s3 = Flipped(Decoupled(new CacheStage2to3Bundle(config)))
         val wt = new Bundle{
             val wt_en    = Output(Bool())
@@ -261,7 +261,7 @@ object CacheTop{
         new CacheTop(w, nr_lines, nr_ways, block_size)
     def getTagWidth(w: Int, nr_lines: Int, block_size: Int): Int = 
         w - log2Ceil(nr_lines) - log2Ceil(block_size)
-    def getIndexWidth(n: Int) = (_) => log2Ceil(_)
-    def getOffsetWidth(n: Int) = (_) => log2Ceil(_)
-    def getWaysWidth(n: Int) = (_) => log2Ceil(_)
+    def getIndexWidth  = (n: Int) => log2Ceil(_)
+    def getOffsetWidth = (n: Int) => log2Ceil(_)
+    def getWaysWidth   = (n: Int) => log2Ceil(_)
 }
