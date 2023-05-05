@@ -27,7 +27,7 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val my_axi_bridge1 = Module(new AXIBridge(w, ICache_block_size)) //TODO change old
     //val my_mmc         = Module(new MemoryMappingController(w, nr_mmc_port))
     //ICache: 
-    val my_icache      = Moudle(new CacheTop(w, ICache_nr_lines, 
+    val my_icache      = Module(new CacheTop(w, ICache_nr_lines, 
                                     ICache_nr_ways, ICache_block_size))
     //IF stage
     my_if.io.branch        <> my_ex.io.branch

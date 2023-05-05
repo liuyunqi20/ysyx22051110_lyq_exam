@@ -13,7 +13,7 @@ trait HasAXIBridgeConst{
 class AXIBridge(w: Int, block_size: Int) extends Module with HasAXIBridgeConst{
     val io = IO(new Bundle{
         val en  = Input(Bool())
-        val in  = Flipped(new CPUMemBundle(w, block_size))
+        val in  = Flipped(new CPUMemBundle(w))
         val out = new AXI4LiteBundle(w)
     })
     val state = RegInit(s_idle.U(state_w.W))
