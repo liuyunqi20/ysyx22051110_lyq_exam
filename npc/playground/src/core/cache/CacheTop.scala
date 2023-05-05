@@ -131,14 +131,14 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         s3_valid := io.s2_to_s3.valid
     }
     //Reg Buffer
-    val wr_r           = RegInit(0.U(1.W))
+    val wr_r           = RegInit(0.B)
     val wdata_r        = RegInit(0.U((config.w.W)))
     val wstrb_r        = RegInit(0.U((config.w / 8).W))
     val mthrough_r     = RegInit(0.U(1.W))
     val tag_r          = RegInit(0.U(config.tag_width.W))
     val index_r        = RegInit(0.U(config.index_width.W))
     val offset_r       = RegInit(0.U(config.offset_width.W))
-    val hit_r          = RegInit(0.U(1.W))
+    val hit_r          = RegInit(0.B)
     val target_way_r   = RegInit(0.U(config.ways_width.W))
     val refill_buf     = RegInit(0.U((config.block_size * 8).W))
     val target_line_r  = RegInit(VecInit(Seq(
@@ -168,7 +168,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
                         refill_buf((word_cnt + 1.U) * config.w.asUInt - 1.U, word_cnt * config.w.asUInt),
                         target_line_r(3)((word_cnt + 1.U) * config.w.asUInt - 1, word_cnt * config.w.asUInt))
     // -------------------------------- Hit --------------------------------
-    val hit         = (hit_r === 1.U) && state(0)
+    val hit         = hit_r && state(0)
     // -------------------------------- Write Back --------------------------------
     val wb_en       = target_line_r(0) && target_line_r(1) && !hit_r && state(0)// need write back
     val wb_addr     = Cat(target_line_r(2), index_r, 0.U(config.offset_width.W))
@@ -189,10 +189,10 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     io.mem_out.req.bits.wstrb    := Fill(((config.w) / 8), 1.U(1.W))
     io.mem_out.req.bits.mthrough := mthrough_r
     // -------------------------------- write to cache line --------------------------------
-    io.wt_en    := s3_valid && ((state(0) && hit_r && wr_r) || (state(2) && burst_last))
-    io.wt_way   := target_way_r
-    io.wt_index := index_r
-    io.wt_line  <> write_line //TODO link write_line
+    io.wt.wt_en    := s3_valid && ((state(0) && hit_r && wr_r) || (state(2) && burst_last))
+    io.wt.wt_way   := target_way_r
+    io.wt.wt_index := index_r
+    io.wt.wt_line  <> write_line //TODO link write_line
 
     state := Mux1H(Seq(
         /* IDLE       */ state(0) -> Mux(hit, s_idle.U, 
