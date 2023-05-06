@@ -68,8 +68,6 @@ class CacheStage2(config: CacheConfig) extends Module{
     io.s2_to_s3.bits.offset       := buf.offset
     io.s2_to_s3.bits.hit          := hit
     io.s2_to_s3.bits.target_way   := OHToUInt(target_way1H)
-    /* val rd_lines = Wire(Vec(config.nr_ways, new CacheLineBundle(config.w, config.tag_width, config.block_word_n)))
-    for( i <- 0 until config.nr_ways) { rd_lines(i) <> io.rd_lines(i) } */ 
     io.s2_to_s3.bits.target_line  := Mux1H( for( i <- 0 until config.nr_ways) yield (target_way1H(i) -> io.rd_lines(i)) )
 }
 
@@ -77,11 +75,11 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val io = IO(new Bundle{
         val cpu      = Flipped(new CPUMemRespBundle(config.w))
         val s2_to_s3 = Flipped(Decoupled(new CacheStage2to3Bundle(config)))
-        val wt = new Bundle{
+        val wt       = new Bundle{
             val en    = Output(Bool())
             val way   = Output(UInt(config.ways_width.W))
             val index = Output(UInt(config.index_width.W))
-            val line  = new CacheLineBundle(config.w, config.tag_width, config.block_word_n)
+            val line  = Output(new CacheLineBundle(config.w, config.tag_width, config.block_word_n))
         }
         val mem_out  = new CPUMemBundle(config.w)
     })
