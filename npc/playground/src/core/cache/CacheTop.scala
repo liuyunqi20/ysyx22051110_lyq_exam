@@ -62,7 +62,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val stage1 = Module(new CacheStage1(config))
     val stage2 = Module(new CacheStage2(config))
     val stage3 = Module(new CacheStage3(config))
-    val cache_data = Vec(nr_ways, Module(new CacheDataRam))
+    val cache_data = Module(Vec(nr_ways, new CacheDataRam))
     val cache_meta = RegInit(Vec(nr_ways, 
                                 Vec(nr_lines, 
                                     CacheTop.getCacheMeta(config.tag_width))
@@ -77,10 +77,10 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         }
     }
     //read
-    val data_wt_addr = Cat(0.U(cache_data.addr_w - config.index_width), stage3.io.wt.index)
-    val data_rd_addr = Cat(0.U(cache_data.addr_w - config.index_width), stage1.io.rd.index)
+    val data_wt_addr = Cat(0.U(cache_data(0).addr_w - config.index_width), stage3.io.wt.index)
+    val data_rd_addr = Cat(0.U(cache_data(0).addr_w - config.index_width), stage1.io.rd.index)
     val data_addr    = Mux(stage3.io.wt.en, data_wt_addr, data_rd_addr)
-    val data_wdata   = stage3.io.line.data.reduce((a, b) => Cat(a, b))
+    val data_wdata   = stage3.io.wt.line.data.reduce((a, b) => Cat(a, b))
     val data_sel     = Wire(Vec(nr_ways, Bool()))
     for( i <- 0 until nr_ways){
         data_sel(i)           := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U) 
