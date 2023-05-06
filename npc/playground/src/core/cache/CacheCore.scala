@@ -6,7 +6,7 @@ class CacheStage1(config: CacheConfig) extends Module{
     val io = IO(new Bundle{
         val cpu      = Flipped(Decoupled(new CPUMemReqBundle(config.w)))
         val rd       = new Bundle{
-            val rd_en    = Output(Bool())
+            val en    = Output(Bool())
             val index = Output(UInt(config.index_width.W))
         }
         val s1_to_s2 = Decoupled(new CacheStage1to2Bundle(config))
@@ -67,7 +67,7 @@ class CacheStage2(config: CacheConfig) extends Module{
     io.s2_to_s3.bits.offset       := buf.offset
     io.s2_to_s3.bits.hit          := hit
     io.s2_to_s3.bits.target_way   := OHToUInt(target_way1H)
-    io.s2_to_s3.bits.target_line  := Mux1H( for( i <- 0 until config.nr_ways) yield (target_way1H(i) -> rd_lines(i)) )
+    io.s2_to_s3.bits.target_line  := Mux1H( for( i <- 0 until config.nr_ways) yield (target_way1H(i) -> io.rd_lines(i)) )
 }
 
 class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
@@ -90,7 +90,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     }
     //Reg Buffer
     val buf            = RegInit(0.U.asTypeOf(new CacheStage2to3Bundle(config)))
-    val refill_buf     = RegInit(Vec(Seq.fill(config.block_word_n)(0.U(w.W))))
+    val refill_buf     = RegInit(VecInit(Seq.fill(config.block_word_n)(0.U(config.w.W))))
     when(io.s2_to_s3.fire){
         buf := io.s2_to_s3.bits
     }
@@ -104,13 +104,13 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
                         refill_buf(word_cnt),
                         buf.target_line.data(word_cnt))
     // -------------------------------- Hit --------------------------------
-    val hit         = buf.hit && state(0)
+    val hit         = (buf.hit === 1.U) && state(0)
     // -------------------------------- Write Back --------------------------------
     val wb_en       = buf.target_line.valid && buf.target_line.dirty && !hit && state(0)// need write back
-    val wb_addr     = Cat(0.U(config.w - config.cache_addr_w), buf.target_line.tag, buf.index, 0.U(config.offset_width.W))
+    val wb_addr     = Cat(0.U((config.w - config.cache_addr_w).W), buf.target_line.tag, buf.index, 0.U(config.offset_width.W))
     val burst_last  = io.mem_out.ret.valid && io.mem_out.ret.last
     // -------------------------------- Refill --------------------------------
-    val refill_addr = Cat(0.U(config.w - config.cache_addr_w), buf.tag, buf.index, 0.U(config.offset_width.W))
+    val refill_addr = Cat(0.U((config.w - config.cache_addr_w).W), buf.tag, buf.index, 0.U(config.offset_width.W))
     // -------------------------------- Burst counter --------------------------------
     when((wb_en || state(2)) && io.mem_out.req.ready){ // when wb and refill request ok
         cnt := 0.U
@@ -125,18 +125,19 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     io.mem_out.req.bits.wstrb    := Fill(((config.w) / 8), 1.U(1.W))
     io.mem_out.req.bits.mthrough := buf.mthrough
     // -------------------------------- write to cache line --------------------------------
-    io.wt.en    := s3_valid && ((state(0) && buf.hit && buf.wr) || (state(2) && burst_last))
+    io.wt.en    := s3_valid && ((state(0) && (buf.hit === 1.U) && buf.wr) || (state(2) && burst_last))
     io.wt.way   := buf.target_way
     io.wt.index := buf.index
     val write_line = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     for( i <- 0 until config.block_word_n){
-        write_line(i) := Mux(target_word === i.U, Mux(hit, buf.target_line.data(i), refill_buf(i)))                
+        //TODO: wstrb when write
+        write_line(i) := Mux(target_word === i.U, 0.U(config.w.W), Mux(hit, buf.target_line.data(i), refill_buf(i)))                
     }
     io.wt.line  := write_line
 
     state := Mux1H(Seq(
         /* IDLE       */ state(0) -> Mux(hit, s_idle.U, 
-                                        Mux(buf.mthrough, s_mmio.U, 
+                                        Mux(buf.mthrough === 1.U, s_mmio.U, 
                                             Mux(io.mem_out.req.fire, s_wb.U, s_refill.U))
                                     ),
         /* WB         */ state(1) -> Mux(burst_last, s_refill_req.U, s_wb.U),
