@@ -158,7 +158,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     write_line.tag   := buf.tag
     for( i <- 0 until config.block_word_n) { 
         write_line.data(i) := Mux(state(0), w_hit_wblock(i),  //when write hit
-                                Mux(cnt =/= i.U, buf.target_line.data(i) //refill but not last
+                                Mux(cnt =/= i.U, buf.target_line.data(i), //refill but not last
                                     Mux(refill_hit, masked_refill_data(i), io.mem_out.ret.rdata)))
     }
     // -------------------------------- state machine --------------------------------
