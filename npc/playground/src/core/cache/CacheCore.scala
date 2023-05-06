@@ -68,7 +68,7 @@ class CacheStage2(config: CacheConfig) extends Module{
     io.s2_to_s3.bits.offset       := buf.offset
     io.s2_to_s3.bits.hit          := hit
     io.s2_to_s3.bits.target_way   := OHToUInt(target_way1H)
-    io.s2_to_s3.bits.target_line  <> Mux1H( for( i <- 0 until config.nr_ways) yield (target_way1H(i) -> io.rd_lines(i)) )
+    io.s2_to_s3.bits.target_line  := Mux1H( for( i <- 0 until config.nr_ways) yield (target_way1H(i) -> io.rd_lines(i)) )
 }
 
 class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
