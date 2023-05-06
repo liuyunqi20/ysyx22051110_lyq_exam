@@ -47,9 +47,9 @@ class CacheStage2(config: CacheConfig) extends Module{
         buf       := io.s1_to_s2.bits
     }
     //hit check
-    var hit1H = Wire(UInt((config.nr_ways).W));
+    var hit1H = UInt((config.nr_ways).W)
     for( i <- 0 until config.nr_ways){
-        hit1H(i) := (buf.tag === io.rd_lines(i).tag)
+        hit1H(i) = (buf.tag === io.rd_lines(i).tag)
     }
     val hit = hit1H.orR
     //replace choose
