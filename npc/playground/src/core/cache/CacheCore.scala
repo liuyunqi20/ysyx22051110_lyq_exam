@@ -31,8 +31,8 @@ class CacheStage2(config: CacheConfig) extends Module{
     val io = IO(new Bundle{
         val s1_to_s2 = Flipped(Decoupled(new CacheStage1to2Bundle(config)))
         //cache read set
-        val rd_lines = Vec(config.nr_ways, 
-            new CacheLineBundle(config.w, config.tag_width, config.block_word_n))
+        val rd_lines = Input(Vec(config.nr_ways, 
+            new CacheLineBundle(config.w, config.tag_width, config.block_word_n)))
         val s2_to_s3 = Decoupled(new CacheStage2to3Bundle(config))
     })
     val s2_ready_go        = 1.B

@@ -77,8 +77,8 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         }
     }
     //read
-    val data_wt_addr = Cat(0.U(cache_data_addr_w - config.index_width), stage3.io.wt.index)
-    val data_rd_addr = Cat(0.U(cache_data_addr_w - config.index_width), stage1.io.rd.index)
+    val data_wt_addr = Cat(0.U((cache_data_addr_w - config.index_width).W), stage3.io.wt.index)
+    val data_rd_addr = Cat(0.U((cache_data_addr_w - config.index_width).W), stage1.io.rd.index)
     val data_addr    = Mux(stage3.io.wt.en, data_wt_addr, data_rd_addr)
     val data_wdata   = stage3.io.wt.line.data.reduce((a, b) => Cat(a, b))
     val data_sel     = Wire(Vec(nr_ways, Bool()))
