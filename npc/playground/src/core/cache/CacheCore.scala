@@ -122,7 +122,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     for( i <- 0 until config.block_word_n){
         masked_old_data(i)    := (buf.target_line.data(cpu_word_idx) & ~block_mask(i)) | (buf.wdata & block_mask(i))
         masked_refill_data(i) := (io.mem_out.ret.rdata & ~block_mask(i)) | (buf.wdata & block_mask(i))
-        w_hit_wblock(i)       := Mux((cpu_word_idx === i.U), masked_old_data, buf.target_line.data(i))
+        w_hit_wblock(i)       := Mux((cpu_word_idx === i.U), masked_old_data(i), buf.target_line.data(i))
         //when refill, cover word with data or 
         when(refill_come && (cnt === i.U)) {
             buf.target_line.data(i) := Mux(refill_hit, masked_refill_data(i), io.mem_out.ret.rdata)
