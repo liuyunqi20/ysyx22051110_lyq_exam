@@ -40,7 +40,7 @@ class CacheDataRam extends Module{
     })
     val cen = !(io.CEN)
     val wen = !(io.WEN)
-    val bwen = ~BWEN;
+    val bwen = ~(io.BWEN);
     val ram = RegInit(VecInit( Seq.fill(word_depth)(0.U(128.W)) ))
     val rdata = Reg(UInt(128.W))
     when(cen && wen){
@@ -62,13 +62,13 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val stage1 = Module(new CacheStage1(config))
     val stage2 = Module(new CacheStage2(config))
     val stage3 = Module(new CacheStage3(config))
-    val cache_data = Module(Vec(nr_ways, new CacheDataRam))
+    val cache_data = Vec(nr_ways, Module(new CacheDataRam))
     val cache_meta = RegInit(Vec(nr_ways, 
                                 Vec(nr_lines, 
-                                    CacheTop.getCacheMeta(w, config.tag_width, block_size))
+                                    CacheTop.getCacheMeta(config.tag_width))
                                     )
                                 )
-    val meta_rd  = RegInit(Vec(nr_ways, CacheTop.getCacheMeta(w, config.tag_width, block_size)))
+    val meta_rd  = RegInit(Vec(nr_ways, CacheTop.getCacheMeta(config.tag_width)))
     when(stage1.io.rd.en){
         for( i <- 0 until nr_ways){
             meta_rd(i).valid := cache_meta(i)(stage1.io.rd.index).valid
@@ -77,11 +77,11 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         }
     }
     //read
-    data_wt_addr = Cat(0.U(cache_data.addr_w - config.index_width), stage3.io.wt.index)
-    data_rd_addr = Cat(0.U(cache_data.addr_w - config.index_width), stage1.io.rd.index)
-    data_addr    = Mux(stage3.io.wt.en, data_wt_addr, data_rd_addr)
-    data_wdata   = stage3.io.line.data.reduce((a, b) => Cat(a, b))
-    data_sel     = Wire(Vec(nr_ways, Bool()))
+    val data_wt_addr = Cat(0.U(cache_data.addr_w - config.index_width), stage3.io.wt.index)
+    val data_rd_addr = Cat(0.U(cache_data.addr_w - config.index_width), stage1.io.rd.index)
+    val data_addr    = Mux(stage3.io.wt.en, data_wt_addr, data_rd_addr)
+    val data_wdata   = stage3.io.line.data.reduce((a, b) => Cat(a, b))
+    val data_sel     = Wire(Vec(nr_ways, Bool()))
     for( i <- 0 until nr_ways){
         data_sel(i)           := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U) 
         cache_data(i).io.CEN  := stage1.io.rd.en || stage3.io.wt.en
@@ -115,8 +115,8 @@ object CacheTop{
     def getIndexWidth  = (n: Int) => log2Ceil(n)
     def getOffsetWidth = (n: Int) => log2Ceil(n)
     def getWaysWidth   = (n: Int) => log2Ceil(n)
-    def getCacheMeta(w: Int, tag_width: Int, block_size: Int) = {
-        val bundle = Wire(new CacheMetaBundle(w, tag_width, block_size))
+    def getCacheMeta(tag_width: Int) = {
+        val bundle = Wire(new CacheMetaBundle(tag_width))
         bundle.valid := 0.U
         bundle.dirty := 0.U
         bundle.tag   := 0.U
