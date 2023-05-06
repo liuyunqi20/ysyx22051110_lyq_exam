@@ -91,7 +91,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         cache_data(i).D    := data_wdata
     }
     val data_rd = Wire(Vec( nr_ways, Vec(config.block_word_n, UInt(w.W)) ))
-    for( i <- 0 until nr_ways, j <- 0 until block_word_n) {
+    for( i <- 0 until nr_ways; j <- 0 until block_word_n) {
         data_rd(i)(j) := cache_data(i).Q((j + 1) * w - 1, j * w)
     }
     for( i <- 0 until nr_ways){
