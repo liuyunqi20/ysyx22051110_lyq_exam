@@ -112,7 +112,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     // -------------------------------- Refill --------------------------------
     val refill_addr = Cat(0.U((config.w - config.cache_addr_w).W), buf.tag, buf.index, 0.U(config.offset_width.W))
     // -------------------------------- Burst counter --------------------------------
-    when((wb_en | state(2)) && io.mem_out.req.ready){ // when wb and refill request ok
+    when(((wb_en | state(2)) === 1.U) && io.mem_out.req.ready){ // when wb and refill request ok
         cnt := 0.U
     } .elsewhen(io.mem_out.ret.valid){
         cnt := cnt + 1.U

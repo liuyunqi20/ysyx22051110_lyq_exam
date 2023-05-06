@@ -62,7 +62,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val stage1 = Module(new CacheStage1(config))
     val stage2 = Module(new CacheStage2(config))
     val stage3 = Module(new CacheStage3(config))
-    val cache_data = Module(Vec(nr_ways, new CacheDataRam))
+    val cache_data = Module(Vec(nr_ways, new CacheDataRam()))
     val cache_meta = RegInit(Vec(nr_ways, 
                                 Vec(nr_lines, 
                                     CacheTop.getCacheMeta(config.tag_width))
@@ -91,9 +91,9 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         cache_data(i).io.D    := data_wdata
     }
     for( i <- 0 until nr_ways){
-        stage2.io.rd_lines(i) := Cat(meta_rd.valid, 
-                                     meta_rd.dirty,
-                                     meta_rd.tag,
+        stage2.io.rd_lines(i) := Cat(meta_rd(i).valid, 
+                                     meta_rd(i).dirty,
+                                     meta_rd(i).tag,
                                      cache_data(i).io.Q)
     }
     //stage connection
