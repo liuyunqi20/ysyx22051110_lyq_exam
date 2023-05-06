@@ -63,7 +63,6 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val stage2 = Module(new CacheStage2(config))
     val stage3 = Module(new CacheStage3(config))
     val cache_data = Vec.fill(nr_ways){ Module(new CacheDataRam()).io }
-    val cache_data = Module(Vec(nr_ways, new CacheDataRam()))
     val cache_meta = RegInit(Vec(nr_ways, 
                                 Vec(nr_lines, 
                                     CacheTop.getCacheMeta(config.tag_width))
