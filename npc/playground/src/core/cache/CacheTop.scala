@@ -66,11 +66,10 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val cache_data = Seq.fill(nr_ways){ Module(new CacheDataRam()).io }
     //val meta_rd  = RegInit(Vec(nr_ways, 0.U.asTypeOf(new CacheMetaBundle(config.tag_width))))
     val meta_rd  = RegInit(VecInit( Seq.fill(nr_ways) { 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) } ))
-    val cache_meta = RegInit(Vec(nr_ways, 
-                                Vec(nr_lines, 
-                                    0.U.asTypeOf(new CacheMetaBundle(config.tag_width)))
-                                    )
-                                )
+    val cache_meta = RegInit(VecInit(Seq.fill(nr_ways){
+                                    Seq.fill(nr_lines){ 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) }
+                                }
+                            ))
     //val cache_meta = Seq.fill(nr_ways){RegInit()}
     when(stage1.io.rd.en){
         for( i <- 0 until nr_ways){
