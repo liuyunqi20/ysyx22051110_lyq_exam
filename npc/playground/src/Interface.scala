@@ -180,28 +180,18 @@ import chisel3.util._
     }
 
 // ----------------- Cache Bundle -----------------
-    
-    class CacheMemWRBundle(w: Int, block_size: Int) extends Bundle{
-        val req = Decoupled({
-            val wr    = Bits(1.W)
-            val mtype = Bits(3.W)
-            val addr  = Bits(w.W)
-            val wstrb = Bits((w/8).W)
-            val wdata = Bits((block_size * 8).W)
-        })
-        val ret = new Bundle{
-            val ret_valid = Input(Bool())
-            val ret_data  = Input(UInt(w.W))
-            val ret_last  = Input(UInt())
-        }
+
+    class CacheLineBundle(w: Int, tag_width: Int, block_word_n: Int) extends Bundle{
+        val valid = Bits(UInt(1.W))
+        val dirty = Bits(UInt(1.W))
+        val tag   = Bits(UInt(tag_width.W))
+        val data  = Vec(block_word_n, Bits(w.W))
     }
 
-    class CacheLineBundle(w: Int, tag_width: Int, block_size: Int) extends Bundle{
-        val valid = Input(UInt(1.W))
-        val dirty = Input(UInt(1.W))
-        val tag   = Input(UInt(tag_width.W))
-        val data  = Vec(block_size * 8 / w, UInt((w.W)))
-        //val data  = Bits((block_size * 8).W)
+    class CacheMetaBundle(tag_width: Int) extends Bundle{
+        val valid = Bits(1.W)
+        val dirty = Bits(1.W)
+        val tag   = Bits(tag_width.W)
     }
 
     class CacheStage1to2Bundle(config: CacheConfig) extends Bundle{
@@ -214,9 +204,6 @@ import chisel3.util._
         val tag      = Bits(config.tag_width.W)
         val index    = Bits(config.index_width.W)
         val offset   = Bits(config.offset_width.W)
-        //cache read set
-        val rd_lines = Vec(config.nr_ways, 
-            new CacheLineBundle(config.w, config.tag_width, config.block_size))
     } 
 
     class CacheStage2to3Bundle(config: CacheConfig) extends Bundle{

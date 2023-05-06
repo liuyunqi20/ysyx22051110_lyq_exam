@@ -4,12 +4,13 @@ import chisel3.util._
 
 trait HasCoreTopConst{
     val nr_mmc_port       = 1
-    val ICache_nr_lines   = 16
+    val Cache_tag_width   = 23
+    val ICache_nr_lines   = 32
     val ICache_nr_ways    = 4
-    val ICache_block_size = 32
+    val ICache_block_size = 16
     val DCache_nr_lines   = 16
     val DCache_nr_ways    = 4
-    val DCache_block_size = 32
+    val DCache_block_size = 16
 }
 
 class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
@@ -27,8 +28,8 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val my_axi_bridge1 = Module(new AXIBridge(w, ICache_block_size)) //TODO change old
     //val my_mmc         = Module(new MemoryMappingController(w, nr_mmc_port))
     //ICache: 
-    val my_icache      = Module(new CacheTop(w, ICache_nr_lines, 
-                                    ICache_nr_ways, ICache_block_size))
+    val my_icache      = Module(new CacheTop(w, Cache_tag_width, ICache_nr_lines, 
+                                            ICache_nr_ways, ICache_block_size))
     //IF stage
     my_if.io.branch        <> my_ex.io.branch
     my_if.io.exc_br        <> my_wb.io.exc_br
