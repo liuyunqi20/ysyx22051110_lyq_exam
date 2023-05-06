@@ -29,7 +29,6 @@ class CacheConfig(val w: Int, val tag_width: Int, val nr_lines: Int,
 
 class CacheDataRam extends Module{
     val word_depth = 64
-    val addr_w     = 6
     val io = IO(new Bundle{
         val Q    = Output(UInt(128.W))
         val CEN  = Input(Bool())
@@ -62,6 +61,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val stage1 = Module(new CacheStage1(config))
     val stage2 = Module(new CacheStage2(config))
     val stage3 = Module(new CacheStage3(config))
+    val cache_data_addr_w = 6
     val cache_data = Seq.fill(nr_ways){ Module(new CacheDataRam()).io }
     val cache_meta = RegInit(Vec(nr_ways, 
                                 Vec(nr_lines, 
@@ -77,24 +77,24 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         }
     }
     //read
-    val data_wt_addr = Cat(0.U(cache_data(0).addr_w - config.index_width), stage3.io.wt.index)
-    val data_rd_addr = Cat(0.U(cache_data(0).addr_w - config.index_width), stage1.io.rd.index)
+    val data_wt_addr = Cat(0.U(cache_addr_w - config.index_width), stage3.io.wt.index)
+    val data_rd_addr = Cat(0.U(cache_addr_w - config.index_width), stage1.io.rd.index)
     val data_addr    = Mux(stage3.io.wt.en, data_wt_addr, data_rd_addr)
     val data_wdata   = stage3.io.wt.line.data.reduce((a, b) => Cat(a, b))
     val data_sel     = Wire(Vec(nr_ways, Bool()))
     for( i <- 0 until nr_ways){
         data_sel(i)           := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U) 
-        cache_data(i).io.CEN  := stage1.io.rd.en || stage3.io.wt.en
-        cache_data(i).io.WEN  := stage3.io.wt.en
-        cache_data(i).io.BWEN := Fill(128, 1.U)
-        cache_data(i).io.A    := data_addr
-        cache_data(i).io.D    := data_wdata
+        cache_data(i).CEN  := stage1.io.rd.en || stage3.io.wt.en
+        cache_data(i).WEN  := stage3.io.wt.en
+        cache_data(i).BWEN := Fill(128, 1.U)
+        cache_data(i).A    := data_addr
+        cache_data(i).D    := data_wdata
     }
     for( i <- 0 until nr_ways){
         stage2.io.rd_lines(i) := Cat(meta_rd(i).valid, 
                                      meta_rd(i).dirty,
                                      meta_rd(i).tag,
-                                     cache_data(i).io.Q)
+                                     cache_data(i).Q)
     }
     //stage connection
     stage1.io.s1_to_s2 <> stage2.io.s1_to_s2
