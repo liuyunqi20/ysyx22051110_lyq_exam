@@ -52,12 +52,12 @@ class CacheStage2(config: CacheConfig) extends Module{
         hit1H(i) := (buf.tag === io.rd_lines(i).tag)
     }
     val hit_array = Reverse(Cat(hit1H))
-    val hit = hit_array
+    val hit = hit_array.orR
     //replace choose
     val replace1H = RegInit(1.U(config.nr_ways.W))  //ring shift register
     replace1H := Cat(replace1H(config.nr_ways - 2, 0), replace1H(config.nr_ways - 1))
     //to stage3
-    val target_way1H = Mux(hit, hit_array, replace1H) //choosed bit array for hit/replace
+    val target_way1H = Mux(hit === 1.U, hit_array, replace1H) //choosed bit array for hit/replace
     io.s2_to_s3.valid := (s2_valid && s2_ready_go)
     io.s2_to_s3.bits.wr           := buf.wr
     io.s2_to_s3.bits.wdata        := buf.wdata
