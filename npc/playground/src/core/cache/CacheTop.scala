@@ -90,11 +90,15 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         cache_data(i).A    := data_addr
         cache_data(i).D    := data_wdata
     }
+    val data_rd = Wire(Vec( nr_ways, Vec(config.block_word_n, UInt(w.W)) ))
+    for( i <- 0 until nr_ways, j <- 0 until block_word_n) {
+        data_rd(i)(j) := cache_data(i).Q((j + 1) * w - 1, j * w)
+    }
     for( i <- 0 until nr_ways){
         stage2.io.rd_lines(i) := Cat(meta_rd(i).valid, 
                                      meta_rd(i).dirty,
                                      meta_rd(i).tag,
-                                     cache_data(i).Q)
+                                     data_rd(i))
     }
     //stage connection
     stage1.io.s1_to_s2 <> stage2.io.s1_to_s2
