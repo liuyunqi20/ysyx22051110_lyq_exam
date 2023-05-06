@@ -107,8 +107,8 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
 
 object CacheTop{
     //default size is 2KB
-    def apply(w: Int, nr_lines: Int = 16, nr_ways: Int = 4, block_size: Int = 32): CacheTop = 
-        new CacheTop(w, nr_lines, nr_ways, block_size)
+    def apply(w: Int, tag_w: Int = 23, nr_lines: Int = 32, nr_ways: Int = 4, block_size: Int = 16): CacheTop = 
+        new CacheTop(w, tag_w, nr_lines, nr_ways, block_size)
     def getTagWidth(w: Int, nr_lines: Int, block_size: Int): Int = 
         w - log2Ceil(nr_lines) - log2Ceil(block_size)
     def getBlockWordsNum = (w: Int, block_size: Int) => ((block_size * 8) / w)
