@@ -1,6 +1,7 @@
 package mycpu
 import chisel3._
 import chisel3.util._
+import chisel3.experimental.BundleLiterals._
 
 trait HasCacheConst{
     val nr_state   = 3
@@ -63,13 +64,12 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val stage3 = Module(new CacheStage3(config))
     val cache_data_addr_w = 6
     val cache_data = Seq.fill(nr_ways){ Module(new CacheDataRam()).io }
-
-    val meta_rd  = RegInit(Vec(nr_ways, CacheTop.getCacheMeta(config.tag_width)))
     val cache_meta = RegInit(Vec(nr_ways, 
                                 Vec(nr_lines, 
-                                    CacheTop.getCacheMeta(config.tag_width))
+                                    0.U.asTypeOf(new CacheMetaBundle(config.tag_width)))
                                     )
                                 )
+    val meta_rd  = RegInit(Vec(nr_ways, 0.U.asTypeOf(new CacheMetaBundle(config.tag_width))))
     when(stage1.io.rd.en){
         for( i <- 0 until nr_ways){
             meta_rd(i).valid := cache_meta(i)(stage1.io.rd.index).valid
@@ -124,11 +124,4 @@ object CacheTop{
     def getIndexWidth  = (n: Int) => log2Ceil(n)
     def getOffsetWidth = (n: Int) => log2Ceil(n)
     def getWaysWidth   = (n: Int) => log2Ceil(n)
-    def getCacheMeta(tag_width: Int) = {
-        val bundle = Wire(new CacheMetaBundle(tag_width))
-        bundle.valid := 0.U
-        bundle.dirty := 0.U
-        bundle.tag   := 0.U
-        bundle
-    }
 }

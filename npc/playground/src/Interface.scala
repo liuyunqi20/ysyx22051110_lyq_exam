@@ -199,7 +199,7 @@ import chisel3.util._
         val wr       = Bits(1.W)
         val wdata    = Bits(config.w.W)
         val wstrb    = Bits((config.w / 8).W)
-        val mthrough  = Bits(1.W)
+        val mthrough = Bits(1.W)
         //addr
         val tag      = Bits(config.tag_width.W)
         val index    = Bits(config.index_width.W)
