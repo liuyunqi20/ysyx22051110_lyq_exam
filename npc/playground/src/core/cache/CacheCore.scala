@@ -89,7 +89,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         s3_valid := io.s2_to_s3.valid
     }
     //Reg Buffer
-    val buf           := RegInit(0.U.asTypeOf(new CacheStage2to3Bundle(config)))
+    val buf            = RegInit(0.U.asTypeOf(new CacheStage2to3Bundle(config)))
     val refill_buf     = RegInit(Vec(Seq.fill(config.block_word_n)(0.U(w.W))))
     when(io.s2_to_s3.fire){
         buf := io.s2_to_s3.bits
