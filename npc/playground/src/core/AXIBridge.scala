@@ -18,8 +18,8 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     val state = RegInit(s_idle.U(state_w.W))
     state := Mux1H(Seq(
         /* IDLE    */ state(0) -> Mux(io.out.ar.fire, s_read_resp.U , Mux(io.out.aw.fire, s_write_data.U, s_idle.U)),
-        /* RD RESP */ state(1) -> Mux(io.out.rd.fire && io.out.rd.bits.rlast, s_idle.U, s_read_resp.U),
-        /* WT DATA */ state(2) -> Mux(io.out.wt.fire && io.out.wt.bits.wlast, s_write_resp.U, s_write_data.U),
+        /* RD RESP */ state(1) -> Mux(io.out.rd.fire && io.out.rd.bits.rlast === 1.U, s_idle.U, s_read_resp.U),
+        /* WT DATA */ state(2) -> Mux(io.out.wt.fire && io.out.wt.bits.wlast === 1.U, s_write_resp.U, s_write_data.U),
         /* WT RESP */ state(3) -> Mux(io.out.b.fire , s_idle.U, s_write_resp.U),
     ))
     val wr_r = RegInit(0.B)

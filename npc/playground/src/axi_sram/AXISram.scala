@@ -92,11 +92,11 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
     val wstate = RegInit(s_idle.U(state_w.W))
     rstate := Mux1H(Seq(
         /* Idle      */ rstate(0) -> Mux(io.ar.fire, s_read_resp.U, s_idle.U),
-        /* Read Resp */ rstate(1) -> Mux(io.rd.fire && io.rd.bits.rlast, s_idle.U, s_read_resp.U),
+        /* Read Resp */ rstate(1) -> Mux(io.rd.fire && io.rd.bits.rlast === 1.U, s_idle.U, s_read_resp.U),
     )) 
     wstate := Mux1H(Seq(
         /* Idle       */ wstate(0) -> Mux(io.aw.fire, s_write_data.U, s_idle.U),
-        /* Write Data */ wstate(1) -> Mux(io.wt.fire && io.wt.bits.wlast, s_write_resp.U, s_write_data.U),
+        /* Write Data */ wstate(1) -> Mux(io.wt.fire && io.wt.bits.wlast === 1.U, s_write_resp.U, s_write_data.U),
         /* Write Resp */ wstate(2) -> Mux(io.b.fire , s_idle.U      , s_write_resp.U),
     ))
     /* 
@@ -110,7 +110,7 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
     val raddr_r       = RegInit(0.U(w.W))
     val rburst_len    = RegInit(0.U(8.W))
     val rd_cnt        = RegInit(0.U(8.W))
-    val rd_idx_r      = RegInit(0.U(log2Ceil(block_word_n)))
+    val rd_idx_r      = RegInit(0.U(log2Ceil(block_word_n).W))
     val rd_idx        = Mux(state(0), io.ar.bits.araddr(log2Ceil(block_word_n) + wwidth - 1, wwidth), rd_idx_r)
     val rd_addr       = Cat(raddr_r(w-1, log2Ceil(block_word_n) + wwidth), rd_idx, 0.U(wwidth.W))
     io.ar.ready      := rstate(0)
@@ -125,7 +125,7 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
         rburst_len := io.ar.bits.arlen 
         raddr_r    := io.ar.bits.araddr
         rd_idx_r   := io.rd.bits.raddr(log2Ceil(block_word_n) + wwidth, wwidth) + 1.U 
-    } .eslewhen(io.rd.fire) {
+    } .elsewhen(io.rd.fire) {
         rd_idx_r   := Mux(rd_idx_r === rburst_len, 0.U, rd_idx_r + 1.U) 
     }
     //read counter
@@ -150,7 +150,7 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
     val waddr_r      = RegInit(0.U(w.W))
     val wburst_len   = RegInit(0.U(8.W))
     val wt_cnt       = RegInit(0.U(8.W))
-    val wt_idx       = Mux(state(0), io.aw.bits.awaddr(log2Ceil(block_word_n) + wwidth - 1, wwidth), wt_idx_r)
+    val wt_idx       = Mux(wstate(0), io.aw.bits.awaddr(log2Ceil(block_word_n) + wwidth - 1, wwidth), wt_idx)
     val wt_addr      = Cat(waddr_r(w-1, log2Ceil(block_word_n) + wwidth), wt_idx, 0.U(wwidth.W))
     when(io.aw.fire) { 
         waddr_r    := io.aw.bits.awaddr 
@@ -173,7 +173,7 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
     when(io.aw.fire) { 
         wt_cnt := 0.U 
         wt_idx := 0.U
-    } .eslewhen(io.wt.fire) {
+    } .elsewhen(io.wt.fire) {
         wt_cnt := wt_cnt + 1.U
         wt_idx := Mux(wt_idx === wburst_len, 0.U, wt_idx + 1.U)
     }
