@@ -30,7 +30,7 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module{
     for( i <- 0 until nr_src){
         io.in(i).rd.valid := io.out.rd.valid && (rd_chosen === i.U)
     }
-    io.out.rd.bits    := io.in(rd_chosen).rd.bits
+    io.out.rd.bits    <> io.in(rd_chosen).rd.bits
     io.out.rd.ready   := io.in(rd_chosen).rd.ready
 
     /*
