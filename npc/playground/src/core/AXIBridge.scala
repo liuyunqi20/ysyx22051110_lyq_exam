@@ -28,7 +28,7 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     io.out.ar.valid        := io.in.req.valid && (io.in.req.bits.wr === 0.U) && state(0)
     io.out.ar.bits.araddr  := io.in.req.bits.addr
     io.out.ar.bits.arprot  := 0.U(3.W)
-    io.out.ar.bits.arlen   := Mux(io.in.req.mthrough, 0.U(8.W), (block_word_n - 1).U(8.W))
+    io.out.ar.bits.arlen   := Mux(io.in.req.bits.mthrough, 0.U(8.W), (block_word_n - 1).U(8.W))
     io.out.ar.bits.arsize  := log2Ceil(w).U(3.W)
     io.out.ar.bits.arburst := "b10".U(2.W)
     io.out.rd.ready        := state(1)
@@ -37,9 +37,9 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     io.out.aw.valid        := io.in.req.valid && (io.in.req.bits.wr === 1.U) && state(0)
     io.out.aw.bits.awaddr  := io.in.req.bits.addr
     io.out.aw.bits.awprot  := 0.U(3.W)
-    io.out.aw.bits.arlen   := Mux(io.in.req.mthrough, 0.U(8.W), (block_word_n - 1).U(8.W))
-    io.out.aw.bits.arsize  := log2Ceil(w).U(3.W)
-    io.out.aw.bits.arburst := "b10".U(2.W)
+    io.out.aw.bits.awlen   := Mux(io.in.req.mthrough, 0.U(8.W), (block_word_n - 1).U(8.W))
+    io.out.aw.bits.awsize  := log2Ceil(w).U(3.W)
+    io.out.aw.bits.awburst := "b10".U(2.W)
     io.out.wt.valid        := state(2)
     io.out.wt.bits.wdata   := io.in.req.bits.wdata
     io.out.wt.bits.wstrb   := io.in.req.bits.wstrb

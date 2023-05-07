@@ -165,7 +165,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     }
     // -------------------------------- memory read/write --------------------------------
 
-    io.mem_out.req.valid         := s3_valid && (wb_en || state(2))
+    io.mem_out.req.valid         := s3_valid & (wb_en | state(2))
     io.mem_out.req.bits.wr       := wb_en || ((state(4) & buf.wr) === 1.U)
     io.mem_out.req.bits.addr     := Mux(wb_en, wb_addr, cpu_req_addr)
     io.mem_out.req.bits.wdata    := Mux(buf.mthrough, buf.wdata, buf.target_line.data(cnt))
