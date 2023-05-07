@@ -20,7 +20,7 @@ import chisel3.util._
 
     class CPUMemBundle(w: Int) extends Bundle{
         val req = Decoupled(new CPUMemReqBundle(w))
-        val ret = Valid(new CPUMemRespBundle(w))
+        val ret = new CPUMemRespBundle(w)
     }
 
 // ----------------- Debug Bundle -----------------

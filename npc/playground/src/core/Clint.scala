@@ -37,5 +37,5 @@ class Clint(w: Int) extends Module with HasClintConst{
     }
     io.in.ret_valid := ret_valid
     //interrupt trigger
-    io.in.has_intr_t := (mtime >= mtimecmp)
+    io.has_intr_t := (mtime >= mtimecmp)
 }
