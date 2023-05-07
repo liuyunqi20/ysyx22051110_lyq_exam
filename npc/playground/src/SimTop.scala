@@ -31,6 +31,7 @@ NOTE: Arbiter module arbits in read-read and write-write requests from IFU and
 */  
 trait HasConfigConst{
     val nr_mport = 2
+    val cache_block_word_n = 2
 }
 
 class SimTop(w: Int) extends Module with HasConfigConst{
@@ -38,7 +39,7 @@ class SimTop(w: Int) extends Module with HasConfigConst{
         val core_debug = new DebugBundle(w)
     });
     val my_core_top = Module(new MycpuCoreTop(w, nr_mport))
-    val my_axi_sram = Module(new AXI4LiteSramTop(w, nr_mport))
+    val my_axi_sram = Module(new AXI4LiteSramTop(w, nr_mport, cache_block_word_n))
     for( i <- 0 until nr_mport){
         my_core_top.io.axi_sram(i) <> my_axi_sram.io.in(i)
     }
