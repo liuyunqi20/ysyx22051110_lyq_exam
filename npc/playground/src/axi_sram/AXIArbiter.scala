@@ -29,8 +29,8 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module{
     // --------------------------- read response --------------------------- 
     for( i <- 0 until nr_src){
         io.in(i).rd.valid := io.out.rd.valid && (rd_chosen === i.U)
-        io.in(i).rd.bits  <> io.out.rd.bits
     }
+    io.out.rd.bits    := io.in(rd_chosen).rd.bits
     io.out.rd.ready   := io.in(rd_chosen).rd.ready
 
     /*
@@ -55,10 +55,10 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module{
     // --------------------------- write data&response --------------------------- 
     for( i <- 0 until nr_src){
         io.in(i).wt.ready := io.out.wt.ready && (wt_chosen === i.U)
-        io.in(i).wt.bits  <> io.out.wt.bits
         io.in(i).b.valid  := io.out.b.valid && (wt_chosen === i.U)
-        io.in(i).b.bits   <> io.out.b.bits
     }
+    io.out.wt.bits    := io.in(wt_chosen).wt.bits
+    io.out.b.bits     := io.in(wt_chosen).b.bits
     io.out.wt.valid   := io.in(wt_chosen).wt.valid
     io.out.b.ready    := io.in(wt_chosen).b.ready
 }

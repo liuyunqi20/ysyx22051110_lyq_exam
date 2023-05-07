@@ -20,7 +20,7 @@ import chisel3.util._
 
     class CPUMemBundle(w: Int) extends Bundle{
         val req = Decoupled(new CPUMemReqBundle(w))
-        val ret = new CPUMemRespBundle(w)
+        val ret = Valid(new CPUMemRespBundle(w))
     }
 
 // ----------------- Debug Bundle -----------------
@@ -220,4 +220,14 @@ import chisel3.util._
         val hit          = Bits(1.W)
         val target_way   = Bits(config.ways_width.W)
         val target_line  = new CacheLineBundle(config.w, config.tag_width, config.block_word_n)
+    }
+
+// ----------------- Clint Bundle -----------------  
+    class ClintIOBundle(w: Int) extends Bundle{
+        val en         = Output(Bool())
+        val wr         = Output(Bool())
+        val addr       = Output(UInt(w.W))
+        val wdata      = Output(UInt(w.W))
+        val clint_hit  = Input(Bool())
+        val ret_valid  = Input(Bool())
     }

@@ -2,6 +2,10 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
+/*
+Stage-1:  Accpet request
+    Accept CPU request, parse request address, read meta array and data array
+*/
 class CacheStage1(config: CacheConfig) extends Module{
     val io = IO(new Bundle{
         val cpu      = Flipped(Decoupled(new CPUMemReqBundle(config.w)))
@@ -27,6 +31,18 @@ class CacheStage1(config: CacheConfig) extends Module{
     io.cpu.ready := io.s1_to_s2.fire
 }
 
+
+
+/*
+Stage-2: Hit check & Replace choose
+        Buffer CPU request signals from stage-1, get cache set from meta array and data array.
+    Compare each tag of cache line in cache set with CPU request tag in address in parallel.
+    The Hitted cache line will be send to stage-3. If cache miss, randomly choose one way of 
+    cache line to replace, and this line of cache will be send by reusing the same as the 
+    hitted one.
+        Stage-2 will transfer CPU request signals, target cache line, replace way choice and 
+    cache hit signal to stage-3
+*/
 class CacheStage2(config: CacheConfig) extends Module{
     val io = IO(new Bundle{
         val s1_to_s2 = Flipped(Decoupled(new CacheStage1to2Bundle(config)))
@@ -71,6 +87,15 @@ class CacheStage2(config: CacheConfig) extends Module{
     io.s2_to_s3.bits.target_line  := Mux1H( for( i <- 0 until config.nr_ways) yield (target_way1H(i) -> io.rd_lines(i)) )
 }
 
+
+
+/*
+Stage-3: Request Commit & Write back & Refill
+        Check hit signal. If cache hit then choose the target cache line and generates read data
+    or data block after write. If cache miss then check the dirty bit of replaced line and begin 
+    write back and refill. Write back and refill processes are in sequence. Write back and refill
+    use wrap burst to transfer data.
+*/
 class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val io = IO(new Bundle{
         val cpu      = Flipped(new CPUMemRespBundle(config.w))
