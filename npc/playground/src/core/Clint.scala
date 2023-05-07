@@ -28,7 +28,7 @@ class Clint(w: Int) extends Module with HasClintConst{
         mtime    := mtime + 1.U
     }
     //ret
-    io.in.clint_hit  := hit_mtime || hit_mtimecmp
+    io.in.clint_hit      := hit_mtime || hit_mtimecmp
     val ret_valid         = RegInit(0.U(1.W))
     when(io.in.clint_hit && wen){
         ret_valid := 1.U
