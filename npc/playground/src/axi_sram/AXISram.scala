@@ -173,7 +173,6 @@ class AXI4LiteSramTop(w: Int, nr_mport: Int) extends Module with HasAXIstateCons
     val my_axi_sram_driver = Module(new AXI4LiteSramDriver(w))
     val my_rmem_port  = Module(new Read_mem_port(w))
     val my_wmem_port  = Module(new Write_mem_port(w))
-    val my_clint      = Module(new Clint(w))
     //Arbiter
     for( i <- 0 until nr_mport){
         my_arbiter.io.in(i) <> io.in(i)
@@ -188,9 +187,4 @@ class AXI4LiteSramTop(w: Int, nr_mport: Int) extends Module with HasAXIstateCons
     my_axi_sram_driver.io.sram_wt      <> my_wmem_port.io
     my_axi_sram_driver.io.sram_rd_resp := my_axi_sram_driver.io.sram_rd.en
     my_axi_sram_driver.io.sram_wt_resp := my_axi_sram_driver.io.sram_wt.en
-    //clint
-    my_clint.io.en         <> my_axi_sram_driver.io.sram_wt.en
-    my_clint.io.wr         := my_axi_sram_driver.io.sram_wt.wr
-    my_clint.io.waddr      := my_axi_sram_driver.io.sram_wt.addr
-    my_clint.io.wdata      := my_axi_sram_driver.io.sram_wt.wdata   
 }   
