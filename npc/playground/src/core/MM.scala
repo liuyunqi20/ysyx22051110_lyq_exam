@@ -13,9 +13,10 @@ class MemoryController(w: Int) extends Module{
         val clint_out = new ClintIOBundle(w)
         val axi_out   = new CPUMemBundle(w)
     })
-    io.clint_out.en   := io.in.req.valid && io.clint_out.clint_hit
-    io.clint_out.wr   := io.in.req.wr
-    io.clint_out.addr := io.in.req.addr
+    io.clint_out.en    := io.in.req.valid && io.clint_out.clint_hit
+    io.clint_out.wr    := io.in.req.bits.wr
+    io.clint_out.addr  := io.in.req.bits.addr
+    io.clint_out.wdata := io.in.req.bits.wdata
     
     io.axi_out.req.bits  := io.in.req.bits
     io.axi_out.req.valid := io.in.req.valid  && !io.clint_out.clint_hit
