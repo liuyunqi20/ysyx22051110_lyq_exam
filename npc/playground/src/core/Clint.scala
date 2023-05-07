@@ -17,7 +17,7 @@ class Clint(w: Int) extends Module with HasClintConst{
     val hit_mtime     = io.in.waddr === MTIME_ADDR.U(w.W)
     val hit_mtimecmp  = io.in.waddr === MTIMECMP_ADDR.U(w.W)
     val wen           = io.in.en && io.in.wr
-    val io.clint_hit := hit_mtime || hit_mtimecmp
+    val io.clint_hit  = hit_mtime || hit_mtimecmp
     when(wen && hit_mtimecmp){
         mtimecmp := io.in.wdata
     }
