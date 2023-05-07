@@ -14,10 +14,9 @@ class Clint(w: Int) extends Module with HasClintConst{
     })
     val mtime         = RegInit(0.U(w.W))
     val mtimecmp      = RegInit("hffffffffffffffff".U(w.W))
-    val hit_mtime     = io.in.waddr === MTIME_ADDR.U(w.W)
-    val hit_mtimecmp  = io.in.waddr === MTIMECMP_ADDR.U(w.W)
+    val hit_mtime     = io.in.addr === MTIME_ADDR.U(w.W)
+    val hit_mtimecmp  = io.in.addr === MTIMECMP_ADDR.U(w.W)
     val wen           = io.in.en && io.in.wr
-    val io.clint_hit  = hit_mtime || hit_mtimecmp
     when(wen && hit_mtimecmp){
         mtimecmp := io.in.wdata
     }
@@ -29,13 +28,14 @@ class Clint(w: Int) extends Module with HasClintConst{
         mtime    := mtime + 1.U
     }
     //ret
+    val io.in.clint_hit  := hit_mtime || hit_mtimecmp
     val ret_valid     = RegInit(0.U(1.W))
-    when(io.clint_hit && wen){
+    when(io.in.clint_hit && wen){
         ret_valid := 1.U
     } .elsewhen(ret_valid === 1.U){
         ret_valid := 0.U
     }
-    io.ret_valid := ret_valid
+    io.in.ret_valid := ret_valid
     //interrupt trigger
-    io.has_intr_t := (mtime >= mtimecmp)
+    io.in.has_intr_t := (mtime >= mtimecmp)
 }
