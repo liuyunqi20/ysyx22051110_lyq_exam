@@ -165,11 +165,11 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     }
     // -------------------------------- memory read/write --------------------------------
 
-    io.mem_out.req.valid         := s3_valid && (hit || (state(1) && burst_last))
-    io.mem_out.req.bits.wr       := state(1) || ((state(4) & buf.wr) === 1.U)
-    io.mem_out.req.bits.addr     := Mux(state(0), wb_addr, cpu_req_addr)
-    io.mem_out.req.bits.wdata    := buf.target_line.data(cnt)
-    io.mem_out.req.bits.wstrb    := Fill(((config.w) / 8), 1.U(1.W))
+    io.mem_out.req.valid         := s3_valid && (wb_en || state(2))
+    io.mem_out.req.bits.wr       := wb_en || ((state(4) & buf.wr) === 1.U)
+    io.mem_out.req.bits.addr     := Mux(wb_en, wb_addr, cpu_req_addr)
+    io.mem_out.req.bits.wdata    := Mux(buf.mthrough, buf.wdata, buf.target_line.data(cnt))
+    io.mem_out.req.bits.wstrb    := Mux(buf.mthrough, buf.wstrb, Fill(((config.w) / 8), 1.U(1.W)))
     io.mem_out.req.bits.mthrough := buf.mthrough
     // -------------------------------- write to cache line --------------------------------
 

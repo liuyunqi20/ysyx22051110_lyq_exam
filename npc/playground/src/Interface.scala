@@ -115,6 +115,9 @@ import chisel3.util._
         //val arready = Input(Bool())
         val araddr  = Bits(w.W)
         val arprot  = Bits(3.W)
+        val arlen   = Bits(8.W) // Burst trans = awlen + 1 (1 ~ 256)
+        val arsize  = Bits(3.W) // Bytes = 2 ^ awsize
+        val arburst = Bits(2.W) // b01 = INCR, b10 = WRAP
     }
 
     class AXI4LiteRD(w: Int) extends Bundle{
@@ -122,6 +125,7 @@ import chisel3.util._
         //val rready = Output(Bool())
         val rdata  = Bits(w.W)
         val rresp  = Bits(2.W)
+        val rlast  = Bits(1.W)
     }
 
     class AXI4LiteAW(w: Int) extends Bundle{
@@ -129,6 +133,9 @@ import chisel3.util._
         //val awready = Input(Bool())
         val awaddr  = Bits(w.W)
         val awprot  = Bits(3.W)
+        val awlen   = Bits(8.W) // Burst trans = awlen + 1 (1 ~ 256)
+        val awsize  = Bits(3.W) // Bytes Per Clock = 2 ^ awsize
+        val awburst = Bits(2.W) // b01 = INCR, b10 = WRAP
     }
 
     class AXI4LiteWR(w: Int) extends Bundle{
@@ -136,6 +143,7 @@ import chisel3.util._
         //val wready = Input(Bool())
         val wdata  = Bits(w.W)
         val wstrb  = Bits( (w/8).W )
+        val wlast  = Bits(1.W)
     }
 
     class AXI4LiteWB(w: Int) extends Bundle{
