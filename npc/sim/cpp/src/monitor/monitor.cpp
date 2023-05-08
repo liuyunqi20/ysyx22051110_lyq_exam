@@ -77,7 +77,7 @@ int init_image(){
         for(int i = 0; i < inst_num; ++i){
             ret = fread(&inst, sizeof(uint32_t), 1, fp);
             assert(ret == 1);
-            printf("%d %0x\n", i+1, inst);
+            printf("%d %04x\n", i+1, inst);
             vaddr_write(iaddr, isize, 0x00000297);
             iaddr += isize;
         }
