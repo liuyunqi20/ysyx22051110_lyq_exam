@@ -65,7 +65,7 @@ class CacheStage2(config: CacheConfig) extends Module{
     //hit check
     var hit1H = Wire(Vec(config.nr_ways, Bool()))
     for( i <- 0 until config.nr_ways){
-        hit1H(i) := (buf.tag === io.rd_lines(i).tag)
+        hit1H(i) := (buf.tag === io.rd_lines(i).tag) && (io.rd_lines(i).valid === 1.U)
     }
     val hit_array = Cat(hit1H)
     val hit = hit_array.orR

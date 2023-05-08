@@ -37,14 +37,14 @@ int init_image(){
     else {
         int isize = 0x4;
         uint64_t iaddr = 0x80000000;
-        //mov $6, 1
-        vaddr_write(iaddr, isize, 0x00100313);
-        iaddr += isize;
         //auipc $5, 0
         vaddr_write(iaddr, isize, 0x00000297);
         iaddr += isize;
         //addi $5, $5, 0x1000
         vaddr_write(iaddr, isize, 0x0fc28293);
+        iaddr += isize;
+        //mov $6, 1
+        vaddr_write(iaddr, isize, 0x00100313);
         iaddr += isize;
         for(int i = 0; i < 4; ++i){
             //sw $6, 0($5)
