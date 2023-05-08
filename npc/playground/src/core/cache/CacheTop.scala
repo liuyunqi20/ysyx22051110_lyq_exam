@@ -62,7 +62,7 @@ class CacheDataRam extends Module{
 
 class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int) extends Module with HasCacheConst{
     val io = IO(new Bundle{
-        val in  = Flipped(new CPUMemBundle(w))
+        val in  = Flipped(new CPUMemBundle(w, w))
         val out = new CPUMemBundle(w, block_size * 8)
     })
 

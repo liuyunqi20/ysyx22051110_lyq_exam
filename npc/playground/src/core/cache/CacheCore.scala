@@ -8,7 +8,7 @@ Stage-1:  Accpet request
 */
 class CacheStage1(config: CacheConfig) extends Module{
     val io = IO(new Bundle{
-        val cpu      = Flipped(Decoupled(new CPUMemReqBundle(config.w)))
+        val cpu      = Flipped(Decoupled(new CPUMemReqBundle(config.w, w)))
         val rd       = new Bundle{
             val en    = Output(Bool())
             val index = Output(UInt(config.index_width.W))
@@ -112,7 +112,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
             val index = Output(UInt(config.index_width.W))
             val line  = Output(new CacheLineBundle(config.w, config.tag_width, config.block_word_n))
         }
-        val mem_out  = new CPUMemBundle(config.w)
+        val mem_out  = new CPUMemBundle(config.w, config.block_size * 8)
     })
     val s3_ready_go    = Wire(Bool())
     val s3_valid       = RegInit(0.B)
@@ -206,7 +206,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         /* IDLE       */ state(0) -> Mux(hit, Mux(buf.wr === 1.U, s_commit.U, s_idle.U), 
                                         Mux(!io.mem_out.req.fire, s_idle.U,
                                             Mux(buf.mthrough === 1.U, s_mmio.U, 
-                                                Mux(wb_en, s_wb.U, s_refill.U))
+                                                Mux(wb_en === 1.U, s_wb.U, s_refill.U))
                                             )
                                         ),
         /* WB         */ state(1) -> Mux(burst_last, s_refill_req.U, s_wb.U),
@@ -217,9 +217,9 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     ))
     s3_ready_go := (hit && (buf.wr === 0.U)) ||           //read hit
                    (state(4) && io.mem_out.ret.valid)  || //mmio
-                   (state(5) === 1.U) ||                  //refill/write commit
+                   (state(5) === 1.U)                     //refill/write commit
     // -------------------------------- CPU commit -------------------------------- 
 
-    io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx), write_line(cpu_word_idx))
+    io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx), write_line.data(cpu_word_idx))
     io.cpu.valid   := Mux(hit, 1.B, state(3) & refill_hit)
 }

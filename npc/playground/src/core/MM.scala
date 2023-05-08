@@ -15,7 +15,7 @@ class MemoryController(w: Int, block_word_n: Int) extends Module{
     })
     val io_widx         = io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(8) - 1, log2Ceil(8))
     val io_wdata        = MuxLookup(io_widx, 0.U, 
-                            for(i <- 0 until block_word_n) yield ((i.U) -> io_wdata((i+1)*w-1, i*w)) )
+                            for(i <- 0 until block_word_n) yield ((i.U) -> io.in.req.bits.wdata((i+1)*w-1, i*w)) )
     io.clint_out.en    := io.in.req.valid && io.clint_out.clint_hit
     io.clint_out.wr    := io.in.req.bits.wr
     io.clint_out.addr  := io.in.req.bits.addr
@@ -27,5 +27,5 @@ class MemoryController(w: Int, block_word_n: Int) extends Module{
     io.in.req.ready      := Mux(io.clint_out.clint_hit, true.B, io.axi_out.req.ready)
     io.in.ret.valid      := Mux(io.clint_out.ret_valid, true.B, io.axi_out.ret.valid)
     io.in.ret.rdata      := io.axi_out.ret.rdata
-    io.in.ret.last       := Mux(io.clint_out.ret_valid, true.B, io.axi_out.ret.last)
+    io.in.rlast          := Mux(io.clint_out.ret_valid, true.B, io.axi_out.rlast)
 }
