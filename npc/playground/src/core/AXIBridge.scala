@@ -35,6 +35,12 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     val burst_idx           = RegInit(0.U(log2Ceil(block_word_n).W))
     val burst_cnt           = RegInit(0.U(log2Ceil(block_word_n).W))
     val burst_len           = RegInit(0.U(8.W))
+    //read after write
+    val rd_after_wt         = io.in.req.valid && (io.in.req.bits.wr === 0.U) && state(0) &&
+                            (io.in.req.bits.mthrough === 0.U) && 
+                            (waddr_r === io.in.req.bits.addr(w - 1, log2Ceil(block_word_n) + log2Ceil(w/8)))
+    val rd_after_wt_rdata   = MuxLookup(rd_widx_r, 0.U, 
+                                for(i <- 0 until block_word_n) yield ((i.U) -> wdata_r((i+1)*w - 1, i*w)))
     //read
     when(rd_after_wt) { 
         rd_widx_r     := io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(w/8) - 1, log2Ceil(w/8)) 
@@ -49,7 +55,7 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     io.out.ar.bits.arsize  := log2Ceil(w).U(3.W)
     io.out.ar.bits.arburst := "b10".U(2.W)
     io.out.rd.ready        := state(1)
-    io.in.ret.rdata        := Mux(rd_after_wt_r, wdata_r((rd_widx_r + 1)*w - 1, rd_widx_r*w), io.out.rd.bits.rdata)
+    io.in.ret.rdata        := Mux(rd_after_wt_r, rd_after_wt_rdata, io.out.rd.bits.rdata)
     io.in.rlast            := Mux(rd_after_wt_r, 1.B, io.out.rd.bits.rlast)
     //write
     when(io.in.req.fire && io.in.req.bits.wr) { 
@@ -59,7 +65,7 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
         burst_idx := init_widx
         burst_len := io.out.aw.bits.awlen
         burst_cnt := 0.U
-    } .elsewhen(io.in.wt.fire) {
+    } .elsewhen(io.out.wt.fire) {
         burst_idx := Mux(burst_idx === Fill(log2Ceil(block_word_n), 1.U(1.W)), 0.U, burst_idx + 1.U)
         burst_cnt := burst_cnt + 1.U
     } .elsewhen(io.out.b.fire){
@@ -77,10 +83,6 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     io.out.wt.bits.wstrb   := wstrb_r
     io.out.wt.bits.wlast   := burst_cnt === burst_len(log2Ceil(block_word_n) - 1, 0)
     io.out.b.ready         := state(3)
-    //read after write
-    rd_after_wt           = io.in.req.valid && (io.in.req.bits.wr === 0.U) && state(0) &&
-                            (io.in.req.bits.mthrough === 0.U) && 
-                            (waddr_r === io.in.req.bits.addr(w - 1, log2Ceil(block_word_n) + log2Ceil(w/8)))
     //read/write ok
     io.in.req.ready      := io.out.ar.fire || io.out.wt.fire || rd_after_wt
     io.in.ret.valid      := io.out.rd.fire || ((state(2) === 1.U) && (burst_cnt === 0.U)) || rd_after_wt_r

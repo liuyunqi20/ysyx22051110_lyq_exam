@@ -9,13 +9,13 @@ trait HasMMCConst{
 
 class MemoryController(w: Int, block_word_n: Int) extends Module{
     val io = IO(new Bundle{
-        val in        = Flipped(new CPUMemBundle(w))
+        val in        = Flipped(new CPUMemBundle(w, block_word_n * w))
         val clint_out = new ClintIOBundle(w)
-        val axi_out   = new CPUMemBundle(w)
+        val axi_out   = new CPUMemBundle(w, block_word_n * w)
     })
     val io_widx         = io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(8) - 1, log2Ceil(8))
     val io_wdata        = MuxLookup(io_widx, 0.U, 
-                            for(i <- 0 until block_word_n) yield ((io_widx === i.U) -> io_wdata((i+1)*w-1, i*w)) )
+                            for(i <- 0 until block_word_n) yield ((i.U) -> io_wdata((i+1)*w-1, i*w)) )
     io.clint_out.en    := io.in.req.valid && io.clint_out.clint_hit
     io.clint_out.wr    := io.in.req.bits.wr
     io.clint_out.addr  := io.in.req.bits.addr
