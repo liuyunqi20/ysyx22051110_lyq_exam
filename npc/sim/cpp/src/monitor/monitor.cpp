@@ -46,9 +46,9 @@ int init_image(){
         Elf64_Ehdr ehdr;
         ret = fread(&ehdr, sizeof(Elf64_Ehdr), 1, fp);
         assert(ret == 1);
-        assert(ehdr->e_ident[EI_MAG1] == 'E');
-        assert(ehdr->e_ident[EI_MAG2] == 'L');
-        assert(ehdr->e_ident[EI_MAG3] == 'F');
+        assert(ehdr.e_ident[EI_MAG1] == 'E');
+        assert(ehdr.e_ident[EI_MAG2] == 'L');
+        assert(ehdr.e_ident[EI_MAG3] == 'F');
         //read section header of shdr strings section
         Elf64_Shdr shstrtab_shdr;
         fseek(fp, ehdr.e_shoff + ehdr.e_shstrndx * ehdr.e_shentsize, SEEK_SET);
