@@ -1,6 +1,7 @@
 #include "sim_monitor.h"
 #include "sim_cpu.h"
 #include <getopt.h>
+#include <elf.h>
 
 static char *diff_so_file = NULL;
 static int difftest_port = 1234;
@@ -37,36 +38,48 @@ int init_image(){
     else {
         int isize = 0x4;
         uint64_t iaddr = 0x80000000;
-        //auipc $5, 0
-        vaddr_write(iaddr, isize, 0x00000297);
-        iaddr += isize;
-        //addi $5, $5, 0x1000
-        vaddr_write(iaddr, isize, 0x0fc28293);
-        iaddr += isize;
-        //mov $6, 1
-        vaddr_write(iaddr, isize, 0x00100313);
-        iaddr += isize;
-        for(int i = 0; i < 4; ++i){
-            //sw $6, 0($5)
-            vaddr_write(iaddr            , isize, 0x0062a023);
-            //sw $6, 4($5)
-            vaddr_write(iaddr + isize    , isize, 0x0062a223);
-            //lw $7, 0($5)
-            vaddr_write(iaddr + isize * 2, isize, 0x0002a383);
-            //lw $7, 4($5)
-            vaddr_write(iaddr + isize * 3, isize, 0x0042a383);
-            //addi $5, $5, 8
-            vaddr_write(iaddr + isize * 4, isize, 0x00828293);
-            //addi $6, $6, 1
-            vaddr_write(iaddr + isize * 5, isize, 0x00130313);
-            iaddr += isize * 6;
+        char * name = "cache_test_1.o"
+        FILE *fp = fopen(name, "rb");
+        assert(fp != NULL);
+        //read elf header
+        Elf64_Ehdr ehdr;
+        read_ehdr(&ehdr, fp);
+        //read section header of shdr strings section
+        Elf64_Shdr shstrtab_shdr;
+        fseek(fp, ehdr.e_shoff + ehdr.e_shstrndx * ehdr.e_shentsize, SEEK_SET);
+        int ret = fread(&shstrtab_shdr, ehdr.e_shentsize, 1, fp);
+        assert(ret == 1);
+        //find .text section
+        Elf64_Shdr text_shdr;
+        Elf64_Shdr shdr;
+        char shname[64];
+        for(int i = 0; i < ehdr.e_shnum; ++i){
+            fseek(fp, ehdr.e_shoff + i * ehdr.e_shentsize, SEEK_SET);
+            int ret = fread(&shdr, ehdr.e_shentsize, 1, fp);
+            assert(ret == 1);
+            fseek(fp, shstrtab_shdr.sh_offset + shdr.sh_name, SEEK_SET);
+            char * p = fgets(shname, 64, fp);
+            assert(p == shname);
+            if(!strcmp(shname, ".text")){
+                text_shdr = shdr;
+            }
         }
-        //mv a0, 0
-        vaddr_write(iaddr, isize, 0x00000513);
-        iaddr += isize;
+        //load .text section to 'memory'
+        printf("text section size: %d\n", text_shdr.sh_size);
+        uint32_t inst;
+        int inst_num = text_shdr.sh_size >> 2;
+        fseek(fp, text_shdr.sh_offset, SEEK_SET);
+        for(int i = 0; i < inst_num; ++i){
+            int ret = fread(&inst, sizeof(uint32_t), 1, fp);
+            assert(ret == 1);
+            vaddr_write(iaddr, isize, 0x00000297);
+            iaddr += isize;
+        }
+
         //ebreak
         vaddr_write(iaddr, isize, 0x00100073);
-        image_size = 116;
+
+        image_size = text_shdr.sh_size + 4;
     }
     return image_size;
 }
