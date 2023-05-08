@@ -13,7 +13,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         val ex2mem       = Flipped(new ExtoMemBundle(w))
         val mem2wb       = new MemtoWbBundle(w)
         val has_intr     = Input(Bool())
-        val data_mem     = new CPUMemBundle(w)
+        val data_mem     = new CPUMemBundle(w, w)
         val if2mem       = Flipped(new IFtoMemBundle(w))
     })    
     val has_trap     = io.has_intr || (io.ex2mem.exc_type.orR === 1.U)
@@ -70,12 +70,12 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         ms_rdata_r := io.data_mem.ret.rdata
     }
     //WARNNING: rd.rresp is ignored
-    io.data_mem.req.valid    := ms_mem_en && ~ms_wait_fs && ms_state(0)
+    io.data_mem.req.valid         := ms_mem_en && ~ms_wait_fs && ms_state(0)
     io.data_mem.req.bits.wr       := io.ex2mem.mem_wr
     io.data_mem.req.bits.addr     := maddr
     io.data_mem.req.bits.wdata    := io.ex2mem.mem_wdata
     io.data_mem.req.bits.wstrb    := wmask
-    io.data_mem.req.bits.mthrough := 1.U
+    io.data_mem.req.bits.mthrough := 1.U //TODO
     //WARNNING: b.bresp is ignored
     // ------------------------ MSU wait FSU ------------------------ 
     when(io.data_mem.ret.valid && ~io.if2mem.fs_wait_ms){

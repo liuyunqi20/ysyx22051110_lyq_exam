@@ -67,7 +67,7 @@ class CacheStage2(config: CacheConfig) extends Module{
     for( i <- 0 until config.nr_ways){
         hit1H(i) := (buf.tag === io.rd_lines(i).tag)
     }
-    val hit_array = Reverse(Cat(hit1H))
+    val hit_array = Cat(hit1H)
     val hit = hit_array.orR
     //replace choose
     val replace1H = RegInit(1.U(config.nr_ways.W))  //ring shift register
@@ -95,6 +95,12 @@ Stage-3: Request Commit & Write back & Refill
     or data block after write. If cache miss then check the dirty bit of replaced line and begin 
     write back and refill. Write back and refill processes are in sequence. Write back and refill
     use wrap burst to transfer data.
+    State Machine: 
+    s_idle:       begin memory request for mmio\write back\refill, or commit when read hit.
+    s_wb:         transfer write back burst data.
+    s_refill_req: begin memory read request after s_wb.
+    s_refill:     read refill data to buffer, send ok to CPU when target word comes.
+    s_commit:     this states indicate transaction is done, stage1 can read data array now.
 */
 class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val io = IO(new Bundle{
@@ -125,33 +131,41 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val cpu_word_idx = buf.offset(config.offset_width - 1, log2Ceil(config.w / 8)) 
     val cpu_req_addr = Cat(0.U((config.w - config.cache_addr_w).W), buf.tag, buf.index, 0.U(config.offset_width.W))
     // -------------------------------- word select -------------------------------- 
-
-    val block_mask         = Wire(Vec(config.w / 8, UInt(8.W)))
-    for( i <- 0 until (config.w / 8)) { block_mask(i) := Mux(buf.wstrb(i) === 1.U, 0xff.U, 0.U)}
+    val cpu_word_sel       = Wire(Vec(config.block_word_n, Bool()))
+    val cpu_word_mask_vec  = Wire(Vec(config.w / 8, UInt(8.W)))
+    for( i <- 0 until config.block_word_n) { cpu_word_sel(i) := cpu_word_idx === i.U}
+    for( i <- 0 until (config.w / 8)) { cpu_word_mask_vec(i) := Mux(buf.wstrb(i) === 1.U, 0xff.U, 0.U)}
+    val cpu_word_mask      = Cat(cpu_word_mask_vec)
     val masked_old_data    = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     val masked_refill_data = Wire(Vec(config.block_word_n, UInt(config.w.W)))
+    for( i <- 0 until config.block_word_n) {
+        masked_old_data(i)    := (buf.target_line.data(i) & ~cpu_word_mask) | (buf.wdata & cpu_word_mask)
+        masked_refill_data(i) := (io.mem_out.ret.rdata & ~cpu_word_mask) | (buf.wdata & cpu_word_mask)
+    }
     // -------------------------------- Hit --------------------------------
 
     val hit         = (buf.hit === 1.U) && state(0)
+    val read_hit    = hit && (buf.wr === 0.U)
+    val write_hit   = hit && (buf.wr === 1.U)
     // -------------------------------- Write Back --------------------------------
 
     val wb_en       = buf.target_line.valid & buf.target_line.dirty & !hit & state(0)// need write back
     val wb_addr     = Cat(0.U((config.w - config.cache_addr_w).W), buf.target_line.tag, buf.index, buf.offset)
-    val burst_last  = io.mem_out.ret.valid && io.mem_out.ret.last
+    val burst_last  = io.mem_out.ret.valid && (state(1) === 1.U || io.mem_out.rlast)
     // -------------------------------- Refill / Write Hit-------------------------------- 
 
     val refill_come   = (state(3) & io.mem_out.ret.valid) === 1.U
     val refill_hit    = cnt === cpu_word_idx
     val w_hit_wblock  = Wire(Vec(config.block_word_n, UInt(config.w.W)))
+    val mmio_wblock   = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     //refill and write hit (set new data in target_line.data)
     for( i <- 0 until config.block_word_n){
-        masked_old_data(i)    := (buf.target_line.data(cpu_word_idx) & ~block_mask(i)) | (buf.wdata & block_mask(i))
-        masked_refill_data(i) := (io.mem_out.ret.rdata & ~block_mask(i)) | (buf.wdata & block_mask(i))
-        w_hit_wblock(i)       := Mux((cpu_word_idx === i.U), masked_old_data(i), buf.target_line.data(i))
+        w_hit_wblock(i)       := Mux(cpu_word_sel(i), masked_old_data(i), buf.target_line.data(i))
         //when refill, cover word with data or 
         when(refill_come && (cnt === i.U)) {
             buf.target_line.data(i) := Mux(refill_hit, masked_refill_data(i), io.mem_out.ret.rdata)
         }
+        mmio_wblock(i) := Mux(cpu_word_sel(i), buf.wdata, 0.U)
     }
     // -------------------------------- Burst counter --------------------------------
 
@@ -165,16 +179,17 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     }
     // -------------------------------- memory read/write --------------------------------
 
-    io.mem_out.req.valid         := s3_valid & (wb_en | state(2))
-    io.mem_out.req.bits.wr       := wb_en | (state(4) & buf.wr)
+    io.mem_out.req.valid         := s3_valid & ((state(0) & ~hit) | state(2)) //miss or after wb
+    io.mem_out.req.bits.wr       := wb_en | (state(4) & buf.wr) //wb or mmio write
     io.mem_out.req.bits.addr     := Mux(wb_en === 1.U, wb_addr, cpu_req_addr)
-    io.mem_out.req.bits.wdata    := Mux(buf.mthrough === 1.U, buf.wdata, buf.target_line.data(cnt))
+    io.mem_out.req.bits.wdata    := Mux(buf.mthrough === 1.U, Cat(mmio_wblock), Cat(buf.target_line.data))
     io.mem_out.req.bits.wstrb    := Mux(buf.mthrough === 1.U, buf.wstrb, Fill(((config.w) / 8), 1.U(1.W)))
     io.mem_out.req.bits.mthrough := buf.mthrough
+
     // -------------------------------- write to cache line --------------------------------
 
     val write_line = Wire(new CacheLineBundle(config.w, config.tag_width, config.block_word_n))
-    io.wt.en    := s3_valid & ((state(0) & buf.hit & buf.wr) | (state(3) & burst_last))
+    io.wt.en    := s3_valid & ((state(0) & write_hit) | (state(3) & burst_last))
     io.wt.way   := buf.target_way
     io.wt.index := buf.index
     io.wt.line  <> write_line
@@ -186,23 +201,25 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
                                 Mux(cnt =/= i.U, buf.target_line.data(i), //refill but not last
                                     Mux(refill_hit, masked_refill_data(i), io.mem_out.ret.rdata)))
     }
-    // -------------------------------- state machine --------------------------------
+    // -------------------------------- state machine -------------------------------- 
     state := Mux1H(Seq(
-        /* IDLE       */ state(0) -> Mux(hit, s_idle.U, 
-                                        Mux(buf.mthrough === 1.U, s_mmio.U, 
-                                            Mux(io.mem_out.req.fire, s_wb.U, s_refill.U))
-                                    ),
+        /* IDLE       */ state(0) -> Mux(hit, Mux(buf.wr === 1.U, s_commit.U, s_idle.U), 
+                                        Mux(!io.mem_out.req.fire, s_idle.U,
+                                            Mux(buf.mthrough === 1.U, s_mmio.U, 
+                                                Mux(wb_en, s_wb.U, s_refill.U))
+                                            )
+                                        ),
         /* WB         */ state(1) -> Mux(burst_last, s_refill_req.U, s_wb.U),
         /* REFILL REQ */ state(2) -> Mux(io.mem_out.req.fire, s_refill.U, s_refill_req.U),
-        /* REFILL     */ state(3) -> Mux(burst_last, s_idle.U, s_refill.U),
+        /* REFILL     */ state(3) -> Mux(burst_last, s_commit.U, s_refill.U),
         /* MMIO       */ state(4) -> Mux(io.mem_out.ret.valid, s_idle.U, s_mmio.U),
+        /* COMMIT     */ state(5) -> (io.s_idle.U),
     ))
-    s3_ready_go := hit ||                           //hit
-                 (state(3) && burst_last) ||        //miss(refill)
-                 (state(4) && io.mem_out.ret.valid) //mmio
+    s3_ready_go := (hit && (buf.wr === 0.U)) ||           //read hit
+                   (state(4) && io.mem_out.ret.valid)  || //mmio
+                   (state(5) === 1.U) ||                  //refill/write commit
     // -------------------------------- CPU commit -------------------------------- 
 
-    io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx), io.mem_out.ret.rdata)
+    io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx), write_line(cpu_word_idx))
     io.cpu.valid   := Mux(hit, 1.B, state(3) & refill_hit)
-    io.cpu.last    := io.cpu.valid
 }

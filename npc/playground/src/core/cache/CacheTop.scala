@@ -3,6 +3,13 @@ import chisel3._
 import chisel3.util._
 import chisel3.experimental.BundleLiterals._
 
+/*
+Warnning: 
+    This cache is designed to have a 3 stage pipeline, but current CPU is a single-issue pipline CPU.
+    Only one request can be in cache pipeline as CPU pipeline will block before cache commit, so 
+    data forwarding 
+*/
+
 trait HasCacheConst{
     val nr_state   = 3
     val s_idle     = 0x1
@@ -11,12 +18,13 @@ trait HasCacheConst{
 }
 
 trait HasCacheStage3Const{
-    val nr_state     = 5
+    val nr_state     = 6
     val s_idle       = 0x01
     val s_wb         = 0x02
     val s_refill_req = 0x04
     val s_refill     = 0x08
     val s_mmio       = 0x10
+    val s_commit     = 0x20
 }
 
 class CacheConfig(val w: Int, val tag_width: Int, val nr_lines: Int, 
@@ -55,25 +63,21 @@ class CacheDataRam extends Module{
 class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int) extends Module with HasCacheConst{
     val io = IO(new Bundle{
         val in  = Flipped(new CPUMemBundle(w))
-        val out = new CPUMemBundle(w)
+        val out = new CPUMemBundle(w, block_size * 8)
     })
 
     val config = new CacheConfig(w, tag_w, nr_lines, nr_ways, block_size)
     val stage1 = Module(new CacheStage1(config))
     val stage2 = Module(new CacheStage2(config))
     val stage3 = Module(new CacheStage3(config))
-    val cache_data_addr_w = 6
+    val cache_data_addr_w = 6 //log2Ceil(data_ram_word_depth)
     val cache_data = Seq.fill(nr_ways){ Module(new CacheDataRam()).io }
-    val meta_rd    = RegInit(VecInit( Seq.fill(nr_ways) { 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) } ))
     val cache_meta = Seq.fill(nr_ways) {
         RegInit(VecInit(Seq.fill(nr_lines){ 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) } ))
     }
+    val meta_rd    = RegInit(VecInit( Seq.fill(nr_ways) { 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) } ))
     when(stage1.io.rd.en){
-        for( i <- 0 until nr_ways){
-            meta_rd(i).valid := cache_meta(i)(stage1.io.rd.index).valid
-            meta_rd(i).dirty := cache_meta(i)(stage1.io.rd.index).dirty
-            meta_rd(i).tag   := cache_meta(i)(stage1.io.rd.index).tag
-        }
+        for( i <- 0 until nr_ways) { meta_rd(i) := cache_meta(i)(stage1.io.rd.index) }
     }
     //read
     val data_wt_addr = Cat(0.U((cache_data_addr_w - config.index_width).W), stage3.io.wt.index)
@@ -82,17 +86,13 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val data_wdata   = stage3.io.wt.line.data.reduce((a, b) => Cat(a, b))
     val data_sel     = Wire(Vec(nr_ways, Bool()))
     for( i <- 0 until nr_ways){
-        data_sel(i)           := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U) 
+        data_sel(i)        := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U) 
         cache_data(i).CEN  := stage1.io.rd.en || stage3.io.wt.en
-        cache_data(i).WEN  := stage3.io.wt.en
+        cache_data(i).WEN  := stage3.io.wt.en && (stage3.io.wt.way === i.U)
         cache_data(i).BWEN := Fill(128, 1.U)
         cache_data(i).A    := data_addr
         cache_data(i).D    := data_wdata
     }
-    // val data_rd = Wire(Vec( nr_ways, Vec(config.block_word_n, UInt(w.W)) ))
-    // for( i <- 0 until nr_ways; j <- 0 until block_word_n) {
-    //     data_rd(i)(j) := cache_data(i).Q((j + 1) * w - 1, j * w)
-    // }
     val s2_rd_lines = Wire(Vec(nr_ways, new CacheLineBundle(w, config.tag_width, config.block_word_n)))
     for( i <- 0 until nr_ways){
         s2_rd_lines(i).valid := meta_rd(i).valid
@@ -109,6 +109,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     //CPU 
     stage1.io.cpu <> io.in.req
     stage3.io.cpu <> io.in.ret
+    io.in.rlast   := io.in.ret.valid
     io.out <> stage3.io.mem_out
 }
 

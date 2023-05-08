@@ -4,10 +4,10 @@ import chisel3.util._
 
 // ----------------- CPU-core Memory Access Bundle ----------------- 
 
-    class CPUMemReqBundle(w: Int) extends Bundle{
+    class CPUMemReqBundle(w: Int, wdata_w: Int) extends Bundle{
         val wr        = Bits(1.W)
         val addr      = Bits(w.W)
-        val wdata     = Bits(w.W)
+        val wdata     = Bits(wdata_w.W)
         val wstrb     = Bits((w/8).W)
         val mthrough  = Bits(1.W)
     }
@@ -15,12 +15,12 @@ import chisel3.util._
     class CPUMemRespBundle(w: Int) extends Bundle{
         val rdata = Input(UInt(w.W))
         val valid = Input(Bool())
-        val last  = Input(Bool())
     }
 
-    class CPUMemBundle(w: Int) extends Bundle{
-        val req = Decoupled(new CPUMemReqBundle(w))
+    class CPUMemBundle(w: Int, wdata_w: Int) extends Bundle{
+        val req = Decoupled(new CPUMemReqBundle(w, wdata_w))
         val ret = new CPUMemRespBundle(w)
+        val rlast = Input(Bool()) //TODO: if then (IFU/MSU to Cache don't need "last")
     }
 
 // ----------------- Debug Bundle -----------------

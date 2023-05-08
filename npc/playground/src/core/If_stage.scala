@@ -14,7 +14,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         val pc           = Output(UInt(w.W))
         val nextpc       = Output(UInt(w.W))
         val branch       = Flipped(new BranchBundle(w))
-        val inst_mem     = new CPUMemBundle(w)
+        val inst_mem     = new CPUMemBundle(w, w)
         val if2id        = new IftoIdBundle(w)
         val exc_br       = Flipped(new ExcBranchBundle(w))
         val if2mem       = new IFtoMemBundle(w)
