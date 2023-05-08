@@ -19,94 +19,114 @@ void VSimTop___024root__traceChgTop0(void* voidSelf, VerilatedVcd* tracep) {
 void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tracep) {
     if (false && vlSelf) {}  // Prevent unused
     VSimTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VlWide<4>/*127:0*/ __Vtemp57;
-    VlWide<4>/*127:0*/ __Vtemp58;
-    VlWide<4>/*127:0*/ __Vtemp59;
-    VlWide<3>/*95:0*/ __Vtemp61;
-    VlWide<3>/*95:0*/ __Vtemp62;
-    VlWide<3>/*95:0*/ __Vtemp63;
-    VlWide<3>/*95:0*/ __Vtemp64;
+    VlWide<4>/*127:0*/ __Vtemp74;
+    VlWide<4>/*127:0*/ __Vtemp75;
+    VlWide<4>/*127:0*/ __Vtemp77;
+    VlWide<4>/*127:0*/ __Vtemp78;
+    VlWide<4>/*127:0*/ __Vtemp79;
+    VlWide<3>/*95:0*/ __Vtemp81;
+    VlWide<3>/*95:0*/ __Vtemp82;
+    VlWide<3>/*95:0*/ __Vtemp83;
+    VlWide<3>/*95:0*/ __Vtemp84;
+    VlWide<4>/*127:0*/ __Vtemp87;
+    VlWide<4>/*127:0*/ __Vtemp88;
+    VlWide<4>/*127:0*/ __Vtemp89;
+    VlWide<4>/*127:0*/ __Vtemp90;
     vluint32_t* const oldp = tracep->oldp(vlSymsp->__Vm_baseCode + 1);
     if (false && oldp) {}  // Prevent unused
     // Body
     {
         if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[1U])) {
             tracep->chgBit(oldp+0,((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))));
-            tracep->chgBit(oldp+1,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_valid_T_1) 
+            tracep->chgBit(oldp+1,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_2) 
                                     & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen)))));
             tracep->chgQData(oldp+2,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_r),64);
-            tracep->chgBit(oldp+4,((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))));
-            tracep->chgBit(oldp+5,((1U & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-                                           >> 1U) & 
-                                          (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen))))));
-            tracep->chgBit(oldp+6,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_b_valid_T_1) 
+            tracep->chgBit(oldp+4,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_2));
+            tracep->chgBit(oldp+5,((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))));
+            tracep->chgBit(oldp+6,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1) 
                                     & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)))));
-            tracep->chgBit(oldp+7,((1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_ar_valid_T_3)) 
+            tracep->chgBit(oldp+7,((1U & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                                           >> 2U) & 
+                                          (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen))))));
+            tracep->chgBit(oldp+8,((1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_ar_valid_T_5)) 
                                           & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate)))));
-            tracep->chgBit(oldp+8,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_valid_T_1) 
+            tracep->chgBit(oldp+9,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_2) 
                                     & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen))));
-            tracep->chgBit(oldp+9,((((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-                                     >> 1U) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen))));
-            tracep->chgBit(oldp+10,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_b_valid_T_1) 
+            tracep->chgBit(oldp+10,((1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_aw_valid_T_3)) 
+                                           & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate)))));
+            tracep->chgBit(oldp+11,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1) 
                                      & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen))));
-            tracep->chgBit(oldp+11,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_ar_valid_T_3));
-            tracep->chgQData(oldp+12,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc),64);
-            tracep->chgBit(oldp+14,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
+            tracep->chgBit(oldp+12,((((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                                      >> 2U) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen))));
+            tracep->chgBit(oldp+13,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_ar_valid_T_5));
+            tracep->chgQData(oldp+14,(vlSelf->SimTop__DOT__my_core_top__DOT___my_icache_io_out_req_bits_addr),64);
+            tracep->chgCData(oldp+16,((1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_mthrough)))),8);
+            tracep->chgBit(oldp+17,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
                                            >> 1U))));
-            tracep->chgBit(oldp+15,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
+            tracep->chgBit(oldp+18,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_aw_valid_T_3));
+            tracep->chgBit(oldp+19,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
                                            >> 2U))));
-            tracep->chgBit(oldp+16,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
+            VL_SHIFTR_WWI(128,128,1, __Vtemp74, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_idx));
+            tracep->chgQData(oldp+20,((QData)((IData)(
+                                                      (1U 
+                                                       & __Vtemp74[0U])))),64);
+            tracep->chgCData(oldp+22,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wstrb_r),8);
+            tracep->chgBit(oldp+23,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_wt_bits_wlast_T_1));
+            tracep->chgBit(oldp+24,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
                                            >> 3U))));
-            tracep->chgBit(oldp+17,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_ar_valid_T_3));
-            tracep->chgQData(oldp+18,((0xfffffffffffffff8ULL 
+            tracep->chgBit(oldp+25,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_ar_valid_T_5));
+            tracep->chgQData(oldp+26,((0xfffffffffffffff8ULL 
                                        & vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result)),64);
-            tracep->chgBit(oldp+20,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
+            tracep->chgBit(oldp+28,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
                                            >> 1U))));
-            tracep->chgBit(oldp+21,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_aw_valid_T_2));
-            tracep->chgBit(oldp+22,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
+            tracep->chgBit(oldp+29,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_aw_valid_T_3));
+            tracep->chgBit(oldp+30,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
                                            >> 2U))));
-            tracep->chgQData(oldp+23,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2),64);
-            tracep->chgCData(oldp+25,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_wstrb),8);
-            tracep->chgBit(oldp+26,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
+            VL_SHIFTR_WWI(128,128,1, __Vtemp75, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_idx));
+            tracep->chgQData(oldp+31,((QData)((IData)(
+                                                      (1U 
+                                                       & __Vtemp75[0U])))),64);
+            tracep->chgCData(oldp+33,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wstrb_r),8);
+            tracep->chgBit(oldp+34,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_wt_bits_wlast_T_1));
+            tracep->chgBit(oldp+35,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
                                            >> 3U))));
-            tracep->chgQData(oldp+27,((4ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc)),64);
-            tracep->chgQData(oldp+29,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_target),64);
-            tracep->chgBit(oldp+31,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_en));
-            tracep->chgBit(oldp+32,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_addr_ok_T) 
-                                     | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_addr_ok_T_1))));
-            tracep->chgBit(oldp+33,(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_data_ok));
-            tracep->chgBit(oldp+34,((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))));
-            tracep->chgQData(oldp+35,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target),64);
-            tracep->chgBit(oldp+37,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok));
-            tracep->chgBit(oldp+38,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs));
-            tracep->chgQData(oldp+39,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc),64);
-            tracep->chgBit(oldp+41,((1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
-                                            >> 1U) 
-                                           & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms))))));
-            tracep->chgIData(oldp+42,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst),32);
-            tracep->chgBit(oldp+43,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms));
-            tracep->chgBit(oldp+44,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok));
-            tracep->chgCData(oldp+45,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state),3);
-            tracep->chgQData(oldp+46,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__rdata_buf),64);
-            tracep->chgQData(oldp+48,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT__fs_inst_data),64);
-            tracep->chgBit(oldp+50,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we));
-            tracep->chgCData(oldp+51,((0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
+            tracep->chgQData(oldp+36,((4ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc)),64);
+            tracep->chgQData(oldp+38,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_target),64);
+            tracep->chgBit(oldp+40,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_en));
+            tracep->chgBit(oldp+41,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage1__DOT___io_cpu_ready_T));
+            tracep->chgQData(oldp+42,(vlSelf->SimTop__DOT__my_core_top__DOT___my_icache_io_in_ret_rdata),64);
+            tracep->chgBit(oldp+44,(vlSelf->SimTop__DOT__my_core_top__DOT___my_icache_io_in_ret_valid));
+            tracep->chgBit(oldp+45,((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))));
+            tracep->chgQData(oldp+46,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target),64);
+            tracep->chgBit(oldp+48,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok));
+            tracep->chgBit(oldp+49,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs));
+            tracep->chgQData(oldp+50,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc),64);
+            tracep->chgBit(oldp+52,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_req_valid_T_2));
+            tracep->chgQData(oldp+53,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc),64);
+            tracep->chgIData(oldp+55,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst),32);
+            tracep->chgBit(oldp+56,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms));
+            tracep->chgBit(oldp+57,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok));
+            tracep->chgCData(oldp+58,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state),3);
+            tracep->chgQData(oldp+59,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__rdata_buf),64);
+            tracep->chgQData(oldp+61,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT__fs_inst_data),64);
+            tracep->chgBit(oldp+63,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we));
+            tracep->chgCData(oldp+64,((0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                                 >> 7U))),5);
-            tracep->chgQData(oldp+52,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_wdata),64);
-            tracep->chgIData(oldp+54,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op),23);
-            tracep->chgBit(oldp+55,(((0x37U != (0x7fU 
+            tracep->chgQData(oldp+65,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_wdata),64);
+            tracep->chgIData(oldp+67,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op),23);
+            tracep->chgBit(oldp+68,(((0x37U != (0x7fU 
                                                 & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                      & ((0x17U == (0x7fU 
                                                    & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                         | (0x6fU == 
                                            (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))))));
-            tracep->chgBit(oldp+56,((((0x37U == (0x7fU 
+            tracep->chgBit(oldp+69,((((0x37U == (0x7fU 
                                                  & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                       | (0x17U == (0x7fU 
                                                    & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                      | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_5))));
-            tracep->chgSData(oldp+57,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_br_type),9);
-            tracep->chgBit(oldp+58,((((((0x37U == (0x7fU 
+            tracep->chgSData(oldp+70,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_br_type),9);
+            tracep->chgBit(oldp+71,((((((0x37U == (0x7fU 
                                                    & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                         | (0x17U == 
                                            (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
@@ -246,7 +266,7 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                                         == vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                                     | (0x30200073U 
                                                        == vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)))))))));
-            tracep->chgBit(oldp+59,((((((((((((0x37U 
+            tracep->chgBit(oldp+72,((((((((((((0x37U 
                                                != (0x7fU 
                                                    & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                               & (0x17U 
@@ -281,7 +301,7 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                          | (0x303U 
                                             == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
                                         | (0x183U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))))));
-            tracep->chgBit(oldp+60,((((((((((((0x37U 
+            tracep->chgBit(oldp+73,((((((((((((0x37U 
                                                != (0x7fU 
                                                    & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                                               & (0x17U 
@@ -325,9 +345,9 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                          | (0x123U 
                                             == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))) 
                                         | (0x1a3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN))))));
-            tracep->chgBit(oldp+61,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_wr));
-            tracep->chgCData(oldp+62,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type),7);
-            tracep->chgBit(oldp+63,((((((((((((((((
+            tracep->chgBit(oldp+74,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_wr));
+            tracep->chgCData(oldp+75,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type),7);
+            tracep->chgBit(oldp+76,((((((((((((((((
                                                    (0x37U 
                                                     != 
                                                     (0x7fU 
@@ -410,64 +430,65 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                                & (0x1b3U 
                                                   != vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_1)) 
                                               & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_11)))))));
-            tracep->chgCData(oldp+64,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_ex_sel),3);
-            tracep->chgCData(oldp+65,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op),3);
-            tracep->chgCData(oldp+66,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type),2);
-            tracep->chgQData(oldp+67,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_rs1),64);
-            tracep->chgQData(oldp+69,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_imm),64);
-            tracep->chgSData(oldp+71,((vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
+            tracep->chgCData(oldp+77,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_ex_sel),3);
+            tracep->chgCData(oldp+78,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_csr_op),3);
+            tracep->chgCData(oldp+79,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type),2);
+            tracep->chgQData(oldp+80,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_rs1),64);
+            tracep->chgQData(oldp+82,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2),64);
+            tracep->chgQData(oldp+84,(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_imm),64);
+            tracep->chgSData(oldp+86,((vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                        >> 0x14U)),12);
-            tracep->chgBit(oldp+72,(((IData)((0x73U 
+            tracep->chgBit(oldp+87,(((IData)((0x73U 
                                               == (0xfffffU 
                                                   & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
                                      & (1U == (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                                >> 0x14U)))));
-            tracep->chgQData(oldp+73,((QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))),64);
-            tracep->chgCData(oldp+75,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_decoder_io_inst_type),7);
-            tracep->chgCData(oldp+76,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT____Vcellinp__my_rf__io_raddr1),5);
-            tracep->chgCData(oldp+77,((0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
+            tracep->chgQData(oldp+88,((QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))),64);
+            tracep->chgCData(oldp+90,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_decoder_io_inst_type),7);
+            tracep->chgCData(oldp+91,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT____Vcellinp__my_rf__io_raddr1),5);
+            tracep->chgCData(oldp+92,((0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                                                 >> 0x14U))),5);
-            tracep->chgQData(oldp+78,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[0]),64);
-            tracep->chgQData(oldp+80,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[1]),64);
-            tracep->chgQData(oldp+82,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[2]),64);
-            tracep->chgQData(oldp+84,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[3]),64);
-            tracep->chgQData(oldp+86,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[4]),64);
-            tracep->chgQData(oldp+88,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[5]),64);
-            tracep->chgQData(oldp+90,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[6]),64);
-            tracep->chgQData(oldp+92,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[7]),64);
-            tracep->chgQData(oldp+94,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[8]),64);
-            tracep->chgQData(oldp+96,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[9]),64);
-            tracep->chgQData(oldp+98,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[10]),64);
-            tracep->chgQData(oldp+100,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[11]),64);
-            tracep->chgQData(oldp+102,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[12]),64);
-            tracep->chgQData(oldp+104,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[13]),64);
-            tracep->chgQData(oldp+106,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[14]),64);
-            tracep->chgQData(oldp+108,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[15]),64);
-            tracep->chgQData(oldp+110,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[16]),64);
-            tracep->chgQData(oldp+112,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[17]),64);
-            tracep->chgQData(oldp+114,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[18]),64);
-            tracep->chgQData(oldp+116,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[19]),64);
-            tracep->chgQData(oldp+118,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[20]),64);
-            tracep->chgQData(oldp+120,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[21]),64);
-            tracep->chgQData(oldp+122,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[22]),64);
-            tracep->chgQData(oldp+124,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[23]),64);
-            tracep->chgQData(oldp+126,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[24]),64);
-            tracep->chgQData(oldp+128,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[25]),64);
-            tracep->chgQData(oldp+130,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[26]),64);
-            tracep->chgQData(oldp+132,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[27]),64);
-            tracep->chgQData(oldp+134,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[28]),64);
-            tracep->chgQData(oldp+136,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[29]),64);
-            tracep->chgQData(oldp+138,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[30]),64);
-            tracep->chgQData(oldp+140,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[31]),64);
-            tracep->chgQData(oldp+142,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result),64);
-            tracep->chgQData(oldp+144,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__alu_res),64);
-            tracep->chgBit(oldp+146,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__s1_lt_s2));
-            tracep->chgBit(oldp+147,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__is_jal));
-            tracep->chgQData(oldp+148,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1),64);
-            tracep->chgQData(oldp+150,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2),64);
-            tracep->chgQData(oldp+152,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT___my_alu_io_res),64);
-            tracep->chgBit(oldp+154,((1U & vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[2U])));
-            tracep->chgBit(oldp+155,((1U & ((1U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
+            tracep->chgQData(oldp+93,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[0]),64);
+            tracep->chgQData(oldp+95,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[1]),64);
+            tracep->chgQData(oldp+97,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[2]),64);
+            tracep->chgQData(oldp+99,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[3]),64);
+            tracep->chgQData(oldp+101,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[4]),64);
+            tracep->chgQData(oldp+103,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[5]),64);
+            tracep->chgQData(oldp+105,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[6]),64);
+            tracep->chgQData(oldp+107,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[7]),64);
+            tracep->chgQData(oldp+109,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[8]),64);
+            tracep->chgQData(oldp+111,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[9]),64);
+            tracep->chgQData(oldp+113,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[10]),64);
+            tracep->chgQData(oldp+115,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[11]),64);
+            tracep->chgQData(oldp+117,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[12]),64);
+            tracep->chgQData(oldp+119,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[13]),64);
+            tracep->chgQData(oldp+121,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[14]),64);
+            tracep->chgQData(oldp+123,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[15]),64);
+            tracep->chgQData(oldp+125,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[16]),64);
+            tracep->chgQData(oldp+127,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[17]),64);
+            tracep->chgQData(oldp+129,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[18]),64);
+            tracep->chgQData(oldp+131,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[19]),64);
+            tracep->chgQData(oldp+133,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[20]),64);
+            tracep->chgQData(oldp+135,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[21]),64);
+            tracep->chgQData(oldp+137,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[22]),64);
+            tracep->chgQData(oldp+139,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[23]),64);
+            tracep->chgQData(oldp+141,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[24]),64);
+            tracep->chgQData(oldp+143,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[25]),64);
+            tracep->chgQData(oldp+145,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[26]),64);
+            tracep->chgQData(oldp+147,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[27]),64);
+            tracep->chgQData(oldp+149,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[28]),64);
+            tracep->chgQData(oldp+151,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[29]),64);
+            tracep->chgQData(oldp+153,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[30]),64);
+            tracep->chgQData(oldp+155,(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file[31]),64);
+            tracep->chgQData(oldp+157,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result),64);
+            tracep->chgQData(oldp+159,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__alu_res),64);
+            tracep->chgBit(oldp+161,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__s1_lt_s2));
+            tracep->chgBit(oldp+162,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__is_jal));
+            tracep->chgQData(oldp+163,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1),64);
+            tracep->chgQData(oldp+165,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2),64);
+            tracep->chgQData(oldp+167,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT___my_alu_io_res),64);
+            tracep->chgBit(oldp+169,((1U & vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[2U])));
+            tracep->chgBit(oldp+170,((1U & ((1U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
                                              ? (((IData)(
                                                          (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                                                           >> 0x3fU)) 
@@ -493,47 +514,48 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                                    ^ 
                                                    (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[1U] 
                                                     >> 0x1fU)))))));
-            VL_EXTEND_WQ(127,64, __Vtemp57, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-            VL_SHIFTL_WWI(127,127,6, __Vtemp58, __Vtemp57, 
+            VL_EXTEND_WQ(127,64, __Vtemp77, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+            VL_SHIFTL_WWI(127,127,6, __Vtemp78, __Vtemp77, 
                           (0x3fU & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2)));
-            __Vtemp59[0U] = __Vtemp58[0U];
-            __Vtemp59[1U] = __Vtemp58[1U];
-            __Vtemp59[2U] = __Vtemp58[2U];
-            __Vtemp59[3U] = (0x7fffffffU & __Vtemp58[3U]);
-            tracep->chgWData(oldp+156,(__Vtemp59),127);
-            __Vtemp61[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-            __Vtemp61[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+            __Vtemp79[0U] = __Vtemp78[0U];
+            __Vtemp79[1U] = __Vtemp78[1U];
+            __Vtemp79[2U] = __Vtemp78[2U];
+            __Vtemp79[3U] = (0x7fffffffU & __Vtemp78[3U]);
+            tracep->chgWData(oldp+171,(__Vtemp79),127);
+            __Vtemp81[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+            __Vtemp81[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                                      >> 0x20U));
-            __Vtemp61[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+            __Vtemp81[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                                            >> 0x3fU)));
-            __Vtemp62[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
-            __Vtemp62[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+            __Vtemp82[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
+            __Vtemp82[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                                      >> 0x20U));
-            __Vtemp62[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+            __Vtemp82[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                                            >> 0x3fU)));
-            VL_DIVS_WWW(65, __Vtemp63, __Vtemp61, __Vtemp62);
-            __Vtemp64[0U] = __Vtemp63[0U];
-            __Vtemp64[1U] = __Vtemp63[1U];
-            __Vtemp64[2U] = (1U & __Vtemp63[2U]);
-            tracep->chgWData(oldp+160,(__Vtemp64),65);
-            tracep->chgQData(oldp+163,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divw_res),33);
-            tracep->chgIData(oldp+165,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divuw_res),32);
-            tracep->chgIData(oldp+166,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remw_res),32);
-            tracep->chgIData(oldp+167,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remuw_res),32);
-            tracep->chgBit(oldp+168,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_addr_ok_T) 
-                                      | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_addr_ok_T_1))));
-            tracep->chgBit(oldp+169,(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_data_ok));
-            tracep->chgQData(oldp+170,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_mem2wb_result),64);
-            tracep->chgBit(oldp+172,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_en));
-            tracep->chgBit(oldp+173,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_mem_en));
-            tracep->chgCData(oldp+174,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state),2);
-            tracep->chgQData(oldp+175,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r),64);
-            tracep->chgQData(oldp+177,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__mrdata),64);
-            tracep->chgCData(oldp+179,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_b),8);
-            tracep->chgSData(oldp+180,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_h),16);
-            tracep->chgIData(oldp+181,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_w),32);
-            tracep->chgQData(oldp+182,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16),64);
-            tracep->chgQData(oldp+184,(((1U & (IData)(
+            VL_DIVS_WWW(65, __Vtemp83, __Vtemp81, __Vtemp82);
+            __Vtemp84[0U] = __Vtemp83[0U];
+            __Vtemp84[1U] = __Vtemp83[1U];
+            __Vtemp84[2U] = (1U & __Vtemp83[2U]);
+            tracep->chgWData(oldp+175,(__Vtemp84),65);
+            tracep->chgQData(oldp+178,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divw_res),33);
+            tracep->chgIData(oldp+180,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divuw_res),32);
+            tracep->chgIData(oldp+181,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remw_res),32);
+            tracep->chgIData(oldp+182,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remuw_res),32);
+            tracep->chgBit(oldp+183,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T_3));
+            tracep->chgQData(oldp+184,(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_ret_rdata),64);
+            tracep->chgBit(oldp+186,(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_ret_valid));
+            tracep->chgQData(oldp+187,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_mem2wb_result),64);
+            tracep->chgBit(oldp+189,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_req_valid_T_3));
+            tracep->chgCData(oldp+190,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_req_bits_wstrb),8);
+            tracep->chgBit(oldp+191,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_mem_en));
+            tracep->chgCData(oldp+192,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state),2);
+            tracep->chgQData(oldp+193,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r),64);
+            tracep->chgQData(oldp+195,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__mrdata),64);
+            tracep->chgCData(oldp+197,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_b),8);
+            tracep->chgSData(oldp+198,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_h),16);
+            tracep->chgIData(oldp+199,(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_w),32);
+            tracep->chgQData(oldp+200,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16),64);
+            tracep->chgQData(oldp+202,(((1U & (IData)(
                                                       (vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause 
                                                        >> 0x3fU)))
                                          ? (0xfffffffffffffffcULL 
@@ -541,74 +563,559 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                          : (4ULL + 
                                             (0xfffffffffffffffcULL 
                                              & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc)))),64);
-            tracep->chgQData(oldp+186,((0xfffffffffffffffcULL 
+            tracep->chgQData(oldp+204,((0xfffffffffffffffcULL 
                                         & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec)),64);
-            tracep->chgBit(oldp+188,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))));
-            tracep->chgBit(oldp+189,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type) 
+            tracep->chgBit(oldp+206,((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))));
+            tracep->chgBit(oldp+207,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type) 
                                             >> 1U))));
-            tracep->chgQData(oldp+190,((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
+            tracep->chgQData(oldp+208,((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type)) 
                                          == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_exc_type))
                                          ? 0xbULL : 0ULL)),64);
-            tracep->chgCData(oldp+192,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl),2);
-            tracep->chgCData(oldp+193,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_uxl),2);
-            tracep->chgCData(oldp+194,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpp),2);
-            tracep->chgBit(oldp+195,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie));
-            tracep->chgBit(oldp+196,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie));
-            tracep->chgQData(oldp+197,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause),64);
-            tracep->chgQData(oldp+199,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc),64);
-            tracep->chgQData(oldp+201,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec),64);
-            tracep->chgQData(oldp+203,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip),64);
-            tracep->chgQData(oldp+205,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie),64);
-            tracep->chgQData(oldp+207,((0xfffffffffffffffcULL 
+            tracep->chgCData(oldp+210,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl),2);
+            tracep->chgCData(oldp+211,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_uxl),2);
+            tracep->chgCData(oldp+212,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpp),2);
+            tracep->chgBit(oldp+213,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie));
+            tracep->chgBit(oldp+214,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie));
+            tracep->chgQData(oldp+215,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause),64);
+            tracep->chgQData(oldp+217,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc),64);
+            tracep->chgQData(oldp+219,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec),64);
+            tracep->chgQData(oldp+221,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip),64);
+            tracep->chgQData(oldp+223,(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie),64);
+            tracep->chgQData(oldp+225,((0xfffffffffffffffcULL 
                                         & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc)),64);
-            tracep->chgCData(oldp+209,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state),4);
-            tracep->chgCData(oldp+210,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state),4);
-            tracep->chgBit(oldp+211,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_valid_T_1));
-            tracep->chgBit(oldp+212,((1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-                                            >> 1U))));
-            tracep->chgBit(oldp+213,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_b_valid_T_1));
-            tracep->chgBit(oldp+214,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT___arbiter_rd_io_out_valid));
-            tracep->chgQData(oldp+215,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_ar_valid_T_3)
-                                         ? vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc
-                                         : (0xfffffffffffffff8ULL 
-                                            & vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result))),64);
-            tracep->chgBit(oldp+217,((1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen)
+            tracep->chgBit(oldp+227,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___io_mem_out_req_valid_T_5));
+            tracep->chgBit(oldp+228,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__wb_en));
+            if (vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_mthrough) {
+                __Vtemp87[0U] = 0U;
+                __Vtemp87[1U] = 0U;
+                __Vtemp87[2U] = 0U;
+                __Vtemp87[3U] = 0U;
+            } else {
+                __Vtemp87[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1);
+                __Vtemp87[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1 
+                                         >> 0x20U));
+                __Vtemp87[2U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0);
+                __Vtemp87[3U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0 
+                                         >> 0x20U));
+            }
+            tracep->chgWData(oldp+229,(__Vtemp87),128);
+            tracep->chgCData(oldp+233,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_mthrough)
+                                         ? 0U : 0xffU)),8);
+            tracep->chgBit(oldp+234,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_mthrough));
+            tracep->chgBit(oldp+235,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_req_ready_T_3));
+            tracep->chgQData(oldp+236,(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_ret_rdata),64);
+            tracep->chgBit(oldp+238,(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_ret_valid));
+            tracep->chgBit(oldp+239,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_rlast_T));
+            tracep->chgCData(oldp+240,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state),4);
+            tracep->chgBit(oldp+241,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_widx_r));
+            tracep->chgBit(oldp+242,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_after_wt_r));
+            tracep->chgWData(oldp+243,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r),128);
+            tracep->chgQData(oldp+247,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__waddr_r),60);
+            tracep->chgBit(oldp+249,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_idx));
+            tracep->chgBit(oldp+250,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt));
+            tracep->chgCData(oldp+251,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_len),8);
+            tracep->chgBit(oldp+252,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_after_wt));
+            VL_EXTEND_WQ(128,64, __Vtemp88, vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2);
+            tracep->chgWData(oldp+253,(__Vtemp88),128);
+            tracep->chgBit(oldp+257,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt_r) 
+                                      | (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_2))));
+            tracep->chgCData(oldp+258,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state),4);
+            tracep->chgBit(oldp+259,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_widx_r));
+            tracep->chgBit(oldp+260,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt_r));
+            tracep->chgWData(oldp+261,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r),128);
+            tracep->chgQData(oldp+265,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__waddr_r),60);
+            tracep->chgBit(oldp+267,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_idx));
+            tracep->chgBit(oldp+268,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt));
+            tracep->chgCData(oldp+269,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_len),8);
+            tracep->chgCData(oldp+270,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__data_addr),6);
+            tracep->chgBit(oldp+271,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT___io_s1_to_s2_ready_T_2));
+            tracep->chgCData(oldp+272,((0x1fU & (IData)(
+                                                        (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc 
+                                                         >> 4U)))),5);
+            tracep->chgIData(oldp+273,((0x7fffffU & (IData)(
+                                                            (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc 
+                                                             >> 0x29U)))),23);
+            tracep->chgCData(oldp+274,((0xfU & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc))),4);
+            tracep->chgQData(oldp+275,((((QData)((IData)(
+                                                         vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__rdata[1U])) 
+                                         << 0x20U) 
+                                        | (QData)((IData)(
+                                                          vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__rdata[0U])))),64);
+            tracep->chgQData(oldp+277,((((QData)((IData)(
+                                                         vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__rdata[3U])) 
+                                         << 0x20U) 
+                                        | (QData)((IData)(
+                                                          vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__rdata[2U])))),64);
+            tracep->chgQData(oldp+279,((((QData)((IData)(
+                                                         vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__rdata[1U])) 
+                                         << 0x20U) 
+                                        | (QData)((IData)(
+                                                          vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__rdata[0U])))),64);
+            tracep->chgQData(oldp+281,((((QData)((IData)(
+                                                         vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__rdata[3U])) 
+                                         << 0x20U) 
+                                        | (QData)((IData)(
+                                                          vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__rdata[2U])))),64);
+            tracep->chgQData(oldp+283,((((QData)((IData)(
+                                                         vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__rdata[1U])) 
+                                         << 0x20U) 
+                                        | (QData)((IData)(
+                                                          vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__rdata[0U])))),64);
+            tracep->chgQData(oldp+285,((((QData)((IData)(
+                                                         vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__rdata[3U])) 
+                                         << 0x20U) 
+                                        | (QData)((IData)(
+                                                          vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__rdata[2U])))),64);
+            tracep->chgQData(oldp+287,((((QData)((IData)(
+                                                         vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__rdata[1U])) 
+                                         << 0x20U) 
+                                        | (QData)((IData)(
+                                                          vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__rdata[0U])))),64);
+            tracep->chgQData(oldp+289,((((QData)((IData)(
+                                                         vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__rdata[3U])) 
+                                         << 0x20U) 
+                                        | (QData)((IData)(
+                                                          vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__rdata[2U])))),64);
+            tracep->chgBit(oldp+291,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___io_s2_to_s3_ready_T_1));
+            tracep->chgBit(oldp+292,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__s2_valid));
+            tracep->chgBit(oldp+293,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_mthrough));
+            tracep->chgIData(oldp+294,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_tag),23);
+            tracep->chgCData(oldp+295,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_index),5);
+            tracep->chgCData(oldp+296,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_offset),4);
+            tracep->chgCData(oldp+297,((((IData)((0U 
+                                                  != 
+                                                  (3U 
+                                                   & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H) 
+                                                      >> 2U)))) 
+                                         << 1U) | (IData)(
+                                                          (0U 
+                                                           != 
+                                                           (0xaU 
+                                                            & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H)))))),2);
+            tracep->chgQData(oldp+298,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H))
+                                            ? (((QData)((IData)(
+                                                                vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__rdata[1U])) 
+                                                << 0x20U) 
+                                               | (QData)((IData)(
+                                                                 vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__rdata[0U])))
+                                            : 0ULL) 
+                                          | ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H))
+                                              ? (((QData)((IData)(
+                                                                  vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__rdata[1U])) 
+                                                  << 0x20U) 
+                                                 | (QData)((IData)(
+                                                                   vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__rdata[0U])))
+                                              : 0ULL)) 
+                                         | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H))
+                                             ? (((QData)((IData)(
+                                                                 vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__rdata[1U])) 
+                                                 << 0x20U) 
+                                                | (QData)((IData)(
+                                                                  vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__rdata[0U])))
+                                             : 0ULL)) 
+                                        | ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H))
+                                            ? (((QData)((IData)(
+                                                                vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__rdata[1U])) 
+                                                << 0x20U) 
+                                               | (QData)((IData)(
+                                                                 vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__rdata[0U])))
+                                            : 0ULL))),64);
+            tracep->chgQData(oldp+300,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H))
+                                            ? (((QData)((IData)(
+                                                                vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__rdata[3U])) 
+                                                << 0x20U) 
+                                               | (QData)((IData)(
+                                                                 vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__rdata[2U])))
+                                            : 0ULL) 
+                                          | ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H))
+                                              ? (((QData)((IData)(
+                                                                  vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__rdata[3U])) 
+                                                  << 0x20U) 
+                                                 | (QData)((IData)(
+                                                                   vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__rdata[2U])))
+                                              : 0ULL)) 
+                                         | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H))
+                                             ? (((QData)((IData)(
+                                                                 vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__rdata[3U])) 
+                                                 << 0x20U) 
+                                                | (QData)((IData)(
+                                                                  vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__rdata[2U])))
+                                             : 0ULL)) 
+                                        | ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H))
+                                            ? (((QData)((IData)(
+                                                                vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__rdata[3U])) 
+                                                << 0x20U) 
+                                               | (QData)((IData)(
+                                                                 vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__rdata[2U])))
+                                            : 0ULL))),64);
+            tracep->chgCData(oldp+302,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H),4);
+            tracep->chgBit(oldp+303,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en));
+            tracep->chgCData(oldp+304,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way),2);
+            tracep->chgCData(oldp+305,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_index),5);
+            tracep->chgBit(oldp+306,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__hit));
+            tracep->chgBit(oldp+307,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__s3_valid));
+            tracep->chgIData(oldp+308,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_tag),23);
+            tracep->chgCData(oldp+309,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_offset),4);
+            tracep->chgBit(oldp+310,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_hit));
+            tracep->chgBit(oldp+311,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_valid));
+            tracep->chgBit(oldp+312,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_dirty));
+            tracep->chgIData(oldp+313,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_tag),23);
+            tracep->chgQData(oldp+314,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0),64);
+            tracep->chgQData(oldp+316,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1),64);
+            tracep->chgCData(oldp+318,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__state),6);
+            tracep->chgBit(oldp+319,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cnt));
+            tracep->chgBit(oldp+320,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__burst_last));
+            tracep->chgBit(oldp+321,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__unnamedblk1__DOT__refill_come));
+            tracep->chgBit(oldp+322,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_2));
+            tracep->chgBit(oldp+323,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1));
+            tracep->chgBit(oldp+324,((1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                                            >> 2U))));
+            tracep->chgBit(oldp+325,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT___arbiter_rd_io_out_valid));
+            tracep->chgQData(oldp+326,(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_ar_bits_araddr),64);
+            tracep->chgCData(oldp+328,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_ar_valid_T_5)
+                                         ? (1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_mthrough)))
+                                         : 0U)),8);
+            tracep->chgBit(oldp+329,((1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen)
                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
                                                 >> 1U)
                                              : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
                                                 >> 1U)))));
-            tracep->chgBit(oldp+218,((1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
+            tracep->chgBit(oldp+330,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT___arbiter_wt_io_out_valid));
+            tracep->chgQData(oldp+331,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_aw_valid_T_3)
+                                         ? vlSelf->SimTop__DOT__my_core_top__DOT___my_icache_io_out_req_bits_addr
+                                         : (0xfffffffffffffff8ULL 
+                                            & vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result))),64);
+            tracep->chgBit(oldp+333,((1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
                                                 >> 2U)
                                              : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
                                                 >> 2U)))));
-            tracep->chgBit(oldp+219,(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_b_ready));
-            tracep->chgBit(oldp+220,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen));
-            tracep->chgBit(oldp+221,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen));
-            tracep->chgBit(oldp+222,((1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_ar_valid_T_3)))));
-            tracep->chgQData(oldp+223,(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_rmem_port_rdata),64);
-            tracep->chgBit(oldp+225,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_3));
-            tracep->chgBit(oldp+226,((1U & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-                                             >> 2U) 
-                                            & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready))))));
-            tracep->chgQData(oldp+227,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__waddr_r),64);
-            tracep->chgQData(oldp+229,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wdata_r),64);
-            tracep->chgCData(oldp+231,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wmask_r),8);
-            tracep->chgCData(oldp+232,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate),3);
-            tracep->chgCData(oldp+233,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate),3);
-            tracep->chgBit(oldp+234,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_wait_sel));
-            tracep->chgBit(oldp+235,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__resp_data_ok));
-            tracep->chgBit(oldp+236,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__b_wait_ready));
-            tracep->chgBit(oldp+237,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT__rdata_arrive));
+            VL_SHIFTR_WWI(128,128,1, __Vtemp89, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_idx));
+            VL_SHIFTR_WWI(128,128,1, __Vtemp90, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_idx));
+            tracep->chgQData(oldp+334,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
+                                         ? (QData)((IData)(
+                                                           (1U 
+                                                            & __Vtemp89[0U])))
+                                         : (QData)((IData)(
+                                                           (1U 
+                                                            & __Vtemp90[0U]))))),64);
+            tracep->chgCData(oldp+336,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
+                                         ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wstrb_r)
+                                         : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wstrb_r))),8);
+            tracep->chgBit(oldp+337,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
+                                       ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_wt_bits_wlast_T_1)
+                                       : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_wt_bits_wlast_T_1))));
+            tracep->chgBit(oldp+338,((1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
+                                             ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
+                                                >> 3U)
+                                             : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
+                                                >> 3U)))));
+            tracep->chgBit(oldp+339,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen));
+            tracep->chgBit(oldp+340,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen));
+            tracep->chgBit(oldp+341,((1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_ar_valid_T_5)))));
+            tracep->chgBit(oldp+342,((1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_aw_valid_T_3)))));
+            tracep->chgQData(oldp+343,(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_rmem_port_rdata),64);
+            tracep->chgBit(oldp+345,((1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                                            >> 1U))));
+            tracep->chgQData(oldp+346,(((0xfffffffffffffff0ULL 
+                                         & vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__raddr_r) 
+                                        | (QData)((IData)(
+                                                          (8U 
+                                                           & (((1U 
+                                                                & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))
+                                                                ? (IData)(
+                                                                          (vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_ar_bits_araddr 
+                                                                           >> 3U))
+                                                                : (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_idx_r)) 
+                                                              << 3U)))))),64);
+            tracep->chgQData(oldp+348,(((0xfffffffffffffff0ULL 
+                                         & vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__waddr_r) 
+                                        | (QData)((IData)(
+                                                          ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_idx) 
+                                                           << 3U))))),64);
+            tracep->chgCData(oldp+350,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate),3);
+            tracep->chgCData(oldp+351,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate),3);
+            tracep->chgQData(oldp+352,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__raddr_r),64);
+            tracep->chgCData(oldp+354,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rburst_len),8);
+            tracep->chgCData(oldp+355,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_cnt),8);
+            tracep->chgBit(oldp+356,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_idx_r));
+            tracep->chgQData(oldp+357,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__waddr_r),64);
+            tracep->chgCData(oldp+359,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wburst_len),8);
+            tracep->chgBit(oldp+360,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_idx));
+            tracep->chgBit(oldp+361,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_12));
+            tracep->chgBit(oldp+362,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRam__io_WEN));
+            tracep->chgWData(oldp+363,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__rdata),128);
+            tracep->chgWData(oldp+367,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_0),128);
+            tracep->chgWData(oldp+371,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_1),128);
+            tracep->chgWData(oldp+375,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_2),128);
+            tracep->chgWData(oldp+379,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_3),128);
+            tracep->chgWData(oldp+383,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_4),128);
+            tracep->chgWData(oldp+387,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_5),128);
+            tracep->chgWData(oldp+391,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_6),128);
+            tracep->chgWData(oldp+395,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_7),128);
+            tracep->chgWData(oldp+399,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_8),128);
+            tracep->chgWData(oldp+403,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_9),128);
+            tracep->chgWData(oldp+407,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_10),128);
+            tracep->chgWData(oldp+411,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_11),128);
+            tracep->chgWData(oldp+415,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_12),128);
+            tracep->chgWData(oldp+419,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_13),128);
+            tracep->chgWData(oldp+423,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_14),128);
+            tracep->chgWData(oldp+427,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_15),128);
+            tracep->chgWData(oldp+431,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_16),128);
+            tracep->chgWData(oldp+435,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_17),128);
+            tracep->chgWData(oldp+439,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_18),128);
+            tracep->chgWData(oldp+443,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_19),128);
+            tracep->chgWData(oldp+447,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_20),128);
+            tracep->chgWData(oldp+451,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_21),128);
+            tracep->chgWData(oldp+455,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_22),128);
+            tracep->chgWData(oldp+459,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_23),128);
+            tracep->chgWData(oldp+463,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_24),128);
+            tracep->chgWData(oldp+467,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_25),128);
+            tracep->chgWData(oldp+471,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_26),128);
+            tracep->chgWData(oldp+475,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_27),128);
+            tracep->chgWData(oldp+479,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_28),128);
+            tracep->chgWData(oldp+483,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_29),128);
+            tracep->chgWData(oldp+487,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_30),128);
+            tracep->chgWData(oldp+491,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_31),128);
+            tracep->chgWData(oldp+495,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_32),128);
+            tracep->chgWData(oldp+499,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_33),128);
+            tracep->chgWData(oldp+503,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_34),128);
+            tracep->chgWData(oldp+507,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_35),128);
+            tracep->chgWData(oldp+511,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_36),128);
+            tracep->chgWData(oldp+515,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_37),128);
+            tracep->chgWData(oldp+519,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_38),128);
+            tracep->chgWData(oldp+523,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_39),128);
+            tracep->chgWData(oldp+527,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_40),128);
+            tracep->chgWData(oldp+531,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_41),128);
+            tracep->chgWData(oldp+535,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_42),128);
+            tracep->chgWData(oldp+539,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_43),128);
+            tracep->chgWData(oldp+543,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_44),128);
+            tracep->chgWData(oldp+547,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_45),128);
+            tracep->chgWData(oldp+551,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_46),128);
+            tracep->chgWData(oldp+555,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_47),128);
+            tracep->chgWData(oldp+559,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_48),128);
+            tracep->chgWData(oldp+563,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_49),128);
+            tracep->chgWData(oldp+567,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_50),128);
+            tracep->chgWData(oldp+571,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_51),128);
+            tracep->chgWData(oldp+575,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_52),128);
+            tracep->chgWData(oldp+579,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_53),128);
+            tracep->chgWData(oldp+583,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_54),128);
+            tracep->chgWData(oldp+587,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_55),128);
+            tracep->chgWData(oldp+591,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_56),128);
+            tracep->chgWData(oldp+595,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_57),128);
+            tracep->chgWData(oldp+599,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_58),128);
+            tracep->chgWData(oldp+603,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_59),128);
+            tracep->chgWData(oldp+607,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_60),128);
+            tracep->chgWData(oldp+611,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_61),128);
+            tracep->chgWData(oldp+615,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_62),128);
+            tracep->chgWData(oldp+619,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam.__PVT__ram_63),128);
+            tracep->chgBit(oldp+623,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRam_1__io_WEN));
+            tracep->chgWData(oldp+624,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__rdata),128);
+            tracep->chgWData(oldp+628,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_0),128);
+            tracep->chgWData(oldp+632,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_1),128);
+            tracep->chgWData(oldp+636,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_2),128);
+            tracep->chgWData(oldp+640,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_3),128);
+            tracep->chgWData(oldp+644,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_4),128);
+            tracep->chgWData(oldp+648,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_5),128);
+            tracep->chgWData(oldp+652,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_6),128);
+            tracep->chgWData(oldp+656,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_7),128);
+            tracep->chgWData(oldp+660,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_8),128);
+            tracep->chgWData(oldp+664,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_9),128);
+            tracep->chgWData(oldp+668,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_10),128);
+            tracep->chgWData(oldp+672,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_11),128);
+            tracep->chgWData(oldp+676,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_12),128);
+            tracep->chgWData(oldp+680,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_13),128);
+            tracep->chgWData(oldp+684,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_14),128);
+            tracep->chgWData(oldp+688,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_15),128);
+            tracep->chgWData(oldp+692,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_16),128);
+            tracep->chgWData(oldp+696,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_17),128);
+            tracep->chgWData(oldp+700,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_18),128);
+            tracep->chgWData(oldp+704,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_19),128);
+            tracep->chgWData(oldp+708,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_20),128);
+            tracep->chgWData(oldp+712,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_21),128);
+            tracep->chgWData(oldp+716,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_22),128);
+            tracep->chgWData(oldp+720,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_23),128);
+            tracep->chgWData(oldp+724,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_24),128);
+            tracep->chgWData(oldp+728,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_25),128);
+            tracep->chgWData(oldp+732,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_26),128);
+            tracep->chgWData(oldp+736,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_27),128);
+            tracep->chgWData(oldp+740,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_28),128);
+            tracep->chgWData(oldp+744,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_29),128);
+            tracep->chgWData(oldp+748,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_30),128);
+            tracep->chgWData(oldp+752,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_31),128);
+            tracep->chgWData(oldp+756,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_32),128);
+            tracep->chgWData(oldp+760,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_33),128);
+            tracep->chgWData(oldp+764,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_34),128);
+            tracep->chgWData(oldp+768,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_35),128);
+            tracep->chgWData(oldp+772,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_36),128);
+            tracep->chgWData(oldp+776,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_37),128);
+            tracep->chgWData(oldp+780,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_38),128);
+            tracep->chgWData(oldp+784,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_39),128);
+            tracep->chgWData(oldp+788,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_40),128);
+            tracep->chgWData(oldp+792,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_41),128);
+            tracep->chgWData(oldp+796,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_42),128);
+            tracep->chgWData(oldp+800,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_43),128);
+            tracep->chgWData(oldp+804,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_44),128);
+            tracep->chgWData(oldp+808,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_45),128);
+            tracep->chgWData(oldp+812,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_46),128);
+            tracep->chgWData(oldp+816,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_47),128);
+            tracep->chgWData(oldp+820,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_48),128);
+            tracep->chgWData(oldp+824,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_49),128);
+            tracep->chgWData(oldp+828,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_50),128);
+            tracep->chgWData(oldp+832,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_51),128);
+            tracep->chgWData(oldp+836,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_52),128);
+            tracep->chgWData(oldp+840,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_53),128);
+            tracep->chgWData(oldp+844,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_54),128);
+            tracep->chgWData(oldp+848,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_55),128);
+            tracep->chgWData(oldp+852,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_56),128);
+            tracep->chgWData(oldp+856,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_57),128);
+            tracep->chgWData(oldp+860,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_58),128);
+            tracep->chgWData(oldp+864,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_59),128);
+            tracep->chgWData(oldp+868,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_60),128);
+            tracep->chgWData(oldp+872,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_61),128);
+            tracep->chgWData(oldp+876,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_62),128);
+            tracep->chgWData(oldp+880,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1.__PVT__ram_63),128);
+            tracep->chgBit(oldp+884,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRam_2__io_WEN));
+            tracep->chgWData(oldp+885,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__rdata),128);
+            tracep->chgWData(oldp+889,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_0),128);
+            tracep->chgWData(oldp+893,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_1),128);
+            tracep->chgWData(oldp+897,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_2),128);
+            tracep->chgWData(oldp+901,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_3),128);
+            tracep->chgWData(oldp+905,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_4),128);
+            tracep->chgWData(oldp+909,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_5),128);
+            tracep->chgWData(oldp+913,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_6),128);
+            tracep->chgWData(oldp+917,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_7),128);
+            tracep->chgWData(oldp+921,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_8),128);
+            tracep->chgWData(oldp+925,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_9),128);
+            tracep->chgWData(oldp+929,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_10),128);
+            tracep->chgWData(oldp+933,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_11),128);
+            tracep->chgWData(oldp+937,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_12),128);
+            tracep->chgWData(oldp+941,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_13),128);
+            tracep->chgWData(oldp+945,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_14),128);
+            tracep->chgWData(oldp+949,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_15),128);
+            tracep->chgWData(oldp+953,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_16),128);
+            tracep->chgWData(oldp+957,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_17),128);
+            tracep->chgWData(oldp+961,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_18),128);
+            tracep->chgWData(oldp+965,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_19),128);
+            tracep->chgWData(oldp+969,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_20),128);
+            tracep->chgWData(oldp+973,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_21),128);
+            tracep->chgWData(oldp+977,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_22),128);
+            tracep->chgWData(oldp+981,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_23),128);
+            tracep->chgWData(oldp+985,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_24),128);
+            tracep->chgWData(oldp+989,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_25),128);
+            tracep->chgWData(oldp+993,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_26),128);
+            tracep->chgWData(oldp+997,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_27),128);
+            tracep->chgWData(oldp+1001,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_28),128);
+            tracep->chgWData(oldp+1005,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_29),128);
+            tracep->chgWData(oldp+1009,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_30),128);
+            tracep->chgWData(oldp+1013,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_31),128);
+            tracep->chgWData(oldp+1017,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_32),128);
+            tracep->chgWData(oldp+1021,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_33),128);
+            tracep->chgWData(oldp+1025,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_34),128);
+            tracep->chgWData(oldp+1029,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_35),128);
+            tracep->chgWData(oldp+1033,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_36),128);
+            tracep->chgWData(oldp+1037,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_37),128);
+            tracep->chgWData(oldp+1041,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_38),128);
+            tracep->chgWData(oldp+1045,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_39),128);
+            tracep->chgWData(oldp+1049,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_40),128);
+            tracep->chgWData(oldp+1053,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_41),128);
+            tracep->chgWData(oldp+1057,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_42),128);
+            tracep->chgWData(oldp+1061,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_43),128);
+            tracep->chgWData(oldp+1065,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_44),128);
+            tracep->chgWData(oldp+1069,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_45),128);
+            tracep->chgWData(oldp+1073,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_46),128);
+            tracep->chgWData(oldp+1077,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_47),128);
+            tracep->chgWData(oldp+1081,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_48),128);
+            tracep->chgWData(oldp+1085,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_49),128);
+            tracep->chgWData(oldp+1089,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_50),128);
+            tracep->chgWData(oldp+1093,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_51),128);
+            tracep->chgWData(oldp+1097,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_52),128);
+            tracep->chgWData(oldp+1101,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_53),128);
+            tracep->chgWData(oldp+1105,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_54),128);
+            tracep->chgWData(oldp+1109,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_55),128);
+            tracep->chgWData(oldp+1113,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_56),128);
+            tracep->chgWData(oldp+1117,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_57),128);
+            tracep->chgWData(oldp+1121,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_58),128);
+            tracep->chgWData(oldp+1125,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_59),128);
+            tracep->chgWData(oldp+1129,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_60),128);
+            tracep->chgWData(oldp+1133,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_61),128);
+            tracep->chgWData(oldp+1137,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_62),128);
+            tracep->chgWData(oldp+1141,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2.__PVT__ram_63),128);
+            tracep->chgBit(oldp+1145,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRam_3__io_WEN));
+            tracep->chgWData(oldp+1146,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__rdata),128);
+            tracep->chgWData(oldp+1150,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_0),128);
+            tracep->chgWData(oldp+1154,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_1),128);
+            tracep->chgWData(oldp+1158,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_2),128);
+            tracep->chgWData(oldp+1162,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_3),128);
+            tracep->chgWData(oldp+1166,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_4),128);
+            tracep->chgWData(oldp+1170,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_5),128);
+            tracep->chgWData(oldp+1174,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_6),128);
+            tracep->chgWData(oldp+1178,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_7),128);
+            tracep->chgWData(oldp+1182,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_8),128);
+            tracep->chgWData(oldp+1186,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_9),128);
+            tracep->chgWData(oldp+1190,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_10),128);
+            tracep->chgWData(oldp+1194,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_11),128);
+            tracep->chgWData(oldp+1198,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_12),128);
+            tracep->chgWData(oldp+1202,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_13),128);
+            tracep->chgWData(oldp+1206,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_14),128);
+            tracep->chgWData(oldp+1210,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_15),128);
+            tracep->chgWData(oldp+1214,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_16),128);
+            tracep->chgWData(oldp+1218,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_17),128);
+            tracep->chgWData(oldp+1222,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_18),128);
+            tracep->chgWData(oldp+1226,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_19),128);
+            tracep->chgWData(oldp+1230,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_20),128);
+            tracep->chgWData(oldp+1234,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_21),128);
+            tracep->chgWData(oldp+1238,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_22),128);
+            tracep->chgWData(oldp+1242,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_23),128);
+            tracep->chgWData(oldp+1246,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_24),128);
+            tracep->chgWData(oldp+1250,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_25),128);
+            tracep->chgWData(oldp+1254,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_26),128);
+            tracep->chgWData(oldp+1258,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_27),128);
+            tracep->chgWData(oldp+1262,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_28),128);
+            tracep->chgWData(oldp+1266,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_29),128);
+            tracep->chgWData(oldp+1270,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_30),128);
+            tracep->chgWData(oldp+1274,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_31),128);
+            tracep->chgWData(oldp+1278,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_32),128);
+            tracep->chgWData(oldp+1282,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_33),128);
+            tracep->chgWData(oldp+1286,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_34),128);
+            tracep->chgWData(oldp+1290,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_35),128);
+            tracep->chgWData(oldp+1294,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_36),128);
+            tracep->chgWData(oldp+1298,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_37),128);
+            tracep->chgWData(oldp+1302,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_38),128);
+            tracep->chgWData(oldp+1306,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_39),128);
+            tracep->chgWData(oldp+1310,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_40),128);
+            tracep->chgWData(oldp+1314,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_41),128);
+            tracep->chgWData(oldp+1318,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_42),128);
+            tracep->chgWData(oldp+1322,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_43),128);
+            tracep->chgWData(oldp+1326,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_44),128);
+            tracep->chgWData(oldp+1330,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_45),128);
+            tracep->chgWData(oldp+1334,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_46),128);
+            tracep->chgWData(oldp+1338,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_47),128);
+            tracep->chgWData(oldp+1342,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_48),128);
+            tracep->chgWData(oldp+1346,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_49),128);
+            tracep->chgWData(oldp+1350,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_50),128);
+            tracep->chgWData(oldp+1354,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_51),128);
+            tracep->chgWData(oldp+1358,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_52),128);
+            tracep->chgWData(oldp+1362,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_53),128);
+            tracep->chgWData(oldp+1366,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_54),128);
+            tracep->chgWData(oldp+1370,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_55),128);
+            tracep->chgWData(oldp+1374,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_56),128);
+            tracep->chgWData(oldp+1378,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_57),128);
+            tracep->chgWData(oldp+1382,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_58),128);
+            tracep->chgWData(oldp+1386,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_59),128);
+            tracep->chgWData(oldp+1390,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_60),128);
+            tracep->chgWData(oldp+1394,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_61),128);
+            tracep->chgWData(oldp+1398,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_62),128);
+            tracep->chgWData(oldp+1402,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3.__PVT__ram_63),128);
         }
-        tracep->chgBit(oldp+238,(vlSelf->clock));
-        tracep->chgBit(oldp+239,(vlSelf->reset));
-        tracep->chgQData(oldp+240,(vlSelf->io_core_debug_debug_pc),64);
-        tracep->chgQData(oldp+242,(vlSelf->io_core_debug_debug_nextpc),64);
-        tracep->chgBit(oldp+244,(vlSelf->io_core_debug_debug_rf_we));
-        tracep->chgCData(oldp+245,(vlSelf->io_core_debug_debug_rf_wnum),5);
-        tracep->chgQData(oldp+246,(vlSelf->io_core_debug_debug_rf_wdata),64);
-        tracep->chgBit(oldp+248,(vlSelf->io_core_debug_raise_intr));
+        tracep->chgBit(oldp+1406,(vlSelf->clock));
+        tracep->chgBit(oldp+1407,(vlSelf->reset));
+        tracep->chgQData(oldp+1408,(vlSelf->io_core_debug_debug_pc),64);
+        tracep->chgQData(oldp+1410,(vlSelf->io_core_debug_debug_nextpc),64);
+        tracep->chgBit(oldp+1412,(vlSelf->io_core_debug_debug_rf_we));
+        tracep->chgCData(oldp+1413,(vlSelf->io_core_debug_debug_rf_wnum),5);
+        tracep->chgQData(oldp+1414,(vlSelf->io_core_debug_debug_rf_wdata),64);
+        tracep->chgBit(oldp+1416,(vlSelf->io_core_debug_raise_intr));
     }
 }
 

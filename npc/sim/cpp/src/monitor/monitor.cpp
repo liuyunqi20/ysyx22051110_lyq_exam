@@ -38,16 +38,21 @@ int init_image(){
     else {
         int isize = 0x4;
         uint64_t iaddr = 0x80000000;
-        char * name = "cache_test_1.o"
+        const char * name = "cache_test_1.o";
+        int ret = 0;
         FILE *fp = fopen(name, "rb");
         assert(fp != NULL);
         //read elf header
         Elf64_Ehdr ehdr;
-        read_ehdr(&ehdr, fp);
+        ret = fread(&ehdr, sizeof(Elf64_Ehdr), 1, fp);
+        assert(ret == 1);
+        assert(ehdr->e_ident[EI_MAG1] == 'E');
+        assert(ehdr->e_ident[EI_MAG2] == 'L');
+        assert(ehdr->e_ident[EI_MAG3] == 'F');
         //read section header of shdr strings section
         Elf64_Shdr shstrtab_shdr;
         fseek(fp, ehdr.e_shoff + ehdr.e_shstrndx * ehdr.e_shentsize, SEEK_SET);
-        int ret = fread(&shstrtab_shdr, ehdr.e_shentsize, 1, fp);
+        ret = fread(&shstrtab_shdr, ehdr.e_shentsize, 1, fp);
         assert(ret == 1);
         //find .text section
         Elf64_Shdr text_shdr;
@@ -55,7 +60,7 @@ int init_image(){
         char shname[64];
         for(int i = 0; i < ehdr.e_shnum; ++i){
             fseek(fp, ehdr.e_shoff + i * ehdr.e_shentsize, SEEK_SET);
-            int ret = fread(&shdr, ehdr.e_shentsize, 1, fp);
+            ret = fread(&shdr, ehdr.e_shentsize, 1, fp);
             assert(ret == 1);
             fseek(fp, shstrtab_shdr.sh_offset + shdr.sh_name, SEEK_SET);
             char * p = fgets(shname, 64, fp);
@@ -65,13 +70,14 @@ int init_image(){
             }
         }
         //load .text section to 'memory'
-        printf("text section size: %d\n", text_shdr.sh_size);
+        printf("text section size: %ld\n", text_shdr.sh_size);
         uint32_t inst;
         int inst_num = text_shdr.sh_size >> 2;
         fseek(fp, text_shdr.sh_offset, SEEK_SET);
         for(int i = 0; i < inst_num; ++i){
-            int ret = fread(&inst, sizeof(uint32_t), 1, fp);
+            ret = fread(&inst, sizeof(uint32_t), 1, fp);
             assert(ret == 1);
+            printf("%d %x\n", i+1, inst);
             vaddr_write(iaddr, isize, 0x00000297);
             iaddr += isize;
         }

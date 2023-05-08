@@ -15,6 +15,7 @@ class VSimTop__Syms;
 class VSimTop___024root;
 class VerilatedVcdC;
 class VSimTop_VerilatedVcd;
+class VSimTop_CacheDataRam;
 
 
 // This class is the main interface to the Verilated model
@@ -40,6 +41,10 @@ class VSimTop VL_NOT_FINAL {
     // CELLS
     // Public to allow access to /* verilator public */ items.
     // Otherwise the application code can consider these internals.
+    VSimTop_CacheDataRam* const __PVT__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam;
+    VSimTop_CacheDataRam* const __PVT__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1;
+    VSimTop_CacheDataRam* const __PVT__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2;
+    VSimTop_CacheDataRam* const __PVT__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3;
 
     // Root instance pointer to allow access to model internals,
     // including inlined /* verilator public_flat_* */ items.

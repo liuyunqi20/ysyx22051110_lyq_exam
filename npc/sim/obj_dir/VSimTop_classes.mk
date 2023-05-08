@@ -28,11 +28,12 @@ VM_CLASSES_FAST += \
 	VSimTop \
 	VSimTop__Dpi_Export_0 \
 	VSimTop___024root \
+	VSimTop_CacheDataRam \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
-	VSimTop__ConstPool_0 \
 	VSimTop___024root__Slow \
+	VSimTop_CacheDataRam__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \
