@@ -81,11 +81,11 @@ int init_image(){
             vaddr_write(iaddr, isize, 0x00000297);
             iaddr += isize;
         }
-        printf("iaddr %lx\n", iaddr);
         //ebreak
         vaddr_write(iaddr, isize, 0x00100073);
         iaddr += isize;
-        printf("iaddr %lx\n", iaddr);
+        fclose(fp);
+
         image_size = text_shdr.sh_size + 4;
     }
     return image_size;
