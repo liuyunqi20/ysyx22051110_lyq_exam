@@ -137,7 +137,6 @@ static int cmd_x(char * args){
 }
 
 void sdb_mainloop(){
-  printf("enter sdb main \n");
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
 
