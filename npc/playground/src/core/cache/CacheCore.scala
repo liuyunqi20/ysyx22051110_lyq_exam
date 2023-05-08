@@ -8,7 +8,7 @@ Stage-1:  Accpet request
 */
 class CacheStage1(config: CacheConfig) extends Module{
     val io = IO(new Bundle{
-        val cpu      = Flipped(Decoupled(new CPUMemReqBundle(config.w, w)))
+        val cpu      = Flipped(Decoupled(new CPUMemReqBundle(config.w, config.w)))
         val rd       = new Bundle{
             val en    = Output(Bool())
             val index = Output(UInt(config.index_width.W))
@@ -213,7 +213,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         /* REFILL REQ */ state(2) -> Mux(io.mem_out.req.fire, s_refill.U, s_refill_req.U),
         /* REFILL     */ state(3) -> Mux(burst_last, s_commit.U, s_refill.U),
         /* MMIO       */ state(4) -> Mux(io.mem_out.ret.valid, s_idle.U, s_mmio.U),
-        /* COMMIT     */ state(5) -> (io.s_idle.U),
+        /* COMMIT     */ state(5) -> (s_idle.U),
     ))
     s3_ready_go := (hit && (buf.wr === 0.U)) ||           //read hit
                    (state(4) && io.mem_out.ret.valid)  || //mmio
