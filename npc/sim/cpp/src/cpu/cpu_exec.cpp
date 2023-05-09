@@ -44,6 +44,7 @@ double sc_time_stamp() { return 0; }
 
 void wave_end(){
 #ifdef DUMPWAVE
+    contextp->timeInc(1);
     tfp->dump(contextp->time());
     tfp->close();
 #endif
@@ -207,7 +208,6 @@ void init_cpu(){
     SimTop->clock = 1;
     SimTop->eval();
     wave_dump();
-    printf("point-1\n");
     g_nr_step = 0;
     //reset == 1 util negedge
     while (1) {
@@ -234,7 +234,6 @@ void init_cpu(){
     //execute one step to fetch the first instruction
     printf("point-3\n");
     execute_once();
-    printf("point-4\n");
     printf("[npc] cpu init success!\n");
     npc_state.state = NPC_STOP;
 }
