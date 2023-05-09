@@ -100,8 +100,6 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     CData/*0:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie;
     CData/*0:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie;
     CData/*3:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state;
-    CData/*0:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt;
-    CData/*3:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state;
     CData/*0:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt;
     CData/*3:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__replace1H;
     CData/*0:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_mthrough;
@@ -120,27 +118,31 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     CData/*0:0*/ __Vdly__SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r;
     IData/*31:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT___alu_res_T_4;
     VlWide<4>/*127:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2;
+    VlWide<3>/*95:0*/ __Vtemp9;
     VlWide<4>/*127:0*/ __Vtemp10;
-    VlWide<4>/*127:0*/ __Vtemp11;
-    VlWide<3>/*95:0*/ __Vtemp13;
-    VlWide<3>/*95:0*/ __Vtemp14;
-    VlWide<3>/*95:0*/ __Vtemp15;
+    VlWide<4>/*127:0*/ __Vtemp13;
+    VlWide<4>/*127:0*/ __Vtemp14;
     VlWide<3>/*95:0*/ __Vtemp16;
     VlWide<3>/*95:0*/ __Vtemp17;
-    VlWide<4>/*127:0*/ __Vtemp19;
-    VlWide<4>/*127:0*/ __Vtemp20;
-    VlWide<4>/*127:0*/ __Vtemp21;
-    VlWide<3>/*95:0*/ __Vtemp23;
-    VlWide<3>/*95:0*/ __Vtemp24;
-    VlWide<3>/*95:0*/ __Vtemp25;
-    VlWide<4>/*127:0*/ __Vtemp28;
-    VlWide<4>/*127:0*/ __Vtemp29;
+    VlWide<3>/*95:0*/ __Vtemp18;
+    VlWide<3>/*95:0*/ __Vtemp19;
+    VlWide<3>/*95:0*/ __Vtemp20;
+    VlWide<4>/*127:0*/ __Vtemp22;
+    VlWide<4>/*127:0*/ __Vtemp23;
+    VlWide<4>/*127:0*/ __Vtemp24;
+    VlWide<3>/*95:0*/ __Vtemp26;
+    VlWide<3>/*95:0*/ __Vtemp27;
+    VlWide<3>/*95:0*/ __Vtemp28;
     VlWide<4>/*127:0*/ __Vtemp31;
     VlWide<4>/*127:0*/ __Vtemp32;
-    VlWide<4>/*127:0*/ __Vtemp33;
+    VlWide<4>/*127:0*/ __Vtemp34;
+    VlWide<4>/*127:0*/ __Vtemp35;
+    VlWide<4>/*127:0*/ __Vtemp36;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_4;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_5;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_2;
+    QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T;
+    QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T;
     QData/*63:0*/ __Vdlyvval__SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file__v0;
     QData/*63:0*/ __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime;
     // Body
@@ -148,28 +150,26 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__replace1H;
     __Vdly__SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r_r 
         = vlSelf->SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r_r;
-    __Vdly__SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r 
-        = vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs;
     __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate 
         = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state;
+    __Vdly__SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r 
+        = vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime;
-    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt 
-        = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt;
-    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate 
-        = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate;
     __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_idx 
         = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_idx;
     __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_cnt 
         = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_cnt;
     __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok 
         = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok;
+    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt 
+        = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt;
+    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate 
+        = vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie 
@@ -187,12 +187,10 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cnt;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt 
         = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt;
-    __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state 
-        = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state;
+    __Vdly__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state 
+        = vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state;
     __Vdly__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__replace1H 
         = ((IData)(vlSelf->reset) ? 1U : ((0xeU & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__replace1H) 
                                                    << 1U)) 
@@ -228,19 +226,22 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__ar_buf_araddr 
             = vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_ar_bits_araddr;
     }
-    vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__unnamedblk1__DOT__din 
-        = ((((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-             >> 1U) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_wt_valid)) 
-           & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__delaying)));
-    vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__delaying 
-        = ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__unnamedblk1__DOT__din) 
-                                         | ((~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r)) 
-                                            & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__delaying))));
-    __Vdly__SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r 
-        = vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__unnamedblk1__DOT__din;
+    if (vlSelf->reset) {
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__waddr_r = 0ULL;
+    } else if ((1U & (~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_req_ready_T_1) 
+                         | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_1)))))) {
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__waddr_r = 0ULL;
+    }
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt 
+        = (1U & ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_req_ready_T_1)
+                                                ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt) 
+                                                   - (IData)(1U))
+                                                : (
+                                                   (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_1)) 
+                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt)))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_after_wt_r 
         = ((~ (IData)(vlSelf->reset)) & ((~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_rlast_T) 
-                                             & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_6))) 
+                                             & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_3))) 
                                          & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_after_wt_r)));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state 
         = ((IData)(vlSelf->reset) ? 1U : (((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_state))
@@ -272,40 +273,31 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                    : 2U)
                                                : 0U)) 
                                           | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state))
-                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_6)
+                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_3)
                                                   ? 2U
                                                   : 4U)
                                               : 0U)));
     __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs 
         = (1U & ((~ (IData)(vlSelf->reset)) & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_in_ret_valid) 
                                                 & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms)))
-                                                ? (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_6))
+                                                ? (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_3))
                                                 : (
                                                    (~ 
                                                     ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs) 
-                                                     & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_6))) 
+                                                     & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_3))) 
                                                    & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)))));
-    __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate 
-        = ((IData)(vlSelf->reset) ? 1U : (((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))
-                                            ? ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T)
-                                                ? 2U
-                                                : 1U)
-                                            : 0U) | 
-                                          ((2U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))
-                                            ? (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_3) 
-                                                & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_3))
-                                                ? 1U
-                                                : 2U)
-                                            : 0U)));
     if (vlSelf->reset) {
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate = 1U;
         __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state = 1U;
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__waddr_r = 0ULL;
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt = 0U;
     } else {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__unnamedblk1__DOT___T_5 
-            = (1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
-                      >> 3U) & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-                                 >> 2U) & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)))));
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate 
+            = (((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))
+                 ? ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T)
+                     ? 2U : 1U) : 0U) | ((2U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))
+                                          ? (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_3) 
+                                              & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_3))
+                                              ? 1U : 2U)
+                                          : 0U));
         __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state 
             = (((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state))
                    ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_req_ready_T)
@@ -317,21 +309,12 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                             : 0U)) 
                 | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state))
                     ? (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_req_ready_T_1) 
-                        & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_wt_bits_wlast_T_1))
+                        & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_wt_bits_wlast_T_3))
                         ? 8U : 4U) : 0U)) | ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state))
-                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__unnamedblk1__DOT___T_5)
+                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_1)
                                                   ? 1U
                                                   : 8U)
                                               : 0U));
-        if ((1U & (~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_req_ready_T_1) 
-                      | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__unnamedblk1__DOT___T_5)))))) {
-            vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__waddr_r = 0ULL;
-        }
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt 
-            = (1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_req_ready_T_1)
-                      ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt) 
-                         - (IData)(1U)) : ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__unnamedblk1__DOT___T_5)) 
-                                           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt))));
     }
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__s3_valid = 0U;
@@ -339,51 +322,22 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__s3_valid 
             = vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__s2_valid;
     }
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__unnamedblk1__DOT__din 
+        = ((((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+             >> 1U) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___T_10)) 
+           & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__delaying)));
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__delaying 
+        = ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__unnamedblk1__DOT__din) 
+                                         | ((~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r)) 
+                                            & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__delaying))));
+    __Vdly__SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r 
+        = vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__unnamedblk1__DOT__din;
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_widx = 0U;
     } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_widx 
             = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_addr 
                              >> 3U)));
-    }
-    if (vlSelf->reset) {
-        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate = 1U;
-        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__aw_buf_awaddr = 0ULL;
-        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt = 0U;
-    } else {
-        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_10 
-            = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1) 
-               & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_wt_valid));
-        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_9 
-            = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-               & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_aw_valid_T_3));
-        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate 
-            = ((((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))
-                  ? ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_9)
-                      ? 2U : 1U) : 0U) | ((2U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))
-                                           ? (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_10) 
-                                               & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
-                                                   ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_wt_bits_wlast_T_1)
-                                                   : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_wt_bits_wlast_T_1)))
-                                               ? 4U
-                                               : 2U)
-                                           : 0U)) | 
-               ((4U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))
-                 ? ((1U & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
-                             ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
-                                >> 3U) : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
-                                          >> 3U)) & 
-                           ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-                            >> 2U))) ? 1U : 4U) : 0U));
-        if (vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_9) {
-            vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__aw_buf_awaddr 
-                = vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_addr;
-        }
-        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt 
-            = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_9)) 
-                     & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_10)
-                         ? ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt) 
-                            - (IData)(1U)) : (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt))));
     }
     if (vlSelf->reset) {
         __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime = 0ULL;
@@ -421,7 +375,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt_r 
         = ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt) 
                                          | ((~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_rlast_T) 
-                                                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_6))) 
+                                                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_3))) 
                                             & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt_r))));
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_r = 0ULL;
@@ -458,6 +412,71 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                       & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT__rdata_arrive)))) 
                   & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok)));
     }
+    if (vlSelf->reset) {
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate = 1U;
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__aw_buf_awaddr = 0ULL;
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt = 0U;
+    } else {
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_9 
+            = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+               & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_aw_valid_T_3));
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate 
+            = ((((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))
+                  ? ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_9)
+                      ? 2U : 1U) : 0U) | ((2U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))
+                                           ? (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___T_10) 
+                                               & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
+                                                   ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_wt_bits_wlast_T_3)
+                                                   : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_wt_bits_wlast_T_3)))
+                                               ? 4U
+                                               : 2U)
+                                           : 0U)) | 
+               ((4U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))
+                 ? ((1U & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
+                             ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
+                                >> 3U) : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
+                                          >> 3U)) & 
+                           ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                            >> 2U))) ? 1U : 4U) : 0U));
+        if (vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_9) {
+            vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__aw_buf_awaddr 
+                = vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_addr;
+        }
+        __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt 
+            = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_9)) 
+                     & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___T_10)
+                         ? ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt) 
+                            - (IData)(1U)) : (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt))));
+    }
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state 
+        = ((IData)(vlSelf->reset) ? 1U : (((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state))
+                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T)
+                                                  ? 2U
+                                                  : 
+                                                 (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_aw_valid_T_3))
+                                                   ? 4U
+                                                   : 1U))
+                                              : 0U) 
+                                            | ((2U 
+                                                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state))
+                                                ? (
+                                                   ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T) 
+                                                    & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_3))
+                                                    ? 1U
+                                                    : 2U)
+                                                : 0U)) 
+                                           | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state))
+                                               ? (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T_1) 
+                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_wt_bits_wlast_T_3))
+                                                   ? 8U
+                                                   : 4U)
+                                               : 0U)) 
+                                          | ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state))
+                                              ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_1)
+                                                  ? 1U
+                                                  : 8U)
+                                              : 0U)));
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl = 2U;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_uxl = 2U;
@@ -574,7 +593,6 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                         >> 7U));
     }
     if (vlSelf->reset) {
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state = 1U;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[0U] = 0U;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[1U] = 0U;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[2U] = 0U;
@@ -588,28 +606,6 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
             = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T_3) 
                 & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_axi_out_req_valid)) 
                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wr));
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__unnamedblk1__DOT___T_5 
-            = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
-                >> 3U) & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-                           >> 2U) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)));
-        __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state 
-            = (((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state))
-                   ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T)
-                       ? 2U : (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-                                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_aw_valid_T_3))
-                                ? 4U : 1U)) : 0U) | 
-                 ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state))
-                   ? (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T) 
-                       & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_3))
-                       ? 1U : 2U) : 0U)) | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state))
-                                             ? (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T_1) 
-                                                 & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_wt_bits_wlast_T_1))
-                                                 ? 8U
-                                                 : 4U)
-                                             : 0U)) 
-               | ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state))
-                   ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__unnamedblk1__DOT___T_5)
-                       ? 1U : 8U) : 0U));
         if (vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__unnamedblk1__DOT___T_3) {
             vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[0U] 
                 = vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[0U];
@@ -629,22 +625,16 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
             vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_len 
                 = (1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_mthrough)));
         } else if ((1U & (~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T_1) 
-                             | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__unnamedblk1__DOT___T_5)))))) {
+                             | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_1)))))) {
             vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__waddr_r = 0ULL;
         }
         __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt 
             = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__unnamedblk1__DOT___T_3)) 
                      & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T_1)
                          ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt) 
-                            - (IData)(1U)) : ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__unnamedblk1__DOT___T_5)) 
+                            - (IData)(1U)) : ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_1)) 
                                               & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt)))));
     }
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt 
-        = __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt;
-    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt 
-        = __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt;
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state 
-        = __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
         = __Vdly__SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime;
     vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate 
@@ -655,6 +645,10 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_cnt;
     vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok 
         = __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok;
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt 
+        = __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt;
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state 
+        = __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie 
         = __Vdly__SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpie;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie 
@@ -665,13 +659,8 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     }
     vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt 
         = __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt;
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state 
-        = __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state;
     vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r 
         = vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r_3;
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_wt_bits_wlast_T_1 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt) 
-           == (1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_len)));
     vlSelf->SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r 
         = vlSelf->SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r_r_3;
     if (vlSelf->reset) {
@@ -681,10 +670,30 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
             = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_ar_valid_T_5)
                 ? 0U : (1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_mthrough))));
     }
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_wt_bits_wlast_T_3 
+        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt) 
+            == (1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_len))) 
+           & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
+              >> 2U));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T 
         = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
             >> 1U) & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok) 
                       & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen))));
+    if (vlSelf->reset) {
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen = 0U;
+    } else if (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_aw_valid_T_3))) {
+        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen = 1U;
+    }
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_3 
+        = (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen)
+             ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
+                >> 1U) : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
+                          >> 1U)) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T 
+        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
+            >> 1U) & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok) 
+                      & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen)));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t 
         = (((vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
              >= vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp) 
@@ -701,24 +710,11 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                     ? vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_branch_br_target
                     : vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__pc_seq));
     }
-    if (vlSelf->reset) {
-        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen = 0U;
-    } else if (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_aw_valid_T_3))) {
-        vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen = 1U;
-    }
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_wt_bits_wlast_T_1 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt) 
-           == (1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_len)));
-    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_3 
-        = (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen)
-             ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
-                >> 1U) : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
-                          >> 1U)) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T 
-        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
-            >> 1U) & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok) 
-                      & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen)));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_wt_bits_wlast_T_3 
+        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt) 
+            == (1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_len))) 
+           & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
+              >> 2U));
     if (vlSelf->reset) {
         __Vdly__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wr = 0U;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata = 0ULL;
@@ -881,14 +877,9 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                              - (IData)(1U)))
                                        : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cnt)))));
     }
-    vlSelf->io_core_debug_raise_intr = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t;
     vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate 
         = __Vdly__SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate;
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_6 
-        = (1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T) 
-                  | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
-                      >> 2U) & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt)))) 
-                 | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt_r)));
+    vlSelf->io_core_debug_raise_intr = vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__replace1H 
         = __Vdly__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__replace1H;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_mthrough 
@@ -917,53 +908,34 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok) 
            & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_cnt) 
               == (0xffU & ((IData)(1U) + (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__ar_buf_arlen)))));
-    vlSelf->io_core_debug_debug_pc = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc;
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__pc_seq 
-        = (4ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc);
-    vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_wt_valid 
-        = (1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
-                  ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
-                     >> 2U) : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
-                               >> 2U)));
     vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1 
         = (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
             >> 1U) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r));
-    vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__ret_valid) 
-           | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_6));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_1 
+        = (1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
+                  >> 3U) & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                             >> 2U) & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)))));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_1 
+        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
+            >> 3U) & (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                       >> 2U) & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)));
+    vlSelf->io_core_debug_debug_pc = vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc;
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__pc_seq 
+        = (4ULL + vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc);
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__s2_valid = 0U;
     } else if (vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT___io_s1_to_s2_ready_T_2) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__s2_valid 
             = vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_req_valid_T_3;
     }
-    if (vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_mthrough) {
-        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[0U] 
-            = (IData)(((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset))
-                        ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata
-                        : 0ULL));
-        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[1U] 
-            = (IData)((((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset))
-                         ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata
-                         : 0ULL) >> 0x20U));
-        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[2U] 
-            = (IData)(((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset))
-                        ? 0ULL : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata));
-        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[3U] 
-            = (IData)((((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset))
-                         ? 0ULL : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata) 
-                       >> 0x20U));
+    if ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset))) {
+        SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T = 0ULL;
+        SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+            = vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata;
     } else {
-        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[0U] 
-            = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1);
-        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[1U] 
-            = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1 
-                       >> 0x20U));
-        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[2U] 
-            = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0);
-        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[3U] 
-            = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0 
-                       >> 0x20U));
+        SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+            = vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata;
+        SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T = 0ULL;
     }
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cnt) 
@@ -1079,54 +1051,983 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_rlast_T 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt_r) 
            | (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_3));
-    VL_SHIFTR_WWI(128,128,1, __Vtemp10, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt));
-    VL_SHIFTR_WWI(128,128,1, __Vtemp11, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt));
-    VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_axi_sram__DOT__my_wmem_port__DOT__cpu_dmem_write_TOP(
-                                                                                (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
-                                                                                >> 1U) 
-                                                                                & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_wt_valid)), 1U, 
-                                                                                ((0xfffffffffffffff0ULL 
-                                                                                & vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__aw_buf_awaddr) 
-                                                                                | (QData)((IData)(
-                                                                                ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt) 
-                                                                                << 3U)))), 
-                                                                                ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
-                                                                                 ? (QData)((IData)(
-                                                                                (1U 
-                                                                                & __Vtemp10[0U])))
-                                                                                 : (QData)((IData)(
-                                                                                (1U 
-                                                                                & __Vtemp11[0U])))), 
-                                                                                ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
-                                                                                 ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wstrb_r)
-                                                                                 : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wstrb_r)));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_req_ready_T_1 
         = (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1) 
             & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen))) 
            & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
               >> 2U));
+    vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___T_10 
+        = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1) 
+           & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
+               ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
+                  >> 2U) : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
+                            >> 2U)));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T_1 
         = (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1) 
             & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)) 
            & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
               >> 2U));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_3 
+        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T) 
+            | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_1)) 
+           | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt_r));
+    __Vtemp9[0U] = (((IData)(SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T) 
+                     << 0x1fU) | ((0x40000000U & ((IData)(
+                                                          (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                           >> 1U)) 
+                                                  << 0x1eU)) 
+                                  | ((0x20000000U & 
+                                      ((IData)((SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                >> 2U)) 
+                                       << 0x1dU)) | 
+                                     ((0x10000000U 
+                                       & ((IData)((SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                   >> 3U)) 
+                                          << 0x1cU)) 
+                                      | ((0x8000000U 
+                                          & ((IData)(
+                                                     (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                      >> 4U)) 
+                                             << 0x1bU)) 
+                                         | ((0x4000000U 
+                                             & ((IData)(
+                                                        (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                         >> 5U)) 
+                                                << 0x1aU)) 
+                                            | ((0x2000000U 
+                                                & ((IData)(
+                                                           (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                            >> 6U)) 
+                                                   << 0x19U)) 
+                                               | ((0x1000000U 
+                                                   & ((IData)(
+                                                              (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                               >> 7U)) 
+                                                      << 0x18U)) 
+                                                  | ((0x800000U 
+                                                      & ((IData)(
+                                                                 (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                  >> 8U)) 
+                                                         << 0x17U)) 
+                                                     | ((0x400000U 
+                                                         & ((IData)(
+                                                                    (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                     >> 9U)) 
+                                                            << 0x16U)) 
+                                                        | ((0x200000U 
+                                                            & ((IData)(
+                                                                       (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                        >> 0xaU)) 
+                                                               << 0x15U)) 
+                                                           | ((0x100000U 
+                                                               & ((IData)(
+                                                                          (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                           >> 0xbU)) 
+                                                                  << 0x14U)) 
+                                                              | ((0x80000U 
+                                                                  & ((IData)(
+                                                                             (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                              >> 0xcU)) 
+                                                                     << 0x13U)) 
+                                                                 | ((0x40000U 
+                                                                     & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0xdU)) 
+                                                                        << 0x12U)) 
+                                                                    | ((0x20000U 
+                                                                        & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0xeU)) 
+                                                                           << 0x11U)) 
+                                                                       | ((0x10000U 
+                                                                           & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0xfU)) 
+                                                                              << 0x10U)) 
+                                                                          | ((0x8000U 
+                                                                              & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x10U)) 
+                                                                                << 0xfU)) 
+                                                                             | ((0x4000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x11U)) 
+                                                                                << 0xeU)) 
+                                                                                | ((0x2000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x12U)) 
+                                                                                << 0xdU)) 
+                                                                                | ((0x1000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x13U)) 
+                                                                                << 0xcU)) 
+                                                                                | ((0x800U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x14U)) 
+                                                                                << 0xbU)) 
+                                                                                | ((0x400U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x15U)) 
+                                                                                << 0xaU)) 
+                                                                                | ((0x200U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x16U)) 
+                                                                                << 9U)) 
+                                                                                | ((0x100U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x17U)) 
+                                                                                << 8U)) 
+                                                                                | ((0x80U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x18U)) 
+                                                                                << 7U)) 
+                                                                                | ((0x40U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x19U)) 
+                                                                                << 6U)) 
+                                                                                | ((0x20U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x1aU)) 
+                                                                                << 5U)) 
+                                                                                | ((0x10U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x1bU)) 
+                                                                                << 4U)) 
+                                                                                | ((8U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x1cU)) 
+                                                                                << 3U)) 
+                                                                                | ((4U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x1dU)) 
+                                                                                << 2U)) 
+                                                                                | ((2U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x1eU)) 
+                                                                                << 1U)) 
+                                                                                | (1U 
+                                                                                & (IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x1fU))))))))))))))))))))))))))))))))));
+    __Vtemp9[1U] = (IData)((((QData)((IData)((((IData)(SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T) 
+                                               << 0x1fU) 
+                                              | ((0x40000000U 
+                                                  & ((IData)(
+                                                             (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                              >> 1U)) 
+                                                     << 0x1eU)) 
+                                                 | ((0x20000000U 
+                                                     & ((IData)(
+                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                 >> 2U)) 
+                                                        << 0x1dU)) 
+                                                    | ((0x10000000U 
+                                                        & ((IData)(
+                                                                   (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                    >> 3U)) 
+                                                           << 0x1cU)) 
+                                                       | ((0x8000000U 
+                                                           & ((IData)(
+                                                                      (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                       >> 4U)) 
+                                                              << 0x1bU)) 
+                                                          | ((0x4000000U 
+                                                              & ((IData)(
+                                                                         (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                          >> 5U)) 
+                                                                 << 0x1aU)) 
+                                                             | ((0x2000000U 
+                                                                 & ((IData)(
+                                                                            (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                             >> 6U)) 
+                                                                    << 0x19U)) 
+                                                                | ((0x1000000U 
+                                                                    & ((IData)(
+                                                                               (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 7U)) 
+                                                                       << 0x18U)) 
+                                                                   | ((0x800000U 
+                                                                       & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 8U)) 
+                                                                          << 0x17U)) 
+                                                                      | ((0x400000U 
+                                                                          & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 9U)) 
+                                                                             << 0x16U)) 
+                                                                         | ((0x200000U 
+                                                                             & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xaU)) 
+                                                                                << 0x15U)) 
+                                                                            | ((0x100000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xbU)) 
+                                                                                << 0x14U)) 
+                                                                               | ((0x80000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xcU)) 
+                                                                                << 0x13U)) 
+                                                                                | ((0x40000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xdU)) 
+                                                                                << 0x12U)) 
+                                                                                | ((0x20000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xeU)) 
+                                                                                << 0x11U)) 
+                                                                                | ((0x10000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xfU)) 
+                                                                                << 0x10U)) 
+                                                                                | ((0x8000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x10U)) 
+                                                                                << 0xfU)) 
+                                                                                | ((0x4000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x11U)) 
+                                                                                << 0xeU)) 
+                                                                                | ((0x2000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x12U)) 
+                                                                                << 0xdU)) 
+                                                                                | ((0x1000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x13U)) 
+                                                                                << 0xcU)) 
+                                                                                | ((0x800U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x14U)) 
+                                                                                << 0xbU)) 
+                                                                                | ((0x400U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x15U)) 
+                                                                                << 0xaU)) 
+                                                                                | ((0x200U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x16U)) 
+                                                                                << 9U)) 
+                                                                                | ((0x100U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x17U)) 
+                                                                                << 8U)) 
+                                                                                | ((0x80U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x18U)) 
+                                                                                << 7U)) 
+                                                                                | ((0x40U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x19U)) 
+                                                                                << 6U)) 
+                                                                                | ((0x20U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1aU)) 
+                                                                                << 5U)) 
+                                                                                | ((0x10U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1bU)) 
+                                                                                << 4U)) 
+                                                                                | ((8U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1cU)) 
+                                                                                << 3U)) 
+                                                                                | ((4U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1dU)) 
+                                                                                << 2U)) 
+                                                                                | ((2U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1eU)) 
+                                                                                << 1U)) 
+                                                                                | (1U 
+                                                                                & (IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1fU)))))))))))))))))))))))))))))))))))) 
+                             << 0x20U) | (QData)((IData)(
+                                                         (((IData)(
+                                                                   (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                    >> 0x20U)) 
+                                                           << 0x1fU) 
+                                                          | ((0x40000000U 
+                                                              & ((IData)(
+                                                                         (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                          >> 0x21U)) 
+                                                                 << 0x1eU)) 
+                                                             | ((0x20000000U 
+                                                                 & ((IData)(
+                                                                            (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                             >> 0x22U)) 
+                                                                    << 0x1dU)) 
+                                                                | ((0x10000000U 
+                                                                    & ((IData)(
+                                                                               (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x23U)) 
+                                                                       << 0x1cU)) 
+                                                                   | ((0x8000000U 
+                                                                       & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x24U)) 
+                                                                          << 0x1bU)) 
+                                                                      | ((0x4000000U 
+                                                                          & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x25U)) 
+                                                                             << 0x1aU)) 
+                                                                         | ((0x2000000U 
+                                                                             & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x26U)) 
+                                                                                << 0x19U)) 
+                                                                            | ((0x1000000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x27U)) 
+                                                                                << 0x18U)) 
+                                                                               | ((0x800000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x28U)) 
+                                                                                << 0x17U)) 
+                                                                                | ((0x400000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x29U)) 
+                                                                                << 0x16U)) 
+                                                                                | ((0x200000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2aU)) 
+                                                                                << 0x15U)) 
+                                                                                | ((0x100000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2bU)) 
+                                                                                << 0x14U)) 
+                                                                                | ((0x80000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2cU)) 
+                                                                                << 0x13U)) 
+                                                                                | ((0x40000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2dU)) 
+                                                                                << 0x12U)) 
+                                                                                | ((0x20000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2eU)) 
+                                                                                << 0x11U)) 
+                                                                                | ((0x10000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2fU)) 
+                                                                                << 0x10U)) 
+                                                                                | ((0x8000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x30U)) 
+                                                                                << 0xfU)) 
+                                                                                | ((0x4000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x31U)) 
+                                                                                << 0xeU)) 
+                                                                                | ((0x2000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x32U)) 
+                                                                                << 0xdU)) 
+                                                                                | ((0x1000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x33U)) 
+                                                                                << 0xcU)) 
+                                                                                | ((0x800U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x34U)) 
+                                                                                << 0xbU)) 
+                                                                                | ((0x400U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x35U)) 
+                                                                                << 0xaU)) 
+                                                                                | ((0x200U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x36U)) 
+                                                                                << 9U)) 
+                                                                                | ((0x100U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x37U)) 
+                                                                                << 8U)) 
+                                                                                | ((0x80U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x38U)) 
+                                                                                << 7U)) 
+                                                                                | ((0x40U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x39U)) 
+                                                                                << 6U)) 
+                                                                                | ((0x20U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3aU)) 
+                                                                                << 5U)) 
+                                                                                | ((0x10U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3bU)) 
+                                                                                << 4U)) 
+                                                                                | ((8U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3cU)) 
+                                                                                << 3U)) 
+                                                                                | ((4U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3dU)) 
+                                                                                << 2U)) 
+                                                                                | ((2U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3eU)) 
+                                                                                << 1U)) 
+                                                                                | (1U 
+                                                                                & (IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3fU))))))))))))))))))))))))))))))))))))));
+    __Vtemp9[2U] = (IData)(((((QData)((IData)((((IData)(SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T) 
+                                                << 0x1fU) 
+                                               | ((0x40000000U 
+                                                   & ((IData)(
+                                                              (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                               >> 1U)) 
+                                                      << 0x1eU)) 
+                                                  | ((0x20000000U 
+                                                      & ((IData)(
+                                                                 (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                  >> 2U)) 
+                                                         << 0x1dU)) 
+                                                     | ((0x10000000U 
+                                                         & ((IData)(
+                                                                    (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                     >> 3U)) 
+                                                            << 0x1cU)) 
+                                                        | ((0x8000000U 
+                                                            & ((IData)(
+                                                                       (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                        >> 4U)) 
+                                                               << 0x1bU)) 
+                                                           | ((0x4000000U 
+                                                               & ((IData)(
+                                                                          (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                           >> 5U)) 
+                                                                  << 0x1aU)) 
+                                                              | ((0x2000000U 
+                                                                  & ((IData)(
+                                                                             (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                              >> 6U)) 
+                                                                     << 0x19U)) 
+                                                                 | ((0x1000000U 
+                                                                     & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 7U)) 
+                                                                        << 0x18U)) 
+                                                                    | ((0x800000U 
+                                                                        & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 8U)) 
+                                                                           << 0x17U)) 
+                                                                       | ((0x400000U 
+                                                                           & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 9U)) 
+                                                                              << 0x16U)) 
+                                                                          | ((0x200000U 
+                                                                              & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xaU)) 
+                                                                                << 0x15U)) 
+                                                                             | ((0x100000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xbU)) 
+                                                                                << 0x14U)) 
+                                                                                | ((0x80000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xcU)) 
+                                                                                << 0x13U)) 
+                                                                                | ((0x40000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xdU)) 
+                                                                                << 0x12U)) 
+                                                                                | ((0x20000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xeU)) 
+                                                                                << 0x11U)) 
+                                                                                | ((0x10000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0xfU)) 
+                                                                                << 0x10U)) 
+                                                                                | ((0x8000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x10U)) 
+                                                                                << 0xfU)) 
+                                                                                | ((0x4000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x11U)) 
+                                                                                << 0xeU)) 
+                                                                                | ((0x2000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x12U)) 
+                                                                                << 0xdU)) 
+                                                                                | ((0x1000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x13U)) 
+                                                                                << 0xcU)) 
+                                                                                | ((0x800U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x14U)) 
+                                                                                << 0xbU)) 
+                                                                                | ((0x400U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x15U)) 
+                                                                                << 0xaU)) 
+                                                                                | ((0x200U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x16U)) 
+                                                                                << 9U)) 
+                                                                                | ((0x100U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x17U)) 
+                                                                                << 8U)) 
+                                                                                | ((0x80U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x18U)) 
+                                                                                << 7U)) 
+                                                                                | ((0x40U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x19U)) 
+                                                                                << 6U)) 
+                                                                                | ((0x20U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1aU)) 
+                                                                                << 5U)) 
+                                                                                | ((0x10U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1bU)) 
+                                                                                << 4U)) 
+                                                                                | ((8U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1cU)) 
+                                                                                << 3U)) 
+                                                                                | ((4U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1dU)) 
+                                                                                << 2U)) 
+                                                                                | ((2U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1eU)) 
+                                                                                << 1U)) 
+                                                                                | (1U 
+                                                                                & (IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x1fU)))))))))))))))))))))))))))))))))))) 
+                              << 0x20U) | (QData)((IData)(
+                                                          (((IData)(
+                                                                    (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                     >> 0x20U)) 
+                                                            << 0x1fU) 
+                                                           | ((0x40000000U 
+                                                               & ((IData)(
+                                                                          (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                           >> 0x21U)) 
+                                                                  << 0x1eU)) 
+                                                              | ((0x20000000U 
+                                                                  & ((IData)(
+                                                                             (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                              >> 0x22U)) 
+                                                                     << 0x1dU)) 
+                                                                 | ((0x10000000U 
+                                                                     & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x23U)) 
+                                                                        << 0x1cU)) 
+                                                                    | ((0x8000000U 
+                                                                        & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x24U)) 
+                                                                           << 0x1bU)) 
+                                                                       | ((0x4000000U 
+                                                                           & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x25U)) 
+                                                                              << 0x1aU)) 
+                                                                          | ((0x2000000U 
+                                                                              & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x26U)) 
+                                                                                << 0x19U)) 
+                                                                             | ((0x1000000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x27U)) 
+                                                                                << 0x18U)) 
+                                                                                | ((0x800000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x28U)) 
+                                                                                << 0x17U)) 
+                                                                                | ((0x400000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x29U)) 
+                                                                                << 0x16U)) 
+                                                                                | ((0x200000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2aU)) 
+                                                                                << 0x15U)) 
+                                                                                | ((0x100000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2bU)) 
+                                                                                << 0x14U)) 
+                                                                                | ((0x80000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2cU)) 
+                                                                                << 0x13U)) 
+                                                                                | ((0x40000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2dU)) 
+                                                                                << 0x12U)) 
+                                                                                | ((0x20000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2eU)) 
+                                                                                << 0x11U)) 
+                                                                                | ((0x10000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x2fU)) 
+                                                                                << 0x10U)) 
+                                                                                | ((0x8000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x30U)) 
+                                                                                << 0xfU)) 
+                                                                                | ((0x4000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x31U)) 
+                                                                                << 0xeU)) 
+                                                                                | ((0x2000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x32U)) 
+                                                                                << 0xdU)) 
+                                                                                | ((0x1000U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x33U)) 
+                                                                                << 0xcU)) 
+                                                                                | ((0x800U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x34U)) 
+                                                                                << 0xbU)) 
+                                                                                | ((0x400U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x35U)) 
+                                                                                << 0xaU)) 
+                                                                                | ((0x200U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x36U)) 
+                                                                                << 9U)) 
+                                                                                | ((0x100U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x37U)) 
+                                                                                << 8U)) 
+                                                                                | ((0x80U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x38U)) 
+                                                                                << 7U)) 
+                                                                                | ((0x40U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x39U)) 
+                                                                                << 6U)) 
+                                                                                | ((0x20U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3aU)) 
+                                                                                << 5U)) 
+                                                                                | ((0x10U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3bU)) 
+                                                                                << 4U)) 
+                                                                                | ((8U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3cU)) 
+                                                                                << 3U)) 
+                                                                                | ((4U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3dU)) 
+                                                                                << 2U)) 
+                                                                                | ((2U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3eU)) 
+                                                                                << 1U)) 
+                                                                                | (1U 
+                                                                                & (IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_1_T 
+                                                                                >> 0x3fU))))))))))))))))))))))))))))))))))))) 
+                            >> 0x20U));
+    __Vtemp10[0U] = (((IData)((SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                               >> 0x20U)) << 0x1fU) 
+                     | ((0x40000000U & ((IData)((SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                 >> 0x21U)) 
+                                        << 0x1eU)) 
+                        | ((0x20000000U & ((IData)(
+                                                   (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                    >> 0x22U)) 
+                                           << 0x1dU)) 
+                           | ((0x10000000U & ((IData)(
+                                                      (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                       >> 0x23U)) 
+                                              << 0x1cU)) 
+                              | ((0x8000000U & ((IData)(
+                                                        (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                         >> 0x24U)) 
+                                                << 0x1bU)) 
+                                 | ((0x4000000U & ((IData)(
+                                                           (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                            >> 0x25U)) 
+                                                   << 0x1aU)) 
+                                    | ((0x2000000U 
+                                        & ((IData)(
+                                                   (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                    >> 0x26U)) 
+                                           << 0x19U)) 
+                                       | ((0x1000000U 
+                                           & ((IData)(
+                                                      (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                       >> 0x27U)) 
+                                              << 0x18U)) 
+                                          | ((0x800000U 
+                                              & ((IData)(
+                                                         (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                          >> 0x28U)) 
+                                                 << 0x17U)) 
+                                             | ((0x400000U 
+                                                 & ((IData)(
+                                                            (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                             >> 0x29U)) 
+                                                    << 0x16U)) 
+                                                | ((0x200000U 
+                                                    & ((IData)(
+                                                               (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                >> 0x2aU)) 
+                                                       << 0x15U)) 
+                                                   | ((0x100000U 
+                                                       & ((IData)(
+                                                                  (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                   >> 0x2bU)) 
+                                                          << 0x14U)) 
+                                                      | ((0x80000U 
+                                                          & ((IData)(
+                                                                     (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                      >> 0x2cU)) 
+                                                             << 0x13U)) 
+                                                         | ((0x40000U 
+                                                             & ((IData)(
+                                                                        (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                         >> 0x2dU)) 
+                                                                << 0x12U)) 
+                                                            | ((0x20000U 
+                                                                & ((IData)(
+                                                                           (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                            >> 0x2eU)) 
+                                                                   << 0x11U)) 
+                                                               | ((0x10000U 
+                                                                   & ((IData)(
+                                                                              (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                               >> 0x2fU)) 
+                                                                      << 0x10U)) 
+                                                                  | ((0x8000U 
+                                                                      & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x30U)) 
+                                                                         << 0xfU)) 
+                                                                     | ((0x4000U 
+                                                                         & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x31U)) 
+                                                                            << 0xeU)) 
+                                                                        | ((0x2000U 
+                                                                            & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x32U)) 
+                                                                               << 0xdU)) 
+                                                                           | ((0x1000U 
+                                                                               & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x33U)) 
+                                                                                << 0xcU)) 
+                                                                              | ((0x800U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x34U)) 
+                                                                                << 0xbU)) 
+                                                                                | ((0x400U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x35U)) 
+                                                                                << 0xaU)) 
+                                                                                | ((0x200U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x36U)) 
+                                                                                << 9U)) 
+                                                                                | ((0x100U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x37U)) 
+                                                                                << 8U)) 
+                                                                                | ((0x80U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x38U)) 
+                                                                                << 7U)) 
+                                                                                | ((0x40U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x39U)) 
+                                                                                << 6U)) 
+                                                                                | ((0x20U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x3aU)) 
+                                                                                << 5U)) 
+                                                                                | ((0x10U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x3bU)) 
+                                                                                << 4U)) 
+                                                                                | ((8U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x3cU)) 
+                                                                                << 3U)) 
+                                                                                | ((4U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x3dU)) 
+                                                                                << 2U)) 
+                                                                                | ((2U 
+                                                                                & ((IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x3eU)) 
+                                                                                << 1U)) 
+                                                                                | (1U 
+                                                                                & (IData)(
+                                                                                (SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___mmio_wblock_0_T 
+                                                                                >> 0x3fU))))))))))))))))))))))))))))))))));
+    if (vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_mthrough) {
+        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[0U] 
+            = __Vtemp10[0U];
+        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[1U] 
+            = __Vtemp9[0U];
+        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[2U] 
+            = __Vtemp9[1U];
+        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[3U] 
+            = __Vtemp9[2U];
+    } else {
+        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[0U] 
+            = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1);
+        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[1U] 
+            = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1 
+                       >> 0x20U));
+        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[2U] 
+            = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0);
+        vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[3U] 
+            = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0 
+                       >> 0x20U));
+    }
     SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_2 
         = (vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata 
            & vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cpu_word_mask);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_s2_to_s3_ready_T_1 
-        = (1U & ((((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__s3_valid)) 
-                   | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__hit) 
-                      & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wr)))) 
-                  | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
-                      >> 4U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid))) 
-                 | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
-                    >> 5U)));
-    vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_in_ret_valid 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__hit) 
-           | ((0x10U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state))
-               ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid)
-               : (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
-                   >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_mem_out_req_valid_T_5 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__s3_valid) 
            & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
@@ -1144,18 +2045,34 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r_1;
     vlSelf->SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r_r_2 
         = vlSelf->SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r_r_1;
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__burst_last 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid) 
-           & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
-               >> 1U) | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__ret_valid) 
-                         | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_rlast_T))));
+    VL_SHIFTR_WWI(128,128,1, __Vtemp13, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt));
+    VL_SHIFTR_WWI(128,128,1, __Vtemp14, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt));
+    VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_axi_sram__DOT__my_wmem_port__DOT__cpu_dmem_write_TOP(
+                                                                                (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
+                                                                                >> 1U) 
+                                                                                & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___T_10)), 1U, 
+                                                                                ((0xfffffffffffffff0ULL 
+                                                                                & vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__aw_buf_awaddr) 
+                                                                                | (QData)((IData)(
+                                                                                ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt) 
+                                                                                << 3U)))), 
+                                                                                ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
+                                                                                 ? (QData)((IData)(
+                                                                                (1U 
+                                                                                & __Vtemp13[0U])))
+                                                                                 : (QData)((IData)(
+                                                                                (1U 
+                                                                                & __Vtemp14[0U])))), 
+                                                                                ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
+                                                                                 ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wstrb_r)
+                                                                                 : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wstrb_r)));
+    vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid 
+        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__ret_valid) 
+           | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_3));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_0_T_3 
         = ((vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_ret_rdata 
             & (~ vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cpu_word_mask)) 
            | SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_2);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT___io_s1_to_s2_ready_T_2 
-        = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__s2_valid)) 
-                 | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_s2_to_s3_ready_T_1)));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wr 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__wb_en) 
            | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_mthrough) 
@@ -1185,19 +2102,31 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                     : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT__fs_inst_data));
         }
         __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms 
-            = (1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_6) 
+            = (1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_3) 
                       & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)))
                       ? (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok))
                       : ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___T_2)) 
                          & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms))));
     }
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__s3_valid) 
-           & ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
-                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__hit)) 
-               & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wr)) 
-              | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
-                  >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__burst_last))));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_s2_to_s3_ready_T_1 
+        = (1U & ((((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__s3_valid)) 
+                   | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__hit) 
+                      & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wr)))) 
+                  | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
+                      >> 4U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid))) 
+                 | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
+                    >> 5U)));
+    vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_in_ret_valid 
+        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__hit) 
+           | ((0x10U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state))
+               ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid)
+               : (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
+                   >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit))));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__burst_last 
+        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid) 
+           & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
+               >> 1U) | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__ret_valid) 
+                         | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_rlast_T))));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_in_ret_rdata 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__hit)
             ? ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset))
@@ -1245,6 +2174,16 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r;
     vlSelf->SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r_r_1 
         = vlSelf->SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r_r;
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT___io_s1_to_s2_ready_T_2 
+        = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__s2_valid)) 
+                 | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_s2_to_s3_ready_T_1)));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en 
+        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__s3_valid) 
+           & ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
+                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__hit)) 
+               & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wr)) 
+              | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
+                  >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__burst_last))));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_axi_out_req_valid 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_mem_out_req_valid_T_5) 
            & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT___io_in_clint_hit_T)));
@@ -1253,7 +2192,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                   >> 1U) & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms))));
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__rdata_buf = 0ULL;
-    } else if (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_6) 
+    } else if (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_3) 
                 & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)))) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__rdata_buf 
             = vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_ret_rdata;
@@ -1337,11 +2276,10 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                 : (((QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[1U])) 
                     << 0x20U) | (QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[0U]))))
             : vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_r);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_6 
-        = (1U & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T) 
-                  | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
-                      >> 2U) & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt)))) 
-                 | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_after_wt_r)));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_3 
+        = (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T) 
+            | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_1)) 
+           | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_after_wt_r));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs 
         = __Vdly__SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs;
     vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16 
@@ -2236,12 +3174,12 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                 | (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_3))) 
                     & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_3)))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok 
-        = (((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_6) 
+        = (((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_3) 
               & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms))) 
              & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)) 
             | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___T_2) 
                & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)))) 
-           | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_6) 
+           | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_3) 
               & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_if2mem_ms_mem_ok)));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
         = (((0x37U != (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
@@ -2364,45 +3302,45 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = VL_MODDIVS_III(32, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1), (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remuw_res 
         = VL_MODDIV_III(32, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1), (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
-    VL_EXTEND_WQ(65,64, __Vtemp13, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    VL_EXTEND_WQ(65,64, __Vtemp14, ((- (QData)((IData)(
+    VL_EXTEND_WQ(65,64, __Vtemp16, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    VL_EXTEND_WQ(65,64, __Vtemp17, ((- (QData)((IData)(
                                                        (1U 
                                                         & (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
                                                            >> 1U))))) 
                                     ^ vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
-    VL_ADD_W(3, __Vtemp15, __Vtemp13, __Vtemp14);
-    VL_EXTEND_WI(65,1, __Vtemp16, (1U & (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
+    VL_ADD_W(3, __Vtemp18, __Vtemp16, __Vtemp17);
+    VL_EXTEND_WI(65,1, __Vtemp19, (1U & (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
                                          >> 1U)));
-    VL_ADD_W(3, __Vtemp17, __Vtemp15, __Vtemp16);
+    VL_ADD_W(3, __Vtemp20, __Vtemp18, __Vtemp19);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[0U] 
-        = __Vtemp17[0U];
+        = __Vtemp20[0U];
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[1U] 
-        = __Vtemp17[1U];
+        = __Vtemp20[1U];
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[2U] 
-        = (1U & __Vtemp17[2U]);
-    __Vtemp19[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    __Vtemp19[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+        = (1U & __Vtemp20[2U]);
+    __Vtemp22[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    __Vtemp22[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                              >> 0x20U));
-    __Vtemp19[2U] = (IData)((- (QData)((IData)((1U 
+    __Vtemp22[2U] = (IData)((- (QData)((IData)((1U 
                                                 & (IData)(
                                                           (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                                                            >> 0x3fU)))))));
-    __Vtemp19[3U] = (IData)(((- (QData)((IData)((1U 
+    __Vtemp22[3U] = (IData)(((- (QData)((IData)((1U 
                                                  & (IData)(
                                                            (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                                                             >> 0x3fU)))))) 
                              >> 0x20U));
-    __Vtemp20[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
-    __Vtemp20[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+    __Vtemp23[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
+    __Vtemp23[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                              >> 0x20U));
-    __Vtemp20[2U] = (IData)((- (QData)((IData)((1U 
+    __Vtemp23[2U] = (IData)((- (QData)((IData)((1U 
                                                 & ((~ 
                                                     (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
                                                      >> 0xdU)) 
                                                    & (IData)(
                                                              (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                                                               >> 0x3fU))))))));
-    __Vtemp20[3U] = (IData)(((- (QData)((IData)((1U 
+    __Vtemp23[3U] = (IData)(((- (QData)((IData)((1U 
                                                  & ((~ 
                                                      (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
                                                       >> 0xdU)) 
@@ -2410,35 +3348,35 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                               (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                                                                >> 0x3fU))))))) 
                              >> 0x20U));
-    VL_MUL_W(4, __Vtemp21, __Vtemp19, __Vtemp20);
+    VL_MUL_W(4, __Vtemp24, __Vtemp22, __Vtemp23);
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[0U] 
-        = __Vtemp21[0U];
+        = __Vtemp24[0U];
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[1U] 
-        = __Vtemp21[1U];
+        = __Vtemp24[1U];
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[2U] 
-        = __Vtemp21[2U];
+        = __Vtemp24[2U];
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[3U] 
-        = __Vtemp21[3U];
+        = __Vtemp24[3U];
     vlSelf->io_core_debug_debug_rf_we = vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we;
-    __Vtemp23[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    __Vtemp23[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+    __Vtemp26[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    __Vtemp26[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                              >> 0x20U));
-    __Vtemp23[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+    __Vtemp26[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                                    >> 0x3fU)));
-    __Vtemp24[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
-    __Vtemp24[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+    __Vtemp27[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
+    __Vtemp27[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                              >> 0x20U));
-    __Vtemp24[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+    __Vtemp27[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                                    >> 0x3fU)));
-    VL_DIVS_WWW(65, __Vtemp25, __Vtemp23, __Vtemp24);
-    VL_EXTEND_WQ(127,64, __Vtemp28, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    VL_SHIFTL_WWI(127,127,6, __Vtemp29, __Vtemp28, 
+    VL_DIVS_WWW(65, __Vtemp28, __Vtemp26, __Vtemp27);
+    VL_EXTEND_WQ(127,64, __Vtemp31, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    VL_SHIFTL_WWI(127,127,6, __Vtemp32, __Vtemp31, 
                   (0x3fU & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2)));
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_4 
         = ((((((((((((0x8000U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
-                      ? (((QData)((IData)(__Vtemp25[1U])) 
+                      ? (((QData)((IData)(__Vtemp28[1U])) 
                           << 0x20U) | (QData)((IData)(
-                                                      __Vtemp25[0U])))
+                                                      __Vtemp28[0U])))
                       : 0ULL) | ((1U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
                                   ? (((QData)((IData)(
                                                       vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[1U])) 
@@ -2463,9 +3401,9 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                    ^ vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2)
                                                 : 0ULL)) 
                | ((0x20U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
-                   ? (((QData)((IData)(__Vtemp29[1U])) 
+                   ? (((QData)((IData)(__Vtemp32[1U])) 
                        << 0x20U) | (QData)((IData)(
-                                                   __Vtemp29[0U])))
+                                                   __Vtemp32[0U])))
                    : 0ULL)) | ((0x40U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
                                 ? VL_SHIFTR_QQQ(64,64,64, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1, (QData)((IData)(
                                                                                 (0x3fU 
@@ -2498,9 +3436,9 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                   | (QData)((IData)(
                                                                     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[0U])))
                                                : 0ULL));
-    VL_EXTEND_WQ(128,64, __Vtemp31, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    VL_EXTEND_WQ(128,64, __Vtemp32, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
-    VL_MUL_W(4, __Vtemp33, __Vtemp31, __Vtemp32);
+    VL_EXTEND_WQ(128,64, __Vtemp34, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    VL_EXTEND_WQ(128,64, __Vtemp35, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
+    VL_MUL_W(4, __Vtemp36, __Vtemp34, __Vtemp35);
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_5 
         = ((((((((((((0x800U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
                       ? (((QData)((IData)(SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[3U])) 
@@ -2508,9 +3446,9 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                       SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[2U])))
                       : 0ULL) | ((0x1000U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
                                   ? (((QData)((IData)(
-                                                      __Vtemp33[3U])) 
+                                                      __Vtemp36[3U])) 
                                       << 0x20U) | (QData)((IData)(
-                                                                  __Vtemp33[2U])))
+                                                                  __Vtemp36[2U])))
                                   : 0ULL)) | ((0x2000U 
                                                & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
                                                ? (((QData)((IData)(
