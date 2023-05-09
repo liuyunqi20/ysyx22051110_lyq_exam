@@ -5,11 +5,11 @@ import chisel3.util._
 trait HasCoreTopConst{
     val nr_mmc_port       = 1
     val Cache_tag_width   = 23
+    val DCache_nr_lines   = 32
     val ICache_nr_lines   = 32
     val ICache_nr_ways    = 4
-    val ICache_block_size = 16
-    val DCache_nr_lines   = 16
     val DCache_nr_ways    = 4
+    val ICache_block_size = 16
     val DCache_block_size = 16
 }
 
@@ -26,10 +26,14 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val my_csr         = Module(new Csr(w))
     val my_axi_bridge0 = Module(new AXIBridge(w, ICache_block_size * 8 / w))
     val my_axi_bridge1 = Module(new AXIBridge(w, DCache_block_size * 8 / w))
-    //val my_mmc         = Module(new MemoryController(w, DCache_block_size * 8 / w))
+    val my_mmc         = Module(new MemoryController(w, DCache_block_size * 8 / w))
     //ICache: 
-    val my_icache      = Module(new CacheTop(w, Cache_tag_width, ICache_nr_lines, 
-                                            ICache_nr_ways, ICache_block_size))
+    // val my_icache      = Module(new CacheTop(w, Cache_tag_width, ICache_nr_lines, 
+    //                                         ICache_nr_ways, ICache_block_size))
+    val my_dcache      = Module(new CacheTop(w, Cache_tag_width, DCache_nr_lines,
+                                            DCache_nr_ways, DCache_block_size))
+    val my_clint       = Module(new Clint(w))
+                                        
     //IF stage
     my_if.io.branch        <> my_ex.io.branch
     my_if.io.exc_br        <> my_wb.io.exc_br
@@ -52,13 +56,18 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_csr.io.op           <> my_wb.io.csr_op
     my_csr.io.exc          <> my_wb.io.csr_exc
     my_csr.io.out          <> my_wb.io.csr_out
-    my_csr.io.clint_intr_t := 0.B
+    my_csr.io.clint_intr_t := my_clint.io.has_intr_t
     //Memory Access
-    my_icache.io.in        <> my_if.io.inst_mem
-    my_axi_bridge0.io.in   <> my_icache.io.out
+    //icache current ignored
+    // my_icache.io.in        <> my_if.io.inst_mem
+    // my_axi_bridge0.io.in   <> my_icache.io.out
+    my_axi_bridge0.io.in   <> my_if.io.inst_mem
     io.axi_sram(0)         <> my_axi_bridge0.io.out
-        //TODO: add dcache mmc
-    my_axi_bridge1.io.in   <> my_mem.io.data_mem
+    //dcache
+    my_mem.io.data_mem     <> my_dcache.io.in
+    my_mmc.io.in           <> my_dcache.io.out
+    my_clint.io.in         <> my_mmc.io.clint_out
+    my_axi_bridge1.io.in   <> my_mmc.io.axi_out
     io.axi_sram(1)         <> my_axi_bridge1.io.out
     //debug
     io.core_debug.debug_pc       := my_if.io.pc
