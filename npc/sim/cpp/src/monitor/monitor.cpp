@@ -39,7 +39,7 @@ int init_image(){
         //build-in test programm under $(YSYX_HOME)/npc/sim/
         int isize = 0x4;
         uint64_t iaddr = 0x80000000;
-        for(int i = 0, i < 4; ++i){
+        for(int i = 0; i < 4; ++i){
             vaddr_write(iaddr + 0x1000 + 4 * i, isize, 0xaabbccdd);
             vaddr_write(iaddr + 0x1010 + 4 * i, isize, 0x11223344);
             vaddr_write(iaddr + 0x1020 + 4 * i, isize, 0x5566eeff);
