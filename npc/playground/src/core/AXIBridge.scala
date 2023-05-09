@@ -76,7 +76,8 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     io.out.aw.bits.awsize  := log2Ceil(w).U(3.W)
     io.out.aw.bits.awburst := "b10".U(2.W)
     io.out.wt.valid        := state(2)
-    io.out.wt.bits.wdata   := wdata_r(burst_cnt)
+    io.out.wt.bits.wdata   := MuxLookup(burst_cnt, 0.U, 
+                                        for( i <- 0 until block_word_n) yield (i.U -> wdata_r((i+1)*w - 1, i*w)))
     io.out.wt.bits.wstrb   := wstrb_r
     io.out.wt.bits.wlast   := (burst_cnt === burst_len(log2Ceil(block_word_n) - 1, 0)) && state(2)
     io.out.b.ready         := state(3)
