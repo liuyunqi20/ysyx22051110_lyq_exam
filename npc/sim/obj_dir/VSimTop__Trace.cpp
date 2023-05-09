@@ -671,7 +671,7 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                                          >> 4U)))),5);
             tracep->chgIData(oldp+276,((0x7fffffU & (IData)(
                                                             (vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
-                                                             >> 0x29U)))),23);
+                                                             >> 9U)))),23);
             tracep->chgCData(oldp+277,((8U & ((IData)(
                                                       (vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
                                                        >> 3U)) 

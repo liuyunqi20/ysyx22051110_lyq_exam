@@ -1714,7 +1714,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                                       >> 4U)))),5);
         tracep->fullIData(oldp+277,((0x7fffffU & (IData)(
                                                          (vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
-                                                          >> 0x29U)))),23);
+                                                          >> 9U)))),23);
         tracep->fullCData(oldp+278,((8U & ((IData)(
                                                    (vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
                                                     >> 3U)) 
