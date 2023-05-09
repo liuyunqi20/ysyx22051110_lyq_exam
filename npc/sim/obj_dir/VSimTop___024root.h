@@ -155,7 +155,8 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT___arbiter_rd_io_out_valid;
         CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen;
         CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ready;
+        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_3;
+        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok;
         CData/*2:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate;
         CData/*2:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate;
         CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T;
@@ -163,8 +164,7 @@ VL_MODULE(VSimTop___024root) {
         CData/*7:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__ar_buf_arlen;
         CData/*7:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_cnt;
         CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_idx;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_6;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_1;
+        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_8;
         CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt;
         CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1;
     };

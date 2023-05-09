@@ -740,7 +740,7 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+370,"SimTop my_axi_sram my_axi_sram_driver io_sram_wt_addr", false,-1, 63,0);
         tracep->declQuad(c+354,"SimTop my_axi_sram my_axi_sram_driver io_sram_wt_wdata", false,-1, 63,0);
         tracep->declBus(c+356,"SimTop my_axi_sram my_axi_sram_driver io_sram_wt_wmask", false,-1, 7,0);
-        tracep->declBit(c+345,"SimTop my_axi_sram my_axi_sram_driver rdata_ready", false,-1);
+        tracep->declBit(c+345,"SimTop my_axi_sram my_axi_sram_driver rdata_ok", false,-1);
         tracep->declBus(c+372,"SimTop my_axi_sram my_axi_sram_driver rstate", false,-1, 2,0);
         tracep->declBus(c+373,"SimTop my_axi_sram my_axi_sram_driver wstate", false,-1, 2,0);
         tracep->declQuad(c+374,"SimTop my_axi_sram my_axi_sram_driver ar_buf_araddr", false,-1, 63,0);
@@ -1116,10 +1116,10 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
     // Body
     {
         tracep->fullBit(oldp+1,((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))));
-        tracep->fullBit(oldp+2,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ready) 
+        tracep->fullBit(oldp+2,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok) 
                                  & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen)))));
         tracep->fullQData(oldp+3,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_r),64);
-        tracep->fullBit(oldp+5,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_1));
+        tracep->fullBit(oldp+5,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_3));
         tracep->fullBit(oldp+6,((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate))));
         tracep->fullBit(oldp+7,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1) 
                                  & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)))));
@@ -1127,7 +1127,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                         >> 2U) & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen))))));
         tracep->fullBit(oldp+9,((1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_ar_valid_T_5)) 
                                        & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate)))));
-        tracep->fullBit(oldp+10,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ready) 
+        tracep->fullBit(oldp+10,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok) 
                                   & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen))));
         tracep->fullBit(oldp+11,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1) 
                                   & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen))));
@@ -1670,7 +1670,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullQData(oldp+226,((0xfffffffffffffffcULL 
                                      & vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc)),64);
         tracep->fullBit(oldp+228,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_after_wt_r) 
-                                   | (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_1))));
+                                   | (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_3))));
         tracep->fullCData(oldp+229,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state),4);
         tracep->fullBit(oldp+230,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_widx));
         tracep->fullBit(oldp+231,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_after_wt_r));
@@ -1854,7 +1854,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullBit(oldp+342,((0xbff8ULL == vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_addr)));
         tracep->fullBit(oldp+343,((0x4000ULL == vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_addr)));
         tracep->fullBit(oldp+344,(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT__wen));
-        tracep->fullBit(oldp+345,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ready));
+        tracep->fullBit(oldp+345,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok));
         tracep->fullBit(oldp+346,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_wt_ready_T_1));
         tracep->fullBit(oldp+347,((1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
                                          >> 2U))));
@@ -1895,7 +1895,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullQData(oldp+362,(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_rmem_port_rdata),64);
         tracep->fullBit(oldp+364,(vlSelf->SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r));
         tracep->fullBit(oldp+365,(vlSelf->SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r));
-        tracep->fullBit(oldp+366,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_6));
+        tracep->fullBit(oldp+366,(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_8));
         tracep->fullQData(oldp+367,((((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))
                                        ? (vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_ar_bits_araddr 
                                           >> 3U) : 

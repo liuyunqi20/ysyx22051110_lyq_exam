@@ -135,7 +135,7 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
     //ar response
     io.ar.ready      := rstate(0)
     // --------------- read resp --------------- 
-    io.sram_rd.en    := io.ar.fire || (rstate(1) && (!rdata_ok || io.rd.fire) && io.rd.bits.rlast===1.U)
+    io.sram_rd.en    := io.ar.fire || (rstate(1) && (!rdata_ok || io.rd.fire) && io.rd.bits.rlast===0.U)
     io.sram_rd.wr    := 0.B
     io.sram_rd.addr  := rd_addr
     io.rd.bits.rdata := rdata_r
