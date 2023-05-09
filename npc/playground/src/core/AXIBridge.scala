@@ -78,9 +78,9 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     io.out.wt.valid        := state(2)
     io.out.wt.bits.wdata   := wdata_r(burst_cnt)
     io.out.wt.bits.wstrb   := wstrb_r
-    io.out.wt.bits.wlast   := burst_cnt === burst_len(log2Ceil(block_word_n) - 1, 0)
+    io.out.wt.bits.wlast   := (burst_cnt === burst_len(log2Ceil(block_word_n) - 1, 0)) && state(2)
     io.out.b.ready         := state(3)
     //read/write ok
     io.in.req.ready      := io.out.ar.fire || io.out.wt.fire || rd_after_wt
-    io.in.ret.valid      := io.out.rd.fire || ((state(2) === 1.U) && (burst_cnt === 0.U)) || rd_after_wt_r
+    io.in.ret.valid      := io.out.rd.fire || io.out.b.fire  || rd_after_wt_r
 }
