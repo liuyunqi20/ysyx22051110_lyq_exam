@@ -116,18 +116,18 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
     val rd_addr       = Cat( Mux(rstate(0), io.ar.bits.araddr(w-1, wwidth), 
                             Cat(ar_buf.araddr(w-1, log2Ceil(block_word_n) + wwidth), rd_idx)),
                              0.U(wwidth.W) )
-    val rdata_ready   = RegInit(0.B)
+    val rdata_ok      = RegInit(0.B)
     val rdata_arrive  = io.sram_rd.en && io.sram_rd_resp
     //ar buffer
     when(io.ar.fire) { ar_buf := io.ar.bits }
     //read data
-    when(rdata_arrive) { rdata_r := io.sram_rd.rdata }
-    when(rdata_arrive) { rdata_ready := true.B }
-        .elsewhen(io.rd.fire && !rdata_arrive) { rdata_ready := false.B }
+    when(rdata_arrive) { rdata_r  := io.sram_rd.rdata }
+    when(rdata_arrive) { rdata_ok := true.B }
+        .elsewhen(io.rd.fire && !rdata_arrive) { rdata_ok := false.B }
     //burst count and burst index
     when(io.ar.fire) {
         rd_idx := io.ar.bits.araddr(log2Ceil(block_word_n) + wwidth - 1, wwidth)
-        rd_cnt := 0.U
+        rd_cnt := Mux(data_arrive, 1.U, 0.U)
     } .elsewhen(!io.ar.fire && rdata_arrive) {
         rd_idx := Mux(rd_idx === ar_buf.arlen, 0.U, rd_idx + 1.U)
         rd_cnt := rd_cnt + 1.U
@@ -135,13 +135,13 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
     //ar response
     io.ar.ready      := rstate(0)
     // --------------- read resp --------------- 
-    io.sram_rd.en    := io.ar.fire || (rstate(1) && (!rdata_ready || io.rd.fire))
+    io.sram_rd.en    := io.ar.fire || (rstate(1) && (!rdata_ok || io.rd.fire) && io.rd.bits.rlast)
     io.sram_rd.wr    := 0.B
     io.sram_rd.addr  := rd_addr
     io.rd.bits.rdata := rdata_r
     io.rd.bits.rresp := 0.U(2.W)
-    io.rd.bits.rlast := rdata_ready && (rd_cnt === ar_buf.arlen)
-    io.rd.valid      := rdata_ready
+    io.rd.bits.rlast := rdata_ok && (rd_cnt === (ar_buf.arlen + 1.U))
+    io.rd.valid      := rdata_ok
 
 
     /*
