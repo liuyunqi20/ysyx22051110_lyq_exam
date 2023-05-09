@@ -107,7 +107,7 @@ void execute_once(){
     uint64_t old_pc = cpu_pc;
     int cnt  = 0;
     while(cpu_pc == old_pc){ 
-        if(cnt >= 5) {wave_end(); assert(0);}
+        if(cnt >= 20) {wave_end(); assert(0);}
         // ----------------- NEG ----------------- 
         contextp->timeInc(1);
         SimTop->clock = !SimTop->clock;
