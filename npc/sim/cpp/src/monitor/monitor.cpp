@@ -84,7 +84,7 @@ int init_image(){
             ret = fread(&inst, sizeof(uint32_t), 1, fp);
             assert(ret == 1);
             printf("%3d %08x\n", i+1, inst);
-            vaddr_write(iaddr, isize, 0x00000297);
+            vaddr_write(iaddr, isize, inst);
             iaddr += isize;
         }
         //ebreak
