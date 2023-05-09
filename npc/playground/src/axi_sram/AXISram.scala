@@ -104,43 +104,46 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
         when ar shaking hands, then rdata_r stores the data and response to master after next
         posedge. If read data does not come when ar shaking hands, then rd_wait_sel will pull 
         high after next posedge to keep sram enabled until data arrives.
+        NOTE: only support wrap burst type. 
+              arsize is always word size. 
+              arprot is ignored and is always 0
     */
     // --------------- read req --------------- 
+    val ar_buf        = RegInit(0.U.asTypeOf(new AXI4LiteAR(w)))
     val rdata_r       = RegInit(0.U(w.W))
-    val raddr_r       = RegInit(0.U(w.W))
-    val rburst_len    = RegInit(0.U(8.W))
     val rd_cnt        = RegInit(0.U(8.W))
-    val rd_idx_r      = RegInit(0.U(log2Ceil(block_word_n).W))
-    //val rd_idx        = Mux(rstate(0), io.ar.bits.araddr(log2Ceil(block_word_n) + wwidth - 1, wwidth), rd_idx_r)
-    val rd_addr       = Cat(Mux(rstate(0), io.ar.bits.araddr(w-1, wwidth), 
-                                           Cat(raddr_r(w-1, log2Ceil(block_word_n) + wwidth), rd_idx_r)),
-                            0.U(wwidth.W))
+    val rd_idx        = RegInit(0.U(log2Ceil(block_word_n).W))
+    val rd_addr       = Cat( Mux(rstate(0), io.ar.bits.araddr(w-1, wwidth), 
+                            Cat(ar_buf.araddr(w-1, log2Ceil(block_word_n) + wwidth), rd_idx)),
+                             0.U(wwidth.W) )
+    val rdata_ready   = RegInit(0.B)
+    val rdata_arrive  = io.sram_rd.en && io.sram_rd_resp
+    //ar buffer
+    when(io.ar.fire) { ar_buf := io.ar.bits }
+    //read data
+    when(rdata_arrive) { rdata_r := io.sram_rd.rdata }
+    when(rdata_arrive) { rdata_ready := true.B }
+        .elsewhen(io.rd.fire && !rdata_arrive) { rdata_ready := false.B }
+    //burst count and burst index
+    when(io.ar.fire) {
+        rd_idx := io.ar.bits.araddr(log2Ceil(block_word_n) + wwidth - 1, wwidth)
+        rd_cnt := 0.U
+    } .elsewhen(!io.ar.fire && rdata_arrive) {
+        rd_idx := Mux(rd_idx === ar_buf.arlen, 0.U, rd_idx + 1.U)
+        rd_cnt := rd_cnt + 1.U
+    }
+    //ar response
     io.ar.ready      := rstate(0)
-    io.sram_rd.en    := rstate(1) || io.ar.fire
+    // --------------- read resp --------------- 
+    io.sram_rd.en    := io.ar.fire || (rstate(1) && (!rdata_ready || io.rd.fire))
     io.sram_rd.wr    := 0.B
     io.sram_rd.addr  := rd_addr
-    val rdata_arrive  = io.sram_rd.en && io.sram_rd_resp 
-    //read data
-    when(rdata_arrive){ rdata_r  := io.sram_rd.rdata }
-    //read request info and burst index
-    when(io.ar.fire) { 
-        rburst_len := io.ar.bits.arlen 
-        raddr_r    := io.ar.bits.araddr
-        rd_idx_r   := io.ar.bits.araddr(log2Ceil(block_word_n) + wwidth - 1, wwidth) + 1.U 
-    } .elsewhen(io.rd.fire) {
-        rd_idx_r   := Mux(rd_idx_r === rburst_len, 0.U, rd_idx_r + 1.U) 
-    }
-    //read counter
-    when(rdata_arrive && io.ar.fire) { 
-        rd_cnt     := 0.U 
-    } .elsewhen(io.rd.fire) {
-        rd_cnt     := rd_cnt + 1.U
-    }
-    // --------------- read resp --------------- 
     io.rd.bits.rdata := rdata_r
     io.rd.bits.rresp := 0.U(2.W)
-    io.rd.bits.rlast := rd_cnt === (rburst_len + 1.U)
-    io.rd.valid      := rdata_arrive
+    io.rd.bits.rlast := rdata_ready && (rd_cnt === ar_buf.arlen)
+    io.rd.valid      := rdata_ready
+
+
     /*
             Write address is store to register when aw shaking hands. Write data and mask 
         are stored when wt shaking hands. In b stage, sram write is enabled until write data 
@@ -148,43 +151,49 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
         done but wait for b.ready from master. 
     */
     // --------------- write request --------------- 
-    io.aw.ready     := wstate(0)
-    val waddr_r      = RegInit(0.U(w.W))
-    val wburst_len   = RegInit(0.U(8.W))
-    val wt_cnt       = RegInit(0.U(8.W))
-    val wt_idx       = RegInit(0.U(log2Ceil(block_word_n).W))
-    val wt_addr      = Cat(waddr_r(w-1, log2Ceil(block_word_n) + wwidth), wt_idx, 0.U(wwidth.W))
-    when(io.aw.fire) { 
-        waddr_r    := io.aw.bits.awaddr 
-        wburst_len := io.aw.bits.awburst 
-    }
+    io.aw.ready      := wstate(0)
+    val aw_buf        = RegInit(0.U.asTypeOf(new AXI4LiteAW(w)))
+    val aw_buf.awaddr = RegInit(0.U(w.W))
+    val aw_buf.awlen  = RegInit(0.U(8.W))
+    val wt_cnt        = RegInit(0.U(log2Ceil(block_word_n).W))
+    val wt_addr       = Cat(aw_buf.awaddr(w-1, log2Ceil(block_word_n) + wwidth), wt_cnt, 0.U(wwidth.W))
     // --------------- write data --------------- 
-    io.wt.ready      := wstate(1) && io.sram_wt_resp
-    // val wdata_r       = RegInit(0.U(w.W))
-    // val wmask_r       = RegInit(0.U((w/8).W))
-    // when(io.wt.fire){
-    //     wdata_r := io.wt.bits.wdata
-    //     wmask_r := io.wt.bits.wstrb
-    // }
-    io.sram_wt.en    := wstate(1)
+    io.sram_wt.en    := wstate(1) && io.wt.valid
     io.sram_wt.wr    := 1.B
     io.sram_wt.addr  := wt_addr
     io.sram_wt.wdata := io.wt.bits.wdata
     io.sram_wt.wmask := io.wt.bits.wstrb
+    io.wt.ready      := wstate(1) && io.sram_wt_resp
     //write count
     when(io.aw.fire) { 
         wt_cnt := 0.U 
-        wt_idx := 0.U
     } .elsewhen(io.wt.fire) {
         wt_cnt := wt_cnt + 1.U
-        wt_idx := Mux(wt_idx === wburst_len, 0.U, wt_idx + 1.U)
     }
     // --------------- write resp --------------- 
     io.b.valid       := wstate(2)
     io.b.bits.bresp  := 0.U(2.W)
 }
 
-class AXI4LiteSramTop(w: Int, nr_mport: Int, block_word_n: Int) extends Module with HasAXIstateConst{
+class Delayer(t: Int) extends Module{
+    val io = IO(new Bundle{
+        val in = Input(Bool())
+        val out = Output(Bool())
+    })
+    val delaying = RegInit(0.B)
+    val din = io.in && !delaying
+    when(din){
+        delaying := true.B
+    } .elsewhen(io.out){
+        delaying := false.B
+    }
+    val r = ShiftRegister(din, t)
+    io.out := r
+}
+
+class AXI4LiteSramTop(w: Int, nr_mport: Int, block_word_n: Int, has_sram_delay: Boolean, 
+                      sram_rd_delay: Int, sram_wt_delay: Int) extends Module with HasAXIstateConst
+{
     val io = IO(new Bundle{
         val in  = Flipped(Vec(nr_mport, new AXI4LiteBundle(w)))
     })
@@ -204,6 +213,18 @@ class AXI4LiteSramTop(w: Int, nr_mport: Int, block_word_n: Int) extends Module w
     //Memory Access using DPI-C
     my_axi_sram_driver.io.sram_rd      <> my_rmem_port.io
     my_axi_sram_driver.io.sram_wt      <> my_wmem_port.io
-    my_axi_sram_driver.io.sram_rd_resp := my_axi_sram_driver.io.sram_rd.en
-    my_axi_sram_driver.io.sram_wt_resp := my_axi_sram_driver.io.sram_wt.en
+
+    //sram(DPI-C) response
+    val rd_resp_en = if(has_sram_delay) { 
+                        val rdelayer = Module(new Delayer(sram_rd_delay)) 
+                        rdelayer.io.in := my_axi_sram_driver.io.sram_rd.en
+                        rdelayer.io.out
+                    } else { my_axi_sram_driver.io.sram_rd.en }
+    val wt_resp_en = if(has_sram_delay) { 
+                        val wdelayer = Module(new Delayer(sram_wt_delay)) 
+                        rdelayer.io.in := my_axi_sram_driver.io.sram_wt.en
+                        rdelayer.io.out
+                    } else { my_axi_sram_driver.io.sram_wt.en }
+    my_axi_sram_driver.io.sram_rd_resp := rd_resp_en
+    my_axi_sram_driver.io.sram_wt_resp := wt_resp_en
 }   

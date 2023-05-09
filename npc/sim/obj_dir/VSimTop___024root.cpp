@@ -2784,17 +2784,17 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                    ? vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__mrdata
                    : 0ULL)) : vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result);
     VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_axi_sram__DOT__my_rmem_port__DOT__cpu_dmem_read_TOP(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_2, 0U, 
-                                                                                ((0xfffffffffffffff0ULL 
-                                                                                & vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__raddr_r) 
-                                                                                | (QData)((IData)(
-                                                                                (8U 
-                                                                                & (((1U 
+                                                                                (((1U 
                                                                                 & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))
-                                                                                 ? (IData)(
+                                                                                 ? 
                                                                                 (vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_ar_bits_araddr 
-                                                                                >> 3U))
-                                                                                 : (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_idx_r)) 
-                                                                                << 3U))))), vlSelf->__Vtask_SimTop__DOT__my_axi_sram__DOT__my_rmem_port__DOT__cpu_dmem_read__2__rdata);
+                                                                                >> 3U)
+                                                                                 : 
+                                                                                ((0x1ffffffffffffffeULL 
+                                                                                & (vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__raddr_r 
+                                                                                >> 3U)) 
+                                                                                | (QData)((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_idx_r)))) 
+                                                                                << 3U), vlSelf->__Vtask_SimTop__DOT__my_axi_sram__DOT__my_rmem_port__DOT__cpu_dmem_read__2__rdata);
     vlSelf->SimTop__DOT__my_axi_sram__DOT___my_rmem_port_rdata 
         = vlSelf->__Vtask_SimTop__DOT__my_axi_sram__DOT__my_rmem_port__DOT__cpu_dmem_read__2__rdata;
     vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_wdata 

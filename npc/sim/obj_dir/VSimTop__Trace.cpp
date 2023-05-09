@@ -871,17 +871,14 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
             tracep->chgQData(oldp+363,(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_rmem_port_rdata),64);
             tracep->chgBit(oldp+365,((1U & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
                                             >> 1U))));
-            tracep->chgQData(oldp+366,(((0xfffffffffffffff0ULL 
-                                         & vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__raddr_r) 
-                                        | (QData)((IData)(
-                                                          (8U 
-                                                           & (((1U 
-                                                                & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))
-                                                                ? (IData)(
-                                                                          (vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_ar_bits_araddr 
-                                                                           >> 3U))
-                                                                : (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_idx_r)) 
-                                                              << 3U)))))),64);
+            tracep->chgQData(oldp+366,((((1U & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate))
+                                          ? (vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_ar_bits_araddr 
+                                             >> 3U)
+                                          : ((0x1ffffffffffffffeULL 
+                                              & (vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__raddr_r 
+                                                 >> 3U)) 
+                                             | (QData)((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rd_idx_r)))) 
+                                        << 3U)),64);
             tracep->chgQData(oldp+368,(((0xfffffffffffffff0ULL 
                                          & vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__waddr_r) 
                                         | (QData)((IData)(
