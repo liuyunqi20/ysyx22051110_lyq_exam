@@ -153,10 +153,9 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
     // --------------- write request --------------- 
     io.aw.ready      := wstate(0)
     val aw_buf        = RegInit(0.U.asTypeOf(new AXI4LiteAW(w)))
-    val aw_buf.awaddr = RegInit(0.U(w.W))
-    val aw_buf.awlen  = RegInit(0.U(8.W))
     val wt_cnt        = RegInit(0.U(log2Ceil(block_word_n).W))
     val wt_addr       = Cat(aw_buf.awaddr(w-1, log2Ceil(block_word_n) + wwidth), wt_cnt, 0.U(wwidth.W))
+    when(io.aw.fire) { aw_buf := io.aw.bits }
     // --------------- write data --------------- 
     io.sram_wt.en    := wstate(1) && io.wt.valid
     io.sram_wt.wr    := 1.B
@@ -222,8 +221,8 @@ class AXI4LiteSramTop(w: Int, nr_mport: Int, block_word_n: Int, has_sram_delay: 
                     } else { my_axi_sram_driver.io.sram_rd.en }
     val wt_resp_en = if(has_sram_delay) { 
                         val wdelayer = Module(new Delayer(sram_wt_delay)) 
-                        rdelayer.io.in := my_axi_sram_driver.io.sram_wt.en
-                        rdelayer.io.out
+                        wdelayer.io.in := my_axi_sram_driver.io.sram_wt.en
+                        wdelayer.io.out
                     } else { my_axi_sram_driver.io.sram_wt.en }
     my_axi_sram_driver.io.sram_rd_resp := rd_resp_en
     my_axi_sram_driver.io.sram_wt_resp := wt_resp_en
