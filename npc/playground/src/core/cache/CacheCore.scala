@@ -15,7 +15,7 @@ class CacheStage1(config: CacheConfig) extends Module{
         }
         val s1_to_s2 = Decoupled(new CacheStage1to2Bundle(config))
     })
-    val tag      = io.cpu.bits.addr(config.w - 1, config.w - config.tag_width)
+    val tag      = io.cpu.bits.addr(config.cache_addr_w - 1, config.w - config.tag_width)
     val index    = io.cpu.bits.addr(config.index_width + config.offset_width - 1, config.offset_width)
     val offset   = io.cpu.bits.addr(config.offset_width - 1, 0)
     io.rd.en    := io.s1_to_s2.fire
@@ -220,6 +220,8 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
                    (state(5) === 1.U)                     //refill/write commit
     // -------------------------------- CPU commit -------------------------------- 
 
-    io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx), write_line.data(cpu_word_idx))
-    io.cpu.valid   := Mux(hit, 1.B, state(3) & refill_hit)
+    io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx), 
+                        Mux(state(4), io.mem_out.ret.rdata, write_line.data(cpu_word_idx)) )
+    io.cpu.valid   := Mux(hit, 1.B, 
+                        Mux(state(4), io.mem_out.ret.valid, state(3) & refill_hit) )
 }

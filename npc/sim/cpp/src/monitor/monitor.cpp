@@ -40,9 +40,9 @@ int init_image(){
         int isize = 0x4;
         uint64_t iaddr = 0x80000000;
         for(int i = 0; i < 4; ++i){
-            vaddr_write(iaddr + 0x1000 + 4 * i, isize, 0xaabbccdd);
-            vaddr_write(iaddr + 0x1010 + 4 * i, isize, 0x11223344);
-            vaddr_write(iaddr + 0x1020 + 4 * i, isize, 0x5566eeff);
+            vaddr_write(iaddr + 0x100 + 4 * i, isize, 0xaabbccdd);
+            vaddr_write(iaddr + 0x110 + 4 * i, isize, 0x11223344);
+            vaddr_write(iaddr + 0x120 + 4 * i, isize, 0x5566eeff);
         }
         const char * name = "cache_test_1.o";
         int ret = 0;
