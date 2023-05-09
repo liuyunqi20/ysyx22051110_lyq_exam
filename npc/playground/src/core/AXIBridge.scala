@@ -59,7 +59,7 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     io.in.rlast            := Mux(rd_after_wt_r, 1.B, io.out.rd.bits.rlast)
     //write
     when(io.in.req.fire && (io.in.req.bits.wr === 1.U)) { 
-        wdata_r := io.in.req.bits.wdata 
+        wdata_r   := io.in.req.bits.wdata 
         waddr_r   := io.in.req.bits.addr(w - 1, log2Ceil(block_word_n) + log2Ceil(w/8))
         wstrb_r   := io.in.req.bits.wstrb
         burst_idx := init_widx

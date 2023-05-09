@@ -36,6 +36,7 @@ int init_image(){
     if(img_file != NULL)
         image_size = load_sim_image();
     else {
+        //build-in test programm under $(YSYX_HOME)/npc/sim/
         int isize = 0x4;
         uint64_t iaddr = 0x80000000;
         const char * name = "cache_test_1.o";

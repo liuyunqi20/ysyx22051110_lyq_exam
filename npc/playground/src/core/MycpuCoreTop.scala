@@ -57,7 +57,7 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_icache.io.in        <> my_if.io.inst_mem
     my_axi_bridge0.io.in   <> my_icache.io.out
     io.axi_sram(0)         <> my_axi_bridge0.io.out
-        //TODO: dcache mmc axi-bridge
+        //TODO: add dcache mmc
     my_axi_bridge1.io.in   <> my_mem.io.data_mem
     io.axi_sram(1)         <> my_axi_bridge1.io.out
     //debug
