@@ -135,7 +135,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val cpu_word_mask_vec  = Wire(Vec(config.w / 8, UInt(8.W)))
     for( i <- 0 until config.block_word_n) { cpu_word_sel(i) := cpu_word_idx === i.U}
     for( i <- 0 until (config.w / 8)) { cpu_word_mask_vec(i) := Mux(buf.wstrb(i) === 1.U, 0xff.U, 0.U)}
-    val cpu_word_mask      = cpu_word_mask_vec.reduce((a, b) => Cat(a, b))
+    val cpu_word_mask      = cpu_word_mask_vec.reverse.reduce((a, b) => Cat(a, b))
     val masked_old_data    = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     val masked_refill_data = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     for( i <- 0 until config.block_word_n) {
@@ -182,7 +182,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     io.mem_out.req.valid         := s3_valid & ((state(0) & ~hit) | state(2)) //miss or after wb
     io.mem_out.req.bits.wr       := wb_en | (buf.mthrough & buf.wr) //wb or mmio write
     io.mem_out.req.bits.addr     := Mux(wb_en === 1.U, wb_addr, cpu_req_addr)
-    io.mem_out.req.bits.wdata    := Mux(buf.mthrough === 1.U, mmio_wblock.reduce((a, b) => Cat(a, b)), 
+    io.mem_out.req.bits.wdata    := Mux(buf.mthrough === 1.U, mmio_wblock.reverse.reduce((a, b) => Cat(a, b)), 
                                                               buf.target_line.data.reverse.reduce((a, b) => Cat(a, b)) )
     io.mem_out.req.bits.wstrb    := Mux(buf.mthrough === 1.U, buf.wstrb, Fill(((config.w) / 8), 1.U(1.W)))
     io.mem_out.req.bits.mthrough := buf.mthrough
