@@ -106,9 +106,9 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_rlast_T;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_aw_valid_T_3;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_wt_bits_wlast_T_3;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T_3;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_3;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__unnamedblk1__DOT___T_3;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__unnamedblk1__DOT___T_4;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en;
         CData/*5:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__data_addr;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_12;

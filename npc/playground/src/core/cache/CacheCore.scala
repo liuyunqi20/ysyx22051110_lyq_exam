@@ -183,7 +183,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     io.mem_out.req.bits.wr       := wb_en | (buf.mthrough & buf.wr) //wb or mmio write
     io.mem_out.req.bits.addr     := Mux(wb_en === 1.U, wb_addr, cpu_req_addr)
     io.mem_out.req.bits.wdata    := Mux(buf.mthrough === 1.U, mmio_wblock.reduce((a, b) => Cat(a, b)), 
-                                                              buf.target_line.data.reduce((a, b) => Cat(a, b)) )
+                                                              buf.target_line.data.reverse.reduce((a, b) => Cat(a, b)) )
     io.mem_out.req.bits.wstrb    := Mux(buf.mthrough === 1.U, buf.wstrb, Fill(((config.w) / 8), 1.U(1.W)))
     io.mem_out.req.bits.mthrough := buf.mthrough
 
