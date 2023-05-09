@@ -119,24 +119,22 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     CData/*0:0*/ __Vdly__SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r;
     IData/*31:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT___alu_res_T_4;
     VlWide<4>/*127:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2;
-    VlWide<4>/*127:0*/ __Vtemp11;
-    VlWide<4>/*127:0*/ __Vtemp12;
+    VlWide<3>/*95:0*/ __Vtemp12;
+    VlWide<3>/*95:0*/ __Vtemp13;
     VlWide<3>/*95:0*/ __Vtemp14;
     VlWide<3>/*95:0*/ __Vtemp15;
     VlWide<3>/*95:0*/ __Vtemp16;
-    VlWide<3>/*95:0*/ __Vtemp17;
-    VlWide<3>/*95:0*/ __Vtemp18;
+    VlWide<4>/*127:0*/ __Vtemp18;
+    VlWide<4>/*127:0*/ __Vtemp19;
     VlWide<4>/*127:0*/ __Vtemp20;
-    VlWide<4>/*127:0*/ __Vtemp21;
-    VlWide<4>/*127:0*/ __Vtemp22;
+    VlWide<3>/*95:0*/ __Vtemp22;
+    VlWide<3>/*95:0*/ __Vtemp23;
     VlWide<3>/*95:0*/ __Vtemp24;
-    VlWide<3>/*95:0*/ __Vtemp25;
-    VlWide<3>/*95:0*/ __Vtemp26;
-    VlWide<4>/*127:0*/ __Vtemp29;
+    VlWide<4>/*127:0*/ __Vtemp27;
+    VlWide<4>/*127:0*/ __Vtemp28;
     VlWide<4>/*127:0*/ __Vtemp30;
+    VlWide<4>/*127:0*/ __Vtemp31;
     VlWide<4>/*127:0*/ __Vtemp32;
-    VlWide<4>/*127:0*/ __Vtemp33;
-    VlWide<4>/*127:0*/ __Vtemp34;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_4;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_5;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_2;
@@ -1071,8 +1069,6 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_rlast_T 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt_r) 
            | (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_3));
-    VL_SHIFTR_WWI(128,128,1, __Vtemp11, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt));
-    VL_SHIFTR_WWI(128,128,1, __Vtemp12, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt));
     VSimTop___024root____Vdpiimwrap_SimTop__DOT__my_axi_sram__DOT__my_wmem_port__DOT__cpu_dmem_write_TOP(
                                                                                 (((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wstate) 
                                                                                 >> 1U) 
@@ -1083,12 +1079,34 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                                                 ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__wt_cnt) 
                                                                                 << 3U)))), 
                                                                                 ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
-                                                                                 ? (QData)((IData)(
-                                                                                (1U 
-                                                                                & __Vtemp11[0U])))
-                                                                                 : (QData)((IData)(
-                                                                                (1U 
-                                                                                & __Vtemp12[0U])))), 
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt)
+                                                                                 ? 
+                                                                                (((QData)((IData)(
+                                                                                vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[3U])) 
+                                                                                << 0x20U) 
+                                                                                | (QData)((IData)(
+                                                                                vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[2U])))
+                                                                                 : 
+                                                                                (((QData)((IData)(
+                                                                                vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[1U])) 
+                                                                                << 0x20U) 
+                                                                                | (QData)((IData)(
+                                                                                vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[0U]))))
+                                                                                 : 
+                                                                                ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt)
+                                                                                 ? 
+                                                                                (((QData)((IData)(
+                                                                                vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[3U])) 
+                                                                                << 0x20U) 
+                                                                                | (QData)((IData)(
+                                                                                vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[2U])))
+                                                                                 : 
+                                                                                (((QData)((IData)(
+                                                                                vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[1U])) 
+                                                                                << 0x20U) 
+                                                                                | (QData)((IData)(
+                                                                                vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[0U]))))), 
                                                                                 ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
                                                                                  ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wstrb_r)
                                                                                  : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wstrb_r)));
@@ -2360,45 +2378,45 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         = VL_MODDIVS_III(32, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1), (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remuw_res 
         = VL_MODDIV_III(32, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1), (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
-    VL_EXTEND_WQ(65,64, __Vtemp14, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    VL_EXTEND_WQ(65,64, __Vtemp15, ((- (QData)((IData)(
+    VL_EXTEND_WQ(65,64, __Vtemp12, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    VL_EXTEND_WQ(65,64, __Vtemp13, ((- (QData)((IData)(
                                                        (1U 
                                                         & (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
                                                            >> 1U))))) 
                                     ^ vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2));
-    VL_ADD_W(3, __Vtemp16, __Vtemp14, __Vtemp15);
-    VL_EXTEND_WI(65,1, __Vtemp17, (1U & (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
+    VL_ADD_W(3, __Vtemp14, __Vtemp12, __Vtemp13);
+    VL_EXTEND_WI(65,1, __Vtemp15, (1U & (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
                                          >> 1U)));
-    VL_ADD_W(3, __Vtemp18, __Vtemp16, __Vtemp17);
+    VL_ADD_W(3, __Vtemp16, __Vtemp14, __Vtemp15);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[0U] 
-        = __Vtemp18[0U];
+        = __Vtemp16[0U];
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[1U] 
-        = __Vtemp18[1U];
+        = __Vtemp16[1U];
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[2U] 
-        = (1U & __Vtemp18[2U]);
-    __Vtemp20[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    __Vtemp20[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+        = (1U & __Vtemp16[2U]);
+    __Vtemp18[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    __Vtemp18[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                              >> 0x20U));
-    __Vtemp20[2U] = (IData)((- (QData)((IData)((1U 
+    __Vtemp18[2U] = (IData)((- (QData)((IData)((1U 
                                                 & (IData)(
                                                           (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                                                            >> 0x3fU)))))));
-    __Vtemp20[3U] = (IData)(((- (QData)((IData)((1U 
+    __Vtemp18[3U] = (IData)(((- (QData)((IData)((1U 
                                                  & (IData)(
                                                            (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                                                             >> 0x3fU)))))) 
                              >> 0x20U));
-    __Vtemp21[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
-    __Vtemp21[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+    __Vtemp19[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
+    __Vtemp19[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                              >> 0x20U));
-    __Vtemp21[2U] = (IData)((- (QData)((IData)((1U 
+    __Vtemp19[2U] = (IData)((- (QData)((IData)((1U 
                                                 & ((~ 
                                                     (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
                                                      >> 0xdU)) 
                                                    & (IData)(
                                                              (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                                                               >> 0x3fU))))))));
-    __Vtemp21[3U] = (IData)(((- (QData)((IData)((1U 
+    __Vtemp19[3U] = (IData)(((- (QData)((IData)((1U 
                                                  & ((~ 
                                                      (vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op 
                                                       >> 0xdU)) 
@@ -2406,35 +2424,35 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                               (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                                                                >> 0x3fU))))))) 
                              >> 0x20U));
-    VL_MUL_W(4, __Vtemp22, __Vtemp20, __Vtemp21);
+    VL_MUL_W(4, __Vtemp20, __Vtemp18, __Vtemp19);
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[0U] 
-        = __Vtemp22[0U];
+        = __Vtemp20[0U];
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[1U] 
-        = __Vtemp22[1U];
+        = __Vtemp20[1U];
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[2U] 
-        = __Vtemp22[2U];
+        = __Vtemp20[2U];
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[3U] 
-        = __Vtemp22[3U];
+        = __Vtemp20[3U];
     vlSelf->io_core_debug_debug_rf_we = vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we;
-    __Vtemp24[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    __Vtemp24[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+    __Vtemp22[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    __Vtemp22[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                              >> 0x20U));
-    __Vtemp24[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+    __Vtemp22[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                                    >> 0x3fU)));
-    __Vtemp25[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
-    __Vtemp25[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+    __Vtemp23[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
+    __Vtemp23[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                              >> 0x20U));
-    __Vtemp25[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+    __Vtemp23[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                                    >> 0x3fU)));
-    VL_DIVS_WWW(65, __Vtemp26, __Vtemp24, __Vtemp25);
-    VL_EXTEND_WQ(127,64, __Vtemp29, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    VL_SHIFTL_WWI(127,127,6, __Vtemp30, __Vtemp29, 
+    VL_DIVS_WWW(65, __Vtemp24, __Vtemp22, __Vtemp23);
+    VL_EXTEND_WQ(127,64, __Vtemp27, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    VL_SHIFTL_WWI(127,127,6, __Vtemp28, __Vtemp27, 
                   (0x3fU & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2)));
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_4 
         = ((((((((((((0x8000U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
-                      ? (((QData)((IData)(__Vtemp26[1U])) 
+                      ? (((QData)((IData)(__Vtemp24[1U])) 
                           << 0x20U) | (QData)((IData)(
-                                                      __Vtemp26[0U])))
+                                                      __Vtemp24[0U])))
                       : 0ULL) | ((1U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
                                   ? (((QData)((IData)(
                                                       vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[1U])) 
@@ -2459,9 +2477,9 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                    ^ vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2)
                                                 : 0ULL)) 
                | ((0x20U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
-                   ? (((QData)((IData)(__Vtemp30[1U])) 
+                   ? (((QData)((IData)(__Vtemp28[1U])) 
                        << 0x20U) | (QData)((IData)(
-                                                   __Vtemp30[0U])))
+                                                   __Vtemp28[0U])))
                    : 0ULL)) | ((0x40U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
                                 ? VL_SHIFTR_QQQ(64,64,64, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1, (QData)((IData)(
                                                                                 (0x3fU 
@@ -2494,9 +2512,9 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                   | (QData)((IData)(
                                                                     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[0U])))
                                                : 0ULL));
-    VL_EXTEND_WQ(128,64, __Vtemp32, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-    VL_EXTEND_WQ(128,64, __Vtemp33, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
-    VL_MUL_W(4, __Vtemp34, __Vtemp32, __Vtemp33);
+    VL_EXTEND_WQ(128,64, __Vtemp30, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+    VL_EXTEND_WQ(128,64, __Vtemp31, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
+    VL_MUL_W(4, __Vtemp32, __Vtemp30, __Vtemp31);
     SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_5 
         = ((((((((((((0x800U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
                       ? (((QData)((IData)(SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[3U])) 
@@ -2504,9 +2522,9 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                       SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN_2[2U])))
                       : 0ULL) | ((0x1000U & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
                                   ? (((QData)((IData)(
-                                                      __Vtemp34[3U])) 
+                                                      __Vtemp32[3U])) 
                                       << 0x20U) | (QData)((IData)(
-                                                                  __Vtemp34[2U])))
+                                                                  __Vtemp32[2U])))
                                   : 0ULL)) | ((0x2000U 
                                                & vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_alu_op)
                                                ? (((QData)((IData)(

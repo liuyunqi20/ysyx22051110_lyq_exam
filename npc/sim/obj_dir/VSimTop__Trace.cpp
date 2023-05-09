@@ -19,17 +19,13 @@ void VSimTop___024root__traceChgTop0(void* voidSelf, VerilatedVcd* tracep) {
 void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tracep) {
     if (false && vlSelf) {}  // Prevent unused
     VSimTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VlWide<4>/*127:0*/ __Vtemp76;
-    VlWide<4>/*127:0*/ __Vtemp77;
-    VlWide<4>/*127:0*/ __Vtemp79;
-    VlWide<4>/*127:0*/ __Vtemp80;
-    VlWide<4>/*127:0*/ __Vtemp81;
-    VlWide<3>/*95:0*/ __Vtemp83;
-    VlWide<3>/*95:0*/ __Vtemp84;
-    VlWide<3>/*95:0*/ __Vtemp85;
-    VlWide<3>/*95:0*/ __Vtemp86;
-    VlWide<4>/*127:0*/ __Vtemp87;
-    VlWide<4>/*127:0*/ __Vtemp88;
+    VlWide<4>/*127:0*/ __Vtemp69;
+    VlWide<4>/*127:0*/ __Vtemp70;
+    VlWide<4>/*127:0*/ __Vtemp71;
+    VlWide<3>/*95:0*/ __Vtemp73;
+    VlWide<3>/*95:0*/ __Vtemp74;
+    VlWide<3>/*95:0*/ __Vtemp75;
+    VlWide<3>/*95:0*/ __Vtemp76;
     vluint32_t* const oldp = tracep->oldp(vlSymsp->__Vm_baseCode + 1);
     if (false && oldp) {}  // Prevent unused
     // Body
@@ -60,10 +56,17 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                            >> 1U))));
             tracep->chgBit(oldp+16,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
                                            >> 2U))));
-            VL_SHIFTR_WWI(128,128,1, __Vtemp76, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt));
-            tracep->chgQData(oldp+17,((QData)((IData)(
-                                                      (1U 
-                                                       & __Vtemp76[0U])))),64);
+            tracep->chgQData(oldp+17,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt)
+                                        ? (((QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[3U])) 
+                                            << 0x20U) 
+                                           | (QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[2U])))
+                                        : (((QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[1U])) 
+                                            << 0x20U) 
+                                           | (QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[0U]))))),64);
             tracep->chgCData(oldp+19,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wstrb_r),8);
             tracep->chgBit(oldp+20,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_out_wt_bits_wlast_T_3));
             tracep->chgBit(oldp+21,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
@@ -76,10 +79,17 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
             tracep->chgBit(oldp+27,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_aw_valid_T_3));
             tracep->chgBit(oldp+28,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
                                            >> 2U))));
-            VL_SHIFTR_WWI(128,128,1, __Vtemp77, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt));
-            tracep->chgQData(oldp+29,((QData)((IData)(
-                                                      (1U 
-                                                       & __Vtemp77[0U])))),64);
+            tracep->chgQData(oldp+29,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt)
+                                        ? (((QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[3U])) 
+                                            << 0x20U) 
+                                           | (QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[2U])))
+                                        : (((QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[1U])) 
+                                            << 0x20U) 
+                                           | (QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[0U]))))),64);
             tracep->chgCData(oldp+31,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wstrb_r),8);
             tracep->chgBit(oldp+32,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_wt_bits_wlast_T_3));
             tracep->chgBit(oldp+33,((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__state) 
@@ -552,29 +562,29 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                                    ^ 
                                                    (vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___GEN[1U] 
                                                     >> 0x1fU)))))));
-            VL_EXTEND_WQ(127,64, __Vtemp79, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-            VL_SHIFTL_WWI(127,127,6, __Vtemp80, __Vtemp79, 
+            VL_EXTEND_WQ(127,64, __Vtemp69, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+            VL_SHIFTL_WWI(127,127,6, __Vtemp70, __Vtemp69, 
                           (0x3fU & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2)));
-            __Vtemp81[0U] = __Vtemp80[0U];
-            __Vtemp81[1U] = __Vtemp80[1U];
-            __Vtemp81[2U] = __Vtemp80[2U];
-            __Vtemp81[3U] = (0x7fffffffU & __Vtemp80[3U]);
-            tracep->chgWData(oldp+167,(__Vtemp81),127);
-            __Vtemp83[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
-            __Vtemp83[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+            __Vtemp71[0U] = __Vtemp70[0U];
+            __Vtemp71[1U] = __Vtemp70[1U];
+            __Vtemp71[2U] = __Vtemp70[2U];
+            __Vtemp71[3U] = (0x7fffffffU & __Vtemp70[3U]);
+            tracep->chgWData(oldp+167,(__Vtemp71),127);
+            __Vtemp73[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1);
+            __Vtemp73[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                                      >> 0x20U));
-            __Vtemp83[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
+            __Vtemp73[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1 
                                            >> 0x3fU)));
-            __Vtemp84[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
-            __Vtemp84[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+            __Vtemp74[0U] = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2);
+            __Vtemp74[1U] = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                                      >> 0x20U));
-            __Vtemp84[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
+            __Vtemp74[2U] = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2 
                                            >> 0x3fU)));
-            VL_DIVS_WWW(65, __Vtemp85, __Vtemp83, __Vtemp84);
-            __Vtemp86[0U] = __Vtemp85[0U];
-            __Vtemp86[1U] = __Vtemp85[1U];
-            __Vtemp86[2U] = (1U & __Vtemp85[2U]);
-            tracep->chgWData(oldp+171,(__Vtemp86),65);
+            VL_DIVS_WWW(65, __Vtemp75, __Vtemp73, __Vtemp74);
+            __Vtemp76[0U] = __Vtemp75[0U];
+            __Vtemp76[1U] = __Vtemp75[1U];
+            __Vtemp76[2U] = (1U & __Vtemp75[2U]);
+            tracep->chgWData(oldp+171,(__Vtemp76),65);
             tracep->chgQData(oldp+174,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divw_res),33);
             tracep->chgIData(oldp+176,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__divuw_res),32);
             tracep->chgIData(oldp+177,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__remw_res),32);
@@ -837,15 +847,29 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                              : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__state) 
                                                 >> 1U)))));
             tracep->chgBit(oldp+352,(vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_wt_valid));
-            VL_SHIFTR_WWI(128,128,1, __Vtemp87, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt));
-            VL_SHIFTR_WWI(128,128,1, __Vtemp88, vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r, (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt));
             tracep->chgQData(oldp+353,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
-                                         ? (QData)((IData)(
-                                                           (1U 
-                                                            & __Vtemp87[0U])))
-                                         : (QData)((IData)(
-                                                           (1U 
-                                                            & __Vtemp88[0U]))))),64);
+                                         ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt)
+                                             ? (((QData)((IData)(
+                                                                 vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[3U])) 
+                                                 << 0x20U) 
+                                                | (QData)((IData)(
+                                                                  vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[2U])))
+                                             : (((QData)((IData)(
+                                                                 vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[1U])) 
+                                                 << 0x20U) 
+                                                | (QData)((IData)(
+                                                                  vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[0U]))))
+                                         : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt)
+                                             ? (((QData)((IData)(
+                                                                 vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[3U])) 
+                                                 << 0x20U) 
+                                                | (QData)((IData)(
+                                                                  vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[2U])))
+                                             : (((QData)((IData)(
+                                                                 vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[1U])) 
+                                                 << 0x20U) 
+                                                | (QData)((IData)(
+                                                                  vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[0U])))))),64);
             tracep->chgCData(oldp+355,(((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
                                          ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wstrb_r)
                                          : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wstrb_r))),8);
