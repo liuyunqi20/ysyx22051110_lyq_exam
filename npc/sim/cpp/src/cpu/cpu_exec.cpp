@@ -207,6 +207,7 @@ void init_cpu(){
     SimTop->clock = 1;
     SimTop->eval();
     wave_dump();
+    printf("point-1\n");
     g_nr_step = 0;
     //reset == 1 util negedge
     while (1) {
