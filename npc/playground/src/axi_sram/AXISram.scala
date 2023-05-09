@@ -162,7 +162,7 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
     io.sram_wt.addr  := wt_addr
     io.sram_wt.wdata := io.wt.bits.wdata
     io.sram_wt.wmask := io.wt.bits.wstrb
-    io.wt.ready      := wstate(1) && io.sram_wt_resp
+    io.wt.ready      := wstate(1)
     //write count
     when(io.aw.fire) { 
         wt_cnt := 0.U 
