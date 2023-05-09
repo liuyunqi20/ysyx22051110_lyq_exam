@@ -157,12 +157,12 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
     val wt_addr       = Cat(aw_buf.awaddr(w-1, log2Ceil(block_word_n) + wwidth), wt_cnt, 0.U(wwidth.W))
     when(io.aw.fire) { aw_buf := io.aw.bits }
     // --------------- write data --------------- 
-    io.sram_wt.en    := wstate(1) && io.wt.fire
+    io.sram_wt.en    := wstate(1) && io.wt.valid
     io.sram_wt.wr    := 1.B
     io.sram_wt.addr  := wt_addr
     io.sram_wt.wdata := io.wt.bits.wdata
     io.sram_wt.wmask := io.wt.bits.wstrb
-    io.wt.ready      := wstate(1)
+    io.wt.ready      := wstate(1) && io.sram_wt_resp
     //write count
     when(io.aw.fire) { 
         wt_cnt := 0.U 
