@@ -76,14 +76,14 @@ int init_image(){
             }
         }
         //load .text section to 'memory'
-        printf("text section size: %ld\n", text_shdr.sh_size);
+        //printf("text section size: %ld\n", text_shdr.sh_size);
         uint32_t inst;
         int inst_num = text_shdr.sh_size >> 2;
         fseek(fp, text_shdr.sh_offset, SEEK_SET);
         for(int i = 0; i < inst_num; ++i){
             ret = fread(&inst, sizeof(uint32_t), 1, fp);
             assert(ret == 1);
-            printf("%3d %08x\n", i+1, inst);
+            //printf("%3d %08x\n", i+1, inst);
             vaddr_write(iaddr, isize, inst);
             iaddr += isize;
         }
@@ -129,7 +129,6 @@ void init_monitor(int argc, char *argv[]){
     int image_size = init_image();
     //init cpu
     init_cpu();
-    printf("p11\n");
     //initialize difftest
 #ifdef DIFFTEST
     init_difftest(diff_so_file, image_size, difftest_port);
@@ -139,11 +138,9 @@ void init_monitor(int argc, char *argv[]){
 #ifdef DEVICE
     init_device();
 #endif
-    printf("p1\n");
 #ifdef ITRACE
     init_disasm("riscv64-pc-linux-gnu");
 #endif
-    printf("p2\n");
     printf("[npc] monitor initialize success!\n");
     if(img_file)
         printf("The image file is %s\n", elf_file);
