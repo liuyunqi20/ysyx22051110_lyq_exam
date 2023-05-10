@@ -28,8 +28,8 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val my_axi_bridge1 = Module(new AXIBridge(w, DCache_block_size * 8 / w))
     val my_mmc         = Module(new MemoryController(w, DCache_block_size * 8 / w))
     //ICache: 
-    // val my_icache      = Module(new CacheTop(w, Cache_tag_width, ICache_nr_lines, 
-    //                                         ICache_nr_ways, ICache_block_size))
+    val my_icache      = Module(new CacheTop(w, Cache_tag_width, ICache_nr_lines, 
+                                            ICache_nr_ways, ICache_block_size))
     val my_dcache      = Module(new CacheTop(w, Cache_tag_width, DCache_nr_lines,
                                             DCache_nr_ways, DCache_block_size))
     val my_clint       = Module(new Clint(w))
@@ -59,9 +59,8 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_csr.io.clint_intr_t := my_clint.io.has_intr_t
     //Memory Access
     //icache current ignored
-    // my_icache.io.in        <> my_if.io.inst_mem
-    // my_axi_bridge0.io.in   <> my_icache.io.out
-    my_axi_bridge0.io.in   <> my_if.io.inst_mem
+    my_if.io.inst_mem      <> my_icache.io.in
+    my_axi_bridge0.io.in   <> my_icache.io.out
     io.axi_sram(0)         <> my_axi_bridge0.io.out
     //dcache
     my_mem.io.data_mem     <> my_dcache.io.in
