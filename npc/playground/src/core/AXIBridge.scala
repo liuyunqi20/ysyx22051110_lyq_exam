@@ -31,7 +31,7 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     val wdata_r             = RegInit(0.U((block_word_n * w).W))
     val wtag_r              = RegInit(0.U((w - log2Ceil(block_word_n) - log2Ceil(w/8)).W))
     val wstrb_r             = RegInit(0.U((w/8).W))
-    val wt_widx_r           = RegInit(0.U(log2Ceil(block_word_n).W))
+    val wt_widx             = RegInit(0.U(log2Ceil(block_word_n).W))
     val init_widx           = io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(w/8) - 1, log2Ceil(w/8))
     val burst_cnt           = RegInit(0.U(log2Ceil(block_word_n).W))
     val burst_len           = RegInit(0.U(8.W))
@@ -62,16 +62,16 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
         wdata_r   := io.in.req.bits.wdata 
         wtag_r    := io.in.req.bits.addr(w - 1, log2Ceil(block_word_n) + log2Ceil(w/8))
         wstrb_r   := io.in.req.bits.wstrb
-        wt_widx_r := io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(w/8) - 1, log2Ceil(w/8))
+        wt_widx   := io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(w/8) - 1, log2Ceil(w/8))
         burst_len := io.out.aw.bits.awlen
         burst_cnt := 0.U
     } .elsewhen(io.out.wt.fire) {
         burst_cnt := burst_cnt + 1.U
+        wt_widx   := wt_widx   + 1.U
     } .elsewhen(io.out.b.fire){
         wtag_r    := 0.U
         burst_cnt := 0.U
     } 
-    val wt_widx       = Mux(io.in.req.bits.mthrough === 1.U, wt_widx_r, burst_cnt)
     io.out.aw.valid        := io.in.req.valid && (io.in.req.bits.wr === 1.U) && state(0)
     io.out.aw.bits.awaddr  := io.in.req.bits.addr
     io.out.aw.bits.awprot  := 0.U(3.W)

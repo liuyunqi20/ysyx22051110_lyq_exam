@@ -149,14 +149,16 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
         are stored when wt shaking hands. In b stage, sram write is enabled until write data 
         success. b_wait_ready is for avoiding to enable sram write repeatedly when write is 
         done but wait for b.ready from master. 
+        NOTE: only support wrap burst type. 
+              awsize is always word size. 
+              awprot is ignored and is always 0
     */
     // --------------- write request --------------- 
     io.aw.ready      := wstate(0)
     val aw_buf        = RegInit(0.U.asTypeOf(new AXI4LiteAW(w)))
-    val wt_cnt        = RegInit(0.U(log2Ceil(block_word_n).W))
     val wt_widx       = RegInit(0.U(log2Ceil(block_word_n).W))
     val wt_addr       = Cat(aw_buf.awaddr(w-1, log2Ceil(block_word_n) + wwidth), wt_widx, 0.U(wwidth.W))
-    when(io.aw.fire) { aw_buf := io.aw.bits }
+    when(io.aw.fire) { aw_buf  := io.aw.bits }
     // --------------- write data --------------- 
     io.sram_wt.en    := wstate(1) && io.wt.valid
     io.sram_wt.wr    := 1.B
@@ -166,11 +168,9 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
     io.wt.ready      := wstate(1) && io.sram_wt_resp
     //write count
     when(io.aw.fire) { 
-        wt_widx := aw_buf.awaddr(log2Ceil(block_word_n) + wwidth - 1, wwidth) 
-        wt_cnt  := 0.U
+        wt_widx := io.aw.bits.awaddr(log2Ceil(block_word_n) + wwidth - 1, wwidth)
     } .elsewhen(io.wt.fire) {
         wt_widx := wt_widx + 1.U
-        wt_cnt  := wt_cnt  + 1.U
     }
     // --------------- write resp --------------- 
     io.b.valid       := wstate(2)
