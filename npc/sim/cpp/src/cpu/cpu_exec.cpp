@@ -232,7 +232,9 @@ void init_cpu(){
     wave_dump();
     cpu_pc = SimTop->io_core_debug_debug_pc;
     //execute one step to fetch the first instruction
+    printf("before\n");
     execute_once();
+    printf("next\n");
     printf("[npc] cpu init success!\n");
     npc_state.state = NPC_STOP;
 }
