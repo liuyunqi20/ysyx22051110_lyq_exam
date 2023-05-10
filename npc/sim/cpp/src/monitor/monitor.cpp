@@ -127,14 +127,17 @@ void init_monitor(int argc, char *argv[]){
     parse_args(argc, argv);
     //load image to memory
     int image_size = init_image();
+    printf("p11\n");
     //init cpu
     init_cpu();
     //initialize difftest
+    printf("p12\n");
 #ifdef DIFFTEST
     init_difftest(diff_so_file, image_size, difftest_port);
 #endif
     //initialize sdb
     init_sdb();
+    printf("p13\n");
 #ifdef DEVICE
     init_device();
 #endif
