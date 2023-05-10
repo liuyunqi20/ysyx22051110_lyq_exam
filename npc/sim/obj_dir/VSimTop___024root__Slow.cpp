@@ -85,8 +85,7 @@ void VSimTop___024root___settle__TOP__3(VSimTop___024root* vlSelf) {
             >> 1U) & ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok) 
                       & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__rd_chosen))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__has_intr_t 
-        = (((vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime 
-             >= vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp) 
+        = (((0xffffffffffffffffULL == vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime) 
             & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mie)) 
            & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie 
                       >> 7U)));
@@ -1195,14 +1194,6 @@ void VSimTop___024root___settle__TOP__3(VSimTop___024root* vlSelf) {
            & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state) 
                >> 1U) | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__ret_valid) 
                          | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_rlast_T))));
-    vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_clint_out_wdata 
-        = ((1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_addr 
-                          >> 3U))) ? (((QData)((IData)(
-                                                       vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[3U])) 
-                                       << 0x20U) | (QData)((IData)(
-                                                                   vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[2U])))
-            : (((QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[1U])) 
-                << 0x20U) | (QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[0U]))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT___io_in_clint_hit_T 
         = ((0xbff8ULL == vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_addr) 
            | (0x4000ULL == vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_addr));
@@ -2028,7 +2019,6 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     VL_RAND_RESET_W(128, vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_req_ready = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid = VL_RAND_RESET_I(1);
-    vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_clint_out_wdata = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_axi_out_req_valid = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_ret_rdata = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_ret_rdata = VL_RAND_RESET_Q(64);
@@ -2198,11 +2188,9 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__unnamedblk1__DOT___state_T_25 = VL_RAND_RESET_I(5);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__unnamedblk1__DOT___GEN = VL_RAND_RESET_I(3);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT___io_in_clint_hit_T = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__ret_valid = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT__wen = VL_RAND_RESET_I(1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__unnamedblk1__DOT___T_2 = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_axi_sram__DOT___my_rmem_port_rdata = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_ar_bits_araddr = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_wt_valid = VL_RAND_RESET_I(1);
