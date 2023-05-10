@@ -174,20 +174,6 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_9;
         CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT___T_10;
         CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__unnamedblk1__DOT__rdata_arrive;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__delaying;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r_r;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r_r_1;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r_r_2;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r_r_3;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__r;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__rd_resp_en_rdelayer__DOT__unnamedblk1__DOT__din;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__delaying;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r_1;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r_2;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r_r_3;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__r;
-        CData/*0:0*/ SimTop__DOT__my_axi_sram__DOT__wt_resp_en_wdelayer__DOT__unnamedblk1__DOT__din;
         SData/*8:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_br_type;
         SData/*9:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN;
         SData/*15:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT__my_decoder__DOT___GEN_0;
@@ -233,8 +219,6 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mtvec;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip;
-    };
-    struct {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
@@ -249,6 +233,8 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp;
         QData/*63:0*/ SimTop__DOT__my_axi_sram__DOT___my_rmem_port_rdata;
+    };
+    struct {
         QData/*63:0*/ SimTop__DOT__my_axi_sram__DOT___my_arbiter_io_out_ar_bits_araddr;
         QData/*63:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__ar_buf_araddr;
         QData/*63:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_r;
