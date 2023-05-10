@@ -138,11 +138,11 @@ void init_monitor(int argc, char *argv[]){
 #ifdef DEVICE
     init_device();
 #endif
-
+    printf("p1\n");
 #ifdef ITRACE
     init_disasm("riscv64-pc-linux-gnu");
 #endif
-
+    printf("p2\n");
     printf("[npc] monitor initialize success!\n");
     if(img_file)
         printf("The image file is %s\n", elf_file);

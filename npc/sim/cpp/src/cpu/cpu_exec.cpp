@@ -226,14 +226,12 @@ void init_cpu(){
         wave_dump();
     }
     //evaluate to first instruction posedge
-    printf("point-2\n");
     contextp->timeInc(1);
     SimTop->clock = !SimTop->clock;
     SimTop->eval();
     wave_dump();
     cpu_pc = SimTop->io_core_debug_debug_pc;
     //execute one step to fetch the first instruction
-    printf("point-3\n");
     execute_once();
     printf("[npc] cpu init success!\n");
     npc_state.state = NPC_STOP;
