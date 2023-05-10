@@ -155,7 +155,7 @@ void execute(uint64_t step){
             set_npc_state(NPC_ABORT, SimTop->io_core_debug_debug_pc - 4, gpr(10));
             break;
         }
-        if(g_nr_step > 50) return;
+        if(g_nr_step > 150) return;
 #ifdef DEVICE
         device_update();
 #endif
