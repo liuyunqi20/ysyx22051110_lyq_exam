@@ -200,7 +200,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_widx = 0U;
     }
     if (vlSelf->reset) {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__widx_r = 0U;
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wt_widx_r = 0U;
     }
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wstrb_r = 0U;
@@ -574,7 +574,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
         vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[3U] = 0U;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wtag_r = 0ULL;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wstrb_r = 0U;
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__widx_r = 0U;
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wt_widx_r = 0U;
         __Vdly__SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt = 0U;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_len = 0U;
     } else {
@@ -618,7 +618,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                 = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_mthrough)
                     ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wstrb)
                     : 0xffU);
-            vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__widx_r 
+            vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wt_widx_r 
                 = (1U & (IData)((vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_addr 
                                  >> 3U)));
             vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_len 
@@ -935,8 +935,8 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
             = vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_req_valid_T_3;
     }
     if (vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_mthrough) {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__widx 
-            = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__widx_r;
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wt_widx 
+            = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wt_widx_r;
         vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[0U] 
             = (IData)(((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset))
                         ? 0ULL : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata));
@@ -953,7 +953,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata
                          : 0ULL) >> 0x20U));
     } else {
-        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__widx 
+        vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wt_widx 
             = vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt;
         vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wdata[0U] 
             = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0);
@@ -1106,7 +1106,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                                                 ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT__wt_chosen)
                                                                                  ? 
                                                                                 ((1U 
-                                                                                == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__widx))
+                                                                                == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wt_widx))
                                                                                  ? 
                                                                                 (((QData)((IData)(
                                                                                 vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[3U])) 
@@ -1115,7 +1115,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                                                 vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[2U])))
                                                                                  : 
                                                                                 ((0U 
-                                                                                == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__widx))
+                                                                                == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wt_widx))
                                                                                  ? 
                                                                                 (((QData)((IData)(
                                                                                 vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wdata_r[1U])) 
@@ -1125,7 +1125,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                                                  : 0ULL))
                                                                                  : 
                                                                                 ((1U 
-                                                                                == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__widx_r))
+                                                                                == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wt_widx_r))
                                                                                  ? 
                                                                                 (((QData)((IData)(
                                                                                 vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[3U])) 
@@ -1134,7 +1134,7 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
                                                                                 vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[2U])))
                                                                                  : 
                                                                                 ((0U 
-                                                                                == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__widx_r))
+                                                                                == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wt_widx_r))
                                                                                  ? 
                                                                                 (((QData)((IData)(
                                                                                 vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wdata_r[1U])) 
@@ -1177,13 +1177,11 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
            | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_mthrough) 
               & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wr)));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_addr 
-        = (QData)((IData)(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__wb_en)
-                            ? ((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_tag 
-                                << 9U) | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_index) 
-                                           << 4U) | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset)))
-                            : ((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_tag 
-                                << 9U) | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_index) 
-                                          << 4U)))));
+        = (((QData)((IData)(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__wb_en)
+                              ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_tag
+                              : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_tag))) 
+            << 9U) | (QData)((IData)((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_index) 
+                                       << 4U) | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset)))));
     if (vlSelf->reset) {
         __Vdly__SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_ms = 0U;
         vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst = 0U;

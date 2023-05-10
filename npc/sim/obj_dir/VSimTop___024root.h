@@ -84,7 +84,7 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_widx;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_after_wt_r;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wstrb_r;
-        CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__widx_r;
+        CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wt_widx_r;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_cnt;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__burst_len;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_rlast_T;
@@ -99,14 +99,14 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_widx;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt_r;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wstrb_r;
-        CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__widx_r;
+        CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wt_widx_r;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_cnt;
     };
     struct {
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__burst_len;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_rlast_T;
-        CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__widx;
+        CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wt_widx;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_aw_valid_T_3;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_out_wt_bits_wlast_T_3;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_ret_valid_T_3;

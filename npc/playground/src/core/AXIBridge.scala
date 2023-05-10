@@ -31,7 +31,7 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     val wdata_r             = RegInit(0.U((block_word_n * w).W))
     val wtag_r              = RegInit(0.U((w - log2Ceil(block_word_n) - log2Ceil(w/8)).W))
     val wstrb_r             = RegInit(0.U((w/8).W))
-    val wt_widx_r              = RegInit(0.U(block_word_n.W))
+    val wt_widx_r           = RegInit(0.U(log2Ceil(block_word_n).W))
     val init_widx           = io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(w/8) - 1, log2Ceil(w/8))
     val burst_cnt           = RegInit(0.U(log2Ceil(block_word_n).W))
     val burst_len           = RegInit(0.U(8.W))
