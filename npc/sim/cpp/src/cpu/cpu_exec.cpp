@@ -155,6 +155,7 @@ void execute(uint64_t step){
             set_npc_state(NPC_ABORT, SimTop->io_core_debug_debug_pc - 4, gpr(10));
             break;
         }
+        printf("pc: %lx\n", cpu_pc);
         //if(g_nr_step > 200) return;
 #ifdef DEVICE
         device_update();
