@@ -43,8 +43,8 @@ void device_update();
 double sc_time_stamp() { return 0; }
 
 void wave_end(){
-#ifdef DUMPWAVE
     printf("all inst num: %lu\n", g_nr_step);
+#ifdef DUMPWAVE
     contextp->timeInc(1);
     tfp->dump(contextp->time());
     tfp->close();
