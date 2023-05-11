@@ -63,8 +63,8 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     //Enter to next instruction
     when(fs_next_ok){
         pc   := Mux(fs_state(5), exc_target_r, nextpc)
-        inst := Mux(nextpc(2) === 1.U, fs_inst_data(63, 32),
-                                       fs_inst_data(31, 0))
+        inst := Mux(fs_state(5), Mux(exc_target_r(2) === 1.U, fs_inst_data(63,32), fs_inst_data(31,0)))
+                                 Mux(nextpc(2) === 1.U, fs_inst_data(63, 32), fs_inst_data(31, 0))
     }
     //when exception triggered, no need to wait MSU(MSU is cleared, ms_mem_ok is always 1)
     when(io.exc_br.exc_br){
