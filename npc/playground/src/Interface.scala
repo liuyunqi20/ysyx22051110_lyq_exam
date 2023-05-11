@@ -175,7 +175,7 @@ import chisel3.util._
         val wmask = Output(UInt((w/8).W))
     }
 
-    class IFtoMemBundle(w: Int) extends Bundle{
+    class IfMemBundle(w: Int) extends Bundle{
         //inst data is arriving in this cycle
         val fs_mem_ok    = Output(Bool())
         //inst data already arrived and wait for MSU to finish

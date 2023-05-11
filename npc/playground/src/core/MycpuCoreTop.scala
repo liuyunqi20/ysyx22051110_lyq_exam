@@ -37,7 +37,7 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     //IF stage
     my_if.io.branch        <> my_ex.io.branch
     my_if.io.exc_br        <> my_wb.io.exc_br
-    my_if.io.if2mem        <> my_mem.io.if2mem
+    my_if.io.if_mem        <> my_mem.io.if_mem
     //ID stage
     my_id.io.pc            := my_if.io.pc
     my_id.io.if2id         <> my_if.io.if2id
