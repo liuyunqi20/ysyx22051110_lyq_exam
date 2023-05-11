@@ -64,7 +64,7 @@ void pmem_write(uint64_t addr, int len, uint64_t data) {
 extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * rdata){
   if(en && !wr){
     //printf("raddr: %lx\n", raddr);
-    if(raddr == 0x8009efe8){
+    if(raddr == 0x8009eff8){
       printf("pc: %lx 9efe8 r\n", cpu_pc);
     }
     raddr = raddr & ~0x7;
@@ -110,7 +110,7 @@ extern "C" void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long * r
 extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wdata, char wmask){
   if(en && wr){
     waddr = waddr & ~0x7;
-    if(waddr == 0x8009efe8){
+    if(waddr == 0x8009eff8){
       printf("pc: %lx 9efe8, w: %lx\n", cpu_pc, wdata);
     }
     //printf("waddr: %llx wdata: %llx\n", waddr, wdata);
