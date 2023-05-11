@@ -38,7 +38,7 @@ class Wb_stage(w: Int) extends Module{
     val exc_buf     = RegInit(0.B)
     when(has_trap && ~exc_buf) { exc_buf := 1.B }
     .elsewhen(io.fs_next_ok) { exc_buf := 0.B }
-    io.wb2rf.rf_we := io.mem2wb.gr_we && ~has_trap && io.fs_next_ok
+    io.wb2rf.rf_we := io.mem2wb.gr_we && ~has_trap && io.fs_next_ok && ~exc_buf
     io.wb2rf.waddr := io.mem2wb.dest
     io.wb2rf.wdata := Mux(io.mem2wb.csr_op.orR === 1.U, io.csr_op.csr_old, io.mem2wb.result)
 }
