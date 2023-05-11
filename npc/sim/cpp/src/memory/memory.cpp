@@ -108,7 +108,7 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
   if(en && wr){
     waddr = waddr & ~0x7;
     if(waddr == 0x8009efe8){
-      printf("pc: %lx 9efe8, w: %lx\n", cpu_pc, waddr, wdata);
+      printf("pc: %lx 9efe8, w: %lx\n", cpu_pc, wdata);
     }
     //printf("waddr: %llx wdata: %llx\n", waddr, wdata);
     // ---------------- mmio ---------------- 
