@@ -58,13 +58,13 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val fs_next_ok        = fs_ahead_ms || ms_ahead_fs || fs_same_ms
     //choose inst code from buffer or port when IFU is prepared to enter next instrution 
     val fs_inst_data      = Mux(fs_wait_ms, rdata_buf, io.inst_mem.ret.rdata)
+    val fs_inst_widx      = Mux(fs_state(5), exc_target_r(2), nextpc(2))
     //Buffer for exception entry
     when(io.exc_br.exc_br){ exc_target_r := io.exc_br.exc_target }
     //Enter to next instruction
     when(fs_next_ok){
         pc   := Mux(fs_state(5), exc_target_r, nextpc)
-        inst := Mux(fs_state(5), Mux(exc_target_r(2) === 1.U, fs_inst_data(63,32), fs_inst_data(31,0)))
-                                 Mux(nextpc(2) === 1.U, fs_inst_data(63, 32), fs_inst_data(31, 0))
+        inst := Mux(fs_inst_widx === 1.U, fs_inst_data(63,32), fs_inst_data(31,0))
     }
     //when exception triggered, no need to wait MSU(MSU is cleared, ms_mem_ok is always 1)
     when(io.exc_br.exc_br){
