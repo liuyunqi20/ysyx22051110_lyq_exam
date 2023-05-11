@@ -62,7 +62,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     when(io.exc_br.exc_br){ exc_target_r := io.exc_br.exc_target }
     //Enter to next instruction
     when(fs_next_ok){
-        pc   := Mux(state(5), exc_target_r, nextpc)
+        pc   := Mux(fs_state(5), exc_target_r, nextpc)
         inst := Mux(nextpc(2) === 1.U, fs_inst_data(63, 32),
                                        fs_inst_data(31, 0))
     }
