@@ -48,8 +48,8 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     // ---------------- read response ---------------- 
     val inst              = RegInit(0.U(32.W))
     val rdata_buf         = RegInit(0.U(w.W))
-    //IFU memory ok when exception inst fetch ok(state(5)) or normal ret valid
-    val fs_mem_ok         = io.inst_mem.ret.valid && ( state(5) || (~io.exc_br.exc_br && state(2)) )
+    //IFU memory ok when exception inst fetch ok(fs_state(5)) or normal ret valid
+    val fs_mem_ok         = io.inst_mem.ret.valid && ( fs_state(5) || (~io.exc_br.exc_br && fs_state(2)) )
     //Three condition for waiting between IFU and MSU
     val ms_ahead_fs       = (fs_mem_ok && ~fs_wait_ms &&  io.if_mem.ms_wait_fs)           //MSU ok before IFU
     val fs_ahead_ms       = (io.if_mem.ms_mem_ok &&  fs_wait_ms && ~io.if_mem.ms_wait_fs) //IFU ok before MSU

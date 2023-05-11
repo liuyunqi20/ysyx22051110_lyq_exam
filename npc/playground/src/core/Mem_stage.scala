@@ -83,7 +83,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     when(has_trap){
         ms_wait_fs := 0.B
     //plus && ~state(2) to ensure ms_wait_fs can not be set to 1 when dealing exception
-    }.elsewhen(io.data_mem.ret.valid && ~io.if_mem.fs_wait_ms && ~io.if_mem.fs_mem_ok && ~state(2)){
+    }.elsewhen(io.data_mem.ret.valid && ~io.if_mem.fs_wait_ms && ~io.if_mem.fs_mem_ok && ~ms_state(2)){
         ms_wait_fs := ~(io.if_mem.fs_mem_ok)
     }.elsewhen(ms_wait_fs && io.if_mem.fs_mem_ok){
         ms_wait_fs := 0.B
@@ -129,6 +129,6 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.mem2wb.csr_num      := io.ex2mem.csr_num
     io.mem2wb.rs1          := io.ex2mem.rs1
     // ------------------------ to IF stage ------------------------ 
-    io.if_mem.ms_mem_ok           := (ms_mem_en === 0.U) || (io.data_mem.ret.valid && ms_state(1)) || state(2)
+    io.if_mem.ms_mem_ok           := (ms_mem_en === 0.U) || (io.data_mem.ret.valid && ms_state(1)) || ms_state(2)
     io.if_mem.ms_wait_fs          := ms_wait_fs
 }
