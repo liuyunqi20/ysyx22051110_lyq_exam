@@ -6,7 +6,10 @@ trait HasIFSConst{
     val s_idle = 0x1 
     val s_req  = 0x2 
     val s_resp = 0x4 
-    val nr_state = 3 
+    val s_exc_clr = 0x8
+    val s_exc_req = 0x10
+    val s_exc_ret = 0x20
+    val nr_state = 6
 }
 
 class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
@@ -25,15 +28,20 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
                     Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
     val fs_wait_ms =  RegInit(0.B)
     val fs_state   = RegInit(s_idle.U(nr_state.W))
+    val exc_target_r = RegInit(0.U(w.W))
     fs_state      := Mux1H(Seq(
-        /* s_idle */ fs_state(0) -> (s_req.U),
-        /* s_req  */ fs_state(1) -> Mux(io.inst_mem.req.fire, s_resp.U, s_req.U),
-        /* s_resp */ fs_state(2) -> Mux(io.inst_mem.ret.valid, s_req.U, s_resp.U),
+        /* s_idle */    fs_state(0) -> (s_req.U),
+        /* s_req  */    fs_state(1) -> Mux(io.exc_br.exc_br, s_exc_req.U, Mux(io.inst_mem.req.fire, s_resp.U, s_req.U)),
+        /* s_resp */    fs_state(2) -> Mux(io.exc_br.exc_br, Mux(io.inst_mem.ret.valid, s_exc_req.U, s_exc_clr.U), 
+                                                             Mux(io.inst_mem.ret.valid, s_req.U, s_resp.U)),
+        /* s_exc_clr */ fs_state(3) -> Mux(io.inst_mem.ret.valid, s_exc_req.U, s_exc_clr.U),
+        /* s_exc_req */ fs_state(4) -> Mux(io.inst_mem.req.fire , s_exc_ret.U, s_exc_req.U),
+        /* s_exc_ret */ fs_state(5) -> Mux(io.inst_mem.ret.valid, s_req.U    , s_req.U),
     ))
     // ---------------- read request ----------------
-    io.inst_mem.req.valid         := fs_state(1) && ~fs_wait_ms
+    io.inst_mem.req.valid         := (fs_state(1) && (~fs_wait_ms || io.exc_br.exc_br)) || fs_state(4)
     io.inst_mem.req.bits.wr       := 0.B
-    io.inst_mem.req.bits.addr     := nextpc
+    io.inst_mem.req.bits.addr     := Mux(fs_state(3) === 1.U, exc_target_r, nextpc)
     io.inst_mem.req.bits.wdata    := 0.U
     io.inst_mem.req.bits.wstrb    := 0.U
     io.inst_mem.req.bits.mthrough := 1.U //TODO

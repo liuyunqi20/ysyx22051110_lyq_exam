@@ -5,7 +5,8 @@ import chisel3.util._
 trait HasMEMSconst{
     val s_idle   = 0x1
     val s_wr_resp = 0x2
-    val nr_state = 2
+    val s_exc_clr = 0x4
+    val nr_state = 3
 }
 
 class Mem_stage(w: Int) extends Module with HasMEMSconst{
@@ -61,8 +62,9 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     val ms_mem_en = io.ex2mem.mem_en && ~has_trap && ~ms_wait_fs
     val ms_state = RegInit(s_idle.U(nr_state.W))
     ms_state := Mux1H(Seq(
-        /* Idle    */ ms_state(0) -> Mux(io.data_mem.req.fire, s_wr_resp.U, s_idle.U),
-        /* WR RESP */ ms_state(1) -> Mux(io.data_mem.ret.valid, s_idle.U, s_wr_resp.U),
+        /* Idle      */ ms_state(0) -> Mux(io.data_mem.req.fire, s_wr_resp.U, s_idle.U),
+        /* WR RESP   */ ms_state(1) -> Mux(io.data_mem.ret.valid, s_idle.U, Mux(has_trap, s_exc_clr.U, io.data_mems_wr_resp.U)), 
+        /* s_exc_clr */ ms_state(2) -> Mux(io.data_mem.ret.valid, s_idle.U, s_exc_clr.U),
     ))
     // ------------------------ read ------------------------
     val ms_rdata_r = RegInit(0.U(w.W))
@@ -78,7 +80,9 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.data_mem.req.bits.mthrough := 1.U //TODO
     //WARNNING: b.bresp is ignored
     // ------------------------ MSU wait FSU ------------------------ 
-    when(io.data_mem.ret.valid && ~io.if2mem.fs_wait_ms){
+    when(has_trap){
+        ms_wait_fs := 0.B
+    }.elsewhen(io.data_mem.ret.valid && ~io.if2mem.fs_wait_ms){
         ms_wait_fs := ~(io.if2mem.fs_mem_ok)
     }.elsewhen(ms_wait_fs && io.if2mem.fs_mem_ok){
         ms_wait_fs := 0.B
@@ -124,6 +128,6 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.mem2wb.csr_num      := io.ex2mem.csr_num
     io.mem2wb.rs1          := io.ex2mem.rs1
     // ------------------------ to IF stage ------------------------ 
-    io.if2mem.ms_mem_ok           := (ms_mem_en === 0.U) || io.data_mem.ret.valid
+    io.if2mem.ms_mem_ok           := (ms_mem_en === 0.U) || (io.data_mem.ret.valid && ms_state(1))
     io.if2mem.ms_wait_fs          := ms_wait_fs
 }
