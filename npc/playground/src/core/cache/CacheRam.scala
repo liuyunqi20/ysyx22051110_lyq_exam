@@ -67,6 +67,7 @@ class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
     val io = IO(new Bundle{
         val clock  = Input(Clock())
         val reset  = Input(Bool())
+        val valid  = Output(Bool())
         val dirty  = Output(Bool())
         val tag    = Output(UInt(tag_width.W))
         val en     = Input(Bool())
