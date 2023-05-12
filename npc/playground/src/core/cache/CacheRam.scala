@@ -2,7 +2,7 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
-class CacheDataRam extends BlackBox with HasBlackBoxInline{
+class CacheDataRamV extends BlackBox with HasBlackBoxInline{
     val io = IO(new Bundle{
         val clock = Input(Clock())
         val reset = Input(Bool())
