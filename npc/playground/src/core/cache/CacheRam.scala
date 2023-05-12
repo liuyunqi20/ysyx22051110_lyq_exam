@@ -92,7 +92,7 @@ class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
         |           ram_valid[addr] <= wvalid;
         |           ram_dirty[addr] <= wdirty;
         |       end
-        |       if(cen && !wr) begin
+        |       if(en && !wr) begin
         |           rtag   <= ram_tag[addr];
         |           rvalid <= ram_valid[addr];
         |           rdirty <= ram_dirty[addr];
