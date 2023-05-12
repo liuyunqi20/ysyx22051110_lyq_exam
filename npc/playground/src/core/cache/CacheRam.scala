@@ -16,7 +16,7 @@ class CacheDataRam extends BlackBox with HasBlackBoxInline{
         |   input clock, input reset
         |   input WEN,   input CEN,
         |   input  [5 : 0] A, input  [127 : 0] BWEN,
-        |   input  [127 : 0] D, output [127 : 0] Q )
+        |   input  [127 : 0] D, output [127 : 0] Q );
         |   wire cen = ~CEN;
         |   wire wen = ~WEN;
         |   wire bwen = ~BWEN;
@@ -76,7 +76,7 @@ class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
         |   input clock, input reset, input en, input wr,
         |   input valid, input dirty, input [22 : 0] tag,
         |   input [5 : 0] addr, input wvalid, input wdirty
-        |   input [22 : 0] wtag )
+        |   input [22 : 0] wtag );
         |   reg [23 : 0] ram_tag[63 : 0];
         |   reg ram_valid[63 : 0];
         |   reg ram_dirty[63 : 0];
