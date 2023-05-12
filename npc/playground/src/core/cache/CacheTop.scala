@@ -70,12 +70,12 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     cache_meta.io.way   := stage3.io.wt.way //stage1 ignored (read all ways in stage1)
     cache_meta.io.index := Mux(stage3.io.wt.en, stage3.io.wt.index, stage1.io.rd.index)
     when(stage1.io.rd.en){
-        for( i <- 0 until nr_ways) { meta_rd(i) := cache_meta.out(i) }
+        for( i <- 0 until nr_ways) { meta_rd(i) := cache_meta.io.out(i) }
     }
     when(stage3.io.wt.en){
-        cache_meta.in.valid := stage3.io.wt.line.valid
-        cache_meta.in.dirty := stage3.io.wt.line.dirty
-        cache_meta.in.tag   := stage3.io.wt.line.tag
+        cache_meta.io.in.valid := stage3.io.wt.line.valid
+        cache_meta.io.in.dirty := stage3.io.wt.line.dirty
+        cache_meta.io.in.tag   := stage3.io.wt.line.tag
     }
     // ------------------------------------------- Data RAM -------------------------------------------
     val data_wt_addr = Cat(0.U((cache_data_addr_w - config.index_width).W), stage3.io.wt.index)
