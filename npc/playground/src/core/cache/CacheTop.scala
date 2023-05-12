@@ -64,7 +64,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         //     }
         // }
     // ------------------------------------------- Meta RAM -------------------------------------------
-    val cache_meta = Module(new CacheMetaRam(nr_ways, tag_width))
+    val cache_meta = Module(new CacheMetaRam(nr_ways, nr_lines, tag_width))
     cache_meta.io.en    := stage1.io.rd.en || stage3.io.wt.en
     cache_meta.io.wr    := stage3.io.wt.en
     cache_meta.io.way   := stage3.io.wt.way //stage1 ignored (read all ways in stage1)

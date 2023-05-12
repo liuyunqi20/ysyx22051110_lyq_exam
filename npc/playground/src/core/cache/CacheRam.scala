@@ -35,7 +35,7 @@ class CacheDataRam extends BlackBox with HasBlackBoxInline{
      """.stripMargin)
 }
 
-class CacheMetaRam(nr_ways: Int, tag_width: Int) extends Module{
+class CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
     val io = IO(new Bundle{
         val en    = Input(Bool())
         val wr    = Input(Bool())
@@ -53,13 +53,10 @@ class CacheMetaRam(nr_ways: Int, tag_width: Int) extends Module{
         cache_meta(i).wvalid := io.in.valid
         cache_meta(i).wdirty := io.in.dirty
         cache_meta(i).wtag   := io.in.tag
-        io.out.valid         := cache_meta(i).valid
-        io.out.dirty         := cache_meta(i).dirty
-        io.out.tag           := cache_meta(i).tag
+        io.out(i).valid      := cache_meta(i).valid
+        io.out(i).dirty      := cache_meta(i).dirty
+        io.out(i).tag        := cache_meta(i).tag
     }
-    io.out.valid := MuxLookup(hit_array, 0.U, for( i <- 0 until nr_ways) yield (i.U -> cache_meta(i).valid))
-    io.out.dirty := MuxLookup(hit_array, 0.U, for( i <- 0 until nr_ways) yield (i.U -> cache_meta(i).dirty))
-    io.out.tag   := MuxLookup(hit_array, 0.U, for( i <- 0 until nr_ways) yield (i.U -> cache_meta(i).tag))
 }
 
 class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
