@@ -11,8 +11,8 @@ class CacheDataRam extends BlackBox with HasBlackBoxInline{
         val A    = Input(UInt(6.W))
         val D    = Input(UInt(128.W))
     })
-     setInline("CacheDataRam.v",
-     """module CacheDataRam(
+     setInline("CacheDataRamV.v",
+     """module CacheDataRamV(
         |   input clock, input reset
         |   input WEN,   input CEN,
         |   input  [5 : 0] A, input  [127 : 0] BWEN,
@@ -71,8 +71,8 @@ class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
         val wdirty = Input(Bool())
         val wtag   = Input(UInt(tag_width.W))
     })
-     setInline("CacheMetaRam.v",
-     """module CacheMetaRam(
+     setInline("CacheMetaRamV.v",
+     """module CacheMetaRamV(
         |   input clock, input reset, input en, input wr,
         |   input valid, input dirty, input [22 : 0] tag,
         |   input [5 : 0] addr, input wvalid, input wdirty

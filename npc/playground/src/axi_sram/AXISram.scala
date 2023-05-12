@@ -19,7 +19,7 @@ class Read_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
         val addr  = Input(UInt(w.W))
         val rdata = Output(UInt(w.W))
     })
-    setInline("Read_mem_port",
+    setInline("Read_mem_port.v",
         """module Read_mem_port(
         |   input           en   ,
         |   input           wr   ,
@@ -46,7 +46,7 @@ class Write_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
         val wdata = Input(UInt(w.W))
         val wmask = Input(UInt((w/8).W))
     })
-    setInline("Write_mem_port",
+    setInline("Write_mem_port.v",
         """module Write_mem_port(
         |   input           en   ,
         |   input           wr   ,
