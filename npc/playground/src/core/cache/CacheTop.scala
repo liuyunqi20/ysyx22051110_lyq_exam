@@ -106,7 +106,9 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     //write
     for(i <- 0 until nr_ways; j <- 0 until nr_lines) {
         when(stage3.io.wt.en && (stage3.io.wt.way === i.U) && (stage3.io.wt.index === j.U)){
-            cache_meta(i)(j) := stage3.io.wt.line
+            cache_meta(i)(j).valid := stage3.io.wt.line.valid
+            cache_meta(i)(j).dirty := stage3.io.wt.line.dirty
+            cache_meta(i)(j).tag   := stage3.io.wt.line.tag
         }
     }
     //stage connection

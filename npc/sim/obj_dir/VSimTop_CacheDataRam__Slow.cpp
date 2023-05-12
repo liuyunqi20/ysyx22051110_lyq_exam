@@ -32,12 +32,12 @@ void VSimTop_CacheDataRam___ctor_var_reset(VSimTop_CacheDataRam* vlSelf) {
     VSimTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+            VSimTop_CacheDataRam___ctor_var_reset\n"); );
     // Body
-    vlSelf->clock = VL_RAND_RESET_I(1);
-    vlSelf->reset = VL_RAND_RESET_I(1);
-    vlSelf->io_CEN = VL_RAND_RESET_I(1);
-    vlSelf->io_WEN = VL_RAND_RESET_I(1);
-    vlSelf->io_A = VL_RAND_RESET_I(6);
-    VL_RAND_RESET_W(128, vlSelf->io_Q);
+    vlSelf->__PVT__clock = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__reset = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__io_CEN = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__io_WEN = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__io_A = VL_RAND_RESET_I(6);
+    VL_RAND_RESET_W(128, vlSelf->__PVT__io_Q);
     VL_RAND_RESET_W(128, vlSelf->__PVT__ram_0);
     VL_RAND_RESET_W(128, vlSelf->__PVT__ram_1);
     VL_RAND_RESET_W(128, vlSelf->__PVT__ram_2);

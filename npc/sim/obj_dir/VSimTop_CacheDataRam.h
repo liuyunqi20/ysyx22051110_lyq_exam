@@ -19,12 +19,12 @@ VL_MODULE(VSimTop_CacheDataRam) {
   public:
 
     // PORTS
-    VL_IN8(clock,0,0);
-    VL_IN8(reset,0,0);
-    VL_IN8(io_CEN,0,0);
-    VL_IN8(io_WEN,0,0);
-    VL_IN8(io_A,5,0);
-    VL_OUTW(io_Q,127,0,4);
+    VL_IN8(__PVT__clock,0,0);
+    VL_IN8(__PVT__reset,0,0);
+    VL_IN8(__PVT__io_CEN,0,0);
+    VL_IN8(__PVT__io_WEN,0,0);
+    VL_IN8(__PVT__io_A,5,0);
+    VL_OUTW(__PVT__io_Q,127,0,4);
 
     // LOCAL SIGNALS
     // Anonymous structures to workaround compiler member-count bugs

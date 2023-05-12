@@ -15,6 +15,7 @@
 
 // INCLUDE MODULE CLASSES
 #include "VSimTop___024root.h"
+#include "VSimTop_CacheTop.h"
 #include "VSimTop_CacheDataRam.h"
 
 // DPI TYPES for DPI Export callbacks (Internal use)
@@ -31,14 +32,16 @@ class VSimTop__Syms final : public VerilatedSyms {
 
     // MODULE INSTANCE STATE
     VSimTop___024root              TOP;
-    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRam;
-    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRam_1;
-    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRam_2;
-    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRam_3;
-    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam;
-    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_1;
-    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_2;
-    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRam_3;
+    VSimTop_CacheTop               TOP__SimTop__DOT__my_core_top__DOT__my_dcache;
+    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_dcache__CacheDataRam;
+    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_dcache__CacheDataRam_1;
+    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_dcache__CacheDataRam_2;
+    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_dcache__CacheDataRam_3;
+    VSimTop_CacheTop               TOP__SimTop__DOT__my_core_top__DOT__my_icache;
+    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam;
+    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam_1;
+    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam_2;
+    VSimTop_CacheDataRam           TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam_3;
 
     // SCOPE NAMES
     VerilatedScope __Vscope_SimTop__my_core_top__my_id__my_inst_monitor;
