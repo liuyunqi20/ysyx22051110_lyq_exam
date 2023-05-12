@@ -4,12 +4,14 @@ import chisel3.util._
 
 class CacheDataRam extends BlackBox with HasBlackBoxInline{
     val io = IO(new Bundle{
-        val Q    = Output(UInt(128.W))
-        val CEN  = Input(Bool())
-        val WEN  = Input(Bool())
-        val BWEN = Input(UInt(128.W))
-        val A    = Input(UInt(6.W))
-        val D    = Input(UInt(128.W))
+        val clock = Input(Clock())
+        val reset = Input(Bool())
+        val Q     = Output(UInt(128.W))
+        val CEN   = Input(Bool())
+        val WEN   = Input(Bool())
+        val BWEN  = Input(UInt(128.W))
+        val A     = Input(UInt(6.W))
+        val D     = Input(UInt(128.W))
     })
      setInline("CacheDataRamV.v",
      """module CacheDataRamV(
@@ -37,6 +39,8 @@ class CacheDataRam extends BlackBox with HasBlackBoxInline{
 
 class CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
     val io = IO(new Bundle{
+        val clock = Input(Clock())
+        val reset = Input(Bool())
         val en    = Input(Bool())
         val wr    = Input(Bool())
         val way   = Input(UInt(log2Ceil(nr_ways).W))
@@ -61,6 +65,7 @@ class CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
 
 class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
     val io = IO(new Bundle{
+        val clock  =
         val valid  = Output(Bool())
         val dirty  = Output(Bool())
         val tag    = Output(UInt(tag_width.W))

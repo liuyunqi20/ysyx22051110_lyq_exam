@@ -10,13 +10,13 @@ ports and WB stage module uses the only write port.
 */
 class RegFileV(addr_w: Int, data_w: Int) extends BlackBox with HasBlackBoxInline{
     val io = IO(new Bundle{
-        val clock = Input(Clock())
-        val reset = Input(Bool())
+        val clock  = Input(Clock())
+        val reset  = Input(Bool())
         val raddr1 = Input(UInt(addr_w.W))
         val raddr2 = Input(UInt(addr_w.W))
-        val waddr = Input(UInt(addr_w.W))
-        val wdata = Input(UInt(data_w.W))
-        val wen = Input(Bool())
+        val waddr  = Input(UInt(addr_w.W))
+        val wdata  = Input(UInt(data_w.W))
+        val wen    = Input(Bool())
         val rdata1 = Output(UInt(data_w.W))
         val rdata2 = Output(UInt(data_w.W))
     })
@@ -52,9 +52,9 @@ class RegFile(addr_w: Int, data_w: Int, read_ports: Int) extends Module{
     val io = IO(new Bundle{
         val raddr1 = Input(UInt(addr_w.W))
         val raddr2 = Input(UInt(addr_w.W))
-        val waddr = Input(UInt(addr_w.W))
-        val wdata = Input(UInt(data_w.W))
-        val wen = Input(Bool())
+        val waddr  = Input(UInt(addr_w.W))
+        val wdata  = Input(UInt(data_w.W))
+        val wen    = Input(Bool())
         val rdata1 = Output(UInt(data_w.W))
         val rdata2 = Output(UInt(data_w.W))
     })
