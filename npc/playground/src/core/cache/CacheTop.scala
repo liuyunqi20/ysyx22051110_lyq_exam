@@ -36,30 +36,6 @@ class CacheConfig(val w: Int, val tag_width: Int, val nr_lines: Int,
     val cache_addr_w: Int = tag_width + index_width + offset_width
 }
 
-class CacheDataRam extends Module{
-    val word_depth = 64
-    val io = IO(new Bundle{
-        val Q    = Output(UInt(128.W))
-        val CEN  = Input(Bool())
-        val WEN  = Input(Bool())
-        val BWEN = Input(UInt(128.W))
-        val A    = Input(UInt(6.W))
-        val D    = Input(UInt(128.W))
-    })
-    val cen = !(io.CEN)
-    val wen = !(io.WEN)
-    val bwen = ~(io.BWEN);
-    val ram = RegInit(VecInit( Seq.fill(word_depth)(0.U(128.W)) ))
-    val rdata = Reg(UInt(128.W))
-    when(cen && wen){
-        ram(io.A) := (io.D & bwen) | (ram(io.A) & ~bwen)
-    }
-    when(cen && !wen){
-        rdata := ram(io.A)
-    }
-    io.Q := rdata
-}
-
 class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int) extends Module with HasCacheConst{
     val io = IO(new Bundle{
         val in  = Flipped(new CPUMemBundle(w, w))
@@ -71,15 +47,37 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val stage2 = Module(new CacheStage2(config))
     val stage3 = Module(new CacheStage3(config))
     val cache_data_addr_w = 6 //log2Ceil(data_ram_word_depth)
-    val cache_data = Seq.fill(nr_ways){ Module(new CacheDataRam()).io }
-    val cache_meta = Seq.fill(nr_ways) {
-        RegInit(VecInit(Seq.fill(nr_lines){ 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) } ))
-    }
     val meta_rd    = RegInit(VecInit( Seq.fill(nr_ways) { 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) } ))
+    val cache_data = Seq.fill(nr_ways){ Module(new CacheDataRam()).io }
+    /* reserved for meta ram in scala */
+        // val cache_meta = Seq.fill(nr_ways) {
+        //     RegInit(VecInit(Seq.fill(nr_lines){ 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) } ))
+        // }
+        // when(stage1.io.rd.en){
+        //     for( i <- 0 until nr_ways) { meta_rd(i) := cache_meta(i)(stage1.io.rd.index) }
+        // }
+        // for(i <- 0 until nr_ways; j <- 0 until nr_lines) {
+        //     when(stage3.io.wt.en && (stage3.io.wt.way === i.U) && (stage3.io.wt.index === j.U)){
+        //         cache_meta(i)(j).valid := stage3.io.wt.line.valid
+        //         cache_meta(i)(j).dirty := stage3.io.wt.line.dirty
+        //         cache_meta(i)(j).tag   := stage3.io.wt.line.tag
+        //     }
+        // }
+    // ------------------------------------------- Meta RAM -------------------------------------------
+    val cache_meta = Module(new CacheMetaRam(nr_ways, tag_width))
+    cache_meta.io.en    := stage1.io.rd.en || stage3.io.wt.en
+    cache_meta.io.wr    := stage3.io.wt.en
+    cache_meta.io.way   := stage3.io.wt.way //stage1 ignored (read all ways in stage1)
+    cache_meta.io.index := Mux(stage3.io.wt.en, stage3.io.wt.index, stage1.io.rd.index)
     when(stage1.io.rd.en){
-        for( i <- 0 until nr_ways) { meta_rd(i) := cache_meta(i)(stage1.io.rd.index) }
+        for( i <- 0 until nr_ways) { meta_rd(i) := cache_meta.out(i) }
     }
-    //read
+    when(stage3.io.wt.en){
+        cache_meta.in.valid := stage3.io.wt.line.valid
+        cache_meta.in.dirty := stage3.io.wt.line.dirty
+        cache_meta.in.tag   := stage3.io.wt.line.tag
+    }
+    // ------------------------------------------- Data RAM -------------------------------------------
     val data_wt_addr = Cat(0.U((cache_data_addr_w - config.index_width).W), stage3.io.wt.index)
     val data_rd_addr = Cat(0.U((cache_data_addr_w - config.index_width).W), stage1.io.rd.index)
     val data_addr    = Mux(stage3.io.wt.en, data_wt_addr, data_rd_addr)
@@ -103,18 +101,10 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         }
         stage2.io.rd_lines(i) := s2_rd_lines(i)
     }
-    //write
-    for(i <- 0 until nr_ways; j <- 0 until nr_lines) {
-        when(stage3.io.wt.en && (stage3.io.wt.way === i.U) && (stage3.io.wt.index === j.U)){
-            cache_meta(i)(j).valid := stage3.io.wt.line.valid
-            cache_meta(i)(j).dirty := stage3.io.wt.line.dirty
-            cache_meta(i)(j).tag   := stage3.io.wt.line.tag
-        }
-    }
-    //stage connection
+    // ------------------------------------------- stage connection ------------------------------------------- 
     stage1.io.s1_to_s2 <> stage2.io.s1_to_s2
     stage2.io.s2_to_s3 <> stage3.io.s2_to_s3
-    //CPU 
+    // ------------------------------------------- CPU  ------------------------------------------- 
     stage1.io.cpu <> io.in.req
     stage3.io.cpu <> io.in.ret
     io.in.rlast   := io.in.ret.valid

@@ -4258,7 +4258,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullBit(oldp+1278,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT__stage3__DOT__burst_last));
         tracep->fullBit(oldp+1279,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT__stage3__DOT__refill_hit));
         tracep->fullBit(oldp+1280,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT__stage3__DOT__unnamedblk1__DOT__refill_come));
-        tracep->fullBit(oldp+1281,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache.__PVT___T_12));
+        tracep->fullBit(oldp+1281,((1U & (~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache.__PVT___T_18)))));
         tracep->fullBit(oldp+1282,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache.__Vcellinp__CacheDataRam__io_WEN));
         tracep->fullWData(oldp+1283,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam.__PVT__rdata),128);
         tracep->fullWData(oldp+1287,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam.__PVT__ram_0),128);
@@ -4523,7 +4523,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullWData(oldp+2314,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam_3.__PVT__ram_61),128);
         tracep->fullWData(oldp+2318,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam_3.__PVT__ram_62),128);
         tracep->fullWData(oldp+2322,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam_3.__PVT__ram_63),128);
-        tracep->fullBit(oldp+2326,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_12));
+        tracep->fullBit(oldp+2326,((1U & (~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_18)))));
         tracep->fullBit(oldp+2327,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__Vcellinp__CacheDataRam__io_WEN));
         tracep->fullWData(oldp+2328,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache__CacheDataRam.__PVT__rdata),128);
         tracep->fullWData(oldp+2332,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache__CacheDataRam.__PVT__ram_0),128);

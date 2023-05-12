@@ -160,18 +160,26 @@ void VSimTop_CacheTop___settle__TOP__SimTop__DOT__my_core_top__DOT__my_icache__9
     vlSelf->io_out_req_bits_wr = ((IData)(vlSelf->__PVT__stage3__DOT__wb_en) 
                                   | ((IData)(vlSelf->__PVT__stage3__DOT__buf_mthrough) 
                                      & (IData)(vlSelf->__PVT__stage3__DOT__buf_wr)));
-    vlSelf->__Vcellinp__CacheDataRam__io_WEN = ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
-                                                & (0U 
-                                                   == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)));
-    vlSelf->__Vcellinp__CacheDataRam_1__io_WEN = ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
-                                                  & (1U 
-                                                     == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)));
-    vlSelf->__Vcellinp__CacheDataRam_2__io_WEN = ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
-                                                  & (2U 
-                                                     == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)));
-    vlSelf->__Vcellinp__CacheDataRam_3__io_WEN = ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
-                                                  & (3U 
-                                                     == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)));
+    vlSelf->__Vcellinp__CacheDataRam__io_WEN = (1U 
+                                                & (~ 
+                                                   ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
+                                                    & (0U 
+                                                       == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)))));
+    vlSelf->__Vcellinp__CacheDataRam_1__io_WEN = (1U 
+                                                  & (~ 
+                                                     ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
+                                                      & (1U 
+                                                         == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)))));
+    vlSelf->__Vcellinp__CacheDataRam_2__io_WEN = (1U 
+                                                  & (~ 
+                                                     ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
+                                                      & (2U 
+                                                         == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)))));
+    vlSelf->__Vcellinp__CacheDataRam_3__io_WEN = (1U 
+                                                  & (~ 
+                                                     ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
+                                                      & (3U 
+                                                         == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)))));
     vlSelf->__PVT__data_addr = (0x1fU & ((IData)(vlSelf->__PVT___stage3_io_wt_en)
                                           ? (IData)(vlSelf->__PVT__stage3__DOT__buf_index)
                                           : (IData)(
@@ -179,7 +187,7 @@ void VSimTop_CacheTop___settle__TOP__SimTop__DOT__my_core_top__DOT__my_icache__9
                                                      >> 4U))));
     vlSelf->__PVT__stage1__DOT___io_cpu_ready_T = ((IData)(vlSelf->__PVT__stage2__DOT___io_s1_to_s2_ready_T_2) 
                                                    & (IData)(vlSymsp->TOP.SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_req_valid_T_6));
-    vlSelf->__PVT___T_12 = ((IData)(vlSelf->__PVT__stage1__DOT___io_cpu_ready_T) 
+    vlSelf->__PVT___T_18 = ((IData)(vlSelf->__PVT__stage1__DOT___io_cpu_ready_T) 
                             | (IData)(vlSelf->__PVT___stage3_io_wt_en));
 }
 
@@ -350,18 +358,26 @@ void VSimTop_CacheTop___settle__TOP__SimTop__DOT__my_core_top__DOT__my_dcache__8
                                                               (((IData)(vlSelf->__PVT__stage3__DOT__buf_index) 
                                                                 << 4U) 
                                                                | (IData)(vlSelf->__PVT__stage3__DOT__buf_offset)))));
-    vlSelf->__Vcellinp__CacheDataRam__io_WEN = ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
-                                                & (0U 
-                                                   == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)));
-    vlSelf->__Vcellinp__CacheDataRam_1__io_WEN = ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
-                                                  & (1U 
-                                                     == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)));
-    vlSelf->__Vcellinp__CacheDataRam_2__io_WEN = ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
-                                                  & (2U 
-                                                     == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)));
-    vlSelf->__Vcellinp__CacheDataRam_3__io_WEN = ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
-                                                  & (3U 
-                                                     == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)));
+    vlSelf->__Vcellinp__CacheDataRam__io_WEN = (1U 
+                                                & (~ 
+                                                   ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
+                                                    & (0U 
+                                                       == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)))));
+    vlSelf->__Vcellinp__CacheDataRam_1__io_WEN = (1U 
+                                                  & (~ 
+                                                     ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
+                                                      & (1U 
+                                                         == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)))));
+    vlSelf->__Vcellinp__CacheDataRam_2__io_WEN = (1U 
+                                                  & (~ 
+                                                     ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
+                                                      & (2U 
+                                                         == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)))));
+    vlSelf->__Vcellinp__CacheDataRam_3__io_WEN = (1U 
+                                                  & (~ 
+                                                     ((IData)(vlSelf->__PVT___stage3_io_wt_en) 
+                                                      & (3U 
+                                                         == (IData)(vlSelf->__PVT__stage3__DOT__buf_target_way)))));
     vlSelf->__PVT__data_addr = (0x1fU & ((IData)(vlSelf->__PVT___stage3_io_wt_en)
                                           ? (IData)(vlSelf->__PVT__stage3__DOT__buf_index)
                                           : (IData)(
@@ -402,7 +418,7 @@ void VSimTop_CacheTop___settle__TOP__SimTop__DOT__my_core_top__DOT__my_dcache__8
                                                     : vlSymsp->TOP.SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_ret_rdata))))));
     vlSelf->__PVT__stage1__DOT___io_cpu_ready_T = ((IData)(vlSelf->__PVT__stage2__DOT___io_s1_to_s2_ready_T_2) 
                                                    & (IData)(vlSymsp->TOP.SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_req_valid_T_1));
-    vlSelf->__PVT___T_12 = ((IData)(vlSelf->__PVT__stage1__DOT___io_cpu_ready_T) 
+    vlSelf->__PVT___T_18 = ((IData)(vlSelf->__PVT__stage1__DOT___io_cpu_ready_T) 
                             | (IData)(vlSelf->__PVT___stage3_io_wt_en));
 }
 
@@ -830,22 +846,18 @@ void VSimTop_CacheTop___ctor_var_reset(VSimTop_CacheTop* vlSelf) {
     vlSelf->__PVT__meta_rd_3_dirty = VL_RAND_RESET_I(1);
     vlSelf->__PVT__meta_rd_3_tag = VL_RAND_RESET_I(23);
     vlSelf->__PVT__data_addr = VL_RAND_RESET_I(6);
-    vlSelf->__PVT___T_12 = VL_RAND_RESET_I(1);
+    vlSelf->__PVT___T_18 = VL_RAND_RESET_I(1);
     vlSelf->__Vcellinp__CacheDataRam__io_WEN = VL_RAND_RESET_I(1);
     vlSelf->__Vcellinp__CacheDataRam_1__io_WEN = VL_RAND_RESET_I(1);
     vlSelf->__Vcellinp__CacheDataRam_2__io_WEN = VL_RAND_RESET_I(1);
     vlSelf->__Vcellinp__CacheDataRam_3__io_WEN = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__unnamedblk1__DOT___T_402 = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__unnamedblk1__DOT___T_406 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_410 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_414 = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__unnamedblk1__DOT___T_19 = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__unnamedblk1__DOT___T_23 = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__unnamedblk1__DOT___T_418 = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__unnamedblk1__DOT___T_422 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_27 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_31 = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__unnamedblk1__DOT___T_418 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_35 = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__unnamedblk1__DOT___T_422 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_39 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_426 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_43 = VL_RAND_RESET_I(1);
@@ -897,7 +909,9 @@ void VSimTop_CacheTop___ctor_var_reset(VSimTop_CacheTop* vlSelf) {
     vlSelf->__PVT__unnamedblk1__DOT___T_135 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_522 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_139 = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__unnamedblk1__DOT___T_526 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_143 = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__unnamedblk1__DOT___T_530 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_147 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_151 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_155 = VL_RAND_RESET_I(1);
@@ -994,6 +1008,8 @@ void VSimTop_CacheTop___ctor_var_reset(VSimTop_CacheTop* vlSelf) {
     vlSelf->__PVT__unnamedblk1__DOT___T_519 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_523 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__unnamedblk1__DOT___T_527 = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__unnamedblk1__DOT___T_531 = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__unnamedblk1__DOT___T_535 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__stage1__DOT___io_cpu_ready_T = VL_RAND_RESET_I(1);
     vlSelf->__PVT__stage2__DOT__s2_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__stage2__DOT___io_s1_to_s2_ready_T_2 = VL_RAND_RESET_I(1);

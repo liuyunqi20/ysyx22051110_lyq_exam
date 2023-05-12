@@ -2016,7 +2016,7 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
             tracep->chgBit(oldp+1277,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT__stage3__DOT__burst_last));
             tracep->chgBit(oldp+1278,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT__stage3__DOT__refill_hit));
             tracep->chgBit(oldp+1279,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT__stage3__DOT__unnamedblk1__DOT__refill_come));
-            tracep->chgBit(oldp+1280,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache.__PVT___T_12));
+            tracep->chgBit(oldp+1280,((1U & (~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache.__PVT___T_18)))));
             tracep->chgBit(oldp+1281,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache.__Vcellinp__CacheDataRam__io_WEN));
             tracep->chgWData(oldp+1282,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam.__PVT__rdata),128);
             tracep->chgWData(oldp+1286,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam.__PVT__ram_0),128);
@@ -2281,7 +2281,7 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
             tracep->chgWData(oldp+2313,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam_3.__PVT__ram_61),128);
             tracep->chgWData(oldp+2317,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam_3.__PVT__ram_62),128);
             tracep->chgWData(oldp+2321,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_icache__CacheDataRam_3.__PVT__ram_63),128);
-            tracep->chgBit(oldp+2325,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_12));
+            tracep->chgBit(oldp+2325,((1U & (~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_18)))));
             tracep->chgBit(oldp+2326,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__Vcellinp__CacheDataRam__io_WEN));
             tracep->chgWData(oldp+2327,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache__CacheDataRam.__PVT__rdata),128);
             tracep->chgWData(oldp+2331,(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache__CacheDataRam.__PVT__ram_0),128);

@@ -324,18 +324,14 @@ VL_MODULE(VSimTop_CacheTop) {
         CData/*0:0*/ __PVT__meta_rd_3_valid;
         CData/*0:0*/ __PVT__meta_rd_3_dirty;
         CData/*5:0*/ __PVT__data_addr;
-        CData/*0:0*/ __PVT___T_12;
-        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_402;
-        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_406;
+        CData/*0:0*/ __PVT___T_18;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_410;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_414;
-        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_19;
-        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_23;
+        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_418;
+        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_422;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_27;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_31;
-        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_418;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_35;
-        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_422;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_39;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_426;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_43;
@@ -378,18 +374,20 @@ VL_MODULE(VSimTop_CacheTop) {
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_502;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_119;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_506;
-    };
-    struct {
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_123;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_510;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_127;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_514;
+    };
+    struct {
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_131;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_518;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_135;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_522;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_139;
+        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_526;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_143;
+        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_530;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_147;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_151;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_155;
@@ -444,10 +442,10 @@ VL_MODULE(VSimTop_CacheTop) {
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_351;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_355;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_359;
-    };
-    struct {
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_363;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_367;
+    };
+    struct {
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_371;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_375;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_379;
@@ -488,6 +486,8 @@ VL_MODULE(VSimTop_CacheTop) {
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_519;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_523;
         CData/*0:0*/ __PVT__unnamedblk1__DOT___T_527;
+        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_531;
+        CData/*0:0*/ __PVT__unnamedblk1__DOT___T_535;
         CData/*0:0*/ __PVT__stage1__DOT___io_cpu_ready_T;
         CData/*0:0*/ __PVT__stage2__DOT__s2_valid;
         CData/*0:0*/ __PVT__stage2__DOT___io_s1_to_s2_ready_T_2;

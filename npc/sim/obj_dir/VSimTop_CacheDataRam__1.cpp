@@ -270,9 +270,8 @@ VL_INLINE_OPT void VSimTop_CacheDataRam___sequent__TOP__SimTop__DOT__my_core_top
         vlSelf->__PVT__ram_63[2U] = 0U;
         vlSelf->__PVT__ram_63[3U] = 0U;
     } else {
-        vlSelf->__PVT__unnamedblk1__DOT___T = (1U & 
-                                               ((~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_12)) 
-                                                & (~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__Vcellinp__CacheDataRam_1__io_WEN))));
+        vlSelf->__PVT__unnamedblk1__DOT___T = ((IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_18) 
+                                               & (~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__Vcellinp__CacheDataRam_1__io_WEN)));
         if (((IData)(vlSelf->__PVT__unnamedblk1__DOT___T) 
              & (0U == (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT__data_addr)))) {
             vlSelf->__PVT__ram_0[0U] = vlSelf->__PVT___GEN_1[0U];
@@ -729,7 +728,7 @@ VL_INLINE_OPT void VSimTop_CacheDataRam___sequent__TOP__SimTop__DOT__my_core_top
     VSimTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+            VSimTop_CacheDataRam___sequent__TOP__SimTop__DOT__my_core_top__DOT__my_dcache__CacheDataRam_1__10\n"); );
     // Body
-    if (((~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_12)) 
+    if (((IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_18) 
          & (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__Vcellinp__CacheDataRam_1__io_WEN))) {
         vlSelf->__PVT__rdata[0U] = vlSelf->__PVT___GEN_1[0U];
         vlSelf->__PVT__rdata[1U] = vlSelf->__PVT___GEN_1[1U];
@@ -1001,9 +1000,8 @@ VL_INLINE_OPT void VSimTop_CacheDataRam___sequent__TOP__SimTop__DOT__my_core_top
         vlSelf->__PVT__ram_63[2U] = 0U;
         vlSelf->__PVT__ram_63[3U] = 0U;
     } else {
-        vlSelf->__PVT__unnamedblk1__DOT___T = (1U & 
-                                               ((~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_12)) 
-                                                & (~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__Vcellinp__CacheDataRam_2__io_WEN))));
+        vlSelf->__PVT__unnamedblk1__DOT___T = ((IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_18) 
+                                               & (~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__Vcellinp__CacheDataRam_2__io_WEN)));
         if (((IData)(vlSelf->__PVT__unnamedblk1__DOT___T) 
              & (0U == (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT__data_addr)))) {
             vlSelf->__PVT__ram_0[0U] = vlSelf->__PVT___GEN_1[0U];
@@ -1460,7 +1458,7 @@ VL_INLINE_OPT void VSimTop_CacheDataRam___sequent__TOP__SimTop__DOT__my_core_top
     VSimTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+            VSimTop_CacheDataRam___sequent__TOP__SimTop__DOT__my_core_top__DOT__my_dcache__CacheDataRam_2__11\n"); );
     // Body
-    if (((~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_12)) 
+    if (((IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_18) 
          & (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__Vcellinp__CacheDataRam_2__io_WEN))) {
         vlSelf->__PVT__rdata[0U] = vlSelf->__PVT___GEN_1[0U];
         vlSelf->__PVT__rdata[1U] = vlSelf->__PVT___GEN_1[1U];
@@ -1732,9 +1730,8 @@ VL_INLINE_OPT void VSimTop_CacheDataRam___sequent__TOP__SimTop__DOT__my_core_top
         vlSelf->__PVT__ram_63[2U] = 0U;
         vlSelf->__PVT__ram_63[3U] = 0U;
     } else {
-        vlSelf->__PVT__unnamedblk1__DOT___T = (1U & 
-                                               ((~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_12)) 
-                                                & (~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__Vcellinp__CacheDataRam_3__io_WEN))));
+        vlSelf->__PVT__unnamedblk1__DOT___T = ((IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_18) 
+                                               & (~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__Vcellinp__CacheDataRam_3__io_WEN)));
         if (((IData)(vlSelf->__PVT__unnamedblk1__DOT___T) 
              & (0U == (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT__data_addr)))) {
             vlSelf->__PVT__ram_0[0U] = vlSelf->__PVT___GEN_1[0U];
@@ -2191,7 +2188,7 @@ VL_INLINE_OPT void VSimTop_CacheDataRam___sequent__TOP__SimTop__DOT__my_core_top
     VSimTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+            VSimTop_CacheDataRam___sequent__TOP__SimTop__DOT__my_core_top__DOT__my_dcache__CacheDataRam_3__12\n"); );
     // Body
-    if (((~ (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_12)) 
+    if (((IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__PVT___T_18) 
          & (IData)(vlSymsp->TOP__SimTop__DOT__my_core_top__DOT__my_dcache.__Vcellinp__CacheDataRam_3__io_WEN))) {
         vlSelf->__PVT__rdata[0U] = vlSelf->__PVT___GEN_1[0U];
         vlSelf->__PVT__rdata[1U] = vlSelf->__PVT___GEN_1[1U];
