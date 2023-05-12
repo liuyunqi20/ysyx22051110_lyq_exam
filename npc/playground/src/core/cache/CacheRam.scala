@@ -84,7 +84,7 @@ class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
         |   reg [22 : 0] ram_tag[63 : 0];
         |   reg ram_valid[63 : 0];
         |   reg ram_dirty[63 : 0];
-        |   reg [23 : 0] rtag; 
+        |   reg [22 : 0] rtag; 
         |   reg rvalid, rdirty;
         |   always @(posedge clock) begin
         |       if(en && wr) begin
