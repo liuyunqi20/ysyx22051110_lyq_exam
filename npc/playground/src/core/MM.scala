@@ -47,5 +47,5 @@ class MemoryMappingUnit(w: Int) extends Module{
     val hi = io.addr_in(31, 29)
     val no_mem = ~(hi(2)) || // < 0x80000000
                  (hi(2, 0) =/= 0.U)  // > 0xa0000000 
-    val io.mthrough := no_mem
+    io.mthrough := no_mem
 }
