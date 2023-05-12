@@ -87,8 +87,8 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val data_sel     = Wire(Vec(nr_ways, Bool()))
     for( i <- 0 until nr_ways){
         data_sel(i)        := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U) 
-        cache_data(i).CEN  := stage1.io.rd.en || stage3.io.wt.en
-        cache_data(i).WEN  := stage3.io.wt.en && (stage3.io.wt.way === i.U)
+        cache_data(i).CEN  := ~(stage1.io.rd.en || stage3.io.wt.en)
+        cache_data(i).WEN  := ~(stage3.io.wt.en && (stage3.io.wt.way === i.U))
         cache_data(i).BWEN := Fill(128, 1.U)
         cache_data(i).A    := data_addr
         cache_data(i).D    := data_wdata
