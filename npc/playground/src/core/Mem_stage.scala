@@ -28,7 +28,6 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     //val my_dmem_port = Module(new Data_mem_port(w))
     val maddr        = Cat(io.ex2mem.result(w-1, 3), 0.U(3.W))
     val offset       = io.ex2mem.result(2, 0)
-    val mm           = Module(new MemoryMappingUnit(w))
     // -------------- write mask -------------- 
     val wmask_b = MuxLookup(offset, 0.U(8.W), Seq(
         "b000".U -> "h01".U ,
@@ -85,6 +84,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.data_mem.req.bits.wdata    := io.ex2mem.mem_wdata
     io.data_mem.req.bits.wstrb    := wmask
     // use memory mapping unit to decide mtype
+    //val mm           = Module(new MemoryMappingUnit(w))
     //mm.io.addr_in                 := io.data_mem.req.bits.addr
     //io.data_mem.req.bits.mthrough := mm.io.mthrough
     io.data_mem.req.bits.mthrough := 1.B
