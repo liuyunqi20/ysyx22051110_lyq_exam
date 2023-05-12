@@ -48,7 +48,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val stage3 = Module(new CacheStage3(config))
     val cache_data_addr_w = 6 //log2Ceil(data_ram_word_depth)
     val meta_rd    = RegInit(VecInit( Seq.fill(nr_ways) { 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) } ))
-    val cache_data = Seq.fill(nr_ways){ Module(new CacheDataRam()).io }
+    val cache_data = Seq.fill(nr_ways){ Module(new CacheDataRamV()).io }
     /* reserved for meta ram in scala */
         // val cache_meta = Seq.fill(nr_ways) {
         //     RegInit(VecInit(Seq.fill(nr_lines){ 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) } ))
@@ -64,7 +64,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         //     }
         // }
     // ------------------------------------------- Meta RAM -------------------------------------------
-    val cache_meta = Module(new CacheMetaRamV(nr_ways, nr_lines, config.tag_width))
+    val cache_meta = Module(new CacheMetaRam(nr_ways, nr_lines, config.tag_width))
     cache_meta.io.en    := stage1.io.rd.en || stage3.io.wt.en
     cache_meta.io.wr    := stage3.io.wt.en
     cache_meta.io.way   := stage3.io.wt.way //stage1 ignored (read all ways in stage1)
