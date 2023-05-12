@@ -172,8 +172,8 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val cnt_max = Fill(config.offset_width - log2Ceil(8), 1.U(1.W))
     when((wb_en === 1.U) && io.mem_out.req.ready){ // when wb request ok
         cnt := 0.U
-    } .elsewhen((state(2) === 1.U) && io.mem_out.req.ready){
-        cnt := cpu_word_idx
+    } .elsewhen((state(2) === 1.U) && io.mem_out.req.ready){ // when refill request ok
+        cnt := cpu_word_idx //the request word will be transmitted first to accelerate
     } .elsewhen(io.mem_out.ret.valid){
         cnt := Mux(cnt === cnt_max, 0.U, cnt + 1.U)
     }
@@ -193,11 +193,11 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     io.wt.en    := s3_valid & ((state(0) & write_hit) | (state(3) & burst_last))
     io.wt.way   := buf.target_way
     io.wt.index := buf.index
-    io.wt.line  <> write_line
+    io.wt.line  := write_line
     write_line.valid := 1.B
     write_line.dirty := buf.wr
     write_line.tag   := buf.tag
-    for( i <- 0 until config.block_word_n) { 
+    for( i <- 0 until config.block_word_n) {
         write_line.data(i) := Mux(state(0), w_hit_wblock(i),  //when write hit
                                 Mux(cnt =/= i.U, buf.target_line.data(i), //refill but not last
                                     Mux(refill_hit, masked_refill_data(i), io.mem_out.ret.rdata)))
@@ -224,5 +224,5 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx), 
                         Mux(state(4), io.mem_out.ret.rdata, write_line.data(cpu_word_idx)) )
     io.cpu.valid   := Mux(hit, 1.B, 
-                        Mux(state(4), io.mem_out.ret.valid, state(3) & refill_hit) )
+                        Mux(state(4), io.mem_out.ret.valid, state(3) & burst_last) )
 }

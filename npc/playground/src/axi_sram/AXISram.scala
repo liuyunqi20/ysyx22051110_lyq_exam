@@ -126,7 +126,8 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
         .elsewhen(io.rd.fire && !rdata_arrive) { rdata_ok := false.B }
     //burst count and burst index
     when(io.ar.fire) {
-        rd_idx := io.ar.bits.araddr(log2Ceil(block_word_n) + wwidth - 1, wwidth)
+        rd_idx := Mux(rdata_arrive, io.ar.bits.araddr(log2Ceil(block_word_n) + wwidth - 1, wwidth),
+                                    io.ar.bits.araddr(log2Ceil(block_word_n) + wwidth - 1, wwidth) + 1.U)
         rd_cnt := Mux(rdata_arrive, 1.U, 0.U)
     } .elsewhen(!io.ar.fire && rdata_arrive) {
         rd_idx := Mux(rd_idx === ar_buf.arlen, 0.U, rd_idx + 1.U)
