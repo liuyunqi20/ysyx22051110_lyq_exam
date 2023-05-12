@@ -39,8 +39,6 @@ class CacheDataRam extends BlackBox with HasBlackBoxInline{
 
 class CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
     val io = IO(new Bundle{
-        val clock = Input(Clock())
-        val reset = Input(Bool())
         val en    = Input(Bool())
         val wr    = Input(Bool())
         val way   = Input(UInt(log2Ceil(nr_ways).W))
