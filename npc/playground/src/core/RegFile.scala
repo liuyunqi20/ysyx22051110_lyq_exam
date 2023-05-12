@@ -2,6 +2,12 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
+
+/*
+    RegFileV module contains 32 interger gernal purpose regs in RV64I. This module use Verilog
+to design. Current design has only 2 read ports and 1 write port. ID stage module uses 2 read
+ports and WB stage module uses the only write port.
+*/
 class RegFileV(addr_w: Int, data_w: Int) extends BlackBox with HasBlackBoxInline{
     val io = IO(new Bundle{
         val clock = Input(Clock())

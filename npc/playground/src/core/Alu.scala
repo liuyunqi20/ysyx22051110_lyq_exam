@@ -2,6 +2,12 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
+/*
+    ALU (Arithmetic and Logic Unit) module is for basic arithmetical and logical operation
+of integer sources. All operation is binary, thus src1 and src2 are the sources. alu_op is
+indicates type of operation using one hot code, the mapping table of alu_op is shown below.
+cout and overflow is only used for add and sub operations.
+*/
 class Alu(w: Int) extends Module{
     val ALUOP_LEN = 23
     /*

@@ -2,6 +2,13 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
+/*
+    Ex stage executes caculation for arithmetical and logical inst, address of load/store
+inst and target address of branch and jal inst. 
+    NOTE: branch inst needs to caculate branch enable select bit and branch target address,
+but Ex module only provides one ALU unit, thus Ex module calculates branch target address
+using an extra adder(See io.branch.br_target).
+*/
 class Ex_stage(w: Int) extends Module{
     val io = IO(new Bundle{
         val pc     = Input(UInt(w.W))

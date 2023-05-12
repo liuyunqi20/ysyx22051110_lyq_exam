@@ -13,6 +13,15 @@ trait HasCoreTopConst{
     val DCache_block_size = 16
 }
 
+/*
+    Top module for CPU core. Components of CPU core:
+    - 5 Pipline stage modules
+    - Icache/Dcache
+    - CLINT module
+    - 2 AXIBridge (for IFU and MSU)
+
+    The memory access bus in CPU core is SimpleBus(See CPUMemBundle in Interface.scala).
+*/
 class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val io = IO(new Bundle{
         val core_debug = new DebugBundle(w)

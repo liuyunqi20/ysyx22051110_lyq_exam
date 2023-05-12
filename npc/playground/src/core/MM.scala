@@ -6,7 +6,11 @@ trait HasMMCConst{
     val memory_base = 0x80000000
     val io_base     = 0x80000000
 }
-
+/*
+    This module(MC) is to controll direction of memory access. MC checks if address is in
+reg maps area or mmio area. In simulation, mmio is done by AXISram, the same as normal
+memory access, thus MC does not divide mmio and normal memory access.
+*/
 class MemoryController(w: Int, block_word_n: Int) extends Module{
     val io = IO(new Bundle{
         val in        = Flipped(new CPUMemBundle(w, block_word_n * w))
@@ -28,4 +32,20 @@ class MemoryController(w: Int, block_word_n: Int) extends Module{
     io.in.ret.valid      := Mux(io.clint_out.ret_valid, true.B, io.axi_out.ret.valid)
     io.in.ret.rdata      := io.axi_out.ret.rdata
     io.in.rlast          := Mux(io.clint_out.ret_valid, true.B, io.axi_out.rlast)
+}
+
+/*
+    A simple module for checking if addresss is in mmio or reg maps.
+mthrough is 1 when address is less than memory base(0x80000000) or
+higher or equal than mmio base(0xa0000000) 
+*/
+class MemoryMappingUnit(w: Int) extends Module{
+    val io = IO(new Bundle{
+        val addr_in = Input(UInt(w.W))
+        val mthrough = Output(Bool())
+    })
+    val hi = io.addr_in(31, 29)
+    val no_mem = ~(hi(2)) || // < 0x80000000
+                 hi(2, 0) =/= 0.U  // > 0xa0000000 
+    val io.mthrough := no_mem
 }

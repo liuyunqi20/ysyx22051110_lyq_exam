@@ -39,6 +39,18 @@ class CsrExcBundle(w: Int) extends Bundle{
     val mret_addr  = Output(UInt(w.W))
 }
 
+/*
+    Csr module is for managing CSR registers. io.op is used for CSR-type operation.
+io.out transmit CSR register data into pipeline units. io.exc is used for exception
+signal transmission from or to pipeline. Interrupt pins(CLINT) are linked to Csr 
+module.
+    When trap triggered from pipeline, exc.ecall is set to 1 and exc.exc_code shows 
+exception type. exc.epc will send current pc value to EPC reg in Csr module. 
+    When executing mret instrution exc.mret will indicates this operation from pipline
+and exc.mret_addr will be sent to pipeline from EPC reg in Csr module.
+    When interrput occurs exc.intr_t will be sent to pipeline to indicates interrupt
+from Csr module/
+*/
 class Csr(w: Int) extends Module with HasCsrConst{
     val io = IO(new Bundle{
         val op    = new CsrOpBundle(w)

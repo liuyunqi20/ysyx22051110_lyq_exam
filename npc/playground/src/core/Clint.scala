@@ -7,6 +7,11 @@ trait HasClintConst{
     val MTIMECMP_ADDR = 0x4000
 }
 
+/*
+    Clint module for core local interrupt control. Current design only supports
+mtime and mtimecmp register to implements time interrupt function. These 2 regs
+are accessed by memory mapping.
+*/
 class Clint(w: Int) extends Module with HasClintConst{
     val io = IO(new Bundle{
         val in         = Flipped(new ClintIOBundle(w))

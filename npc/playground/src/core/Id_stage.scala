@@ -281,6 +281,12 @@ class MyDecoder() extends Module with HasDecodeConst{
         io.exc_type  := exc_type
 }
 
+/*
+    Id module executes instruction decode and control signals generation. Decode is done by
+module MyDecoder to generates control signals. EbreakMonitor module is set to monitor ebreak
+instruction. When this module catches ebreak inst, a signal will be sent to simulation environment
+and then end the simulation.
+*/
 class Id_stage(w: Int) extends Module{
     val io = IO(new Bundle{
         val pc    = Input(UInt(w.W))

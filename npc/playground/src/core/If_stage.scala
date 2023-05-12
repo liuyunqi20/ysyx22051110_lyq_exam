@@ -12,6 +12,11 @@ trait HasIFSConst{
     val nr_state = 6
 }
 
+/*
+    If stage module fetches instruction for the pipeline. When exception occurs, this
+module will discard result of previous memory request and repeatly request for an inst
+of exception entry.
+*/
 class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val io = IO(new Bundle{
         val pc           = Output(UInt(w.W))
@@ -29,6 +34,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val fs_wait_ms   =  RegInit(0.B)
     val fs_state     = RegInit(s_idle.U(nr_state.W))
     val exc_target_r = RegInit(0.U(w.W))
+    val mm           = Module(new MemoryMappingUnit(w))
     fs_state      := Mux1H(Seq(
         /* s_idle */    fs_state(0) -> (s_req.U),
         /* s_req  */    fs_state(1) -> Mux(io.exc_br.exc_br, s_exc_req.U, Mux(io.inst_mem.req.fire, s_resp.U, s_req.U)),
@@ -44,7 +50,9 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     io.inst_mem.req.bits.addr     := Mux(fs_state(4) === 1.U, exc_target_r, nextpc)
     io.inst_mem.req.bits.wdata    := 0.U
     io.inst_mem.req.bits.wstrb    := 0.U
-    io.inst_mem.req.bits.mthrough := 1.U //TODO: connect MemoryMappingUnit
+    //use memory mapping unit to decide mtype
+    mm.io.addr_in                 := io.inst_mem.req.bits.addr
+    io.inst_mem.req.bits.mthrough := mm.io.mthrough
     // ---------------- read response ---------------- 
     val inst              = RegInit(0.U(32.W))
     val rdata_buf         = RegInit(0.U(w.W))

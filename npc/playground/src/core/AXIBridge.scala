@@ -12,7 +12,7 @@ trait HasAXIBridgeConst{
 
 /*
     AXI Bridge transform SimpleBus from CPU into AXI Bus signals.
-    AXI Bridge only supports no-burst r/w and wrap burst write.
+    AXI Bridge only supports no-burst normal r/w and wrap burst write.
 */
 class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst{
     val io = IO(new Bundle{
