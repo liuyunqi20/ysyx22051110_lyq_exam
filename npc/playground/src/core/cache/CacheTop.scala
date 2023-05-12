@@ -103,6 +103,10 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         }
         stage2.io.rd_lines(i) := s2_rd_lines(i)
     }
+    //write
+    when(stage3.io.wt.en){
+        cache_meta(stage3.io.wt.way)(stage3.io.wt.index) := stage3.io.wt.line
+    }
     //stage connection
     stage1.io.s1_to_s2 <> stage2.io.s1_to_s2
     stage2.io.s2_to_s3 <> stage3.io.s2_to_s3
