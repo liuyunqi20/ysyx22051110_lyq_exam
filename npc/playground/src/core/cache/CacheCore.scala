@@ -172,7 +172,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val cnt_max = Fill(config.offset_width - log2Ceil(8), 1.U(1.W))
     when((wb_en === 1.U) && io.mem_out.req.fire){ // when wb request ok
         cnt := 0.U
-    } .elsewhen((state(2) === 1.U || (state(0) && ~wb_en)) && io.mem_out.req.fire){ // when refill request ok
+    } .elsewhen((state(2) | (state(0) & ~wb_en )) === 1.U && io.mem_out.req.fire){ // when refill request ok
         cnt := cpu_word_idx //the request word will be transmitted first to accelerate
     } .elsewhen(io.mem_out.ret.valid){
         cnt := Mux(cnt === cnt_max, 0.U, cnt + 1.U)
