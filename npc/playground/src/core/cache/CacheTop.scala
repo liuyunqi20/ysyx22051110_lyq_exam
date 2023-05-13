@@ -47,7 +47,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val stage2 = Module(new CacheStage2(config))
     val stage3 = Module(new CacheStage3(config))
     val cache_data_addr_w = 6 //log2Ceil(data_ram_word_depth)
-    val meta_rd    = Wire(Vec( nr_ways, new CacheMetaBundle(config.tag_width) ))
+    val meta_rd    = Wire(Vec(nr_ways, new CacheMetaBundle(config.tag_width) ))
     val cache_data = Seq.fill(nr_ways){ Module(new CacheDataRamV()).io }
     /* reserved for meta ram in scala */
         // val cache_meta = Seq.fill(nr_ways) {
@@ -70,7 +70,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     cache_meta.io.way   := stage3.io.wt.way //stage1 ignored (read all ways in stage1)
     cache_meta.io.index := Mux(stage3.io.wt.en, stage3.io.wt.index, stage1.io.rd.index)
     when(stage1.io.rd.en){
-        for( i <- 0 until nr_ways) { meta_rd(i) := cache_meta.io.out(i) }
+        for( i <- 0 until nr_ways) { meta_rd(i) <> cache_meta.io.out(i) }
     }
     cache_meta.io.in.valid := stage3.io.wt.line.valid
     cache_meta.io.in.dirty := stage3.io.wt.line.dirty
