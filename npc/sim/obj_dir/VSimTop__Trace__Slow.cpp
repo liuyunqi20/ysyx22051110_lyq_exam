@@ -471,26 +471,24 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+311,"SimTop my_core_top my_icache meta_rd_3_valid", false,-1);
         tracep->declBit(c+312,"SimTop my_core_top my_icache meta_rd_3_dirty", false,-1);
         tracep->declBus(c+313,"SimTop my_core_top my_icache meta_rd_3_tag", false,-1, 22,0);
-        tracep->declBus(c+314,"SimTop my_core_top my_icache data_addr", false,-1, 5,0);
-        tracep->declArray(c+315,"SimTop my_core_top my_icache data_wdata", false,-1, 127,0);
         tracep->declBit(c+54,"SimTop my_core_top my_icache stage1 io_cpu_valid", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache stage1 io_cpu_bits_wr", false,-1);
         tracep->declQuad(c+55,"SimTop my_core_top my_icache stage1 io_cpu_bits_addr", false,-1, 63,0);
         tracep->declQuad(c+537,"SimTop my_core_top my_icache stage1 io_cpu_bits_wdata", false,-1, 63,0);
         tracep->declBus(c+539,"SimTop my_core_top my_icache stage1 io_cpu_bits_wstrb", false,-1, 7,0);
         tracep->declBit(c+57,"SimTop my_core_top my_icache stage1 io_cpu_bits_mthrough", false,-1);
-        tracep->declBit(c+319,"SimTop my_core_top my_icache stage1 io_s1_to_s2_ready", false,-1);
+        tracep->declBit(c+314,"SimTop my_core_top my_icache stage1 io_s1_to_s2_ready", false,-1);
         tracep->declBit(c+43,"SimTop my_core_top my_icache stage1 io_cpu_ready", false,-1);
         tracep->declBit(c+43,"SimTop my_core_top my_icache stage1 io_rd_en", false,-1);
-        tracep->declBus(c+320,"SimTop my_core_top my_icache stage1 io_rd_index", false,-1, 4,0);
+        tracep->declBus(c+315,"SimTop my_core_top my_icache stage1 io_rd_index", false,-1, 4,0);
         tracep->declBit(c+54,"SimTop my_core_top my_icache stage1 io_s1_to_s2_valid", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache stage1 io_s1_to_s2_bits_wr", false,-1);
         tracep->declQuad(c+537,"SimTop my_core_top my_icache stage1 io_s1_to_s2_bits_wdata", false,-1, 63,0);
         tracep->declBus(c+539,"SimTop my_core_top my_icache stage1 io_s1_to_s2_bits_wstrb", false,-1, 7,0);
         tracep->declBit(c+57,"SimTop my_core_top my_icache stage1 io_s1_to_s2_bits_mthrough", false,-1);
-        tracep->declBus(c+321,"SimTop my_core_top my_icache stage1 io_s1_to_s2_bits_tag", false,-1, 22,0);
-        tracep->declBus(c+320,"SimTop my_core_top my_icache stage1 io_s1_to_s2_bits_index", false,-1, 4,0);
-        tracep->declBus(c+322,"SimTop my_core_top my_icache stage1 io_s1_to_s2_bits_offset", false,-1, 3,0);
+        tracep->declBus(c+316,"SimTop my_core_top my_icache stage1 io_s1_to_s2_bits_tag", false,-1, 22,0);
+        tracep->declBus(c+315,"SimTop my_core_top my_icache stage1 io_s1_to_s2_bits_index", false,-1, 4,0);
+        tracep->declBus(c+317,"SimTop my_core_top my_icache stage1 io_s1_to_s2_bits_offset", false,-1, 3,0);
         tracep->declBit(c+525,"SimTop my_core_top my_icache stage2 clock", false,-1);
         tracep->declBit(c+526,"SimTop my_core_top my_icache stage2 reset", false,-1);
         tracep->declBit(c+54,"SimTop my_core_top my_icache stage2 io_s1_to_s2_valid", false,-1);
@@ -498,9 +496,9 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+537,"SimTop my_core_top my_icache stage2 io_s1_to_s2_bits_wdata", false,-1, 63,0);
         tracep->declBus(c+539,"SimTop my_core_top my_icache stage2 io_s1_to_s2_bits_wstrb", false,-1, 7,0);
         tracep->declBit(c+57,"SimTop my_core_top my_icache stage2 io_s1_to_s2_bits_mthrough", false,-1);
-        tracep->declBus(c+321,"SimTop my_core_top my_icache stage2 io_s1_to_s2_bits_tag", false,-1, 22,0);
-        tracep->declBus(c+320,"SimTop my_core_top my_icache stage2 io_s1_to_s2_bits_index", false,-1, 4,0);
-        tracep->declBus(c+322,"SimTop my_core_top my_icache stage2 io_s1_to_s2_bits_offset", false,-1, 3,0);
+        tracep->declBus(c+316,"SimTop my_core_top my_icache stage2 io_s1_to_s2_bits_tag", false,-1, 22,0);
+        tracep->declBus(c+315,"SimTop my_core_top my_icache stage2 io_s1_to_s2_bits_index", false,-1, 4,0);
+        tracep->declBus(c+317,"SimTop my_core_top my_icache stage2 io_s1_to_s2_bits_offset", false,-1, 3,0);
         tracep->declBit(c+302,"SimTop my_core_top my_icache stage2 io_rd_lines_0_valid", false,-1);
         tracep->declBit(c+303,"SimTop my_core_top my_icache stage2 io_rd_lines_0_dirty", false,-1);
         tracep->declBus(c+304,"SimTop my_core_top my_icache stage2 io_rd_lines_0_tag", false,-1, 22,0);
@@ -521,101 +519,101 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBus(c+313,"SimTop my_core_top my_icache stage2 io_rd_lines_3_tag", false,-1, 22,0);
         tracep->declQuad(c+552,"SimTop my_core_top my_icache stage2 io_rd_lines_3_data_0", false,-1, 63,0);
         tracep->declQuad(c+554,"SimTop my_core_top my_icache stage2 io_rd_lines_3_data_1", false,-1, 63,0);
-        tracep->declBit(c+323,"SimTop my_core_top my_icache stage2 io_s2_to_s3_ready", false,-1);
-        tracep->declBit(c+319,"SimTop my_core_top my_icache stage2 io_s1_to_s2_ready", false,-1);
-        tracep->declBit(c+324,"SimTop my_core_top my_icache stage2 io_s2_to_s3_valid", false,-1);
-        tracep->declBit(c+325,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_wr", false,-1);
-        tracep->declQuad(c+326,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_wdata", false,-1, 63,0);
-        tracep->declBus(c+328,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_wstrb", false,-1, 7,0);
-        tracep->declBit(c+329,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_mthrough", false,-1);
-        tracep->declBus(c+330,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_tag", false,-1, 22,0);
-        tracep->declBus(c+331,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_index", false,-1, 4,0);
-        tracep->declBus(c+332,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_offset", false,-1, 3,0);
-        tracep->declBit(c+333,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_hit", false,-1);
-        tracep->declBus(c+334,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_way", false,-1, 1,0);
-        tracep->declBit(c+335,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_line_valid", false,-1);
-        tracep->declBit(c+336,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_line_dirty", false,-1);
-        tracep->declBus(c+337,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_line_tag", false,-1, 22,0);
-        tracep->declQuad(c+338,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_line_data_0", false,-1, 63,0);
-        tracep->declQuad(c+340,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_line_data_1", false,-1, 63,0);
-        tracep->declBit(c+324,"SimTop my_core_top my_icache stage2 s2_valid", false,-1);
-        tracep->declBit(c+325,"SimTop my_core_top my_icache stage2 buf_wr", false,-1);
-        tracep->declQuad(c+326,"SimTop my_core_top my_icache stage2 buf_wdata", false,-1, 63,0);
-        tracep->declBus(c+328,"SimTop my_core_top my_icache stage2 buf_wstrb", false,-1, 7,0);
-        tracep->declBit(c+329,"SimTop my_core_top my_icache stage2 buf_mthrough", false,-1);
-        tracep->declBus(c+330,"SimTop my_core_top my_icache stage2 buf_tag", false,-1, 22,0);
-        tracep->declBus(c+331,"SimTop my_core_top my_icache stage2 buf_index", false,-1, 4,0);
-        tracep->declBus(c+332,"SimTop my_core_top my_icache stage2 buf_offset", false,-1, 3,0);
-        tracep->declBus(c+342,"SimTop my_core_top my_icache stage2 hit_array", false,-1, 3,0);
-        tracep->declBus(c+343,"SimTop my_core_top my_icache stage2 replace1H", false,-1, 3,0);
-        tracep->declBus(c+344,"SimTop my_core_top my_icache stage2 target_way1H", false,-1, 3,0);
+        tracep->declBit(c+318,"SimTop my_core_top my_icache stage2 io_s2_to_s3_ready", false,-1);
+        tracep->declBit(c+314,"SimTop my_core_top my_icache stage2 io_s1_to_s2_ready", false,-1);
+        tracep->declBit(c+319,"SimTop my_core_top my_icache stage2 io_s2_to_s3_valid", false,-1);
+        tracep->declBit(c+320,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_wr", false,-1);
+        tracep->declQuad(c+321,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_wdata", false,-1, 63,0);
+        tracep->declBus(c+323,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_wstrb", false,-1, 7,0);
+        tracep->declBit(c+324,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_mthrough", false,-1);
+        tracep->declBus(c+325,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_tag", false,-1, 22,0);
+        tracep->declBus(c+326,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_index", false,-1, 4,0);
+        tracep->declBus(c+327,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_offset", false,-1, 3,0);
+        tracep->declBit(c+328,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_hit", false,-1);
+        tracep->declBus(c+329,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_way", false,-1, 1,0);
+        tracep->declBit(c+330,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_line_valid", false,-1);
+        tracep->declBit(c+331,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_line_dirty", false,-1);
+        tracep->declBus(c+332,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_line_tag", false,-1, 22,0);
+        tracep->declQuad(c+333,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_line_data_0", false,-1, 63,0);
+        tracep->declQuad(c+335,"SimTop my_core_top my_icache stage2 io_s2_to_s3_bits_target_line_data_1", false,-1, 63,0);
+        tracep->declBit(c+319,"SimTop my_core_top my_icache stage2 s2_valid", false,-1);
+        tracep->declBit(c+320,"SimTop my_core_top my_icache stage2 buf_wr", false,-1);
+        tracep->declQuad(c+321,"SimTop my_core_top my_icache stage2 buf_wdata", false,-1, 63,0);
+        tracep->declBus(c+323,"SimTop my_core_top my_icache stage2 buf_wstrb", false,-1, 7,0);
+        tracep->declBit(c+324,"SimTop my_core_top my_icache stage2 buf_mthrough", false,-1);
+        tracep->declBus(c+325,"SimTop my_core_top my_icache stage2 buf_tag", false,-1, 22,0);
+        tracep->declBus(c+326,"SimTop my_core_top my_icache stage2 buf_index", false,-1, 4,0);
+        tracep->declBus(c+327,"SimTop my_core_top my_icache stage2 buf_offset", false,-1, 3,0);
+        tracep->declBus(c+337,"SimTop my_core_top my_icache stage2 hit_array", false,-1, 3,0);
+        tracep->declBus(c+338,"SimTop my_core_top my_icache stage2 replace1H", false,-1, 3,0);
+        tracep->declBus(c+339,"SimTop my_core_top my_icache stage2 target_way1H", false,-1, 3,0);
         tracep->declBit(c+525,"SimTop my_core_top my_icache stage3 clock", false,-1);
         tracep->declBit(c+526,"SimTop my_core_top my_icache stage3 reset", false,-1);
-        tracep->declBit(c+324,"SimTop my_core_top my_icache stage3 io_s2_to_s3_valid", false,-1);
-        tracep->declBit(c+325,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_wr", false,-1);
-        tracep->declQuad(c+326,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_wdata", false,-1, 63,0);
-        tracep->declBus(c+328,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_wstrb", false,-1, 7,0);
-        tracep->declBit(c+329,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_mthrough", false,-1);
-        tracep->declBus(c+330,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_tag", false,-1, 22,0);
-        tracep->declBus(c+331,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_index", false,-1, 4,0);
-        tracep->declBus(c+332,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_offset", false,-1, 3,0);
-        tracep->declBit(c+333,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_hit", false,-1);
-        tracep->declBus(c+334,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_way", false,-1, 1,0);
-        tracep->declBit(c+335,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_line_valid", false,-1);
-        tracep->declBit(c+336,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_line_dirty", false,-1);
-        tracep->declBus(c+337,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_line_tag", false,-1, 22,0);
-        tracep->declQuad(c+338,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_line_data_0", false,-1, 63,0);
-        tracep->declQuad(c+340,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_line_data_1", false,-1, 63,0);
+        tracep->declBit(c+319,"SimTop my_core_top my_icache stage3 io_s2_to_s3_valid", false,-1);
+        tracep->declBit(c+320,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_wr", false,-1);
+        tracep->declQuad(c+321,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_wdata", false,-1, 63,0);
+        tracep->declBus(c+323,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_wstrb", false,-1, 7,0);
+        tracep->declBit(c+324,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_mthrough", false,-1);
+        tracep->declBus(c+325,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_tag", false,-1, 22,0);
+        tracep->declBus(c+326,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_index", false,-1, 4,0);
+        tracep->declBus(c+327,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_offset", false,-1, 3,0);
+        tracep->declBit(c+328,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_hit", false,-1);
+        tracep->declBus(c+329,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_way", false,-1, 1,0);
+        tracep->declBit(c+330,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_line_valid", false,-1);
+        tracep->declBit(c+331,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_line_dirty", false,-1);
+        tracep->declBus(c+332,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_line_tag", false,-1, 22,0);
+        tracep->declQuad(c+333,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_line_data_0", false,-1, 63,0);
+        tracep->declQuad(c+335,"SimTop my_core_top my_icache stage3 io_s2_to_s3_bits_target_line_data_1", false,-1, 63,0);
         tracep->declBit(c+249,"SimTop my_core_top my_icache stage3 io_mem_out_req_ready", false,-1);
         tracep->declQuad(c+250,"SimTop my_core_top my_icache stage3 io_mem_out_ret_rdata", false,-1, 63,0);
         tracep->declBit(c+252,"SimTop my_core_top my_icache stage3 io_mem_out_ret_valid", false,-1);
         tracep->declBit(c+253,"SimTop my_core_top my_icache stage3 io_mem_out_rlast", false,-1);
         tracep->declQuad(c+44,"SimTop my_core_top my_icache stage3 io_cpu_rdata", false,-1, 63,0);
         tracep->declBit(c+46,"SimTop my_core_top my_icache stage3 io_cpu_valid", false,-1);
-        tracep->declBit(c+323,"SimTop my_core_top my_icache stage3 io_s2_to_s3_ready", false,-1);
-        tracep->declBit(c+345,"SimTop my_core_top my_icache stage3 io_wt_en", false,-1);
-        tracep->declBus(c+346,"SimTop my_core_top my_icache stage3 io_wt_way", false,-1, 1,0);
-        tracep->declBus(c+347,"SimTop my_core_top my_icache stage3 io_wt_index", false,-1, 4,0);
-        tracep->declBit(c+348,"SimTop my_core_top my_icache stage3 io_wt_line_dirty", false,-1);
-        tracep->declBus(c+349,"SimTop my_core_top my_icache stage3 io_wt_line_tag", false,-1, 22,0);
-        tracep->declQuad(c+350,"SimTop my_core_top my_icache stage3 io_wt_line_data_0", false,-1, 63,0);
-        tracep->declQuad(c+352,"SimTop my_core_top my_icache stage3 io_wt_line_data_1", false,-1, 63,0);
+        tracep->declBit(c+318,"SimTop my_core_top my_icache stage3 io_s2_to_s3_ready", false,-1);
+        tracep->declBit(c+340,"SimTop my_core_top my_icache stage3 io_wt_en", false,-1);
+        tracep->declBus(c+341,"SimTop my_core_top my_icache stage3 io_wt_way", false,-1, 1,0);
+        tracep->declBus(c+342,"SimTop my_core_top my_icache stage3 io_wt_index", false,-1, 4,0);
+        tracep->declBit(c+343,"SimTop my_core_top my_icache stage3 io_wt_line_dirty", false,-1);
+        tracep->declBus(c+344,"SimTop my_core_top my_icache stage3 io_wt_line_tag", false,-1, 22,0);
+        tracep->declQuad(c+345,"SimTop my_core_top my_icache stage3 io_wt_line_data_0", false,-1, 63,0);
+        tracep->declQuad(c+347,"SimTop my_core_top my_icache stage3 io_wt_line_data_1", false,-1, 63,0);
         tracep->declBit(c+241,"SimTop my_core_top my_icache stage3 io_mem_out_req_valid", false,-1);
         tracep->declBit(c+242,"SimTop my_core_top my_icache stage3 io_mem_out_req_bits_wr", false,-1);
         tracep->declQuad(c+15,"SimTop my_core_top my_icache stage3 io_mem_out_req_bits_addr", false,-1, 63,0);
         tracep->declArray(c+243,"SimTop my_core_top my_icache stage3 io_mem_out_req_bits_wdata", false,-1, 127,0);
         tracep->declBus(c+247,"SimTop my_core_top my_icache stage3 io_mem_out_req_bits_wstrb", false,-1, 7,0);
         tracep->declBit(c+248,"SimTop my_core_top my_icache stage3 io_mem_out_req_bits_mthrough", false,-1);
-        tracep->declBit(c+354,"SimTop my_core_top my_icache stage3 s3_valid", false,-1);
-        tracep->declBit(c+348,"SimTop my_core_top my_icache stage3 buf_wr", false,-1);
-        tracep->declQuad(c+355,"SimTop my_core_top my_icache stage3 buf_wdata", false,-1, 63,0);
-        tracep->declBus(c+357,"SimTop my_core_top my_icache stage3 buf_wstrb", false,-1, 7,0);
+        tracep->declBit(c+349,"SimTop my_core_top my_icache stage3 s3_valid", false,-1);
+        tracep->declBit(c+343,"SimTop my_core_top my_icache stage3 buf_wr", false,-1);
+        tracep->declQuad(c+350,"SimTop my_core_top my_icache stage3 buf_wdata", false,-1, 63,0);
+        tracep->declBus(c+352,"SimTop my_core_top my_icache stage3 buf_wstrb", false,-1, 7,0);
         tracep->declBit(c+248,"SimTop my_core_top my_icache stage3 buf_mthrough", false,-1);
-        tracep->declBus(c+349,"SimTop my_core_top my_icache stage3 buf_tag", false,-1, 22,0);
-        tracep->declBus(c+347,"SimTop my_core_top my_icache stage3 buf_index", false,-1, 4,0);
-        tracep->declBus(c+358,"SimTop my_core_top my_icache stage3 buf_offset", false,-1, 3,0);
-        tracep->declBit(c+359,"SimTop my_core_top my_icache stage3 buf_hit", false,-1);
-        tracep->declBus(c+346,"SimTop my_core_top my_icache stage3 buf_target_way", false,-1, 1,0);
-        tracep->declBit(c+360,"SimTop my_core_top my_icache stage3 buf_target_line_valid", false,-1);
-        tracep->declBit(c+361,"SimTop my_core_top my_icache stage3 buf_target_line_dirty", false,-1);
-        tracep->declBus(c+362,"SimTop my_core_top my_icache stage3 buf_target_line_tag", false,-1, 22,0);
-        tracep->declQuad(c+363,"SimTop my_core_top my_icache stage3 buf_target_line_data_0", false,-1, 63,0);
-        tracep->declQuad(c+365,"SimTop my_core_top my_icache stage3 buf_target_line_data_1", false,-1, 63,0);
-        tracep->declBus(c+367,"SimTop my_core_top my_icache stage3 state", false,-1, 5,0);
-        tracep->declBit(c+368,"SimTop my_core_top my_icache stage3 cnt", false,-1);
-        tracep->declQuad(c+369,"SimTop my_core_top my_icache stage3 cpu_word_mask", false,-1, 63,0);
-        tracep->declBit(c+371,"SimTop my_core_top my_icache stage3 hit", false,-1);
-        tracep->declBit(c+372,"SimTop my_core_top my_icache stage3 wb_en", false,-1);
-        tracep->declBit(c+373,"SimTop my_core_top my_icache stage3 burst_last", false,-1);
-        tracep->declBit(c+374,"SimTop my_core_top my_icache stage3 refill_hit", false,-1);
-        tracep->declBit(c+375,"SimTop my_core_top my_icache stage3 unnamedblk1 refill_come", false,-1);
+        tracep->declBus(c+344,"SimTop my_core_top my_icache stage3 buf_tag", false,-1, 22,0);
+        tracep->declBus(c+342,"SimTop my_core_top my_icache stage3 buf_index", false,-1, 4,0);
+        tracep->declBus(c+353,"SimTop my_core_top my_icache stage3 buf_offset", false,-1, 3,0);
+        tracep->declBit(c+354,"SimTop my_core_top my_icache stage3 buf_hit", false,-1);
+        tracep->declBus(c+341,"SimTop my_core_top my_icache stage3 buf_target_way", false,-1, 1,0);
+        tracep->declBit(c+355,"SimTop my_core_top my_icache stage3 buf_target_line_valid", false,-1);
+        tracep->declBit(c+356,"SimTop my_core_top my_icache stage3 buf_target_line_dirty", false,-1);
+        tracep->declBus(c+357,"SimTop my_core_top my_icache stage3 buf_target_line_tag", false,-1, 22,0);
+        tracep->declQuad(c+358,"SimTop my_core_top my_icache stage3 buf_target_line_data_0", false,-1, 63,0);
+        tracep->declQuad(c+360,"SimTop my_core_top my_icache stage3 buf_target_line_data_1", false,-1, 63,0);
+        tracep->declBus(c+362,"SimTop my_core_top my_icache stage3 state", false,-1, 5,0);
+        tracep->declBit(c+363,"SimTop my_core_top my_icache stage3 cnt", false,-1);
+        tracep->declQuad(c+364,"SimTop my_core_top my_icache stage3 cpu_word_mask", false,-1, 63,0);
+        tracep->declBit(c+366,"SimTop my_core_top my_icache stage3 hit", false,-1);
+        tracep->declBit(c+367,"SimTop my_core_top my_icache stage3 wb_en", false,-1);
+        tracep->declBit(c+368,"SimTop my_core_top my_icache stage3 burst_last", false,-1);
+        tracep->declBit(c+369,"SimTop my_core_top my_icache stage3 refill_hit", false,-1);
+        tracep->declBit(c+370,"SimTop my_core_top my_icache stage3 unnamedblk1 refill_come", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache CacheDataRamV clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache CacheDataRamV reset", false,-1);
-        tracep->declBit(c+376,"SimTop my_core_top my_icache CacheDataRamV WEN", false,-1);
-        tracep->declBit(c+377,"SimTop my_core_top my_icache CacheDataRamV CEN", false,-1);
-        tracep->declBus(c+314,"SimTop my_core_top my_icache CacheDataRamV A", false,-1, 5,0);
+        tracep->declBit(c+371,"SimTop my_core_top my_icache CacheDataRamV WEN", false,-1);
+        tracep->declBit(c+372,"SimTop my_core_top my_icache CacheDataRamV CEN", false,-1);
+        tracep->declBus(c+373,"SimTop my_core_top my_icache CacheDataRamV A", false,-1, 5,0);
         tracep->declArray(c+556,"SimTop my_core_top my_icache CacheDataRamV BWEN", false,-1, 127,0);
-        tracep->declArray(c+315,"SimTop my_core_top my_icache CacheDataRamV D", false,-1, 127,0);
+        tracep->declArray(c+374,"SimTop my_core_top my_icache CacheDataRamV D", false,-1, 127,0);
         tracep->declArray(c+560,"SimTop my_core_top my_icache CacheDataRamV Q", false,-1, 127,0);
         tracep->declBit(c+378,"SimTop my_core_top my_icache CacheDataRamV cen", false,-1);
         tracep->declBit(c+379,"SimTop my_core_top my_icache CacheDataRamV wen", false,-1);
@@ -624,10 +622,10 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+536,"SimTop my_core_top my_icache CacheDataRamV_1 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache CacheDataRamV_1 reset", false,-1);
         tracep->declBit(c+380,"SimTop my_core_top my_icache CacheDataRamV_1 WEN", false,-1);
-        tracep->declBit(c+377,"SimTop my_core_top my_icache CacheDataRamV_1 CEN", false,-1);
-        tracep->declBus(c+314,"SimTop my_core_top my_icache CacheDataRamV_1 A", false,-1, 5,0);
+        tracep->declBit(c+372,"SimTop my_core_top my_icache CacheDataRamV_1 CEN", false,-1);
+        tracep->declBus(c+373,"SimTop my_core_top my_icache CacheDataRamV_1 A", false,-1, 5,0);
         tracep->declArray(c+556,"SimTop my_core_top my_icache CacheDataRamV_1 BWEN", false,-1, 127,0);
-        tracep->declArray(c+315,"SimTop my_core_top my_icache CacheDataRamV_1 D", false,-1, 127,0);
+        tracep->declArray(c+374,"SimTop my_core_top my_icache CacheDataRamV_1 D", false,-1, 127,0);
         tracep->declArray(c+568,"SimTop my_core_top my_icache CacheDataRamV_1 Q", false,-1, 127,0);
         tracep->declBit(c+378,"SimTop my_core_top my_icache CacheDataRamV_1 cen", false,-1);
         tracep->declBit(c+381,"SimTop my_core_top my_icache CacheDataRamV_1 wen", false,-1);
@@ -636,10 +634,10 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+536,"SimTop my_core_top my_icache CacheDataRamV_2 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache CacheDataRamV_2 reset", false,-1);
         tracep->declBit(c+382,"SimTop my_core_top my_icache CacheDataRamV_2 WEN", false,-1);
-        tracep->declBit(c+377,"SimTop my_core_top my_icache CacheDataRamV_2 CEN", false,-1);
-        tracep->declBus(c+314,"SimTop my_core_top my_icache CacheDataRamV_2 A", false,-1, 5,0);
+        tracep->declBit(c+372,"SimTop my_core_top my_icache CacheDataRamV_2 CEN", false,-1);
+        tracep->declBus(c+373,"SimTop my_core_top my_icache CacheDataRamV_2 A", false,-1, 5,0);
         tracep->declArray(c+556,"SimTop my_core_top my_icache CacheDataRamV_2 BWEN", false,-1, 127,0);
-        tracep->declArray(c+315,"SimTop my_core_top my_icache CacheDataRamV_2 D", false,-1, 127,0);
+        tracep->declArray(c+374,"SimTop my_core_top my_icache CacheDataRamV_2 D", false,-1, 127,0);
         tracep->declArray(c+572,"SimTop my_core_top my_icache CacheDataRamV_2 Q", false,-1, 127,0);
         tracep->declBit(c+378,"SimTop my_core_top my_icache CacheDataRamV_2 cen", false,-1);
         tracep->declBit(c+383,"SimTop my_core_top my_icache CacheDataRamV_2 wen", false,-1);
@@ -648,20 +646,20 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+536,"SimTop my_core_top my_icache CacheDataRamV_3 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache CacheDataRamV_3 reset", false,-1);
         tracep->declBit(c+384,"SimTop my_core_top my_icache CacheDataRamV_3 WEN", false,-1);
-        tracep->declBit(c+377,"SimTop my_core_top my_icache CacheDataRamV_3 CEN", false,-1);
-        tracep->declBus(c+314,"SimTop my_core_top my_icache CacheDataRamV_3 A", false,-1, 5,0);
+        tracep->declBit(c+372,"SimTop my_core_top my_icache CacheDataRamV_3 CEN", false,-1);
+        tracep->declBus(c+373,"SimTop my_core_top my_icache CacheDataRamV_3 A", false,-1, 5,0);
         tracep->declArray(c+556,"SimTop my_core_top my_icache CacheDataRamV_3 BWEN", false,-1, 127,0);
-        tracep->declArray(c+315,"SimTop my_core_top my_icache CacheDataRamV_3 D", false,-1, 127,0);
+        tracep->declArray(c+374,"SimTop my_core_top my_icache CacheDataRamV_3 D", false,-1, 127,0);
         tracep->declArray(c+576,"SimTop my_core_top my_icache CacheDataRamV_3 Q", false,-1, 127,0);
         tracep->declBit(c+378,"SimTop my_core_top my_icache CacheDataRamV_3 cen", false,-1);
         tracep->declBit(c+385,"SimTop my_core_top my_icache CacheDataRamV_3 wen", false,-1);
         tracep->declArray(c+564,"SimTop my_core_top my_icache CacheDataRamV_3 bwen", false,-1, 127,0);
         tracep->declArray(c+576,"SimTop my_core_top my_icache CacheDataRamV_3 rdata", false,-1, 127,0);
         tracep->declBit(c+378,"SimTop my_core_top my_icache cache_meta io_en", false,-1);
-        tracep->declBit(c+345,"SimTop my_core_top my_icache cache_meta io_wr", false,-1);
-        tracep->declBus(c+346,"SimTop my_core_top my_icache cache_meta io_way", false,-1, 1,0);
-        tracep->declBit(c+348,"SimTop my_core_top my_icache cache_meta io_in_dirty", false,-1);
-        tracep->declBus(c+349,"SimTop my_core_top my_icache cache_meta io_in_tag", false,-1, 22,0);
+        tracep->declBit(c+340,"SimTop my_core_top my_icache cache_meta io_wr", false,-1);
+        tracep->declBus(c+341,"SimTop my_core_top my_icache cache_meta io_way", false,-1, 1,0);
+        tracep->declBit(c+343,"SimTop my_core_top my_icache cache_meta io_in_dirty", false,-1);
+        tracep->declBus(c+344,"SimTop my_core_top my_icache cache_meta io_in_tag", false,-1, 22,0);
         tracep->declBit(c+580,"SimTop my_core_top my_icache cache_meta io_out_0_valid", false,-1);
         tracep->declBit(c+581,"SimTop my_core_top my_icache cache_meta io_out_0_dirty", false,-1);
         tracep->declBus(c+582,"SimTop my_core_top my_icache cache_meta io_out_0_tag", false,-1, 22,0);
@@ -677,56 +675,56 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+536,"SimTop my_core_top my_icache cache_meta CacheMetaRamV clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache cache_meta CacheMetaRamV reset", false,-1);
         tracep->declBit(c+386,"SimTop my_core_top my_icache cache_meta CacheMetaRamV en", false,-1);
-        tracep->declBit(c+345,"SimTop my_core_top my_icache cache_meta CacheMetaRamV wr", false,-1);
+        tracep->declBit(c+340,"SimTop my_core_top my_icache cache_meta CacheMetaRamV wr", false,-1);
         tracep->declBit(c+580,"SimTop my_core_top my_icache cache_meta CacheMetaRamV valid", false,-1);
         tracep->declBit(c+581,"SimTop my_core_top my_icache cache_meta CacheMetaRamV dirty", false,-1);
         tracep->declBus(c+582,"SimTop my_core_top my_icache cache_meta CacheMetaRamV tag", false,-1, 22,0);
         tracep->declBus(c+592,"SimTop my_core_top my_icache cache_meta CacheMetaRamV addr", false,-1, 5,0);
         tracep->declBit(c+593,"SimTop my_core_top my_icache cache_meta CacheMetaRamV wvalid", false,-1);
-        tracep->declBit(c+348,"SimTop my_core_top my_icache cache_meta CacheMetaRamV wdirty", false,-1);
-        tracep->declBus(c+349,"SimTop my_core_top my_icache cache_meta CacheMetaRamV wtag", false,-1, 22,0);
+        tracep->declBit(c+343,"SimTop my_core_top my_icache cache_meta CacheMetaRamV wdirty", false,-1);
+        tracep->declBus(c+344,"SimTop my_core_top my_icache cache_meta CacheMetaRamV wtag", false,-1, 22,0);
         tracep->declBus(c+594,"SimTop my_core_top my_icache cache_meta CacheMetaRamV rtag", false,-1, 22,0);
         tracep->declBit(c+595,"SimTop my_core_top my_icache cache_meta CacheMetaRamV rvalid", false,-1);
         tracep->declBit(c+596,"SimTop my_core_top my_icache cache_meta CacheMetaRamV rdirty", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 reset", false,-1);
         tracep->declBit(c+387,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 en", false,-1);
-        tracep->declBit(c+345,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 wr", false,-1);
+        tracep->declBit(c+340,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 wr", false,-1);
         tracep->declBit(c+583,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 valid", false,-1);
         tracep->declBit(c+584,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 dirty", false,-1);
         tracep->declBus(c+585,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 tag", false,-1, 22,0);
         tracep->declBus(c+592,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 addr", false,-1, 5,0);
         tracep->declBit(c+593,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 wvalid", false,-1);
-        tracep->declBit(c+348,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 wdirty", false,-1);
-        tracep->declBus(c+349,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 wtag", false,-1, 22,0);
+        tracep->declBit(c+343,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 wdirty", false,-1);
+        tracep->declBus(c+344,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 wtag", false,-1, 22,0);
         tracep->declBus(c+597,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 rtag", false,-1, 22,0);
         tracep->declBit(c+598,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 rvalid", false,-1);
         tracep->declBit(c+599,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_1 rdirty", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 reset", false,-1);
         tracep->declBit(c+388,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 en", false,-1);
-        tracep->declBit(c+345,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 wr", false,-1);
+        tracep->declBit(c+340,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 wr", false,-1);
         tracep->declBit(c+586,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 valid", false,-1);
         tracep->declBit(c+587,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 dirty", false,-1);
         tracep->declBus(c+588,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 tag", false,-1, 22,0);
         tracep->declBus(c+592,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 addr", false,-1, 5,0);
         tracep->declBit(c+593,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 wvalid", false,-1);
-        tracep->declBit(c+348,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 wdirty", false,-1);
-        tracep->declBus(c+349,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 wtag", false,-1, 22,0);
+        tracep->declBit(c+343,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 wdirty", false,-1);
+        tracep->declBus(c+344,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 wtag", false,-1, 22,0);
         tracep->declBus(c+600,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 rtag", false,-1, 22,0);
         tracep->declBit(c+601,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 rvalid", false,-1);
         tracep->declBit(c+602,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_2 rdirty", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 reset", false,-1);
         tracep->declBit(c+389,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 en", false,-1);
-        tracep->declBit(c+345,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 wr", false,-1);
+        tracep->declBit(c+340,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 wr", false,-1);
         tracep->declBit(c+589,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 valid", false,-1);
         tracep->declBit(c+590,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 dirty", false,-1);
         tracep->declBus(c+591,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 tag", false,-1, 22,0);
         tracep->declBus(c+592,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 addr", false,-1, 5,0);
         tracep->declBit(c+593,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 wvalid", false,-1);
-        tracep->declBit(c+348,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 wdirty", false,-1);
-        tracep->declBus(c+349,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 wtag", false,-1, 22,0);
+        tracep->declBit(c+343,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 wdirty", false,-1);
+        tracep->declBus(c+344,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 wtag", false,-1, 22,0);
         tracep->declBus(c+603,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 rtag", false,-1, 22,0);
         tracep->declBit(c+604,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 rvalid", false,-1);
         tracep->declBit(c+605,"SimTop my_core_top my_icache cache_meta CacheMetaRamV_3 rdirty", false,-1);
@@ -763,26 +761,24 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+399,"SimTop my_core_top my_dcache meta_rd_3_valid", false,-1);
         tracep->declBit(c+400,"SimTop my_core_top my_dcache meta_rd_3_dirty", false,-1);
         tracep->declBus(c+401,"SimTop my_core_top my_dcache meta_rd_3_tag", false,-1, 22,0);
-        tracep->declBus(c+402,"SimTop my_core_top my_dcache data_addr", false,-1, 5,0);
-        tracep->declArray(c+403,"SimTop my_core_top my_dcache data_wdata", false,-1, 127,0);
         tracep->declBit(c+198,"SimTop my_core_top my_dcache stage1 io_cpu_valid", false,-1);
         tracep->declBit(c+82,"SimTop my_core_top my_dcache stage1 io_cpu_bits_wr", false,-1);
         tracep->declQuad(c+199,"SimTop my_core_top my_dcache stage1 io_cpu_bits_addr", false,-1, 63,0);
         tracep->declQuad(c+90,"SimTop my_core_top my_dcache stage1 io_cpu_bits_wdata", false,-1, 63,0);
         tracep->declBus(c+201,"SimTop my_core_top my_dcache stage1 io_cpu_bits_wstrb", false,-1, 7,0);
         tracep->declBit(c+593,"SimTop my_core_top my_dcache stage1 io_cpu_bits_mthrough", false,-1);
-        tracep->declBit(c+407,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_ready", false,-1);
+        tracep->declBit(c+402,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_ready", false,-1);
         tracep->declBit(c+192,"SimTop my_core_top my_dcache stage1 io_cpu_ready", false,-1);
         tracep->declBit(c+192,"SimTop my_core_top my_dcache stage1 io_rd_en", false,-1);
-        tracep->declBus(c+408,"SimTop my_core_top my_dcache stage1 io_rd_index", false,-1, 4,0);
+        tracep->declBus(c+403,"SimTop my_core_top my_dcache stage1 io_rd_index", false,-1, 4,0);
         tracep->declBit(c+198,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_valid", false,-1);
         tracep->declBit(c+82,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_bits_wr", false,-1);
         tracep->declQuad(c+90,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_bits_wdata", false,-1, 63,0);
         tracep->declBus(c+201,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_bits_wstrb", false,-1, 7,0);
         tracep->declBit(c+593,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_bits_mthrough", false,-1);
-        tracep->declBus(c+409,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_bits_tag", false,-1, 22,0);
-        tracep->declBus(c+408,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_bits_index", false,-1, 4,0);
-        tracep->declBus(c+410,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_bits_offset", false,-1, 3,0);
+        tracep->declBus(c+404,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_bits_tag", false,-1, 22,0);
+        tracep->declBus(c+403,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_bits_index", false,-1, 4,0);
+        tracep->declBus(c+405,"SimTop my_core_top my_dcache stage1 io_s1_to_s2_bits_offset", false,-1, 3,0);
         tracep->declBit(c+525,"SimTop my_core_top my_dcache stage2 clock", false,-1);
         tracep->declBit(c+526,"SimTop my_core_top my_dcache stage2 reset", false,-1);
         tracep->declBit(c+198,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_valid", false,-1);
@@ -790,9 +786,9 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+90,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_bits_wdata", false,-1, 63,0);
         tracep->declBus(c+201,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_bits_wstrb", false,-1, 7,0);
         tracep->declBit(c+593,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_bits_mthrough", false,-1);
-        tracep->declBus(c+409,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_bits_tag", false,-1, 22,0);
-        tracep->declBus(c+408,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_bits_index", false,-1, 4,0);
-        tracep->declBus(c+410,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_bits_offset", false,-1, 3,0);
+        tracep->declBus(c+404,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_bits_tag", false,-1, 22,0);
+        tracep->declBus(c+403,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_bits_index", false,-1, 4,0);
+        tracep->declBus(c+405,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_bits_offset", false,-1, 3,0);
         tracep->declBit(c+390,"SimTop my_core_top my_dcache stage2 io_rd_lines_0_valid", false,-1);
         tracep->declBit(c+391,"SimTop my_core_top my_dcache stage2 io_rd_lines_0_dirty", false,-1);
         tracep->declBus(c+392,"SimTop my_core_top my_dcache stage2 io_rd_lines_0_tag", false,-1, 22,0);
@@ -813,101 +809,101 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBus(c+401,"SimTop my_core_top my_dcache stage2 io_rd_lines_3_tag", false,-1, 22,0);
         tracep->declQuad(c+618,"SimTop my_core_top my_dcache stage2 io_rd_lines_3_data_0", false,-1, 63,0);
         tracep->declQuad(c+620,"SimTop my_core_top my_dcache stage2 io_rd_lines_3_data_1", false,-1, 63,0);
-        tracep->declBit(c+411,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_ready", false,-1);
-        tracep->declBit(c+407,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_ready", false,-1);
-        tracep->declBit(c+412,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_valid", false,-1);
-        tracep->declBit(c+413,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_wr", false,-1);
-        tracep->declQuad(c+414,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_wdata", false,-1, 63,0);
-        tracep->declBus(c+416,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_wstrb", false,-1, 7,0);
-        tracep->declBit(c+417,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_mthrough", false,-1);
-        tracep->declBus(c+418,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_tag", false,-1, 22,0);
-        tracep->declBus(c+419,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_index", false,-1, 4,0);
-        tracep->declBus(c+420,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_offset", false,-1, 3,0);
-        tracep->declBit(c+421,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_hit", false,-1);
-        tracep->declBus(c+422,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_way", false,-1, 1,0);
-        tracep->declBit(c+423,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_line_valid", false,-1);
-        tracep->declBit(c+424,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_line_dirty", false,-1);
-        tracep->declBus(c+425,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_line_tag", false,-1, 22,0);
-        tracep->declQuad(c+426,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_line_data_0", false,-1, 63,0);
-        tracep->declQuad(c+428,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_line_data_1", false,-1, 63,0);
-        tracep->declBit(c+412,"SimTop my_core_top my_dcache stage2 s2_valid", false,-1);
-        tracep->declBit(c+413,"SimTop my_core_top my_dcache stage2 buf_wr", false,-1);
-        tracep->declQuad(c+414,"SimTop my_core_top my_dcache stage2 buf_wdata", false,-1, 63,0);
-        tracep->declBus(c+416,"SimTop my_core_top my_dcache stage2 buf_wstrb", false,-1, 7,0);
-        tracep->declBit(c+417,"SimTop my_core_top my_dcache stage2 buf_mthrough", false,-1);
-        tracep->declBus(c+418,"SimTop my_core_top my_dcache stage2 buf_tag", false,-1, 22,0);
-        tracep->declBus(c+419,"SimTop my_core_top my_dcache stage2 buf_index", false,-1, 4,0);
-        tracep->declBus(c+420,"SimTop my_core_top my_dcache stage2 buf_offset", false,-1, 3,0);
-        tracep->declBus(c+430,"SimTop my_core_top my_dcache stage2 hit_array", false,-1, 3,0);
-        tracep->declBus(c+431,"SimTop my_core_top my_dcache stage2 replace1H", false,-1, 3,0);
-        tracep->declBus(c+432,"SimTop my_core_top my_dcache stage2 target_way1H", false,-1, 3,0);
+        tracep->declBit(c+406,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_ready", false,-1);
+        tracep->declBit(c+402,"SimTop my_core_top my_dcache stage2 io_s1_to_s2_ready", false,-1);
+        tracep->declBit(c+407,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_valid", false,-1);
+        tracep->declBit(c+408,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_wr", false,-1);
+        tracep->declQuad(c+409,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_wdata", false,-1, 63,0);
+        tracep->declBus(c+411,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_wstrb", false,-1, 7,0);
+        tracep->declBit(c+412,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_mthrough", false,-1);
+        tracep->declBus(c+413,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_tag", false,-1, 22,0);
+        tracep->declBus(c+414,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_index", false,-1, 4,0);
+        tracep->declBus(c+415,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_offset", false,-1, 3,0);
+        tracep->declBit(c+416,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_hit", false,-1);
+        tracep->declBus(c+417,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_way", false,-1, 1,0);
+        tracep->declBit(c+418,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_line_valid", false,-1);
+        tracep->declBit(c+419,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_line_dirty", false,-1);
+        tracep->declBus(c+420,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_line_tag", false,-1, 22,0);
+        tracep->declQuad(c+421,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_line_data_0", false,-1, 63,0);
+        tracep->declQuad(c+423,"SimTop my_core_top my_dcache stage2 io_s2_to_s3_bits_target_line_data_1", false,-1, 63,0);
+        tracep->declBit(c+407,"SimTop my_core_top my_dcache stage2 s2_valid", false,-1);
+        tracep->declBit(c+408,"SimTop my_core_top my_dcache stage2 buf_wr", false,-1);
+        tracep->declQuad(c+409,"SimTop my_core_top my_dcache stage2 buf_wdata", false,-1, 63,0);
+        tracep->declBus(c+411,"SimTop my_core_top my_dcache stage2 buf_wstrb", false,-1, 7,0);
+        tracep->declBit(c+412,"SimTop my_core_top my_dcache stage2 buf_mthrough", false,-1);
+        tracep->declBus(c+413,"SimTop my_core_top my_dcache stage2 buf_tag", false,-1, 22,0);
+        tracep->declBus(c+414,"SimTop my_core_top my_dcache stage2 buf_index", false,-1, 4,0);
+        tracep->declBus(c+415,"SimTop my_core_top my_dcache stage2 buf_offset", false,-1, 3,0);
+        tracep->declBus(c+425,"SimTop my_core_top my_dcache stage2 hit_array", false,-1, 3,0);
+        tracep->declBus(c+426,"SimTop my_core_top my_dcache stage2 replace1H", false,-1, 3,0);
+        tracep->declBus(c+427,"SimTop my_core_top my_dcache stage2 target_way1H", false,-1, 3,0);
         tracep->declBit(c+525,"SimTop my_core_top my_dcache stage3 clock", false,-1);
         tracep->declBit(c+526,"SimTop my_core_top my_dcache stage3 reset", false,-1);
-        tracep->declBit(c+412,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_valid", false,-1);
-        tracep->declBit(c+413,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_wr", false,-1);
-        tracep->declQuad(c+414,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_wdata", false,-1, 63,0);
-        tracep->declBus(c+416,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_wstrb", false,-1, 7,0);
-        tracep->declBit(c+417,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_mthrough", false,-1);
-        tracep->declBus(c+418,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_tag", false,-1, 22,0);
-        tracep->declBus(c+419,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_index", false,-1, 4,0);
-        tracep->declBus(c+420,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_offset", false,-1, 3,0);
-        tracep->declBit(c+421,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_hit", false,-1);
-        tracep->declBus(c+422,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_way", false,-1, 1,0);
-        tracep->declBit(c+423,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_line_valid", false,-1);
-        tracep->declBit(c+424,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_line_dirty", false,-1);
-        tracep->declBus(c+425,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_line_tag", false,-1, 22,0);
-        tracep->declQuad(c+426,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_line_data_0", false,-1, 63,0);
-        tracep->declQuad(c+428,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_line_data_1", false,-1, 63,0);
+        tracep->declBit(c+407,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_valid", false,-1);
+        tracep->declBit(c+408,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_wr", false,-1);
+        tracep->declQuad(c+409,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_wdata", false,-1, 63,0);
+        tracep->declBus(c+411,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_wstrb", false,-1, 7,0);
+        tracep->declBit(c+412,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_mthrough", false,-1);
+        tracep->declBus(c+413,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_tag", false,-1, 22,0);
+        tracep->declBus(c+414,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_index", false,-1, 4,0);
+        tracep->declBus(c+415,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_offset", false,-1, 3,0);
+        tracep->declBit(c+416,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_hit", false,-1);
+        tracep->declBus(c+417,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_way", false,-1, 1,0);
+        tracep->declBit(c+418,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_line_valid", false,-1);
+        tracep->declBit(c+419,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_line_dirty", false,-1);
+        tracep->declBus(c+420,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_line_tag", false,-1, 22,0);
+        tracep->declQuad(c+421,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_line_data_0", false,-1, 63,0);
+        tracep->declQuad(c+423,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_bits_target_line_data_1", false,-1, 63,0);
         tracep->declBit(c+296,"SimTop my_core_top my_dcache stage3 io_mem_out_req_ready", false,-1);
         tracep->declQuad(c+276,"SimTop my_core_top my_dcache stage3 io_mem_out_ret_rdata", false,-1, 63,0);
         tracep->declBit(c+297,"SimTop my_core_top my_dcache stage3 io_mem_out_ret_valid", false,-1);
         tracep->declBit(c+298,"SimTop my_core_top my_dcache stage3 io_mem_out_rlast", false,-1);
         tracep->declQuad(c+193,"SimTop my_core_top my_dcache stage3 io_cpu_rdata", false,-1, 63,0);
         tracep->declBit(c+195,"SimTop my_core_top my_dcache stage3 io_cpu_valid", false,-1);
-        tracep->declBit(c+411,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_ready", false,-1);
-        tracep->declBit(c+433,"SimTop my_core_top my_dcache stage3 io_wt_en", false,-1);
-        tracep->declBus(c+434,"SimTop my_core_top my_dcache stage3 io_wt_way", false,-1, 1,0);
-        tracep->declBus(c+435,"SimTop my_core_top my_dcache stage3 io_wt_index", false,-1, 4,0);
-        tracep->declBit(c+436,"SimTop my_core_top my_dcache stage3 io_wt_line_dirty", false,-1);
-        tracep->declBus(c+437,"SimTop my_core_top my_dcache stage3 io_wt_line_tag", false,-1, 22,0);
-        tracep->declQuad(c+438,"SimTop my_core_top my_dcache stage3 io_wt_line_data_0", false,-1, 63,0);
-        tracep->declQuad(c+440,"SimTop my_core_top my_dcache stage3 io_wt_line_data_1", false,-1, 63,0);
+        tracep->declBit(c+406,"SimTop my_core_top my_dcache stage3 io_s2_to_s3_ready", false,-1);
+        tracep->declBit(c+428,"SimTop my_core_top my_dcache stage3 io_wt_en", false,-1);
+        tracep->declBus(c+429,"SimTop my_core_top my_dcache stage3 io_wt_way", false,-1, 1,0);
+        tracep->declBus(c+430,"SimTop my_core_top my_dcache stage3 io_wt_index", false,-1, 4,0);
+        tracep->declBit(c+431,"SimTop my_core_top my_dcache stage3 io_wt_line_dirty", false,-1);
+        tracep->declBus(c+432,"SimTop my_core_top my_dcache stage3 io_wt_line_tag", false,-1, 22,0);
+        tracep->declQuad(c+433,"SimTop my_core_top my_dcache stage3 io_wt_line_data_0", false,-1, 63,0);
+        tracep->declQuad(c+435,"SimTop my_core_top my_dcache stage3 io_wt_line_data_1", false,-1, 63,0);
         tracep->declBit(c+293,"SimTop my_core_top my_dcache stage3 io_mem_out_req_valid", false,-1);
         tracep->declBit(c+268,"SimTop my_core_top my_dcache stage3 io_mem_out_req_bits_wr", false,-1);
         tracep->declQuad(c+27,"SimTop my_core_top my_dcache stage3 io_mem_out_req_bits_addr", false,-1, 63,0);
         tracep->declArray(c+269,"SimTop my_core_top my_dcache stage3 io_mem_out_req_bits_wdata", false,-1, 127,0);
         tracep->declBus(c+273,"SimTop my_core_top my_dcache stage3 io_mem_out_req_bits_wstrb", false,-1, 7,0);
         tracep->declBit(c+274,"SimTop my_core_top my_dcache stage3 io_mem_out_req_bits_mthrough", false,-1);
-        tracep->declBit(c+442,"SimTop my_core_top my_dcache stage3 s3_valid", false,-1);
-        tracep->declBit(c+436,"SimTop my_core_top my_dcache stage3 buf_wr", false,-1);
-        tracep->declQuad(c+443,"SimTop my_core_top my_dcache stage3 buf_wdata", false,-1, 63,0);
-        tracep->declBus(c+445,"SimTop my_core_top my_dcache stage3 buf_wstrb", false,-1, 7,0);
+        tracep->declBit(c+437,"SimTop my_core_top my_dcache stage3 s3_valid", false,-1);
+        tracep->declBit(c+431,"SimTop my_core_top my_dcache stage3 buf_wr", false,-1);
+        tracep->declQuad(c+438,"SimTop my_core_top my_dcache stage3 buf_wdata", false,-1, 63,0);
+        tracep->declBus(c+440,"SimTop my_core_top my_dcache stage3 buf_wstrb", false,-1, 7,0);
         tracep->declBit(c+274,"SimTop my_core_top my_dcache stage3 buf_mthrough", false,-1);
-        tracep->declBus(c+437,"SimTop my_core_top my_dcache stage3 buf_tag", false,-1, 22,0);
-        tracep->declBus(c+435,"SimTop my_core_top my_dcache stage3 buf_index", false,-1, 4,0);
-        tracep->declBus(c+446,"SimTop my_core_top my_dcache stage3 buf_offset", false,-1, 3,0);
-        tracep->declBit(c+447,"SimTop my_core_top my_dcache stage3 buf_hit", false,-1);
-        tracep->declBus(c+434,"SimTop my_core_top my_dcache stage3 buf_target_way", false,-1, 1,0);
-        tracep->declBit(c+448,"SimTop my_core_top my_dcache stage3 buf_target_line_valid", false,-1);
-        tracep->declBit(c+449,"SimTop my_core_top my_dcache stage3 buf_target_line_dirty", false,-1);
-        tracep->declBus(c+450,"SimTop my_core_top my_dcache stage3 buf_target_line_tag", false,-1, 22,0);
-        tracep->declQuad(c+451,"SimTop my_core_top my_dcache stage3 buf_target_line_data_0", false,-1, 63,0);
-        tracep->declQuad(c+453,"SimTop my_core_top my_dcache stage3 buf_target_line_data_1", false,-1, 63,0);
-        tracep->declBus(c+455,"SimTop my_core_top my_dcache stage3 state", false,-1, 5,0);
-        tracep->declBit(c+456,"SimTop my_core_top my_dcache stage3 cnt", false,-1);
-        tracep->declQuad(c+457,"SimTop my_core_top my_dcache stage3 cpu_word_mask", false,-1, 63,0);
-        tracep->declBit(c+459,"SimTop my_core_top my_dcache stage3 hit", false,-1);
-        tracep->declBit(c+460,"SimTop my_core_top my_dcache stage3 wb_en", false,-1);
-        tracep->declBit(c+461,"SimTop my_core_top my_dcache stage3 burst_last", false,-1);
-        tracep->declBit(c+462,"SimTop my_core_top my_dcache stage3 refill_hit", false,-1);
-        tracep->declBit(c+463,"SimTop my_core_top my_dcache stage3 unnamedblk1 refill_come", false,-1);
+        tracep->declBus(c+432,"SimTop my_core_top my_dcache stage3 buf_tag", false,-1, 22,0);
+        tracep->declBus(c+430,"SimTop my_core_top my_dcache stage3 buf_index", false,-1, 4,0);
+        tracep->declBus(c+441,"SimTop my_core_top my_dcache stage3 buf_offset", false,-1, 3,0);
+        tracep->declBit(c+442,"SimTop my_core_top my_dcache stage3 buf_hit", false,-1);
+        tracep->declBus(c+429,"SimTop my_core_top my_dcache stage3 buf_target_way", false,-1, 1,0);
+        tracep->declBit(c+443,"SimTop my_core_top my_dcache stage3 buf_target_line_valid", false,-1);
+        tracep->declBit(c+444,"SimTop my_core_top my_dcache stage3 buf_target_line_dirty", false,-1);
+        tracep->declBus(c+445,"SimTop my_core_top my_dcache stage3 buf_target_line_tag", false,-1, 22,0);
+        tracep->declQuad(c+446,"SimTop my_core_top my_dcache stage3 buf_target_line_data_0", false,-1, 63,0);
+        tracep->declQuad(c+448,"SimTop my_core_top my_dcache stage3 buf_target_line_data_1", false,-1, 63,0);
+        tracep->declBus(c+450,"SimTop my_core_top my_dcache stage3 state", false,-1, 5,0);
+        tracep->declBit(c+451,"SimTop my_core_top my_dcache stage3 cnt", false,-1);
+        tracep->declQuad(c+452,"SimTop my_core_top my_dcache stage3 cpu_word_mask", false,-1, 63,0);
+        tracep->declBit(c+454,"SimTop my_core_top my_dcache stage3 hit", false,-1);
+        tracep->declBit(c+455,"SimTop my_core_top my_dcache stage3 wb_en", false,-1);
+        tracep->declBit(c+456,"SimTop my_core_top my_dcache stage3 burst_last", false,-1);
+        tracep->declBit(c+457,"SimTop my_core_top my_dcache stage3 refill_hit", false,-1);
+        tracep->declBit(c+458,"SimTop my_core_top my_dcache stage3 unnamedblk1 refill_come", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache CacheDataRamV clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache CacheDataRamV reset", false,-1);
-        tracep->declBit(c+464,"SimTop my_core_top my_dcache CacheDataRamV WEN", false,-1);
-        tracep->declBit(c+465,"SimTop my_core_top my_dcache CacheDataRamV CEN", false,-1);
-        tracep->declBus(c+402,"SimTop my_core_top my_dcache CacheDataRamV A", false,-1, 5,0);
+        tracep->declBit(c+459,"SimTop my_core_top my_dcache CacheDataRamV WEN", false,-1);
+        tracep->declBit(c+460,"SimTop my_core_top my_dcache CacheDataRamV CEN", false,-1);
+        tracep->declBus(c+461,"SimTop my_core_top my_dcache CacheDataRamV A", false,-1, 5,0);
         tracep->declArray(c+556,"SimTop my_core_top my_dcache CacheDataRamV BWEN", false,-1, 127,0);
-        tracep->declArray(c+403,"SimTop my_core_top my_dcache CacheDataRamV D", false,-1, 127,0);
+        tracep->declArray(c+462,"SimTop my_core_top my_dcache CacheDataRamV D", false,-1, 127,0);
         tracep->declArray(c+622,"SimTop my_core_top my_dcache CacheDataRamV Q", false,-1, 127,0);
         tracep->declBit(c+466,"SimTop my_core_top my_dcache CacheDataRamV cen", false,-1);
         tracep->declBit(c+467,"SimTop my_core_top my_dcache CacheDataRamV wen", false,-1);
@@ -916,10 +912,10 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+536,"SimTop my_core_top my_dcache CacheDataRamV_1 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache CacheDataRamV_1 reset", false,-1);
         tracep->declBit(c+468,"SimTop my_core_top my_dcache CacheDataRamV_1 WEN", false,-1);
-        tracep->declBit(c+465,"SimTop my_core_top my_dcache CacheDataRamV_1 CEN", false,-1);
-        tracep->declBus(c+402,"SimTop my_core_top my_dcache CacheDataRamV_1 A", false,-1, 5,0);
+        tracep->declBit(c+460,"SimTop my_core_top my_dcache CacheDataRamV_1 CEN", false,-1);
+        tracep->declBus(c+461,"SimTop my_core_top my_dcache CacheDataRamV_1 A", false,-1, 5,0);
         tracep->declArray(c+556,"SimTop my_core_top my_dcache CacheDataRamV_1 BWEN", false,-1, 127,0);
-        tracep->declArray(c+403,"SimTop my_core_top my_dcache CacheDataRamV_1 D", false,-1, 127,0);
+        tracep->declArray(c+462,"SimTop my_core_top my_dcache CacheDataRamV_1 D", false,-1, 127,0);
         tracep->declArray(c+626,"SimTop my_core_top my_dcache CacheDataRamV_1 Q", false,-1, 127,0);
         tracep->declBit(c+466,"SimTop my_core_top my_dcache CacheDataRamV_1 cen", false,-1);
         tracep->declBit(c+469,"SimTop my_core_top my_dcache CacheDataRamV_1 wen", false,-1);
@@ -928,10 +924,10 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+536,"SimTop my_core_top my_dcache CacheDataRamV_2 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache CacheDataRamV_2 reset", false,-1);
         tracep->declBit(c+470,"SimTop my_core_top my_dcache CacheDataRamV_2 WEN", false,-1);
-        tracep->declBit(c+465,"SimTop my_core_top my_dcache CacheDataRamV_2 CEN", false,-1);
-        tracep->declBus(c+402,"SimTop my_core_top my_dcache CacheDataRamV_2 A", false,-1, 5,0);
+        tracep->declBit(c+460,"SimTop my_core_top my_dcache CacheDataRamV_2 CEN", false,-1);
+        tracep->declBus(c+461,"SimTop my_core_top my_dcache CacheDataRamV_2 A", false,-1, 5,0);
         tracep->declArray(c+556,"SimTop my_core_top my_dcache CacheDataRamV_2 BWEN", false,-1, 127,0);
-        tracep->declArray(c+403,"SimTop my_core_top my_dcache CacheDataRamV_2 D", false,-1, 127,0);
+        tracep->declArray(c+462,"SimTop my_core_top my_dcache CacheDataRamV_2 D", false,-1, 127,0);
         tracep->declArray(c+630,"SimTop my_core_top my_dcache CacheDataRamV_2 Q", false,-1, 127,0);
         tracep->declBit(c+466,"SimTop my_core_top my_dcache CacheDataRamV_2 cen", false,-1);
         tracep->declBit(c+471,"SimTop my_core_top my_dcache CacheDataRamV_2 wen", false,-1);
@@ -940,20 +936,20 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+536,"SimTop my_core_top my_dcache CacheDataRamV_3 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache CacheDataRamV_3 reset", false,-1);
         tracep->declBit(c+472,"SimTop my_core_top my_dcache CacheDataRamV_3 WEN", false,-1);
-        tracep->declBit(c+465,"SimTop my_core_top my_dcache CacheDataRamV_3 CEN", false,-1);
-        tracep->declBus(c+402,"SimTop my_core_top my_dcache CacheDataRamV_3 A", false,-1, 5,0);
+        tracep->declBit(c+460,"SimTop my_core_top my_dcache CacheDataRamV_3 CEN", false,-1);
+        tracep->declBus(c+461,"SimTop my_core_top my_dcache CacheDataRamV_3 A", false,-1, 5,0);
         tracep->declArray(c+556,"SimTop my_core_top my_dcache CacheDataRamV_3 BWEN", false,-1, 127,0);
-        tracep->declArray(c+403,"SimTop my_core_top my_dcache CacheDataRamV_3 D", false,-1, 127,0);
+        tracep->declArray(c+462,"SimTop my_core_top my_dcache CacheDataRamV_3 D", false,-1, 127,0);
         tracep->declArray(c+634,"SimTop my_core_top my_dcache CacheDataRamV_3 Q", false,-1, 127,0);
         tracep->declBit(c+466,"SimTop my_core_top my_dcache CacheDataRamV_3 cen", false,-1);
         tracep->declBit(c+473,"SimTop my_core_top my_dcache CacheDataRamV_3 wen", false,-1);
         tracep->declArray(c+564,"SimTop my_core_top my_dcache CacheDataRamV_3 bwen", false,-1, 127,0);
         tracep->declArray(c+634,"SimTop my_core_top my_dcache CacheDataRamV_3 rdata", false,-1, 127,0);
         tracep->declBit(c+466,"SimTop my_core_top my_dcache cache_meta io_en", false,-1);
-        tracep->declBit(c+433,"SimTop my_core_top my_dcache cache_meta io_wr", false,-1);
-        tracep->declBus(c+434,"SimTop my_core_top my_dcache cache_meta io_way", false,-1, 1,0);
-        tracep->declBit(c+436,"SimTop my_core_top my_dcache cache_meta io_in_dirty", false,-1);
-        tracep->declBus(c+437,"SimTop my_core_top my_dcache cache_meta io_in_tag", false,-1, 22,0);
+        tracep->declBit(c+428,"SimTop my_core_top my_dcache cache_meta io_wr", false,-1);
+        tracep->declBus(c+429,"SimTop my_core_top my_dcache cache_meta io_way", false,-1, 1,0);
+        tracep->declBit(c+431,"SimTop my_core_top my_dcache cache_meta io_in_dirty", false,-1);
+        tracep->declBus(c+432,"SimTop my_core_top my_dcache cache_meta io_in_tag", false,-1, 22,0);
         tracep->declBit(c+638,"SimTop my_core_top my_dcache cache_meta io_out_0_valid", false,-1);
         tracep->declBit(c+639,"SimTop my_core_top my_dcache cache_meta io_out_0_dirty", false,-1);
         tracep->declBus(c+640,"SimTop my_core_top my_dcache cache_meta io_out_0_tag", false,-1, 22,0);
@@ -969,56 +965,56 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declBit(c+536,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV reset", false,-1);
         tracep->declBit(c+474,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV en", false,-1);
-        tracep->declBit(c+433,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV wr", false,-1);
+        tracep->declBit(c+428,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV wr", false,-1);
         tracep->declBit(c+638,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV valid", false,-1);
         tracep->declBit(c+639,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV dirty", false,-1);
         tracep->declBus(c+640,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV tag", false,-1, 22,0);
         tracep->declBus(c+592,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV addr", false,-1, 5,0);
         tracep->declBit(c+593,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV wvalid", false,-1);
-        tracep->declBit(c+436,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV wdirty", false,-1);
-        tracep->declBus(c+437,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV wtag", false,-1, 22,0);
+        tracep->declBit(c+431,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV wdirty", false,-1);
+        tracep->declBus(c+432,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV wtag", false,-1, 22,0);
         tracep->declBus(c+650,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV rtag", false,-1, 22,0);
         tracep->declBit(c+651,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV rvalid", false,-1);
         tracep->declBit(c+652,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV rdirty", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 reset", false,-1);
         tracep->declBit(c+475,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 en", false,-1);
-        tracep->declBit(c+433,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 wr", false,-1);
+        tracep->declBit(c+428,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 wr", false,-1);
         tracep->declBit(c+641,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 valid", false,-1);
         tracep->declBit(c+642,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 dirty", false,-1);
         tracep->declBus(c+643,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 tag", false,-1, 22,0);
         tracep->declBus(c+592,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 addr", false,-1, 5,0);
         tracep->declBit(c+593,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 wvalid", false,-1);
-        tracep->declBit(c+436,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 wdirty", false,-1);
-        tracep->declBus(c+437,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 wtag", false,-1, 22,0);
+        tracep->declBit(c+431,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 wdirty", false,-1);
+        tracep->declBus(c+432,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 wtag", false,-1, 22,0);
         tracep->declBus(c+653,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 rtag", false,-1, 22,0);
         tracep->declBit(c+654,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 rvalid", false,-1);
         tracep->declBit(c+655,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_1 rdirty", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 reset", false,-1);
         tracep->declBit(c+476,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 en", false,-1);
-        tracep->declBit(c+433,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 wr", false,-1);
+        tracep->declBit(c+428,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 wr", false,-1);
         tracep->declBit(c+644,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 valid", false,-1);
         tracep->declBit(c+645,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 dirty", false,-1);
         tracep->declBus(c+646,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 tag", false,-1, 22,0);
         tracep->declBus(c+592,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 addr", false,-1, 5,0);
         tracep->declBit(c+593,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 wvalid", false,-1);
-        tracep->declBit(c+436,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 wdirty", false,-1);
-        tracep->declBus(c+437,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 wtag", false,-1, 22,0);
+        tracep->declBit(c+431,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 wdirty", false,-1);
+        tracep->declBus(c+432,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 wtag", false,-1, 22,0);
         tracep->declBus(c+656,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 rtag", false,-1, 22,0);
         tracep->declBit(c+657,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 rvalid", false,-1);
         tracep->declBit(c+658,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_2 rdirty", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 clock", false,-1);
         tracep->declBit(c+536,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 reset", false,-1);
         tracep->declBit(c+477,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 en", false,-1);
-        tracep->declBit(c+433,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 wr", false,-1);
+        tracep->declBit(c+428,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 wr", false,-1);
         tracep->declBit(c+647,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 valid", false,-1);
         tracep->declBit(c+648,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 dirty", false,-1);
         tracep->declBus(c+649,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 tag", false,-1, 22,0);
         tracep->declBus(c+592,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 addr", false,-1, 5,0);
         tracep->declBit(c+593,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 wvalid", false,-1);
-        tracep->declBit(c+436,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 wdirty", false,-1);
-        tracep->declBus(c+437,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 wtag", false,-1, 22,0);
+        tracep->declBit(c+431,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 wdirty", false,-1);
+        tracep->declBus(c+432,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 wtag", false,-1, 22,0);
         tracep->declBus(c+659,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 rtag", false,-1, 22,0);
         tracep->declBit(c+660,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 rvalid", false,-1);
         tracep->declBit(c+661,"SimTop my_core_top my_dcache cache_meta CacheMetaRamV_3 rdirty", false,-1);
@@ -1861,7 +1857,9 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                       ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_wstrb)
                                       : 0xffU)),8);
         tracep->fullBit(oldp+248,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_mthrough));
-        tracep->fullBit(oldp+249,(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_req_ready));
+        tracep->fullBit(oldp+249,((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_req_ready_T) 
+                                    | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_req_ready_T_1)) 
+                                   | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__rd_after_wt))));
         tracep->fullQData(oldp+250,(vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_ret_rdata),64);
         tracep->fullBit(oldp+252,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_ret_valid_T_3));
         tracep->fullBit(oldp+253,(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT___io_in_rlast_T));
@@ -1899,7 +1897,10 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullBit(oldp+293,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_mem_out_req_valid_T_5));
         tracep->fullBit(oldp+294,(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT___io_in_clint_hit_T));
         tracep->fullBit(oldp+295,(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__ret_valid));
-        tracep->fullBit(oldp+296,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_req_ready));
+        tracep->fullBit(oldp+296,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT___io_in_clint_hit_T) 
+                                   | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T) 
+                                       | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_req_ready_T_1)) 
+                                      | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__rd_after_wt)))));
         tracep->fullBit(oldp+297,(vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid));
         tracep->fullBit(oldp+298,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__ret_valid) 
                                    | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT___io_in_rlast_T))));
@@ -1918,7 +1919,169 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullBit(oldp+311,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_valid));
         tracep->fullBit(oldp+312,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_dirty));
         tracep->fullIData(oldp+313,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_tag),23);
-        tracep->fullCData(oldp+314,((0x1fU & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en)
+        tracep->fullBit(oldp+314,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT___io_s1_to_s2_ready_T_2));
+        tracep->fullCData(oldp+315,((0x1fU & (IData)(
+                                                     (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_req_bits_addr_T_2 
+                                                      >> 4U)))),5);
+        tracep->fullIData(oldp+316,((0x7fffffU & (IData)(
+                                                         (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_req_bits_addr_T_2 
+                                                          >> 9U)))),23);
+        tracep->fullCData(oldp+317,((0xfU & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_req_bits_addr_T_2))),4);
+        tracep->fullBit(oldp+318,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___io_s2_to_s3_ready_T_1));
+        tracep->fullBit(oldp+319,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__s2_valid));
+        tracep->fullBit(oldp+320,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_wr));
+        tracep->fullQData(oldp+321,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_wdata),64);
+        tracep->fullCData(oldp+323,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_wstrb),8);
+        tracep->fullBit(oldp+324,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_mthrough));
+        tracep->fullIData(oldp+325,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_tag),23);
+        tracep->fullCData(oldp+326,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_index),5);
+        tracep->fullCData(oldp+327,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_offset),4);
+        tracep->fullBit(oldp+328,((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__hit_array))));
+        tracep->fullCData(oldp+329,((((IData)((0U != 
+                                               (3U 
+                                                & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
+                                                   >> 2U)))) 
+                                      << 1U) | (IData)(
+                                                       (0U 
+                                                        != 
+                                                        (0xaU 
+                                                         & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H)))))),2);
+        tracep->fullBit(oldp+330,((((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
+                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_0_valid)) 
+                                     | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
+                                         >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_1_valid))) 
+                                    | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
+                                        >> 2U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_2_valid))) 
+                                   | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
+                                       >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_valid)))));
+        tracep->fullBit(oldp+331,((((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
+                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_0_dirty)) 
+                                     | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
+                                         >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_1_dirty))) 
+                                    | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
+                                        >> 2U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_2_dirty))) 
+                                   | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
+                                       >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_dirty)))));
+        tracep->fullIData(oldp+332,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                         ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_0_tag
+                                         : 0U) | ((2U 
+                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                                   ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_1_tag
+                                                   : 0U)) 
+                                      | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_2_tag
+                                          : 0U)) | 
+                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                       ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_tag
+                                       : 0U))),23);
+        tracep->fullQData(oldp+333,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                         ? (((QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV__DOT__rdata[1U])) 
+                                             << 0x20U) 
+                                            | (QData)((IData)(
+                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV__DOT__rdata[0U])))
+                                         : 0ULL) | 
+                                       ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                         ? (((QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_1__DOT__rdata[1U])) 
+                                             << 0x20U) 
+                                            | (QData)((IData)(
+                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_1__DOT__rdata[0U])))
+                                         : 0ULL)) | 
+                                      ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                        ? (((QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_2__DOT__rdata[1U])) 
+                                            << 0x20U) 
+                                           | (QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_2__DOT__rdata[0U])))
+                                        : 0ULL)) | 
+                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                       ? (((QData)((IData)(
+                                                           vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_3__DOT__rdata[1U])) 
+                                           << 0x20U) 
+                                          | (QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_3__DOT__rdata[0U])))
+                                       : 0ULL))),64);
+        tracep->fullQData(oldp+335,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                         ? (((QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV__DOT__rdata[3U])) 
+                                             << 0x20U) 
+                                            | (QData)((IData)(
+                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV__DOT__rdata[2U])))
+                                         : 0ULL) | 
+                                       ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                         ? (((QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_1__DOT__rdata[3U])) 
+                                             << 0x20U) 
+                                            | (QData)((IData)(
+                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_1__DOT__rdata[2U])))
+                                         : 0ULL)) | 
+                                      ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                        ? (((QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_2__DOT__rdata[3U])) 
+                                            << 0x20U) 
+                                           | (QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_2__DOT__rdata[2U])))
+                                        : 0ULL)) | 
+                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
+                                       ? (((QData)((IData)(
+                                                           vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_3__DOT__rdata[3U])) 
+                                           << 0x20U) 
+                                          | (QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_3__DOT__rdata[2U])))
+                                       : 0ULL))),64);
+        tracep->fullCData(oldp+337,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__hit_array),4);
+        tracep->fullCData(oldp+338,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H),4);
+        tracep->fullCData(oldp+339,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H),4);
+        tracep->fullBit(oldp+340,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en));
+        tracep->fullCData(oldp+341,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way),2);
+        tracep->fullCData(oldp+342,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_index),5);
+        tracep->fullBit(oldp+343,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_wr));
+        tracep->fullIData(oldp+344,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_tag),23);
+        tracep->fullQData(oldp+345,(((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__state))
+                                      ? ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_offset))
+                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0
+                                          : ((vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0 
+                                              & (~ vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cpu_word_mask)) 
+                                             | vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___masked_refill_data_1_T_2))
+                                      : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cnt)
+                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0
+                                          : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__refill_hit)
+                                              ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___masked_refill_data_0_T_3
+                                              : vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_ret_rdata)))),64);
+        tracep->fullQData(oldp+347,(((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__state))
+                                      ? ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_offset))
+                                          ? ((vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1 
+                                              & (~ vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cpu_word_mask)) 
+                                             | vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___masked_refill_data_1_T_2)
+                                          : vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1)
+                                      : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cnt)
+                                          ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__refill_hit)
+                                              ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___masked_refill_data_0_T_3
+                                              : vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_ret_rdata)
+                                          : vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1))),64);
+        tracep->fullBit(oldp+349,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__s3_valid));
+        tracep->fullQData(oldp+350,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_wdata),64);
+        tracep->fullCData(oldp+352,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_wstrb),8);
+        tracep->fullCData(oldp+353,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_offset),4);
+        tracep->fullBit(oldp+354,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_hit));
+        tracep->fullBit(oldp+355,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_valid));
+        tracep->fullBit(oldp+356,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_dirty));
+        tracep->fullIData(oldp+357,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_tag),23);
+        tracep->fullQData(oldp+358,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0),64);
+        tracep->fullQData(oldp+360,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1),64);
+        tracep->fullCData(oldp+362,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__state),6);
+        tracep->fullBit(oldp+363,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cnt));
+        tracep->fullQData(oldp+364,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cpu_word_mask),64);
+        tracep->fullBit(oldp+366,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__hit));
+        tracep->fullBit(oldp+367,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__wb_en));
+        tracep->fullBit(oldp+368,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__burst_last));
+        tracep->fullBit(oldp+369,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__refill_hit));
+        tracep->fullBit(oldp+370,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__unnamedblk1__DOT__refill_come));
+        tracep->fullBit(oldp+371,((1U & (~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en) 
+                                            & (0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)))))));
+        tracep->fullBit(oldp+372,((1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24)))));
+        tracep->fullCData(oldp+373,((0x1fU & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en)
                                                ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_index)
                                                : (IData)(
                                                          (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_req_bits_addr_T_2 
@@ -1969,170 +2132,8 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                            : vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_ret_rdata)
                                        : vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1)) 
                                  >> 0x20U));
-        tracep->fullWData(oldp+315,(__Vtemp71),128);
-        tracep->fullBit(oldp+319,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT___io_s1_to_s2_ready_T_2));
-        tracep->fullCData(oldp+320,((0x1fU & (IData)(
-                                                     (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_req_bits_addr_T_2 
-                                                      >> 4U)))),5);
-        tracep->fullIData(oldp+321,((0x7fffffU & (IData)(
-                                                         (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_req_bits_addr_T_2 
-                                                          >> 9U)))),23);
-        tracep->fullCData(oldp+322,((0xfU & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_req_bits_addr_T_2))),4);
-        tracep->fullBit(oldp+323,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___io_s2_to_s3_ready_T_1));
-        tracep->fullBit(oldp+324,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__s2_valid));
-        tracep->fullBit(oldp+325,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_wr));
-        tracep->fullQData(oldp+326,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_wdata),64);
-        tracep->fullCData(oldp+328,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_wstrb),8);
-        tracep->fullBit(oldp+329,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_mthrough));
-        tracep->fullIData(oldp+330,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_tag),23);
-        tracep->fullCData(oldp+331,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_index),5);
-        tracep->fullCData(oldp+332,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_offset),4);
-        tracep->fullBit(oldp+333,((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__hit_array))));
-        tracep->fullCData(oldp+334,((((IData)((0U != 
-                                               (3U 
-                                                & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
-                                                   >> 2U)))) 
-                                      << 1U) | (IData)(
-                                                       (0U 
-                                                        != 
-                                                        (0xaU 
-                                                         & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H)))))),2);
-        tracep->fullBit(oldp+335,((((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
-                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_0_valid)) 
-                                     | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
-                                         >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_1_valid))) 
-                                    | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
-                                        >> 2U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_2_valid))) 
-                                   | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
-                                       >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_valid)))));
-        tracep->fullBit(oldp+336,((((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
-                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_0_dirty)) 
-                                     | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
-                                         >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_1_dirty))) 
-                                    | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
-                                        >> 2U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_2_dirty))) 
-                                   | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H) 
-                                       >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_dirty)))));
-        tracep->fullIData(oldp+337,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                         ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_0_tag
-                                         : 0U) | ((2U 
-                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                                   ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_1_tag
-                                                   : 0U)) 
-                                      | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_2_tag
-                                          : 0U)) | 
-                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                       ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_tag
-                                       : 0U))),23);
-        tracep->fullQData(oldp+338,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                         ? (((QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV__DOT__rdata[1U])) 
-                                             << 0x20U) 
-                                            | (QData)((IData)(
-                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV__DOT__rdata[0U])))
-                                         : 0ULL) | 
-                                       ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                         ? (((QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_1__DOT__rdata[1U])) 
-                                             << 0x20U) 
-                                            | (QData)((IData)(
-                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_1__DOT__rdata[0U])))
-                                         : 0ULL)) | 
-                                      ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                        ? (((QData)((IData)(
-                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_2__DOT__rdata[1U])) 
-                                            << 0x20U) 
-                                           | (QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_2__DOT__rdata[0U])))
-                                        : 0ULL)) | 
-                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                       ? (((QData)((IData)(
-                                                           vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_3__DOT__rdata[1U])) 
-                                           << 0x20U) 
-                                          | (QData)((IData)(
-                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_3__DOT__rdata[0U])))
-                                       : 0ULL))),64);
-        tracep->fullQData(oldp+340,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                         ? (((QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV__DOT__rdata[3U])) 
-                                             << 0x20U) 
-                                            | (QData)((IData)(
-                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV__DOT__rdata[2U])))
-                                         : 0ULL) | 
-                                       ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                         ? (((QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_1__DOT__rdata[3U])) 
-                                             << 0x20U) 
-                                            | (QData)((IData)(
-                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_1__DOT__rdata[2U])))
-                                         : 0ULL)) | 
-                                      ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                        ? (((QData)((IData)(
-                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_2__DOT__rdata[3U])) 
-                                            << 0x20U) 
-                                           | (QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_2__DOT__rdata[2U])))
-                                        : 0ULL)) | 
-                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H))
-                                       ? (((QData)((IData)(
-                                                           vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_3__DOT__rdata[3U])) 
-                                           << 0x20U) 
-                                          | (QData)((IData)(
-                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_3__DOT__rdata[2U])))
-                                       : 0ULL))),64);
-        tracep->fullCData(oldp+342,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__hit_array),4);
-        tracep->fullCData(oldp+343,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__replace1H),4);
-        tracep->fullCData(oldp+344,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__target_way1H),4);
-        tracep->fullBit(oldp+345,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en));
-        tracep->fullCData(oldp+346,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way),2);
-        tracep->fullCData(oldp+347,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_index),5);
-        tracep->fullBit(oldp+348,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_wr));
-        tracep->fullIData(oldp+349,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_tag),23);
-        tracep->fullQData(oldp+350,(((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__state))
-                                      ? ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_offset))
-                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0
-                                          : ((vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0 
-                                              & (~ vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cpu_word_mask)) 
-                                             | vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___masked_refill_data_1_T_2))
-                                      : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cnt)
-                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0
-                                          : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__refill_hit)
-                                              ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___masked_refill_data_0_T_3
-                                              : vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_ret_rdata)))),64);
-        tracep->fullQData(oldp+352,(((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__state))
-                                      ? ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_offset))
-                                          ? ((vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1 
-                                              & (~ vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cpu_word_mask)) 
-                                             | vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___masked_refill_data_1_T_2)
-                                          : vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1)
-                                      : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cnt)
-                                          ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__refill_hit)
-                                              ? vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___masked_refill_data_0_T_3
-                                              : vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge0_io_in_ret_rdata)
-                                          : vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1))),64);
-        tracep->fullBit(oldp+354,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__s3_valid));
-        tracep->fullQData(oldp+355,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_wdata),64);
-        tracep->fullCData(oldp+357,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_wstrb),8);
-        tracep->fullCData(oldp+358,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_offset),4);
-        tracep->fullBit(oldp+359,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_hit));
-        tracep->fullBit(oldp+360,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_valid));
-        tracep->fullBit(oldp+361,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_dirty));
-        tracep->fullIData(oldp+362,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_tag),23);
-        tracep->fullQData(oldp+363,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0),64);
-        tracep->fullQData(oldp+365,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1),64);
-        tracep->fullCData(oldp+367,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__state),6);
-        tracep->fullBit(oldp+368,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cnt));
-        tracep->fullQData(oldp+369,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cpu_word_mask),64);
-        tracep->fullBit(oldp+371,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__hit));
-        tracep->fullBit(oldp+372,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__wb_en));
-        tracep->fullBit(oldp+373,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__burst_last));
-        tracep->fullBit(oldp+374,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__refill_hit));
-        tracep->fullBit(oldp+375,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__unnamedblk1__DOT__refill_come));
-        tracep->fullBit(oldp+376,((1U & (~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en) 
-                                            & (0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)))))));
-        tracep->fullBit(oldp+377,((1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_18)))));
-        tracep->fullBit(oldp+378,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_18));
+        tracep->fullWData(oldp+374,(__Vtemp71),128);
+        tracep->fullBit(oldp+378,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24));
         tracep->fullBit(oldp+379,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en) 
                                    & (0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)))));
         tracep->fullBit(oldp+380,((1U & (~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en) 
@@ -2149,16 +2150,16 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                    & (3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)))));
         tracep->fullBit(oldp+386,((((0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)) 
                                     | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en))) 
-                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_18))));
+                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24))));
         tracep->fullBit(oldp+387,((((1U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)) 
                                     | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en))) 
-                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_18))));
+                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24))));
         tracep->fullBit(oldp+388,((((2U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)) 
                                     | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en))) 
-                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_18))));
+                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24))));
         tracep->fullBit(oldp+389,((((3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)) 
                                     | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en))) 
-                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_18))));
+                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24))));
         tracep->fullBit(oldp+390,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_0_valid));
         tracep->fullBit(oldp+391,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_0_dirty));
         tracep->fullIData(oldp+392,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_0_tag),23);
@@ -2171,7 +2172,172 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->fullBit(oldp+399,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_valid));
         tracep->fullBit(oldp+400,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_dirty));
         tracep->fullIData(oldp+401,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_tag),23);
-        tracep->fullCData(oldp+402,((0x1fU & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en)
+        tracep->fullBit(oldp+402,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT___io_s1_to_s2_ready_T_2));
+        tracep->fullCData(oldp+403,((0x1fU & (IData)(
+                                                     (vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
+                                                      >> 4U)))),5);
+        tracep->fullIData(oldp+404,((0x7fffffU & (IData)(
+                                                         (vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
+                                                          >> 9U)))),23);
+        tracep->fullCData(oldp+405,((8U & ((IData)(
+                                                   (vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
+                                                    >> 3U)) 
+                                           << 3U))),4);
+        tracep->fullBit(oldp+406,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_s2_to_s3_ready_T_1));
+        tracep->fullBit(oldp+407,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__s2_valid));
+        tracep->fullBit(oldp+408,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_wr));
+        tracep->fullQData(oldp+409,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_wdata),64);
+        tracep->fullCData(oldp+411,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_wstrb),8);
+        tracep->fullBit(oldp+412,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_mthrough));
+        tracep->fullIData(oldp+413,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_tag),23);
+        tracep->fullCData(oldp+414,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_index),5);
+        tracep->fullCData(oldp+415,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_offset),4);
+        tracep->fullBit(oldp+416,((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__hit_array))));
+        tracep->fullCData(oldp+417,((((IData)((0U != 
+                                               (3U 
+                                                & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
+                                                   >> 2U)))) 
+                                      << 1U) | (IData)(
+                                                       (0U 
+                                                        != 
+                                                        (0xaU 
+                                                         & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H)))))),2);
+        tracep->fullBit(oldp+418,((((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
+                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_0_valid)) 
+                                     | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
+                                         >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_1_valid))) 
+                                    | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
+                                        >> 2U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_2_valid))) 
+                                   | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
+                                       >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_valid)))));
+        tracep->fullBit(oldp+419,((((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
+                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_0_dirty)) 
+                                     | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
+                                         >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_1_dirty))) 
+                                    | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
+                                        >> 2U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_2_dirty))) 
+                                   | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
+                                       >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_dirty)))));
+        tracep->fullIData(oldp+420,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                         ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_0_tag
+                                         : 0U) | ((2U 
+                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                                   ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_1_tag
+                                                   : 0U)) 
+                                      | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_2_tag
+                                          : 0U)) | 
+                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                       ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_tag
+                                       : 0U))),23);
+        tracep->fullQData(oldp+421,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                         ? (((QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV__DOT__rdata[1U])) 
+                                             << 0x20U) 
+                                            | (QData)((IData)(
+                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV__DOT__rdata[0U])))
+                                         : 0ULL) | 
+                                       ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                         ? (((QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_1__DOT__rdata[1U])) 
+                                             << 0x20U) 
+                                            | (QData)((IData)(
+                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_1__DOT__rdata[0U])))
+                                         : 0ULL)) | 
+                                      ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                        ? (((QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_2__DOT__rdata[1U])) 
+                                            << 0x20U) 
+                                           | (QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_2__DOT__rdata[0U])))
+                                        : 0ULL)) | 
+                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                       ? (((QData)((IData)(
+                                                           vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_3__DOT__rdata[1U])) 
+                                           << 0x20U) 
+                                          | (QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_3__DOT__rdata[0U])))
+                                       : 0ULL))),64);
+        tracep->fullQData(oldp+423,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                         ? (((QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV__DOT__rdata[3U])) 
+                                             << 0x20U) 
+                                            | (QData)((IData)(
+                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV__DOT__rdata[2U])))
+                                         : 0ULL) | 
+                                       ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                         ? (((QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_1__DOT__rdata[3U])) 
+                                             << 0x20U) 
+                                            | (QData)((IData)(
+                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_1__DOT__rdata[2U])))
+                                         : 0ULL)) | 
+                                      ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                        ? (((QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_2__DOT__rdata[3U])) 
+                                            << 0x20U) 
+                                           | (QData)((IData)(
+                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_2__DOT__rdata[2U])))
+                                        : 0ULL)) | 
+                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
+                                       ? (((QData)((IData)(
+                                                           vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_3__DOT__rdata[3U])) 
+                                           << 0x20U) 
+                                          | (QData)((IData)(
+                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_3__DOT__rdata[2U])))
+                                       : 0ULL))),64);
+        tracep->fullCData(oldp+425,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__hit_array),4);
+        tracep->fullCData(oldp+426,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__replace1H),4);
+        tracep->fullCData(oldp+427,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H),4);
+        tracep->fullBit(oldp+428,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en));
+        tracep->fullCData(oldp+429,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way),2);
+        tracep->fullCData(oldp+430,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_index),5);
+        tracep->fullBit(oldp+431,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wr));
+        tracep->fullIData(oldp+432,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_tag),23);
+        tracep->fullQData(oldp+433,(((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state))
+                                      ? ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset))
+                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0
+                                          : ((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0 
+                                              & (~ vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cpu_word_mask)) 
+                                             | vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_2))
+                                      : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cnt)
+                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0
+                                          : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit)
+                                              ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_0_T_3
+                                              : vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_ret_rdata)))),64);
+        tracep->fullQData(oldp+435,(((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state))
+                                      ? ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset))
+                                          ? ((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1 
+                                              & (~ vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cpu_word_mask)) 
+                                             | vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_2)
+                                          : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1)
+                                      : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cnt)
+                                          ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit)
+                                              ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_0_T_3
+                                              : vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_ret_rdata)
+                                          : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1))),64);
+        tracep->fullBit(oldp+437,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__s3_valid));
+        tracep->fullQData(oldp+438,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata),64);
+        tracep->fullCData(oldp+440,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wstrb),8);
+        tracep->fullCData(oldp+441,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset),4);
+        tracep->fullBit(oldp+442,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_hit));
+        tracep->fullBit(oldp+443,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_valid));
+        tracep->fullBit(oldp+444,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_dirty));
+        tracep->fullIData(oldp+445,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_tag),23);
+        tracep->fullQData(oldp+446,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0),64);
+        tracep->fullQData(oldp+448,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1),64);
+        tracep->fullCData(oldp+450,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state),6);
+        tracep->fullBit(oldp+451,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cnt));
+        tracep->fullQData(oldp+452,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cpu_word_mask),64);
+        tracep->fullBit(oldp+454,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__hit));
+        tracep->fullBit(oldp+455,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__wb_en));
+        tracep->fullBit(oldp+456,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__burst_last));
+        tracep->fullBit(oldp+457,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit));
+        tracep->fullBit(oldp+458,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__unnamedblk1__DOT__refill_come));
+        tracep->fullBit(oldp+459,((1U & (~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en) 
+                                            & (0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)))))));
+        tracep->fullBit(oldp+460,((1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24)))));
+        tracep->fullCData(oldp+461,((0x1fU & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en)
                                                ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_index)
                                                : (IData)(
                                                          (vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
@@ -2207,7 +2373,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                       : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1)
                                   : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cnt)
                                       ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit)
-                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_3
+                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_0_T_3
                                           : vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_ret_rdata)
                                       : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1)));
         __Vtemp72[3U] = (IData)((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state))
@@ -2218,177 +2384,12 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                        : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1)
                                    : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cnt)
                                        ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit)
-                                           ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_3
+                                           ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_0_T_3
                                            : vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_ret_rdata)
                                        : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1)) 
                                  >> 0x20U));
-        tracep->fullWData(oldp+403,(__Vtemp72),128);
-        tracep->fullBit(oldp+407,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT___io_s1_to_s2_ready_T_2));
-        tracep->fullCData(oldp+408,((0x1fU & (IData)(
-                                                     (vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
-                                                      >> 4U)))),5);
-        tracep->fullIData(oldp+409,((0x7fffffU & (IData)(
-                                                         (vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
-                                                          >> 9U)))),23);
-        tracep->fullCData(oldp+410,((8U & ((IData)(
-                                                   (vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
-                                                    >> 3U)) 
-                                           << 3U))),4);
-        tracep->fullBit(oldp+411,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_s2_to_s3_ready_T_1));
-        tracep->fullBit(oldp+412,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__s2_valid));
-        tracep->fullBit(oldp+413,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_wr));
-        tracep->fullQData(oldp+414,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_wdata),64);
-        tracep->fullCData(oldp+416,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_wstrb),8);
-        tracep->fullBit(oldp+417,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_mthrough));
-        tracep->fullIData(oldp+418,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_tag),23);
-        tracep->fullCData(oldp+419,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_index),5);
-        tracep->fullCData(oldp+420,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_offset),4);
-        tracep->fullBit(oldp+421,((0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__hit_array))));
-        tracep->fullCData(oldp+422,((((IData)((0U != 
-                                               (3U 
-                                                & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
-                                                   >> 2U)))) 
-                                      << 1U) | (IData)(
-                                                       (0U 
-                                                        != 
-                                                        (0xaU 
-                                                         & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H)))))),2);
-        tracep->fullBit(oldp+423,((((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
-                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_0_valid)) 
-                                     | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
-                                         >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_1_valid))) 
-                                    | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
-                                        >> 2U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_2_valid))) 
-                                   | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
-                                       >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_valid)))));
-        tracep->fullBit(oldp+424,((((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
-                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_0_dirty)) 
-                                     | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
-                                         >> 1U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_1_dirty))) 
-                                    | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
-                                        >> 2U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_2_dirty))) 
-                                   | (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H) 
-                                       >> 3U) & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_dirty)))));
-        tracep->fullIData(oldp+425,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                         ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_0_tag
-                                         : 0U) | ((2U 
-                                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                                   ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_1_tag
-                                                   : 0U)) 
-                                      | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_2_tag
-                                          : 0U)) | 
-                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                       ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_tag
-                                       : 0U))),23);
-        tracep->fullQData(oldp+426,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                         ? (((QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV__DOT__rdata[1U])) 
-                                             << 0x20U) 
-                                            | (QData)((IData)(
-                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV__DOT__rdata[0U])))
-                                         : 0ULL) | 
-                                       ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                         ? (((QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_1__DOT__rdata[1U])) 
-                                             << 0x20U) 
-                                            | (QData)((IData)(
-                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_1__DOT__rdata[0U])))
-                                         : 0ULL)) | 
-                                      ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                        ? (((QData)((IData)(
-                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_2__DOT__rdata[1U])) 
-                                            << 0x20U) 
-                                           | (QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_2__DOT__rdata[0U])))
-                                        : 0ULL)) | 
-                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                       ? (((QData)((IData)(
-                                                           vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_3__DOT__rdata[1U])) 
-                                           << 0x20U) 
-                                          | (QData)((IData)(
-                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_3__DOT__rdata[0U])))
-                                       : 0ULL))),64);
-        tracep->fullQData(oldp+428,((((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                         ? (((QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV__DOT__rdata[3U])) 
-                                             << 0x20U) 
-                                            | (QData)((IData)(
-                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV__DOT__rdata[2U])))
-                                         : 0ULL) | 
-                                       ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                         ? (((QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_1__DOT__rdata[3U])) 
-                                             << 0x20U) 
-                                            | (QData)((IData)(
-                                                              vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_1__DOT__rdata[2U])))
-                                         : 0ULL)) | 
-                                      ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                        ? (((QData)((IData)(
-                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_2__DOT__rdata[3U])) 
-                                            << 0x20U) 
-                                           | (QData)((IData)(
-                                                             vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_2__DOT__rdata[2U])))
-                                        : 0ULL)) | 
-                                     ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H))
-                                       ? (((QData)((IData)(
-                                                           vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_3__DOT__rdata[3U])) 
-                                           << 0x20U) 
-                                          | (QData)((IData)(
-                                                            vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_3__DOT__rdata[2U])))
-                                       : 0ULL))),64);
-        tracep->fullCData(oldp+430,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__hit_array),4);
-        tracep->fullCData(oldp+431,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__replace1H),4);
-        tracep->fullCData(oldp+432,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__target_way1H),4);
-        tracep->fullBit(oldp+433,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en));
-        tracep->fullCData(oldp+434,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way),2);
-        tracep->fullCData(oldp+435,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_index),5);
-        tracep->fullBit(oldp+436,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wr));
-        tracep->fullIData(oldp+437,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_tag),23);
-        tracep->fullQData(oldp+438,(((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state))
-                                      ? ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset))
-                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0
-                                          : ((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0 
-                                              & (~ vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cpu_word_mask)) 
-                                             | vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_2))
-                                      : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cnt)
-                                          ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0
-                                          : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit)
-                                              ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_0_T_3
-                                              : vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_ret_rdata)))),64);
-        tracep->fullQData(oldp+440,(((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state))
-                                      ? ((8U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset))
-                                          ? ((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1 
-                                              & (~ vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cpu_word_mask)) 
-                                             | vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_2)
-                                          : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1)
-                                      : ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cnt)
-                                          ? ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit)
-                                              ? vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_3
-                                              : vlSelf->SimTop__DOT__my_core_top__DOT___my_axi_bridge1_io_in_ret_rdata)
-                                          : vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1))),64);
-        tracep->fullBit(oldp+442,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__s3_valid));
-        tracep->fullQData(oldp+443,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata),64);
-        tracep->fullCData(oldp+445,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wstrb),8);
-        tracep->fullCData(oldp+446,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_offset),4);
-        tracep->fullBit(oldp+447,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_hit));
-        tracep->fullBit(oldp+448,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_valid));
-        tracep->fullBit(oldp+449,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_dirty));
-        tracep->fullIData(oldp+450,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_tag),23);
-        tracep->fullQData(oldp+451,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0),64);
-        tracep->fullQData(oldp+453,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1),64);
-        tracep->fullCData(oldp+455,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__state),6);
-        tracep->fullBit(oldp+456,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cnt));
-        tracep->fullQData(oldp+457,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cpu_word_mask),64);
-        tracep->fullBit(oldp+459,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__hit));
-        tracep->fullBit(oldp+460,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__wb_en));
-        tracep->fullBit(oldp+461,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__burst_last));
-        tracep->fullBit(oldp+462,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit));
-        tracep->fullBit(oldp+463,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__unnamedblk1__DOT__refill_come));
-        tracep->fullBit(oldp+464,((1U & (~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en) 
-                                            & (0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)))))));
-        tracep->fullBit(oldp+465,((1U & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_18)))));
-        tracep->fullBit(oldp+466,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_18));
+        tracep->fullWData(oldp+462,(__Vtemp72),128);
+        tracep->fullBit(oldp+466,(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24));
         tracep->fullBit(oldp+467,(((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en) 
                                    & (0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)))));
         tracep->fullBit(oldp+468,((1U & (~ ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en) 
@@ -2405,16 +2406,16 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                    & (3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)))));
         tracep->fullBit(oldp+474,((((0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)) 
                                     | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en))) 
-                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_18))));
+                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24))));
         tracep->fullBit(oldp+475,((((1U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)) 
                                     | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en))) 
-                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_18))));
+                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24))));
         tracep->fullBit(oldp+476,((((2U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)) 
                                     | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en))) 
-                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_18))));
+                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24))));
         tracep->fullBit(oldp+477,((((3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)) 
                                     | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en))) 
-                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_18))));
+                                   & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24))));
         tracep->fullQData(oldp+478,(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime),64);
         tracep->fullQData(oldp+480,(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp),64);
         tracep->fullBit(oldp+482,((0xbff8ULL == vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_addr)));
@@ -2544,16 +2545,16 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                                       vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_3__DOT__rdata[3U])) 
                                       << 0x20U) | (QData)((IData)(
                                                                   vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_3__DOT__rdata[2U])))),64);
-        __Vtemp73[0U] = 0xffffffffU;
-        __Vtemp73[1U] = 0xffffffffU;
-        __Vtemp73[2U] = 0xffffffffU;
-        __Vtemp73[3U] = 0xffffffffU;
+        __Vtemp73[0U] = 0U;
+        __Vtemp73[1U] = 0U;
+        __Vtemp73[2U] = 0U;
+        __Vtemp73[3U] = 0U;
         tracep->fullWData(oldp+556,(__Vtemp73),128);
         tracep->fullWData(oldp+560,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV__DOT__rdata),128);
-        __Vtemp74[0U] = 0U;
-        __Vtemp74[1U] = 0U;
-        __Vtemp74[2U] = 0U;
-        __Vtemp74[3U] = 0U;
+        __Vtemp74[0U] = 0xffffffffU;
+        __Vtemp74[1U] = 0xffffffffU;
+        __Vtemp74[2U] = 0xffffffffU;
+        __Vtemp74[3U] = 0xffffffffU;
         tracep->fullWData(oldp+564,(__Vtemp74),128);
         tracep->fullWData(oldp+568,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_1__DOT__rdata),128);
         tracep->fullWData(oldp+572,(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_2__DOT__rdata),128);
