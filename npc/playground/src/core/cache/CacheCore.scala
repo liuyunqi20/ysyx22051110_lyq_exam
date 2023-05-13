@@ -155,7 +155,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     // -------------------------------- Refill / Write Hit-------------------------------- 
 
     val refill_come   = (state(3) & io.mem_out.ret.valid) === 1.U
-    val refill_hit    = cnt === cpu_word_idx
+    val refill_hit    = (cnt === cpu_word_idx)
     val w_hit_wblock  = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     val mmio_wblock   = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     //refill and write hit (set new data in target_line.data)
@@ -224,5 +224,6 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx), 
                         Mux(state(4), io.mem_out.ret.rdata, write_line.data(cpu_word_idx)) )
     io.cpu.valid   := s3_valid && Mux(hit, 1.B, 
-                                    Mux(state(4), io.mem_out.ret.valid, state(3) & refill_hit) )
+                                    Mux(state(4), io.mem_out.ret.valid, 
+                                                  state(3) & refill_hit & io.mem_out.ret.valid) )
 }
