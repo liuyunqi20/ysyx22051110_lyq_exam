@@ -144,12 +144,12 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     }
     // -------------------------------- Hit --------------------------------
 
-    val hit         = (buf.hit === 1.U) && state(0)
+    val hit         = (buf.hit === 1.U) && state(0) && s3_valid
     val read_hit    = hit && (buf.wr === 0.U)
     val write_hit   = hit && (buf.wr === 1.U)
     // -------------------------------- Write Back --------------------------------
 
-    val wb_en       = buf.target_line.valid & buf.target_line.dirty & !hit & state(0)// need write back
+    val wb_en       = buf.target_line.valid & buf.target_line.dirty & !hit & state(0) && s3_valid// need write back
     val wb_addr     = Cat(0.U((config.w - config.cache_addr_w).W), buf.target_line.tag, buf.index, buf.offset)
     val burst_last  = io.mem_out.ret.valid && (state(1) === 1.U || io.mem_out.rlast)
     // -------------------------------- Refill / Write Hit-------------------------------- 
@@ -223,6 +223,6 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
 
     io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx), 
                         Mux(state(4), io.mem_out.ret.rdata, write_line.data(cpu_word_idx)) )
-    io.cpu.valid   := Mux(hit, 1.B, 
-                        Mux(state(4), io.mem_out.ret.valid, state(3) & refill_hit) )
+    io.cpu.valid   := s3_valid && Mux(hit, 1.B, 
+                                    Mux(state(4), io.mem_out.ret.valid, state(3) & refill_hit) )
 }
