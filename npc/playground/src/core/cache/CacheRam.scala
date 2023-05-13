@@ -49,6 +49,8 @@ class CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
     val hit_array  = Wire(Vec(nr_ways, Bool()))
     for( i <- 0 until nr_ways) {
         hit_array(i)         := io.way === i.U || io.wr === 0.U
+        cache_meta(i).clock  := clock
+        cache_meta(i).reset  := reset
         cache_meta(i).en     := hit_array(i) && io.en
         cache_meta(i).wr     := io.wr
         cache_meta(i).wvalid := io.in.valid
@@ -81,8 +83,8 @@ class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
         |   input [5 : 0] addr , input wvalid, input wdirty      ,
         |   input [22 : 0] wtag );
         |   reg [22 : 0] ram_tag[63 : 0];
-        |   reg ram_valid[63 : 0];
-        |   reg ram_dirty[63 : 0];
+        |   reg [63 : 0] ram_valid;
+        |   reg [63 : 0] ram_dirty;
         |   reg [22 : 0] rtag; 
         |   reg rvalid, rdirty;
         |   always @(posedge clock) begin
