@@ -53,6 +53,7 @@ class CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
         cache_meta(i).reset  := reset
         cache_meta(i).en     := hit_array(i) && io.en
         cache_meta(i).wr     := io.wr
+        cache_meta(i).addr   := io.index
         cache_meta(i).wvalid := io.in.valid
         cache_meta(i).wdirty := io.in.dirty
         cache_meta(i).wtag   := io.in.tag
