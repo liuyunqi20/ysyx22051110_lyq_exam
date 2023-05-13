@@ -170,9 +170,9 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     // -------------------------------- Burst counter --------------------------------
 
     val cnt_max = Fill(config.offset_width - log2Ceil(8), 1.U(1.W))
-    when((wb_en === 1.U) && io.mem_out.req.ready){ // when wb request ok
+    when((wb_en === 1.U) && io.mem_out.req.fire){ // when wb request ok
         cnt := 0.U
-    } .elsewhen((state(2) === 1.U) && io.mem_out.req.ready){ // when refill request ok
+    } .elsewhen((state(2) === 1.U || (state(0) && ~wb_en)) && io.mem_out.req.fire){ // when refill request ok
         cnt := cpu_word_idx //the request word will be transmitted first to accelerate
     } .elsewhen(io.mem_out.ret.valid){
         cnt := Mux(cnt === cnt_max, 0.U, cnt + 1.U)
@@ -224,5 +224,5 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx), 
                         Mux(state(4), io.mem_out.ret.rdata, write_line.data(cpu_word_idx)) )
     io.cpu.valid   := Mux(hit, 1.B, 
-                        Mux(state(4), io.mem_out.ret.valid, state(3) & burst_last) )
+                        Mux(state(4), io.mem_out.ret.valid, state(3) & refill_hit) )
 }
