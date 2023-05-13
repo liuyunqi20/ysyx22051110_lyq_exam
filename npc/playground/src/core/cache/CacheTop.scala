@@ -47,7 +47,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     val stage2 = Module(new CacheStage2(config))
     val stage3 = Module(new CacheStage3(config))
     val cache_data_addr_w = 6 //log2Ceil(data_ram_word_depth)
-    val meta_rd    = Wire(VecInit( Seq.fill(nr_ways) { new CacheMetaBundle(config.tag_width) } ))
+    val meta_rd    = Wire(Vec( nr_ways, new CacheMetaBundle(config.tag_width) ))
     val cache_data = Seq.fill(nr_ways){ Module(new CacheDataRamV()).io }
     /* reserved for meta ram in scala */
         // val cache_meta = Seq.fill(nr_ways) {
