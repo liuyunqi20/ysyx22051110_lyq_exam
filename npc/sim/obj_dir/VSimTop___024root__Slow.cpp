@@ -1450,14 +1450,14 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
         = ((IData)((0U != (0x30U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_decoder_io_inst_type))))
             ? 0U : (0x1fU & (vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst 
                              >> 0xfU)));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_31[0U] 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_27[0U] 
         = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___write_line_data_0_T_4);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_31[1U] 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_27[1U] 
         = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___write_line_data_0_T_4 
                    >> 0x20U));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_31[2U] 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_27[2U] 
         = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___write_line_data_1_T_4);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_31[3U] 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_27[3U] 
         = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___write_line_data_1_T_4 
                    >> 0x20U));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_icache_io_in_ret_rdata 
@@ -1501,14 +1501,14 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT___my_mmc_io_axi_out_req_valid 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_mem_out_req_valid_T_5) 
            & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_clint__DOT___io_in_clint_hit_T)));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_31[0U] 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_27[0U] 
         = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___write_line_data_0_T_4);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_31[1U] 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_27[1U] 
         = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___write_line_data_0_T_4 
                    >> 0x20U));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_31[2U] 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_27[2U] 
         = (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___write_line_data_1_T_4);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_31[3U] 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_27[3U] 
         = (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___write_line_data_1_T_4 
                    >> 0x20U));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_in_ret_rdata 
@@ -1578,7 +1578,7 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_wait_fs)
             ? vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_rdata_r
             : vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_in_ret_rdata);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_21 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage1__DOT___io_cpu_ready_T) 
            | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage1__DOT___io_cpu_ready_T 
@@ -1604,20 +1604,20 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV__en 
         = (((0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)) 
             | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en))) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24));
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_21));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_1__en 
         = (((1U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)) 
             | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en))) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24));
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_21));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_2__en 
         = (((2U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)) 
             | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en))) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24));
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_21));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_3__en 
         = (((3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)) 
             | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en))) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24 
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_21));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_21 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage1__DOT___io_cpu_ready_T) 
            | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_next_ok 
@@ -1714,19 +1714,19 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV__en 
         = (((0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)) 
             | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en))) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24));
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_21));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_1__en 
         = (((1U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)) 
             | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en))) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24));
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_21));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_2__en 
         = (((2U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)) 
             | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en))) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24));
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_21));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_3__en 
         = (((3U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_way)) 
             | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en))) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24));
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_21));
     vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we 
         = ((((((((0x37U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst)) 
                  | (0x17U == (0x7fU & vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__inst))) 
@@ -2157,7 +2157,7 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
                                              : 0U)) 
                     | (- (IData)((1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type) 
                                         >> 6U))))));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_30 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___GEN 
         = (0x1fU & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en)
                      ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_index)
                      : (IData)((vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result 
@@ -2249,7 +2249,7 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
                | ((0x40U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type))
                    ? vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__mrdata
                    : 0ULL)) : vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_ex2mem_result);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_30 
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___GEN 
         = (0x1fU & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en)
                      ? (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_index)
                      : (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_req_bits_addr_T_2 
@@ -2453,9 +2453,9 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__unnamedblk1__DOT___T_3 = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__unnamedblk1__DOT___T_4 = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en = VL_RAND_RESET_I(1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24 = VL_RAND_RESET_I(1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_30 = VL_RAND_RESET_I(6);
-    VL_RAND_RESET_W(128, vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_31);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___GEN = VL_RAND_RESET_I(5);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_21 = VL_RAND_RESET_I(1);
+    VL_RAND_RESET_W(128, vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_27);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRamV__WEN = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRamV_1__WEN = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRamV_2__WEN = VL_RAND_RESET_I(1);
@@ -2559,9 +2559,9 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV_3__DOT__rvalid = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV_3__DOT__rdirty = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___stage3_io_wt_en = VL_RAND_RESET_I(1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24 = VL_RAND_RESET_I(1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_30 = VL_RAND_RESET_I(6);
-    VL_RAND_RESET_W(128, vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_31);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___GEN = VL_RAND_RESET_I(5);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_21 = VL_RAND_RESET_I(1);
+    VL_RAND_RESET_W(128, vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_27);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT____Vcellinp__CacheDataRamV__WEN = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT____Vcellinp__CacheDataRamV_1__WEN = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT____Vcellinp__CacheDataRamV_2__WEN = VL_RAND_RESET_I(1);
