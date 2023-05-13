@@ -79,7 +79,7 @@ class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
      setInline("CacheMetaRamV.v",
      """module CacheMetaRamV(
         |   input clock        , input reset , input en, input wr,
-        |   input valid        , input dirty , input [22 : 0] tag,
+        |   output valid       , output dirty, output [22 : 0] tag,
         |   input [5 : 0] addr , input wvalid, input wdirty      ,
         |   input [22 : 0] wtag );
         |   reg [22 : 0] ram_tag[63 : 0];
