@@ -24,11 +24,12 @@ class CacheDataRamV extends BlackBox with HasBlackBoxInline{
         |   wire [127 : 0] bwen = ~BWEN;
         |   reg [127 : 0] ram[63 : 0];
         |   reg [127 : 0] rdata;
+        |   wire [127 : 0] wdata = (D & bwen) | (ram[A] & ~bwen);
         |   always @(posedge clock) begin
         |       if(cen && wen) begin
-        |           ram[A] <= (D & bwen) | (ram[A] & ~bwen);
+        |           ram[A] <= wdata;
         |       end
-        |       if(cen && !wen) begin
+        |       else if(cen && !wen) begin
         |           rdata <= ram[A];
         |       end
         |   end
