@@ -17,9 +17,9 @@ extern "C" {
     extern void catch_ebreak(int* i);
 
     // DPI IMPORTS
-    // DPI import at ../build/SimTop.v:3283:37
+    // DPI import at ../build/SimTop.v:3286:37
     extern void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long* rdata);
-    // DPI import at ../build/SimTop.v:3301:37
+    // DPI import at ../build/SimTop.v:3304:37
     extern void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wdata, char wmask);
     // DPI import at ../build/SimTop.v:3218:33
     extern void set_gpr_ptr(const svOpenArrayHandle a);
