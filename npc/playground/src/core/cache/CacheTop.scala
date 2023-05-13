@@ -78,16 +78,14 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     // ------------------------------------------- Data RAM -------------------------------------------
     val data_wt_addr = Cat(0.U((cache_data_addr_w - config.index_width).W), stage3.io.wt.index)
     val data_rd_addr = Cat(0.U((cache_data_addr_w - config.index_width).W), stage1.io.rd.index)
-    val data_addr    = Mux(stage3.io.wt.en, data_wt_addr, data_rd_addr)
-    val data_wdata   = stage3.io.wt.line.data.reverse.reduce((a, b) => Cat(a, b))
-    val data_sel     = Wire(Vec(nr_ways, Bool()))
+    val data_way_sel = Wire(Vec(nr_ways, Bool()))
     for( i <- 0 until nr_ways){
-        data_sel(i)        := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U) 
+        data_way_sel(i)    := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U) 
         cache_data(i).CEN  := ~(stage1.io.rd.en || stage3.io.wt.en)
         cache_data(i).WEN  := ~(stage3.io.wt.en && (stage3.io.wt.way === i.U))
-        cache_data(i).BWEN := Fill(128, 1.U)
-        cache_data(i).A    := data_addr
-        cache_data(i).D    := data_wdata
+        cache_data(i).BWEN := Fill(128, 0.U)
+        cache_data(i).A    := Mux(stage3.io.wt.en, data_wt_addr, data_rd_addr)
+        cache_data(i).D    := stage3.io.wt.line.data.reverse.reduce((a, b) => Cat(a, b))
     }
     val s2_rd_lines = Wire(Vec(nr_ways, new CacheLineBundle(w, config.tag_width, config.block_word_n)))
     for( i <- 0 until nr_ways){
