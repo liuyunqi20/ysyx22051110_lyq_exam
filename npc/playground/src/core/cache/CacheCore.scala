@@ -131,7 +131,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val cpu_word_idx = buf.offset(config.offset_width - 1, log2Ceil(config.w / 8)) 
     val cpu_req_addr = Cat(0.U((config.w - config.cache_addr_w).W), buf.tag, buf.index, buf.offset)
     // -------------------------------- word select -------------------------------- 
-    
+
     val cpu_word_sel       = Wire(Vec(config.block_word_n, Bool()))
     val cpu_word_mask_vec  = Wire(Vec(config.w / 8, UInt(8.W)))
     for( i <- 0 until config.block_word_n) { cpu_word_sel(i) := cpu_word_idx === i.U}
@@ -205,9 +205,9 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     }
     // -------------------------------- state machine -------------------------------- 
     state := Mux1H(Seq(
-        /* IDLE       */ state(0) -> Mux(hit, Mux(buf.wr === 1.U, s_commit.U, s_idle.U), 
+        /* IDLE       */ state(0) -> Mux(hit, Mux(buf.wr === 1.U, s_commit.U, s_idle.U),
                                         Mux(!io.mem_out.req.fire, s_idle.U,
-                                            Mux(buf.mthrough === 1.U, s_mmio.U, 
+                                            Mux(buf.mthrough === 1.U, s_mmio.U,
                                                 Mux(wb_en === 1.U, s_wb.U, s_refill.U))
                                             )
                                         ),
