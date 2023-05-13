@@ -135,6 +135,7 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_valid;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_dirty;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_24;
+        CData/*5:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_30;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage1__DOT___io_cpu_ready_T;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__s2_valid;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_wr;
@@ -160,9 +161,9 @@ VL_MODULE(VSimTop___024root) {
         CData/*5:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__state;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cnt;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__hit;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__wb_en;
     };
     struct {
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__wb_en;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__burst_last;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__refill_hit;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___io_mem_out_req_valid_T_5;
@@ -198,6 +199,7 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_valid;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_dirty;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_24;
+        CData/*5:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_30;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage1__DOT___io_cpu_ready_T;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__s2_valid;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_wr;
@@ -225,10 +227,10 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__hit;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__wb_en;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__burst_last;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_mem_out_req_valid_T_5;
     };
     struct {
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__refill_hit;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_mem_out_req_valid_T_5;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__unnamedblk1__DOT___T;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__unnamedblk1__DOT__refill_come;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__unnamedblk1__DOT___state_T_14;
@@ -290,11 +292,12 @@ VL_MODULE(VSimTop___024root) {
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_1_tag;
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_2_tag;
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__meta_rd_3_tag;
+        VlWide<4>/*127:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT___T_31;
+    };
+    struct {
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_tag;
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_tag;
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_tag;
-    };
-    struct {
         VlWide<4>/*127:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV__DOT__rdata;
         VlWide<4>/*127:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_1__DOT__rdata;
         VlWide<4>/*127:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_2__DOT__rdata;
@@ -311,6 +314,7 @@ VL_MODULE(VSimTop___024root) {
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_1_tag;
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_2_tag;
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__meta_rd_3_tag;
+        VlWide<4>/*127:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT___T_31;
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_tag;
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_tag;
         IData/*22:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_tag;
@@ -355,25 +359,43 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mip;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mie;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT___csr_src_T_16;
+    };
+    struct {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__unnamedblk1__DOT___csr_res_T_7;
         QData/*59:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge0__DOT__wtag_r;
         QData/*59:0*/ SimTop__DOT__my_core_top__DOT__my_axi_bridge1__DOT__wtag_r;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage2__DOT__buf_wdata;
-    };
-    struct {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_wdata;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_0;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_line_data_1;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__cpu_word_mask;
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___masked_refill_data_1_T_2;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___masked_refill_data_0_T_3;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___write_line_data_0_T_4;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___write_line_data_1_T_4;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV__DOT__ram_valid;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV__DOT__ram_dirty;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV_1__DOT__ram_valid;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV_1__DOT__ram_dirty;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV_2__DOT__ram_valid;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV_2__DOT__ram_dirty;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV_3__DOT__ram_valid;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV_3__DOT__ram_dirty;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_wdata;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_wdata;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_0;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__buf_target_line_data_1;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT__cpu_word_mask;
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_1_T_2;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___masked_refill_data_0_T_3;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___write_line_data_0_T_4;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___write_line_data_1_T_4;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV__DOT__ram_valid;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV__DOT__ram_dirty;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_1__DOT__ram_valid;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_1__DOT__ram_dirty;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_2__DOT__ram_valid;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_2__DOT__ram_dirty;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_3__DOT__ram_valid;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_3__DOT__ram_dirty;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtime;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_clint__DOT__mtimecmp;
         QData/*63:0*/ SimTop__DOT__my_axi_sram__DOT___my_rmem_port_rdata;
@@ -384,10 +406,42 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__aw_buf_awaddr;
         QData/*63:0*/ SimTop__DOT__my_axi_sram__DOT__my_rmem_port__DOT__tmprdata;
         VlUnpacked<QData/*63:0*/, 32> SimTop__DOT__my_core_top__DOT__my_id__DOT__my_rf__DOT__my_gpr__DOT__reg_file;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_1__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_2__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> SimTop__DOT__my_core_top__DOT__my_icache__DOT__CacheDataRamV_3__DOT__ram;
+        VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV__DOT__ram_tag;
+        VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV_1__DOT__ram_tag;
+        VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV_2__DOT__ram_tag;
+        VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT__CacheMetaRamV_3__DOT__ram_tag;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_1__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_2__DOT__ram;
+        VlUnpacked<VlWide<4>/*127:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_3__DOT__ram;
+        VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV__DOT__ram_tag;
+        VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_1__DOT__ram_tag;
+        VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_2__DOT__ram_tag;
+        VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_3__DOT__ram_tag;
     };
 
     // LOCAL VARIABLES
     CData/*4:0*/ SimTop__DOT__my_core_top__DOT__my_id__DOT____Vcellinp__my_rf__io_raddr1;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRamV__WEN;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRamV_1__WEN;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRamV_2__WEN;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRamV_3__WEN;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV__en;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_1__en;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_2__en;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_3__en;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT____Vcellinp__CacheDataRamV__WEN;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT____Vcellinp__CacheDataRamV_1__WEN;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT____Vcellinp__CacheDataRamV_2__WEN;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT____Vcellinp__CacheDataRamV_3__WEN;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV__en;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_1__en;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_2__en;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV_3__en;
     CData/*0:0*/ __Vclklast__TOP__clock;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src2;
     QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT____Vcellinp__my_alu__io_src1;

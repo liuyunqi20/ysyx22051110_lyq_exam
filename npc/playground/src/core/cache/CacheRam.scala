@@ -99,6 +99,9 @@ class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
         |           rdirty <= ram_dirty[addr];
         |       end
         |   end
+        |   assign valid = rvalid;
+        |   assign dirty = rdirty;
+        |   assign tag   = rtag;
         |endmodule
      """.stripMargin)
 }
