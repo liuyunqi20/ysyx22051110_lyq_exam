@@ -204,7 +204,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     write_line.valid := 1.B
     write_line.dirty := buf.wr
     write_line.tag   := buf.tag
-    val write_line_sel = Wire(Vec(config.block_word_n, UInt(3.W)))
+    val write_line_sel = Seq.fill(config.block_word_n) { Wire(Vec(3, Bool())) } 
     
     for( i <- 0 until config.block_word_n) {
         //write hit not target word / write and read refill is already buffered to reg
