@@ -128,6 +128,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val state        = RegInit(s_idle.U(nr_state.W))
     val cnt          = RegInit(0.U(log2Ceil(config.block_word_n).W))
     val cnt_hit      = Wire(UInt(3.W)) //current cnt word index
+    val write_line = Wire(new CacheLineBundle(config.w, config.tag_width, config.block_word_n))
     //when write back, use word counter( buf.offset() is word-align ) 
     val cpu_word_idx = buf.offset(config.offset_width - 1, log2Ceil(config.w / 8)) 
     val cpu_req_addr = Cat(0.U((config.w - config.cache_addr_w).W), buf.tag, buf.index, buf.offset)
@@ -162,7 +163,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     for( i <- 0 until config.block_word_n){
         //when refill, cover word with data or 
         when(refill_come && cnt_hit(i)) {
-            buf.target_line.data(i) := Mux(refill_whit, masked_wtline_data(i), io.mem_out.ret.rdata)
+            buf.target_line.data(i) := write_line.data(i)
         }
     }
     // -------------------------------- Burst counter --------------------------------
@@ -195,7 +196,6 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     
     // -------------------------------- write to cache line --------------------------------
 
-    val write_line = Wire(new CacheLineBundle(config.w, config.tag_width, config.block_word_n))
     io.wt.en    := s3_valid & ((state(0) & write_hit) | (state(3) & burst_last))
     io.wt.way   := buf.target_way
     io.wt.index := buf.index
@@ -206,13 +206,17 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val write_line_sel = Wire(Vec(config.block_word_n, UInt(3.W)))
     
     for( i <- 0 until config.block_word_n) {
-        write_line_sel(i)(0) := (state(0) && ~cpu_word_sel(i)) || (state(3) && ~cnt_hit(i))
-        write_line_sel(i)(1) := state(3) && cnt_hit(i) && ~cpu_word_sel(i)
-        write_line_sel(i)(2) := (state(0) && cpu_word_sel(i)) || (state(3) && cnt_hit(i) && cpu_word_sel(i))
+        //write hit not target word / write and read refill is already buffered to reg
+        write_line_sel(i)(0) := (write_hit && ~cpu_word_sel(i)) || (state(3) && ~cnt_hit(i))
+        //read refill not buffered word
+        write_line_sel(i)(1) := state(3) && cnt_hit(i) && buf.wr === 0.U
+        //write hit target word / write refill target word
+        write_line_sel(i)(2) := (write_hit && cpu_word_sel(i)) || 
+                                (state(3) && cnt_hit(i) && cpu_word_sel(i) && buf.wr === 1.U)
         write_line.data(i) := Mux1H(Seq(
-            write_line(i)(0) -> buf.target_line.data(i),
-            write_line(i)(1) -> io.mem_out.ret.rdata,
-            write_line(i)(2) -> masked_wtline_data(i)
+            write_line_sel(i)(0) -> buf.target_line.data(i),
+            write_line_sel(i)(1) -> io.mem_out.ret.rdata,
+            write_line_sel(i)(2) -> masked_wtline_data(i)
         ))
     }
 
