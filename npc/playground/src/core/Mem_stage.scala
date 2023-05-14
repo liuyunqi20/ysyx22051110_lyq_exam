@@ -90,10 +90,10 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.data_mem.req.bits.wdata    := wdata
     io.data_mem.req.bits.wstrb    := wmask
     //use memory mapping unit to decide mtype
-    val mm                         = Module(new MemoryMappingUnit(w))
-    mm.io.addr_in                 := io.data_mem.req.bits.addr
-    io.data_mem.req.bits.mthrough := mm.io.mthrough
-    //io.data_mem.req.bits.mthrough := 1.B
+    // val mm                         = Module(new MemoryMappingUnit(w))
+    // mm.io.addr_in                 := io.data_mem.req.bits.addr
+    // io.data_mem.req.bits.mthrough := mm.io.mthrough
+    io.data_mem.req.bits.mthrough := 1.B
     // ------------------------ MSU wait FSU ------------------------ 
     when(has_trap){
         ms_wait_fs := 0.B

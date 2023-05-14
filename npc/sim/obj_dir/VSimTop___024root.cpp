@@ -2018,7 +2018,57 @@ VL_INLINE_OPT void VSimTop___024root___sequent__TOP__1(VSimTop___024root* vlSelf
     } else if (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage3__DOT___io_s2_to_s3_ready_T_1) 
                 & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_req_valid_T_1))) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_wdata 
-            = vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2;
+            = (((((1U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type))
+                   ? (((QData)((IData)((0xffU & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))) 
+                       << 0x38U) | (((QData)((IData)(
+                                                     (0xffU 
+                                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))) 
+                                     << 0x30U) | (((QData)((IData)(
+                                                                   (0xffU 
+                                                                    & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))) 
+                                                   << 0x28U) 
+                                                  | (((QData)((IData)(
+                                                                      (0xffU 
+                                                                       & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))) 
+                                                      << 0x20U) 
+                                                     | (((QData)((IData)(
+                                                                         (0xffU 
+                                                                          & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))) 
+                                                         << 0x18U) 
+                                                        | (((QData)((IData)(
+                                                                            (0xffU 
+                                                                             & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))) 
+                                                            << 0x10U) 
+                                                           | (((QData)((IData)(
+                                                                               (0xffU 
+                                                                                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))) 
+                                                               << 8U) 
+                                                              | (QData)((IData)(
+                                                                                (0xffU 
+                                                                                & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))))))))))
+                   : 0ULL) | ((2U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type))
+                               ? (((QData)((IData)(
+                                                   (0xffffU 
+                                                    & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))) 
+                                   << 0x30U) | (((QData)((IData)(
+                                                                 (0xffffU 
+                                                                  & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))) 
+                                                 << 0x20U) 
+                                                | (((QData)((IData)(
+                                                                    (0xffffU 
+                                                                     & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))) 
+                                                    << 0x10U) 
+                                                   | (QData)((IData)(
+                                                                     (0xffffU 
+                                                                      & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))))))
+                               : 0ULL)) | ((4U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type))
+                                            ? (((QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)) 
+                                                << 0x20U) 
+                                               | (QData)((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2)))
+                                            : 0ULL)) 
+               | ((0x40U & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_mem_type))
+                   ? vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2
+                   : 0ULL));
     }
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__my_core_top__DOT__my_dcache__DOT__stage2__DOT__buf_wr = 0U;
