@@ -197,7 +197,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     
     // -------------------------------- write to cache line --------------------------------
 
-    io.wt.en    := s3_valid & ((state(0) & write_hit) | (state(3) & cnt_hit(cpu_word_idx)))
+    io.wt.en    := s3_valid & ((state(0) & write_hit) | (state(3) & burst_last))
     io.wt.way   := buf.target_way
     io.wt.index := buf.index
     io.wt.line  := write_line
@@ -243,6 +243,5 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx), 
                         Mux(state(4), io.mem_out.ret.rdata, write_line.data(cpu_word_idx)) )
     io.cpu.valid   := s3_valid && Mux(hit, 1.B, 
-                                    Mux(state(4), io.mem_out.ret.valid, 
-                                                  state(3) & refill_whit & io.mem_out.ret.valid) )
+                                    Mux(state(4), io.mem_out.ret.valid, refill_whit & refill_come) )
 }
