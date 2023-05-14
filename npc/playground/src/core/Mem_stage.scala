@@ -55,6 +55,12 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         io.ex2mem.mem_type(2) -> wmask_w,   
         io.ex2mem.mem_type(6) -> "hff".U((w/8).W),
     ))
+    val wdata = Mux1H(Seq(
+        io.ex2mem.mem_type(0) -> Fill(w / 8 , io.ex2mem.mem_wdata(7,  0)), //b
+        io.ex2mem.mem_type(1) -> Fill(w / 16, io.ex2mem.mem_wdata(15, 0)), //h
+        io.ex2mem.mem_type(2) -> Fill(w / 32, io.ex2mem.mem_wdata(31, 0)), //w
+        io.ex2mem.mem_type(6) -> io.ex2mem.mem_wdata,                      //d
+    ))
     /*
     my_dmem_port.io.en     := io.ex2mem.mem_en && ~has_trap
     my_dmem_port.io.wr     := io.ex2mem.mem_wr
@@ -81,7 +87,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.data_mem.req.valid         := ms_mem_en && ms_state(0)
     io.data_mem.req.bits.wr       := io.ex2mem.mem_wr
     io.data_mem.req.bits.addr     := maddr
-    io.data_mem.req.bits.wdata    := io.ex2mem.mem_wdata
+    io.data_mem.req.bits.wdata    := wdata
     io.data_mem.req.bits.wstrb    := wmask
     //use memory mapping unit to decide mtype
     val mm                         = Module(new MemoryMappingUnit(w))
