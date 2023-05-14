@@ -127,7 +127,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     }
     val state        = RegInit(s_idle.U(nr_state.W))
     val cnt          = RegInit(0.U(log2Ceil(config.block_word_n).W))
-    val cnt_hit      = Wire(UInt(3.W)) //current cnt word index
+    val cnt_hit      = Wire(Vec(config.block_word_n, Bool())) //current cnt word index
     val write_line = Wire(new CacheLineBundle(config.w, config.tag_width, config.block_word_n))
     //when write back, use word counter( buf.offset() is word-align ) 
     val cpu_word_idx = buf.offset(config.offset_width - 1, log2Ceil(config.w / 8)) 
