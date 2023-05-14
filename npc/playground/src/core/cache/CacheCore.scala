@@ -197,7 +197,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     
     // -------------------------------- write to cache line --------------------------------
 
-    io.wt.en    := s3_valid & ((state(0) & write_hit) | (state(3) & burst_last))
+    io.wt.en    := s3_valid & ((state(0) & write_hit) | (state(3) & cnt_hit(cpu_word_idx)))
     io.wt.way   := buf.target_way
     io.wt.index := buf.index
     io.wt.line  := write_line
