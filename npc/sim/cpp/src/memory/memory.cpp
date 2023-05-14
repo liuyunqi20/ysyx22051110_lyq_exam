@@ -146,8 +146,8 @@ extern "C" void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wd
       if(wmask & (1 << i)){
         len +=1;
         vaddr_write((uint64_t)((uint8_t*)waddr + i), 1, temp_data);
-        temp_data = temp_data >> 8;
       }
+      temp_data = temp_data >> 8;
     }
 
 #ifdef MTRACE
