@@ -127,6 +127,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     }
     val state        = RegInit(s_idle.U(nr_state.W))
     val cnt          = RegInit(0.U(log2Ceil(config.block_word_n).W))
+    val cnt_hit      = Wire(UInt(3.W)) //current cnt word index
     //when write back, use word counter( buf.offset() is word-align ) 
     val cpu_word_idx = buf.offset(config.offset_width - 1, log2Ceil(config.w / 8)) 
     val cpu_req_addr = Cat(0.U((config.w - config.cache_addr_w).W), buf.tag, buf.index, buf.offset)
@@ -137,11 +138,11 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     for( i <- 0 until config.block_word_n) { cpu_word_sel(i) := cpu_word_idx === i.U}
     for( i <- 0 until (config.w / 8)) { cpu_word_mask_vec(i) := Mux(buf.wstrb(i) === 1.U, 0xff.U, 0.U)}
     val cpu_word_mask      = cpu_word_mask_vec.reverse.reduce((a, b) => Cat(a, b))
-    val masked_old_data    = Wire(Vec(config.block_word_n, UInt(config.w.W)))
-    val masked_refill_data = Wire(Vec(config.block_word_n, UInt(config.w.W)))
+    val masked_wtline_data = Wire(Vec(config.block_word_n, UInt(config.w.W)))
+    val wdata_src          = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     for( i <- 0 until config.block_word_n) {
-        masked_old_data(i)    := (buf.target_line.data(i) & ~cpu_word_mask) | (buf.wdata & cpu_word_mask)
-        masked_refill_data(i) := (io.mem_out.ret.rdata & ~cpu_word_mask) | (buf.wdata & cpu_word_mask)
+        wdata_src(i)          := (state(0), buf.target_line.data(i), io.mem_out.ret.rdata)
+        masked_wtline_data(i) := (wdata_src(i) & ~cpu_word_mask) | (buf.wdata & cpu_word_mask)
     }
     // -------------------------------- Hit --------------------------------
 
@@ -153,22 +154,19 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val wb_en       = buf.target_line.valid & buf.target_line.dirty & !hit & state(0) & s3_valid// need write back
     val wb_addr     = Cat(0.U((config.w - config.cache_addr_w).W), buf.target_line.tag, buf.index, buf.offset)
     val burst_last  = io.mem_out.ret.valid && (state(1) === 1.U || io.mem_out.rlast)
-    // -------------------------------- Refill / Write Hit-------------------------------- 
+    // -------------------------------- Refill -------------------------------- 
 
     val refill_come   = (state(3) & io.mem_out.ret.valid) === 1.U
-    val refill_hit    = (cnt === cpu_word_idx)
-    val w_hit_wblock  = Wire(Vec(config.block_word_n, UInt(config.w.W)))
-    val mmio_wblock   = Wire(Vec(config.block_word_n, UInt(config.w.W)))
+    val refill_whit   = cnt_hit(cpu_word_idx)
     //refill and write hit (set new data in target_line.data)
     for( i <- 0 until config.block_word_n){
-        w_hit_wblock(i)       := Mux(cpu_word_sel(i), masked_old_data(i), buf.target_line.data(i))
         //when refill, cover word with data or 
-        when(refill_come && (cnt === i.U)) {
-            buf.target_line.data(i) := Mux(refill_hit, masked_refill_data(i), io.mem_out.ret.rdata)
+        when(refill_come && cnt_hit(i)) {
+            buf.target_line.data(i) := Mux(refill_whit, masked_wtline_data(i), io.mem_out.ret.rdata)
         }
-        mmio_wblock(i) := Mux(cpu_word_sel(i), buf.wdata, 0.U)
     }
     // -------------------------------- Burst counter --------------------------------
+    for( i <- 0 until config.block_word_n) { cnt_hit(i) := cnt === i.U }
 
     val cnt_max = Fill(config.offset_width - log2Ceil(8), 1.U(1.W))
     when((wb_en === 1.U) && io.mem_out.req.fire){ // when wb request ok
@@ -188,6 +186,13 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     io.mem_out.req.bits.wstrb    := Mux(buf.mthrough === 1.U, buf.wstrb, Fill(((config.w) / 8), 1.U(1.W)))
     io.mem_out.req.bits.mthrough := buf.mthrough
 
+    // -------------------------------- mmio write --------------------------------
+
+    val mmio_wblock   = Wire(Vec(config.block_word_n, UInt(config.w.W)))
+    for( i <- 0 until config.block_word_n){
+        mmio_wblock(i) := Mux(cpu_word_sel(i), buf.wdata, 0.U)
+    }
+    
     // -------------------------------- write to cache line --------------------------------
 
     val write_line = Wire(new CacheLineBundle(config.w, config.tag_width, config.block_word_n))
@@ -198,11 +203,19 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     write_line.valid := 1.B
     write_line.dirty := buf.wr
     write_line.tag   := buf.tag
+    val write_line_sel = Wire(Vec(config.block_word_n, UInt(3.W)))
+    
     for( i <- 0 until config.block_word_n) {
-        write_line.data(i) := Mux(state(0), w_hit_wblock(i),  //when write hit
-                                Mux(cnt =/= i.U, buf.target_line.data(i), //refill but not last
-                                    Mux(refill_hit, masked_refill_data(i), io.mem_out.ret.rdata)))
+        write_line_sel(i)(0) := (state(0) && ~cpu_word_sel(i)) || (state(3) && ~cnt_hit(i))
+        write_line_sel(i)(1) := state(3) && cnt_hit(i) && ~cpu_word_sel(i)
+        write_line_sel(i)(2) := (state(0) && cpu_word_sel(i)) || (state(3) && cnt_hit(i) && cpu_word_sel(i))
+        write_line.data(i) := Mux1H(Seq(
+            write_line(i)(0) -> buf.target_line.data(i),
+            write_line(i)(1) -> io.mem_out.ret.rdata,
+            write_line(i)(2) -> masked_wtline_data(i)
+        ))
     }
+
     // -------------------------------- state machine -------------------------------- 
     state := Mux1H(Seq(
         /* IDLE       */ state(0) -> Mux(hit, Mux(buf.wr === 1.U, s_commit.U, s_idle.U),
@@ -226,5 +239,5 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
                         Mux(state(4), io.mem_out.ret.rdata, write_line.data(cpu_word_idx)) )
     io.cpu.valid   := s3_valid && Mux(hit, 1.B, 
                                     Mux(state(4), io.mem_out.ret.valid, 
-                                                  state(3) & refill_hit & io.mem_out.ret.valid) )
+                                                  state(3) & refill_whit & io.mem_out.ret.valid) )
 }
