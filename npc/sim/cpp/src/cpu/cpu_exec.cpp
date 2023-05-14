@@ -157,7 +157,7 @@ void execute(uint64_t step){
             break;
         }
         //printf("pc: %lx\n", cpu_pc);
-        //if(g_nr_step > 100) return;
+        if(g_nr_step > 300) return;
 #ifdef DEVICE
         device_update();
 #endif
