@@ -142,7 +142,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val masked_wtline_data = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     val wdata_src          = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     for( i <- 0 until config.block_word_n) {
-        wdata_src(i)          := (state(0), buf.target_line.data(i), io.mem_out.ret.rdata)
+        wdata_src(i)          := Mux(state(0), buf.target_line.data(i), io.mem_out.ret.rdata)
         masked_wtline_data(i) := (wdata_src(i) & ~cpu_word_mask) | (buf.wdata & cpu_word_mask)
     }
     // -------------------------------- Hit --------------------------------
