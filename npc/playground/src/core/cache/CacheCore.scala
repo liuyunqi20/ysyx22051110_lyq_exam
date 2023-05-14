@@ -128,7 +128,9 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val state        = RegInit(s_idle.U(nr_state.W))
     val cnt          = RegInit(0.U(log2Ceil(config.block_word_n).W))
     val cnt_hit      = Wire(Vec(config.block_word_n, Bool())) //current cnt word index
-    val write_line = Wire(new CacheLineBundle(config.w, config.tag_width, config.block_word_n))
+    //write data
+    val write_line   = Wire(new CacheLineBundle(config.w, config.tag_width, config.block_word_n))
+    val mmio_wblock  = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     //when write back, use word counter( buf.offset() is word-align ) 
     val cpu_word_idx = buf.offset(config.offset_width - 1, log2Ceil(config.w / 8)) 
     val cpu_req_addr = Cat(0.U((config.w - config.cache_addr_w).W), buf.tag, buf.index, buf.offset)
@@ -189,7 +191,6 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
 
     // -------------------------------- mmio write --------------------------------
 
-    val mmio_wblock   = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     for( i <- 0 until config.block_word_n){
         mmio_wblock(i) := Mux(cpu_word_sel(i), buf.wdata, 0.U)
     }
