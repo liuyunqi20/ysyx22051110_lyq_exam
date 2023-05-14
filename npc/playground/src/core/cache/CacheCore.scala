@@ -210,7 +210,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
         //write hit not target word / write and read refill is already buffered to reg
         write_line_sel(i)(0) := (write_hit && ~cpu_word_sel(i)) || (state(3) && ~cnt_hit(i))
         //read refill not buffered word
-        write_line_sel(i)(1) := state(3) && cnt_hit(i) && (buf.wr === 0.U || (buf === 1.U && cpu_word_sel(i)))
+        write_line_sel(i)(1) := state(3) && cnt_hit(i) && (buf.wr === 0.U || (buf.wr === 1.U && cpu_word_sel(i)))
         //write hit target word / write refill target word
         write_line_sel(i)(2) := (write_hit && cpu_word_sel(i)) || 
                                 (state(3) && cnt_hit(i) && cpu_word_sel(i) && buf.wr === 1.U)
