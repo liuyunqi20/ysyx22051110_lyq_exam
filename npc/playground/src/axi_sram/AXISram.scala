@@ -231,7 +231,7 @@ class AXI4LiteSramTop(w: Int, nr_mport: Int, block_word_n: Int, has_sram_delay: 
     my_rmem_port.io.en    := wt_resp_en
     my_rmem_port.io.wr    := my_axi_sram_driver.io.sram_rd.wr
     my_rmem_port.io.addr  := my_axi_sram_driver.io.sram_rd.addr
-    my_rmem_port.io.rdata := my_axi_sram_driver.io.sram_rd.rdata
+    my_axi_sram_driver.io.sram_rd.rdata := my_rmem_port.io.rdata
     //my_axi_sram_driver.io.sram_wt      <> my_wmem_port.io
     my_wmem_port.io.en    := rd_resp_en
     my_wmem_port.io.wr    := my_axi_sram_driver.io.sram_wt.wr
