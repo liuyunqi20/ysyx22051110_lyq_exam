@@ -1204,12 +1204,12 @@ void VSimTop___024root__traceInitSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
         tracep->declQuad(c+622,"SimTop my_axi_sram my_axi_sram_driver aw_buf_awaddr", false,-1, 63,0);
         tracep->declBit(c+624,"SimTop my_axi_sram my_axi_sram_driver wt_widx", false,-1);
         tracep->declBit(c+625,"SimTop my_axi_sram my_axi_sram_driver unnamedblk1 rdata_arrive", false,-1);
-        tracep->declBit(c+608,"SimTop my_axi_sram my_rmem_port en", false,-1);
+        tracep->declBit(c+607,"SimTop my_axi_sram my_rmem_port en", false,-1);
         tracep->declBit(c+649,"SimTop my_axi_sram my_rmem_port wr", false,-1);
         tracep->declQuad(c+610,"SimTop my_axi_sram my_rmem_port addr", false,-1, 63,0);
         tracep->declQuad(c+605,"SimTop my_axi_sram my_rmem_port rdata", false,-1, 63,0);
         tracep->declQuad(c+662,"SimTop my_axi_sram my_rmem_port tmprdata", false,-1, 63,0);
-        tracep->declBit(c+607,"SimTop my_axi_sram my_wmem_port en", false,-1);
+        tracep->declBit(c+608,"SimTop my_axi_sram my_wmem_port en", false,-1);
         tracep->declBit(c+661,"SimTop my_axi_sram my_wmem_port wr", false,-1);
         tracep->declQuad(c+613,"SimTop my_axi_sram my_wmem_port addr", false,-1, 63,0);
         tracep->declQuad(c+596,"SimTop my_axi_sram my_wmem_port wdata", false,-1, 63,0);
