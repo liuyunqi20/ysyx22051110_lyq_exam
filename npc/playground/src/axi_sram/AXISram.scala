@@ -104,7 +104,7 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
         when ar shaking hands, then rdata_r stores the data and response to master after next
         posedge. If read data does not come when ar shaking hands, then rd_wait_sel will pull 
         high after next posedge to keep sram enabled until data arrives.
-        NOTE: only support wrap burst type. 
+        NOTE: only support wrap burst type or non-burst type. 
               arsize is always word size. 
               arprot is ignored and is always 0
     */
@@ -147,10 +147,9 @@ class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIst
 
     /*
             Write address is store to register when aw shaking hands. Write data and mask 
-        are stored when wt shaking hands. In b stage, sram write is enabled until write data 
-        success. b_wait_ready is for avoiding to enable sram write repeatedly when write is 
-        done but wait for b.ready from master. 
-        NOTE: only support wrap burst type. 
+        are used when wt shaking hands. In b stage, valid signal is enabled until shake hands 
+        success.  
+        NOTE: only support wrap burst type or non-burst type. 
               awsize is always word size. 
               awprot is ignored and is always 0
     */
@@ -213,10 +212,6 @@ class AXI4LiteSramTop(w: Int, nr_mport: Int, block_word_n: Int, has_sram_delay: 
     my_axi_sram_driver.io.aw <> my_arbiter.io.out.aw
     my_axi_sram_driver.io.wt <> my_arbiter.io.out.wt
     my_axi_sram_driver.io.b  <> my_arbiter.io.out.b
-    //Memory Access using DPI-C
-    my_axi_sram_driver.io.sram_rd      <> my_rmem_port.io
-    my_axi_sram_driver.io.sram_wt      <> my_wmem_port.io
-
     //sram(DPI-C) response
     val rd_resp_en = if(has_sram_delay) { 
                         val rdelayer = Module(new Delayer(sram_rd_delay)) 
@@ -230,4 +225,17 @@ class AXI4LiteSramTop(w: Int, nr_mport: Int, block_word_n: Int, has_sram_delay: 
                     } else { my_axi_sram_driver.io.sram_wt.en }
     my_axi_sram_driver.io.sram_rd_resp := rd_resp_en
     my_axi_sram_driver.io.sram_wt_resp := wt_resp_en
+
+    //Memory Access using DPI-C
+    //my_axi_sram_driver.io.sram_rd      <> my_rmem_port.io
+    my_rmem_port.io.en    := wt_resp_en
+    my_rmem_port.io.wr    := my_axi_sram_driver.io.sram_rd.wr
+    my_rmem_port.io.addr  := my_axi_sram_driver.io.sram_rd.addr
+    my_rmem_port.io.rdata := my_axi_sram_driver.io.sram_rd.rdata
+    //my_axi_sram_driver.io.sram_wt      <> my_wmem_port.io
+    my_wmem_port.io.en    := rd_resp_en
+    my_wmem_port.io.wr    := my_axi_sram_driver.io.sram_wt.wr
+    my_wmem_port.io.addr  := my_axi_sram_driver.io.sram_wt.addr 
+    my_wmem_port.io.wdata := my_axi_sram_driver.io.sram_wt.wdata
+    my_wmem_port.io.wmask := my_axi_sram_driver.io.sram_wt.wmask
 }   
