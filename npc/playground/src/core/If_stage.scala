@@ -26,7 +26,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     })
     val pc           = RegInit("h7fff_fffc".U(w.W))
     val nextpc       = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
-                            Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
+                            Mux(io.branch.br_en, io.branch.br_target, pc + 4.U(32.W)))
     val fs_wait_r   =  RegInit(0.B)
     val fs_state     = RegInit(s_idle.U(nr_state.W))
     //MSU to IFU
@@ -34,7 +34,8 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val mm           = Module(new MemoryMappingUnit(w))
     fs_state      := Mux1H(Seq(
         /* s_idle */    fs_state(0) -> (s_req.U),
-        /* s_req  */    fs_state(1) -> Mux(io.exc_br.exc_br, s_exc_req.U, Mux(io.inst_mem.req.fire, s_resp.U, s_req.U)),
+        /* s_req  */    fs_state(1) -> Mux(io.exc_br.exc_br, Mux(io.inst_mem.req.fire, s_exc_ret.U, s_exc_req.U),
+                                                             Mux(io.inst_mem.req.fire, s_resp.U, s_req.U)),
         /* s_resp */    fs_state(2) -> Mux(io.exc_br.exc_br, Mux(io.inst_mem.ret.valid, s_exc_req.U, s_exc_clr.U), 
                                                              Mux(io.inst_mem.ret.valid, s_req.U, s_resp.U)),
         /* s_exc_clr */ fs_state(3) -> Mux(io.inst_mem.ret.valid, s_exc_req.U, s_exc_clr.U),
@@ -58,6 +59,11 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     //choose inst code from buffer or port when IFU is prepared to enter next instrution
     val fs_inst_data      = Mux(fs_wait_r, rdata_buf, io.inst_mem.ret.rdata)
     val fs_inst_widx      = Mux(fs_state(5), exc_target_r(2), nextpc(2))
+    //set inst and pc
+    when(if2id.fire) {
+        pc   := Mux(fs_state(5), exc_target_r, nextpc)
+        inst := Mux(fs_inst_widx === 1.U, fs_inst_data(63,32), fs_inst_data(31,0))
+    }
     //Buffer for exception entry
     when(io.exc_br.exc_br){ exc_target_r := io.exc_br.exc_target }
     //when exception triggered, no need to wait MSU(MSU is cleared, ms_mem_ok is always 1)

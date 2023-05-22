@@ -34,7 +34,6 @@ import chisel3.util._
 
 // ----------------- Stage Interact Bundle -----------------
     class BranchBundle(w: Int) extends Bundle{
-        val pc_seq    = Output(UInt(w.W))
         val br_target = Output(UInt(w.W))
         val br_en     = Output(Bool())
     }

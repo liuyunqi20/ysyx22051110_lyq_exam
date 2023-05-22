@@ -31,7 +31,6 @@ class VSimTop VL_NOT_FINAL {
     VL_IN8(&clock,0,0);
     VL_IN8(&reset,0,0);
     VL_OUT64(&io_core_debug_debug_pc,63,0);
-    VL_OUT64(&io_core_debug_debug_nextpc,63,0);
     VL_OUT8(&io_core_debug_debug_rf_we,0,0);
     VL_OUT8(&io_core_debug_debug_rf_wnum,4,0);
     VL_OUT64(&io_core_debug_debug_rf_wdata,63,0);
