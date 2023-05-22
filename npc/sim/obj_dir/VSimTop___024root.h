@@ -341,7 +341,6 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_bits_imm;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__pc;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT___nextpc_T_1;
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc_r;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT___io_inst_mem_req_bits_addr_T_2;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_inst_data;
@@ -358,9 +357,9 @@ VL_MODULE(VSimTop___024root) {
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__es_ms_r_mem_wdata;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__es_ms_r_rs1;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__es_ms_r_br_br_target;
+        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__ms_ws_r_result;
     };
     struct {
-        QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__ms_ws_r_result;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__ms_ws_r_rs1;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mcause;
         QData/*63:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mepc;
@@ -424,9 +423,9 @@ VL_MODULE(VSimTop___024root) {
         VlUnpacked<VlWide<4>/*127:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_2__DOT__ram;
         VlUnpacked<VlWide<4>/*127:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__CacheDataRamV_3__DOT__ram;
         VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV__DOT__ram_tag;
+        VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_1__DOT__ram_tag;
     };
     struct {
-        VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_1__DOT__ram_tag;
         VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_2__DOT__ram_tag;
         VlUnpacked<IData/*22:0*/, 64> SimTop__DOT__my_core_top__DOT__my_dcache__DOT__cache_meta__DOT__CacheMetaRamV_3__DOT__ram_tag;
     };

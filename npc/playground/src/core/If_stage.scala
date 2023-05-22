@@ -68,6 +68,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         fs_wait_r := 0.B
     }.elsewhen(fs_mem_ok && ~io.if2id.ready){
         fs_wait_r := 1.B
+        rdata_buf  := io.inst_mem.ret.rdata
     }
     //to ID stage
     io.if2id.valid     := fs_mem_ok || fs_wait_r
