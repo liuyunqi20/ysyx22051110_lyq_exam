@@ -72,6 +72,7 @@ class Ex_stage(w: Int) extends Module{
         /* SLTU_T */ ds_es_r.ex_sel(2) -> (s1_ltu_s2 === 1.U).asUInt,
     ))
     //to Mem stage
+        io.ex2mem.bits.pc        := ds_es_r.pc
         //control
         io.ex2mem.bits.gr_we     := ds_es_r.gr_we
         io.ex2mem.bits.dest      := ds_es_r.dest
