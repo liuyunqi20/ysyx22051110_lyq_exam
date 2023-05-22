@@ -19,20 +19,17 @@ of exception entry.
 */
 class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val io = IO(new Bundle{
-        val pc           = Output(UInt(w.W))
-        val nextpc       = Output(UInt(w.W))
         val branch       = Flipped(new BranchBundle(w))
         val inst_mem     = new CPUMemBundle(w, w)
-        val if2id        = new IftoIdBundle(w)
+        val if2id        = Decoupled(new IftoIdBundle(w))
         val exc_br       = Flipped(new ExcBranchBundle(w))
-        val if_mem       = new IfMemBundle(w)
-        val fs_next_ok   = Output(Bool())
     })
     val pc           = RegInit("h7fff_fffc".U(w.W))
     val nextpc       = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
                             Mux(io.branch.br_en, io.branch.br_target, io.branch.pc_seq))
-    val fs_wait_ms   =  RegInit(0.B)
+    val fs_wait_r   =  RegInit(0.B)
     val fs_state     = RegInit(s_idle.U(nr_state.W))
+    //MSU to IFU
     val exc_target_r = RegInit(0.U(w.W))
     val mm           = Module(new MemoryMappingUnit(w))
     fs_state      := Mux1H(Seq(
@@ -45,7 +42,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         /* s_exc_ret */ fs_state(5) -> Mux(io.inst_mem.ret.valid, s_req.U    , s_exc_ret.U),
     ))
     // ---------------- read request ----------------
-    io.inst_mem.req.valid         := (fs_state(1) && ~fs_wait_ms && ~io.exc_br.exc_br) || fs_state(4)
+    io.inst_mem.req.valid         := (fs_state(1) && ~fs_wait_r && ~io.exc_br.exc_br) || fs_state(4)
     io.inst_mem.req.bits.wr       := 0.B
     io.inst_mem.req.bits.addr     := Mux(fs_state(4) === 1.U, exc_target_r, nextpc)
     io.inst_mem.req.bits.wdata    := 0.U
@@ -58,40 +55,21 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val rdata_buf         = RegInit(0.U(w.W))
     //IFU memory ok when exception inst fetch ok(fs_state(5)) or normal ret valid
     val fs_mem_ok         = io.inst_mem.ret.valid && ( fs_state(5) || (~io.exc_br.exc_br && fs_state(2)) )
-    //Three condition for waiting between IFU and MSU
-    val ms_ahead_fs       = (fs_mem_ok && ~fs_wait_ms &&  io.if_mem.ms_wait_fs)           //MSU ok before IFU
-    val fs_ahead_ms       = (io.if_mem.ms_mem_ok &&  fs_wait_ms && ~io.if_mem.ms_wait_fs) //IFU ok before MSU
-    val fs_same_ms        = (fs_mem_ok &&  io.if_mem.ms_mem_ok)                           //IFU MSU ok at the same time
-    //when IFU and MSU both done memory access fs_next_ok pulls high enter to next instruction
-    val fs_next_ok        = fs_ahead_ms || ms_ahead_fs || fs_same_ms
-    //choose inst code from buffer or port when IFU is prepared to enter next instrution 
-    val fs_inst_data      = Mux(fs_wait_ms, rdata_buf, io.inst_mem.ret.rdata)
+    //choose inst code from buffer or port when IFU is prepared to enter next instrution
+    val fs_inst_data      = Mux(fs_wait_r, rdata_buf, io.inst_mem.ret.rdata)
     val fs_inst_widx      = Mux(fs_state(5), exc_target_r(2), nextpc(2))
     //Buffer for exception entry
     when(io.exc_br.exc_br){ exc_target_r := io.exc_br.exc_target }
-    //Enter to next instruction
-    when(fs_next_ok){
-        pc   := Mux(fs_state(5), exc_target_r, nextpc)
-        inst := Mux(fs_inst_widx === 1.U, fs_inst_data(63,32), fs_inst_data(31,0))
-    }
     //when exception triggered, no need to wait MSU(MSU is cleared, ms_mem_ok is always 1)
-    when(io.exc_br.exc_br){
-        fs_wait_ms := 0.B
-    }.elsewhen(fs_mem_ok && ~io.if_mem.ms_mem_ok && ~io.if_mem.ms_wait_fs){
-        fs_wait_ms := 1.B
-        rdata_buf  := io.inst_mem.ret.rdata
-    }.elsewhen(fs_wait_ms && io.if_mem.ms_mem_ok){
-        fs_wait_ms := 0.B
+    when(io.exc_br.exc_br || (fs_wait_r && io.if2id.fire)){
+        fs_wait_r := 0.B
+    }.elsewhen(fs_mem_ok && ~io.if2id.ready){
+        fs_wait_r := 1.B
     }
-    //pc output
-    io.nextpc     := nextpc
-    io.pc         := pc
     //to ID stage
-    io.if2id.inst := inst
-    //to Wb stage
-    io.if_mem.fs_mem_ok  := io.inst_mem.ret.valid
-    io.if_mem.fs_wait_ms := fs_wait_ms
-    io.fs_next_ok        := fs_next_ok
+    io.if2id.valid     := fs_mem_ok || fs_wait_r
+    io.if2id.bits.inst := Mux(fs_inst_widx === 1.U, fs_inst_data(63,32), fs_inst_data(31,0))
+    io.if2id.bits.pc   := Mux(fs_state(5), exc_target_r, nextpc)
 }
 
 

@@ -26,7 +26,6 @@ import chisel3.util._
 // ----------------- Debug Bundle -----------------
     class DebugBundle(w: Int) extends Bundle{
         val debug_pc       = Output(UInt(w.W))
-        val debug_nextpc   = Output(UInt(w.W))
         val debug_rf_we    = Output(Bool())
         val debug_rf_wnum  = Output(UInt(5.W))
         val debug_rf_wdata = Output(UInt(w.W))
@@ -34,8 +33,15 @@ import chisel3.util._
     }
 
 // ----------------- Stage Interact Bundle -----------------
+    class BranchBundle(w: Int) extends Bundle{
+        val pc_seq    = Output(UInt(w.W))
+        val br_target = Output(UInt(w.W))
+        val br_en     = Output(Bool())
+    }
+
     class IftoIdBundle(w: Int) extends Bundle{
         val inst = Output(UInt(32.W))
+        val pc   = Output(UInt(32.W))
     }
 
     class IdtoExBundle(w: Int) extends Bundle with HasDecodeConst{
@@ -64,6 +70,7 @@ import chisel3.util._
     }
 
     class ExtoMemBundle(w: Int) extends Bundle with HasDecodeConst{
+        val pc        = Output(UInt(32.W))
         //control signals
         val gr_we     = Output(Bool()) 
         val dest      = Output(UInt(5.W))
@@ -78,9 +85,11 @@ import chisel3.util._
         val mem_wdata = Output(UInt(w.W))
         val csr_num   = Output(UInt(12.W))
         val rs1       = Output(UInt(w.W))
+        val br        = new BranchBundle(w)
     }
 
     class MemtoWbBundle(w: Int) extends Bundle with HasDecodeConst{
+        val pc        = Output(UInt(32.W))
         //control signals
         val gr_we     = Output(Bool())
         val csr_op    = Output(UInt(CSRT_LEN.W))
@@ -96,12 +105,6 @@ import chisel3.util._
         val rf_we = Output(Bool())
         val waddr = Output(UInt(5.W))
         val wdata = Output(UInt(w.W))
-    }
-
-    class BranchBundle(w: Int) extends Bundle{
-        val pc_seq    = Output(UInt(w.W))
-        val br_target = Output(UInt(w.W))
-        val br_en     = Output(Bool())
     }
 
     class ExcBranchBundle(w: Int) extends Bundle{

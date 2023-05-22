@@ -289,13 +289,28 @@ and then end the simulation.
 */
 class Id_stage(w: Int) extends Module{
     val io = IO(new Bundle{
-        val pc    = Input(UInt(w.W))
-        val if2id = Flipped(new IftoIdBundle(w))
-        val id2ex = new IdtoExBundle(w)
-        val wb2rf = Flipped(new WbtoRfBundle(w))
+        val if2id     = Flipped(Decoupled(new IftoIdBundle(w)))
+        val id2ex     = Decoupled(new IdtoExBundle(w))
+        val wb2rf     = Flipped(new WbtoRfBundle(w))
+        val exc_flush = Input(Bool())
+        val br_flush  = Input(Bool())
     })
-    val inst = io.if2id.inst
-
+    val ds_valid    = RegInit(0.B)
+    val ds_ready_go = 1.B
+    io.if2id.ready := !ds_valid || (ds_ready_go && io.id2ex.ready)
+    io.id2ex.valid :=  ds_valid && ds_ready_go
+    //TODO: exc / br flush
+    when(exc_flush || br_flush){
+        ds_valid   := 0.B
+    }.elsewhen(io.if2id.ready){
+        ds_valid   := io.if2id.valid
+    }
+    val fs_ds_r     = RegInit(0.U.asTypeOf(new IftoIdBundle(w)))
+    when(io.if2id.fire) {
+        fs_ds_r    := io.if2id.bits
+    }
+    //inst code
+        val inst = fs_ds_r.inst
     //catch ebreak
         val my_inst_monitor = Module(new InstMonitor(w))
         val inst_ebreak = (inst(6,0) === "b1110011".U) & (inst(19, 7) === 0.U) & (inst(31, 20) === 1.U)
@@ -308,18 +323,6 @@ class Id_stage(w: Int) extends Module{
         val my_decoder = Module(new MyDecoder())
         my_decoder.io.inst := inst
         val inst_type = my_decoder.io.inst_type
-        val alu_op    = my_decoder.io.alu_op
-        val src1_sel  = my_decoder.io.src1_sel
-        val src2_sel  = my_decoder.io.src2_sel
-        val rf_we     = my_decoder.io.rf_we 
-        val wb_sel    = my_decoder.io.wb_sel
-        val br_type   = my_decoder.io.br_type
-        val mem_en    = my_decoder.io.mem_en
-        val mem_wr    = my_decoder.io.mem_wr
-        val mem_type  = my_decoder.io.mem_type
-        val rv64w     = my_decoder.io.rv64w
-        val ex_sel    = my_decoder.io.ex_sel
-
     //control unit
         //val (Rtype, Itype, Stype, Btype, Utype, Jtype) = ("h01".U, "h02".U, "h04".U, "h08".U, "h10".U, "h20".U)
         val rs2 = inst(24, 20)
@@ -353,26 +356,25 @@ class Id_stage(w: Int) extends Module{
     
     //to EX stage
         //control signals
-        io.id2ex.pc        := io.pc
-        io.id2ex.alu_op    := alu_op
-        io.id2ex.src1_sel  := src1_sel
-        io.id2ex.src2_sel  := src2_sel
-        io.id2ex.dest      := rd
-        io.id2ex.br_type   := br_type
-        io.id2ex.gr_we     := rf_we
-        io.id2ex.wb_sel    := wb_sel
-        io.id2ex.mem_en    := mem_en
-        io.id2ex.mem_wr    := mem_wr
-        io.id2ex.mem_type  := mem_type
-        io.id2ex.rv64w     := rv64w
-        io.id2ex.ex_sel    := ex_sel
-        io.id2ex.csr_op    := my_decoder.io.csr_op 
-        io.id2ex.exc_type  := my_decoder.io.exc_type
+        io.id2ex.bits.alu_op    := my_decoder.io.alu_op
+        io.id2ex.bits.src1_sel  := my_decoder.io.src1_sel
+        io.id2ex.bits.src2_sel  := my_decoder.io.src2_sel
+        io.id2ex.bits.dest      := rd
+        io.id2ex.bits.br_type   := my_decoder.io.br_type
+        io.id2ex.bits.gr_we     := my_decoder.io.rf_we
+        io.id2ex.bits.wb_sel    := my_decoder.io.wb_sel
+        io.id2ex.bits.mem_en    := my_decoder.io.mem_en
+        io.id2ex.bits.mem_wr    := my_decoder.io.mem_wr
+        io.id2ex.bits.mem_type  := my_decoder.io.mem_type
+        io.id2ex.bits.rv64w     := my_decoder.io.rv64w
+        io.id2ex.bits.ex_sel    := my_decoder.io.ex_sel
+        io.id2ex.bits.csr_op    := my_decoder.io.csr_op 
+        io.id2ex.bits.exc_type  := my_decoder.io.exc_type
         //data signals
-        io.id2ex.pc        := io.pc
-        io.id2ex.rs1       := rf_rdata1
-        io.id2ex.rs2       := rf_rdata2
-        io.id2ex.imm       := imm
-        io.id2ex.mem_wdata := rf_rdata2
-        io.id2ex.csr_num   := inst(31, 20)
+        io.id2ex.bits.pc        := fs_ds_r.pc
+        io.id2ex.bits.rs1       := rf_rdata1
+        io.id2ex.bits.rs2       := rf_rdata2
+        io.id2ex.bits.imm       := imm
+        io.id2ex.bits.mem_wdata := rf_rdata2
+        io.id2ex.bits.csr_num   := inst(31, 20)
 }
