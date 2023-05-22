@@ -68,10 +68,10 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     val ms_state   = RegInit(s_idle.U(nr_state.W))
     val ms_wait = RegInit(0.B)
     ms_state := Mux1H(Seq(
-        /* Idle       */ ms_state(0) -> Mux(has_trap, Mux(io.data_mem.req.fire , s_garbage.U s_idle.U),
-                                                      Mux(io.data_mem.req.fire , s_resp.U, s_idle.U)),
-        /* WR RESP    */ ms_state(1) -> Mux(has_trap, Mux(io.data_mem.ret.valid, s_idle.U, s_garbage.U),
-                                                      Mux(io.data_mem.ret.valid, s_idle.U, s_resp.U)), 
+        /* Idle       */ ms_state(0) -> Mux(has_trap, Mux(io.data_mem.req.fire , s_garbage.U, s_idle.U),
+                                                      Mux(io.data_mem.req.fire , s_resp.U   , s_idle.U)),
+        /* WR RESP    */ ms_state(1) -> Mux(has_trap, Mux(io.data_mem.ret.valid, s_idle.U   , s_garbage.U),
+                                                      Mux(io.data_mem.ret.valid, s_idle.U   , s_resp.U)), 
         /* s_garbage */  ms_state(2) -> Mux(io.data_mem.ret.valid, s_idle.U, s_garbage.U)
     ))
     // ------------------------ mem req ------------------------
