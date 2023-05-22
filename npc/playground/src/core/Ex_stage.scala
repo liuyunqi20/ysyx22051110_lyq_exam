@@ -63,7 +63,7 @@ class Ex_stage(w: Int) extends Module{
             /*BGEU*/ br_type(6) -> ~s1_ltu_s2,
             /*JAL */ br_type(7) -> 1.B,
             /*JALR*/ br_type(8) -> 1.B,
-        ))
+        )) && es_valid
     //select result
     val res = Mux1H(Seq(
         /* NSLT   */ ds_es_r.ex_sel(0) -> alu_res,

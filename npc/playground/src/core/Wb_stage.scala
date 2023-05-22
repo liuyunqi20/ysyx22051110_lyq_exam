@@ -13,7 +13,7 @@ class Wb_stage(w: Int) extends Module{
     })
     val ws_valid     = RegInit(0.B)
     val ms_ws_r      = RegInit(0.U.asTypeOf(new MemtoWbBundle(w)))
-    val has_trap          = (ms_ws_r.exc_type.orR === 1.U) || (io.csr_exc.intr_t)
+    val has_trap          = (ms_ws_r.exc_type.orR === 1.U && ws_valid) || (io.csr_exc.intr_t)
     io.mem2wb.ready := 1.B
     ws_valid        := !has_trap && io.mem2wb.valid
     when(io.mem2wb.fire){
