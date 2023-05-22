@@ -57,7 +57,6 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val fs_mem_ok         = io.inst_mem.ret.valid && ( fs_state(5) || (~io.exc_br.exc_br && fs_state(2)) )
     //choose inst code from buffer or port when IFU is prepared to enter next instrution
     val fs_inst_data      = Mux(fs_wait_r, rdata_buf, io.inst_mem.ret.rdata)
-    val fs_inst_widx      = Mux(fs_state(5), nextpc_r(2), nextpc(2))
     //set inst and pc
     when(io.inst_mem.req.fire) {
         pc := Mux(fs_state(4), nextpc_r, nextpc)
@@ -72,7 +71,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     }
     //to ID stage
     io.if2id.valid     := fs_mem_ok || fs_wait_r
-    io.if2id.bits.inst := Mux(fs_inst_widx === 1.U, fs_inst_data(63,32), fs_inst_data(31,0))
+    io.if2id.bits.inst := Mux(pc(2) === 1.U, fs_inst_data(63,32), fs_inst_data(31,0))
     io.if2id.bits.pc   := nextpc_r
 }
 
