@@ -21,7 +21,7 @@ class Ex_stage(w: Int) extends Module{
     io.id2ex.ready  := !es_valid || (es_ready_go && io.ex2mem.ready)
     io.ex2mem.valid :=  es_valid && es_ready_go
     // exc / br flush 
-    when(exc_flush || br_flush){
+    when(io.exc_flush || io.br_flush){
         es_valid := 0.B
     }.elsewhen(io.id2ex.ready) {
         es_valid := io.id2ex.valid

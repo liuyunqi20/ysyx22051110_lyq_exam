@@ -79,8 +79,8 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     when(io.data_mem.ret.valid === 1.U){
         ms_rdata_r := io.data_mem.ret.rdata
     }
-    val ms_mem_en  = es_ms_r.mem_en && ~has_trap && ~ms_wait && ms_valid //TODO
-    io.data_mem.req.valid         := ms_mem_en && ms_state(0)
+    val ms_mem_en  = es_ms_r.mem_en && ~has_trap && ms_valid //TODO
+    io.data_mem.req.valid         := ms_mem_en && ms_state(0) && ~ms_wait
     io.data_mem.req.bits.wr       := es_ms_r.mem_wr
     io.data_mem.req.bits.addr     := maddr
     io.data_mem.req.bits.wdata    := wdata
@@ -91,7 +91,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.data_mem.req.bits.mthrough := mm.io.mthrough
     //io.data_mem.req.bits.mthrough := 1.B
     val ms_mem_ok   = io.data_mem.ret.valid && ms_state(1) && ms_mem_en //TODO
-    val ms_ready_go = //TODO
+    val ms_ready_go = !ms_mem_en || ms_mem_ok //TODO
     // ------------------------ MSU wait FSU ------------------------ 
     when(has_trap || (ms_wait && io.ex2mem.fire)){
         ms_wait := 0.B

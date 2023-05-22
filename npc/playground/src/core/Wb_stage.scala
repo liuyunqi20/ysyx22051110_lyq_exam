@@ -12,14 +12,15 @@ class Wb_stage(w: Int) extends Module{
         val csr_out     = Flipped(new CsrOutBundle(w))
     })
     val ws_valid     = RegInit(0.B)
-    io.mem2wb.ready := 1.B
-    ws_valid        := has_trap ? 0.B : io.mem2wb.valid
     val ms_ws_r      = RegInit(0.U.asTypeOf(new MemtoWbBundle(w)))
+    val has_trap          = (ms_ws_r.exc_type.orR === 1.U) || (io.csr_exc.intr_t)
+    io.mem2wb.ready := 1.B
+    ws_valid        := !has_trap && io.mem2wb.valid
     when(io.mem2wb.fire){
         ms_ws_r     := io.mem2wb.bits
     }
     // ------------------ intrrupt/exception ------------------ 
-    val has_trap          = (ms_ws_r.exc_type.orR === 1.U) || (io.csr_exc.intr_t)
+    
     io.exc_br.exc_br     := has_trap
     io.exc_br.exc_target := MuxCase(0.U(w.W), Seq(
         ( (ms_ws_r.exc_type(0) === 1.U) || io.csr_exc.intr_t ) -> (io.csr_out.mtvec),    /* trap entry */

@@ -300,7 +300,7 @@ class Id_stage(w: Int) extends Module{
     io.if2id.ready := !ds_valid || (ds_ready_go && io.id2ex.ready)
     io.id2ex.valid :=  ds_valid && ds_ready_go
     //TODO: exc / br flush
-    when(exc_flush || br_flush){
+    when(io.exc_flush || io.br_flush){
         ds_valid   := 0.B
     }.elsewhen(io.if2id.ready){
         ds_valid   := io.if2id.valid
