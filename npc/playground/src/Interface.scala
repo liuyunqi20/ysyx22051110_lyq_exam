@@ -20,7 +20,7 @@ import chisel3.util._
     class CPUMemBundle(w: Int, wdata_w: Int) extends Bundle{
         val req = Decoupled(new CPUMemReqBundle(w, wdata_w))
         val ret = new CPUMemRespBundle(w)
-        val rlast = Input(Bool()) //TODO: if then (IFU/MSU to Cache don't need "last")
+        val rlast = Input(Bool())
     }
 
 // ----------------- Debug Bundle -----------------
@@ -46,7 +46,7 @@ import chisel3.util._
 
     class IftoIdBundle(w: Int) extends Bundle{
         val inst = Output(UInt(32.W))
-        val pc   = Output(UInt(32.W))
+        val pc   = Output(UInt(w.W))
     }
 
     class IdtoExBundle(w: Int) extends Bundle with HasDecodeConst{
@@ -77,7 +77,7 @@ import chisel3.util._
     }
 
     class ExtoMemBundle(w: Int) extends Bundle with HasDecodeConst{
-        val pc        = Output(UInt(32.W))
+        val pc        = Output(UInt(w.W))
         //control signals
         val gr_we     = Output(Bool()) 
         val dest      = Output(UInt(5.W))
@@ -96,7 +96,7 @@ import chisel3.util._
     }
 
     class MemtoWbBundle(w: Int) extends Bundle with HasDecodeConst{
-        val pc        = Output(UInt(32.W))
+        val pc        = Output(UInt(w.W))
         //control signals
         val gr_we     = Output(Bool())
         val csr_op    = Output(UInt(CSRT_LEN.W))
