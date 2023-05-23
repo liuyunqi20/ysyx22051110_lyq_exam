@@ -37,7 +37,7 @@ import chisel3.util._
         val stage_valid = Output(Bool())
         val dest        = Output(UInt(5.W)) 
         val data        = Output(UInt(w.W))
-        val is_load     = if(is_es) Some(Output(Bool())) else None //Output(if(is_es) UInt(1.W) else UInt(0.W))
+        val is_load     = if(is_es) Output(Bool()) else None //Output(if(is_es) UInt(1.W) else UInt(0.W))
     }
 
     class BranchBundle(w: Int) extends Bundle{
