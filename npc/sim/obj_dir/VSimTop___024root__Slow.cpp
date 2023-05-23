@@ -1680,7 +1680,8 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_mem_ok 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_icache_io_in_ret_valid) 
            & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
-               >> 5U) | ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap)) 
+               >> 5U) | (((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap)) 
+                          & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__es_ms_r_br_br_en))) 
                          & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
                             >> 2U))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRamV__WEN 
@@ -1776,9 +1777,11 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
                                         >> 0x1fU)))))
             : (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT___my_alu_io_res 
                        >> 0x20U)));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2id_valid_T 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_mem_ok) 
-           | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_r));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2id_valid_T_4 
+        = ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_mem_ok) 
+             | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_r)) 
+            & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap))) 
+           & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__es_ms_r_br_br_en)));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__cache_meta__DOT____Vcellinp__CacheMetaRamV__en 
         = (((0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__buf_target_way)) 
             | (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT___stage3_io_wt_en))) 
@@ -2010,13 +2013,13 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__rdata_buf = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_mem_ok = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_inst_data = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2id_valid_T = VL_RAND_RESET_I(1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT___T_1 = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2id_valid_T_4 = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT___T_2 = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT___T = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT___GEN = VL_RAND_RESET_I(4);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT___GEN_0 = VL_RAND_RESET_I(4);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT___T_4 = VL_RAND_RESET_I(1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT___T_6 = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT___T_5 = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__unnamedblk1__DOT___T_7 = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_rf_io_rdata2 = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___my_decoder_io_inst_type = VL_RAND_RESET_I(7);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__ds_valid = VL_RAND_RESET_I(1);

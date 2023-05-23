@@ -141,7 +141,8 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.mem2wb.bits.csr_num      := es_ms_r.csr_num
     io.mem2wb.bits.rs1          := es_ms_r.rs1
     // ------------------------ branch ------------------------
-    io.branch                   := es_ms_r.br
+    io.branch.br_en             := es_ms_r.br.br_en && ms_valid
+    io.branch.br_target         := es_ms_r.br.br_target
     // ------------------------ to EX stage ------------------------
     io.ex2mem.ready             := !ms_valid || (ms_ready_go && io.mem2wb.ready)
     when(has_trap) {
