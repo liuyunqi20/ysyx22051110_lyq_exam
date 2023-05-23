@@ -23,8 +23,7 @@ void VSimTop___024root____Vdpiexp_SimTop__DOT__my_core_top__DOT__my_id__DOT__my_
     VL_DEBUG_IF(VL_DBG_MSGF("+    VSimTop___024root____Vdpiexp_SimTop__DOT__my_core_top__DOT__my_id__DOT__my_inst_monitor__DOT__catch_ebreak_TOP\n"); );
     // Variables
     // Body
-    i = (((~ (IData)(vlSymsp->TOP.reset)) & ((IData)(vlSymsp->TOP.SimTop__DOT__my_core_top__DOT__my_wb__DOT__ms_ws_r_is_ebreak) 
-                                             & (IData)(vlSymsp->TOP.SimTop__DOT__my_core_top__DOT__my_wb__DOT__ws_valid)))
+    i = (((~ (IData)(vlSymsp->TOP.reset)) & (IData)(vlSymsp->TOP.SimTop__DOT__my_core_top__DOT__my_wb__DOT__ms_ws_r_is_ebreak))
           ? 1U : 0U);
 }
 
