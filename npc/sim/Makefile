@@ -109,4 +109,7 @@ clean:
 	-rm -rf ./obj_dir
 	-rm waveform.vcd
 
+clean_wave:
+	-rm waveform.vcd
+
 .PHONY: build run sim wave clean

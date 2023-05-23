@@ -33,6 +33,9 @@ clean:
 #	-rm -rf $(BUILD_DIR)
 	-make -C $(SIM_HOME) clean
 
+clean_wave:
+	-make -C $(SIM_HOME) clean_wave
+
 .PHONY: test verilog help compile bsp reformat checkformat clean wave sim
 
 sim:

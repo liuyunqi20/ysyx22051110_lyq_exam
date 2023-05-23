@@ -73,7 +73,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     //to ID stage
     io.if2id.valid     := fs_mem_ok || fs_wait_r
     io.if2id.bits.inst := Mux(pc(2) === 1.U, fs_inst_data(63,32), fs_inst_data(31,0))
-    io.if2id.bits.pc   := nextpc_r
+    io.if2id.bits.pc   := pc
 }
 
 
