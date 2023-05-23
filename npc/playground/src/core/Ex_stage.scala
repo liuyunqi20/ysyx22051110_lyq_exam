@@ -99,7 +99,7 @@ class Ex_stage(w: Int) extends Module{
         io.ex2mem.bits.csr_num   := ds_es_r.csr_num
         io.ex2mem.bits.rs1       := ds_es_r.rs1
     // ------------------------ pipeline shake hands ------------------------ 
-    val es_ready_go  = 1.B//src1_block || src2_block
+    val es_ready_go  = ~src1_block && ~src2_block
     io.id2ex.ready  := !es_valid || (es_ready_go && io.ex2mem.ready)
     io.ex2mem.valid :=  es_valid && es_ready_go
 }
