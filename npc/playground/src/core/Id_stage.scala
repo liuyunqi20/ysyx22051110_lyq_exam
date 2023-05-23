@@ -374,7 +374,7 @@ class Id_stage(w: Int) extends Module{
         io.id2ex.bits.pc        := fs_ds_r.pc
         io.id2ex.bits.rs1_addr  := rf_raddr1
         io.id2ex.bits.rs2_addr  := rf_raddr2
-        io.id2ex.bits.rs2       := rf_rdata2
+        io.id2ex.bits.rs1       := rf_rdata1
         io.id2ex.bits.rs2       := rf_rdata2
         io.id2ex.bits.imm       := imm
         io.id2ex.bits.mem_wdata := rf_rdata2
