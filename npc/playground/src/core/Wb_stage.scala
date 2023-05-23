@@ -51,5 +51,5 @@ class Wb_stage(w: Int) extends Module{
     io.ws_forward.bits.dest        := io.wb2rf.waddr
     io.ws_forward.bits.data        := io.wb2rf.wdata
     // ------------------ Commit Ebeak ------------------
-    io.ebreak := ms_ws_r.is_ebreak && ws_valid
+    io.ebreak := ms_ws_r.is_ebreak
 }
