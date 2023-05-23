@@ -62,7 +62,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         pc := Mux(fs_state(4), nextpc_r, nextpc)
     }
     //Buffer for exception/branch entry
-    when(fs_state(1)) { nextpc_r := nextpc }
+    when(io.branch.br_en | io.exc_br.exc_br) { nextpc_r := nextpc }
     //when exception triggered, no need to wait MSU(MSU is cleared, ms_mem_ok is always 1)
     when(io.exc_br.exc_br || (fs_wait_r && io.if2id.fire)){
         fs_wait_r := 0.B
