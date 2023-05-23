@@ -119,7 +119,7 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
                                         ? (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_inst_data 
                                                    >> 0x20U))
                                         : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_inst_data))),32);
-            tracep->chgIData(oldp+54,((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc_r)),32);
+            tracep->chgIData(oldp+54,((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc)),32);
             tracep->chgQData(oldp+55,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc),64);
             tracep->chgBit(oldp+57,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_r));
             tracep->chgCData(oldp+58,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state),6);

@@ -1418,7 +1418,7 @@ void VSimTop___024root__traceFullSub0(VSimTop___024root* vlSelf, VerilatedVcd* t
                                      ? (IData)((vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_inst_data 
                                                 >> 0x20U))
                                      : (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_inst_data))),32);
-        tracep->fullIData(oldp+55,((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__nextpc_r)),32);
+        tracep->fullIData(oldp+55,((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc)),32);
         tracep->fullQData(oldp+56,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__pc),64);
         tracep->fullBit(oldp+58,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_r));
         tracep->fullCData(oldp+59,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state),6);
