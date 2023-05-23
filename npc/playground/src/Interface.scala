@@ -33,6 +33,12 @@ import chisel3.util._
     }
 
 // ----------------- Stage Interact Bundle -----------------
+    class ForwardingBundle(w: Int) extends Bundle{
+        val stage_valid = Output(Bool())
+        val dest        = Output(UInt(5.W)) 
+        val data        = Output(UInt(w.W))
+    }
+
     class BranchBundle(w: Int) extends Bundle{
         val br_target = Output(UInt(w.W))
         val br_en     = Output(Bool())
@@ -61,6 +67,8 @@ import chisel3.util._
         //data signals
         val dest      = Output(UInt(5.W))
         val pc        = Output(UInt(w.W))
+        val rs1_addr  = Output(UInt(5.W))
+        val rs2_addr  = Output(UInt(5.W))
         val rs1       = Output(UInt(w.W))
         val rs2       = Output(UInt(w.W))
         val imm       = Output(UInt(w.W))

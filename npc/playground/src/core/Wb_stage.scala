@@ -10,6 +10,7 @@ class Wb_stage(w: Int) extends Module{
         val csr_op      = Flipped(new CsrOpBundle(w))
         val csr_exc     = Flipped(new CsrExcBundle(w))
         val csr_out     = Flipped(new CsrOutBundle(w))
+        val ws_forward  = Valid(new ForwardingBundle(w))
     })
     val ws_valid     = RegInit(0.B)
     val ms_ws_r      = RegInit(0.U.asTypeOf(new MemtoWbBundle(w)))
@@ -43,4 +44,9 @@ class Wb_stage(w: Int) extends Module{
     io.wb2rf.rf_we := ms_ws_r.gr_we && ~has_trap && ws_valid
     io.wb2rf.waddr := ms_ws_r.dest
     io.wb2rf.wdata := Mux(ms_ws_r.csr_op.orR === 1.U, io.csr_op.csr_old, ms_ws_r.result)
+    // ------------------ Forwarding ------------------
+    io.ws_forward.valid       := ws_valid
+    io.ws_forward.stage_valid := ws_valid
+    io.ws_forward.dest        := io.wb2rf.waddr
+    io.ws_forward.data        := io.wb2rf.wdata
 }

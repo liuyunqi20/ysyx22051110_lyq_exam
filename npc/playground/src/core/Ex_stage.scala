@@ -11,15 +11,14 @@ using an extra adder(See io.branch.br_target).
 */
 class Ex_stage(w: Int) extends Module{
     val io = IO(new Bundle{
-        val id2ex     = Flipped(Decoupled(new IdtoExBundle(w)))
-        val ex2mem    = Decoupled(new ExtoMemBundle(w))
-        val exc_flush = Input(Bool())
-        val br_flush  = Input(Bool())
+        val id2ex      = Flipped(Decoupled(new IdtoExBundle(w)))
+        val ex2mem     = Decoupled(new ExtoMemBundle(w))
+        val exc_flush  = Input(Bool())
+        val br_flush   = Input(Bool())
+        val ms_forward = Flipped(Valid(new ForwardingBundle(w)))
+        val ws_forward = Flipped(Valid(new ForwardingBundle(w)))
     })
     val es_valid     = RegInit(0.B)
-    val es_ready_go  = 1.B
-    io.id2ex.ready  := !es_valid || (es_ready_go && io.ex2mem.ready)
-    io.ex2mem.valid :=  es_valid && es_ready_go
     // exc / br flush 
     when(io.exc_flush || io.br_flush){
         es_valid := 0.B
@@ -30,10 +29,23 @@ class Ex_stage(w: Int) extends Module{
     when(io.id2ex.fire){
         ds_es_r := io.id2ex.bits
     }
-    //ALU
+    // ------------------------ data forwarding ------------------------ 
+        //rs1
+        val rs1_is_zero    = ~ds_es_r.rs1_addr.orR
+        val rs1_depend_ms  = (io.ms_forward.stage_valid && (io.ms_forward.dest === ds_es_r.rs1_addr))
+        val rs1_depend_ws  = (io.ws_forward.stage_valid && (io.ws_forward.dest === ds_es_r.rs1_addr))
+        val src1_depend    = !ds_es_r.src1_sel && (rs1_depend_ms || rs1_depend_ws) && ~rs1_is_zero && es_valid
+        val src1_block     = (rs1_depend_ms && ~io.ms_forward.valid) || (rs1_depend_ws && ~io.ws_forward.valid)
+        //rs2
+        val rs2_is_zero   = ~ds_es_r.rs2_addr.orR
+        val rs2_depend_ms = (io.ms_forward.stage_valid && (io.ms_forward.dest === ds_es_r.rs2_addr))
+        val rs2_depend_ws = (io.ws_forward.stage_valid && (io.ws_forward.dest === ds_es_r.rs2_addr))
+        val src2_depend   = !ds_es_r.src2_sel && (rs2_depend_ms || rs2_depend_ws) && ~rs2_is_zero && es_valid
+        val src2_block     = (rs2_depend_ms && ~io.ms_forward.valid) || (rs2_depend_ws && ~io.ws_forward.valid)
+    // ------------------------ ALU ------------------------ 
         val my_alu        = Module(new Alu(w))
-        val alu_src1      = ds_es_r.rs1 //TODO: data forwarding
-        val alu_src2      = ds_es_r.rs2 //TODO: data forwarding
+        val alu_src1      = Mux(src1_depend, Mux(rs1_depend_ms, io.ms_forward.data, io.ws_forward.data), ds_es_r.rs1) //TODO: data forwarding
+        val alu_src2      = Mux(src2_depend, Mux(rs2_depend_ms, io.ms_forward.data, io.ws_forward.data), ds_es_r.rs2) //TODO: data forwarding
         my_alu.io.src1   := Mux(ds_es_r.src1_sel, ds_es_r.pc, alu_src1)
         my_alu.io.src2   := Mux(ds_es_r.src2_sel, ds_es_r.imm, alu_src2)
         my_alu.io.alu_op := ds_es_r.alu_op
@@ -44,7 +56,7 @@ class Ex_stage(w: Int) extends Module{
         val overflow      = my_alu.io.overflow
         val s1_lt_s2      = overflow ^ alu_res(w-1)
         val s1_ltu_s2     = ~carry_out
-    //branch
+    // ------------------------ branch ------------------------ 
         //val (NB, BEQ, BNE, BLT, BGE, BLTU, BGEU, JAL, JALR) = 
         //   ("h01".U, "h02".U, "h04".U, "h08".U, "h10".U, "h20".U, "h40".U, "h80".U, "h100".U)
         val br_type          = ds_es_r.br_type
@@ -64,13 +76,13 @@ class Ex_stage(w: Int) extends Module{
             /*JAL */ br_type(7) -> 1.B,
             /*JALR*/ br_type(8) -> 1.B,
         )) & es_valid
-    //select result
+    // ------------------------ select result ------------------------ 
     val res = Mux1H(Seq(
         /* NSLT   */ ds_es_r.ex_sel(0) -> alu_res,
         /* SLT_T  */ ds_es_r.ex_sel(1) -> (s1_lt_s2  === 1.U).asUInt,
         /* SLTU_T */ ds_es_r.ex_sel(2) -> (s1_ltu_s2 === 1.U).asUInt,
     ))
-    //to Mem stage
+    // ------------------------ to Mem stage ------------------------ 
         io.ex2mem.bits.pc        := ds_es_r.pc
         //control
         io.ex2mem.bits.gr_we     := ds_es_r.gr_we
@@ -86,4 +98,8 @@ class Ex_stage(w: Int) extends Module{
         io.ex2mem.bits.result    := Mux(is_jal, pc_seq, res)
         io.ex2mem.bits.csr_num   := ds_es_r.csr_num
         io.ex2mem.bits.rs1       := ds_es_r.rs1
+    // ------------------------ pipeline shake hands ------------------------ 
+    val es_ready_go  = src1_block || src2_block
+    io.id2ex.ready  := !es_valid || (es_ready_go && io.ex2mem.ready)
+    io.ex2mem.valid :=  es_valid && es_ready_go
 }

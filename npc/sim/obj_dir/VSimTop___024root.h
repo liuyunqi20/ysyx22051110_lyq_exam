@@ -37,8 +37,6 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_mmc_io_axi_out_req_valid;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_mem_io_mem2wb_valid;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_mem_io_branch_br_en;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_req_bits_wstrb;
         CData/*6:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_bits_mem_type;
         CData/*2:0*/ SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_bits_ex_sel;
@@ -94,6 +92,8 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_data_mem_req_valid_T_1;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_ready_go;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT__rdata_b;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_mem2wb_valid_T;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_branch_br_en_T_1;
     };
     struct {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_ex2mem_ready_T_2;
