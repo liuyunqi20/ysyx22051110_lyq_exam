@@ -33,7 +33,7 @@ import chisel3.util._
     }
 
 // ----------------- Stage Interact Bundle -----------------
-    class ForwardingBundle(w: Int, is_es: Boolean) extends Bundle{
+    class ForwardingBundle(w: Int) extends Bundle{
         val stage_valid = Output(Bool())
         val dest        = Output(UInt(5.W)) 
         val data        = Output(UInt(w.W))
