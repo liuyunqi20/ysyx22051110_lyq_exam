@@ -289,12 +289,13 @@ and then end the simulation.
 */
 class Id_stage(w: Int) extends Module{
     val io = IO(new Bundle{
-        val if2id     = Flipped(Decoupled(new IftoIdBundle(w)))
-        val id2ex     = Decoupled(new IdtoExBundle(w))
-        val wb2rf     = Flipped(new WbtoRfBundle(w))
-        val exc_flush = Input(Bool())
-        val br_flush  = Input(Bool())
+        val if2id      = Flipped(Decoupled(new IftoIdBundle(w)))
+        val id2ex      = Decoupled(new IdtoExBundle(w))
+        val wb2rf      = Flipped(new WbtoRfBundle(w))
+        val exc_flush  = Input(Bool())
+        val br_flush   = Input(Bool())
         val ws_forward = Flipped(Valid(new ForwardingBundle(w)))
+        val ebreak     = Input(Bool())
     })
     val ds_valid    = RegInit(0.B)
     val fs_ds_r     = RegInit(0.U.asTypeOf(new IftoIdBundle(w)))
@@ -308,7 +309,7 @@ class Id_stage(w: Int) extends Module{
         val inst_ebreak = (inst(6,0) === "b1110011".U) & (inst(19, 7) === 0.U) & (inst(31, 20) === 1.U)
         my_inst_monitor.io.clock       := clock
         my_inst_monitor.io.reset       := reset
-        my_inst_monitor.io.inst_ebreak := inst_ebreak
+        my_inst_monitor.io.inst_ebreak := io.ebreak
         my_inst_monitor.io.inst        := inst
 
     // ------------------------ decoder ------------------------ 
@@ -374,6 +375,7 @@ class Id_stage(w: Int) extends Module{
         io.id2ex.bits.ex_sel    := my_decoder.io.ex_sel
         io.id2ex.bits.csr_op    := my_decoder.io.csr_op 
         io.id2ex.bits.exc_type  := my_decoder.io.exc_type
+        io.id2ex.bits.is_ebreak := inst_ebreak
         //data signals
         io.id2ex.bits.pc        := fs_ds_r.pc
         io.id2ex.bits.rs1_addr  := rf_raddr1

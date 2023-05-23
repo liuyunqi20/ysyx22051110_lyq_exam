@@ -11,6 +11,7 @@ class Wb_stage(w: Int) extends Module{
         val csr_exc     = Flipped(new CsrExcBundle(w))
         val csr_out     = Flipped(new CsrOutBundle(w))
         val ws_forward  = Valid(new ForwardingBundle(w))
+        val ebreak      = Output(Bool())
     })
     val ws_valid     = RegInit(0.B)
     val ms_ws_r      = RegInit(0.U.asTypeOf(new MemtoWbBundle(w)))
@@ -49,4 +50,6 @@ class Wb_stage(w: Int) extends Module{
     io.ws_forward.bits.stage_valid := ws_valid
     io.ws_forward.bits.dest        := io.wb2rf.waddr
     io.ws_forward.bits.data        := io.wb2rf.wdata
+    // ------------------ Commit Ebeak ------------------
+    io.ebreak := ms_ws_r.is_ebreak && ws_valid
 }

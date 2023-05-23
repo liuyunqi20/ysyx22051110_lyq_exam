@@ -64,6 +64,7 @@ import chisel3.util._
         val ex_sel    = Output(UInt(SLTT_LEN.W))
         val csr_op    = Output(UInt(CSRT_LEN.W))
         val exc_type  = Output(UInt(EXCT_LEN.W))
+        val is_ebreak = Output(Bool())
         //data signals
         val dest      = Output(UInt(5.W))
         val pc        = Output(UInt(w.W))
@@ -87,6 +88,7 @@ import chisel3.util._
         val mem_type  = Output(UInt(MT_LEN.W))
         val csr_op    = Output(UInt(CSRT_LEN.W))
         val exc_type  = Output(UInt(EXCT_LEN.W))
+        val is_ebreak = Output(Bool())
         //data signals
         val result    = Output(UInt(w.W))
         val mem_wdata = Output(UInt(w.W))
@@ -101,6 +103,7 @@ import chisel3.util._
         val gr_we     = Output(Bool())
         val csr_op    = Output(UInt(CSRT_LEN.W))
         val exc_type  = Output(UInt(EXCT_LEN.W))
+        val is_ebreak = Output(Bool())
         //data signals
         val dest      = Output(UInt(5.W))
         val result    = Output(UInt(w.W))

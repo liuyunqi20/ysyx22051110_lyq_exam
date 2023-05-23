@@ -94,6 +94,7 @@ class Ex_stage(w: Int) extends Module{
         io.ex2mem.bits.mem_wdata := ds_es_r.mem_wdata
         io.ex2mem.bits.csr_op    := ds_es_r.csr_op
         io.ex2mem.bits.exc_type  := ds_es_r.exc_type
+        io.ex2mem.bits.is_ebreak := ds_es_r.is_ebreak
         //data
         io.ex2mem.bits.result    := Mux(is_jal, pc_seq, res)
         io.ex2mem.bits.csr_num   := ds_es_r.csr_num

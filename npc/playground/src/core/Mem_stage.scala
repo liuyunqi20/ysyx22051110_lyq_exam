@@ -135,6 +135,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.mem2wb.bits.gr_we        := es_ms_r.gr_we
     io.mem2wb.bits.csr_op       := es_ms_r.csr_op
     io.mem2wb.bits.exc_type     := es_ms_r.exc_type
+    io.mem2wb.bits.is_ebreak    := es_ms_r.is_ebreak
     //data
     io.mem2wb.bits.pc           := es_ms_r.pc
     io.mem2wb.bits.dest         := es_ms_r.dest
