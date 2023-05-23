@@ -15,7 +15,7 @@ class Ex_stage(w: Int) extends Module{
         val ex2mem     = Decoupled(new ExtoMemBundle(w))
         val exc_flush  = Input(Bool())
         val br_flush   = Input(Bool())
-        val es_forward = Valid(new ForwardingBundle(w, true))
+        val es_forward = Valid(new ForwardingBundle(w))
     })
     val es_valid     = RegInit(0.B)
     // exc / br flush 
@@ -84,11 +84,10 @@ class Ex_stage(w: Int) extends Module{
         io.ex2mem.bits.csr_num   := ds_es_r.csr_num
         io.ex2mem.bits.rs1       := ds_es_r.rs1
     // ------------------------ forwarding ------------------------ 
-        io.es_forward.valid            := io.ex2mem.valid
+        io.es_forward.valid            := io.ex2mem.valid && ~(ds_es_r.mem_en && ~ds_es_r.mem_wr) //not load
         io.es_forward.bits.stage_valid := es_valid && io.ex2mem.bits.gr_we
         io.es_forward.bits.dest        := io.ex2mem.bits.dest
         io.es_forward.bits.data        := io.ex2mem.bits.result
-        io.es_forward.bits.is_load     := ds_es_r.mem_en && ~ds_es_r.mem_wr
     // ------------------------ pipeline shake hands ------------------------ 
         val es_ready_go  = 1.B
         io.id2ex.ready  := !es_valid || (es_ready_go && io.ex2mem.ready)

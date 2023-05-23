@@ -10,7 +10,7 @@ class Wb_stage(w: Int) extends Module{
         val csr_op      = Flipped(new CsrOpBundle(w))
         val csr_exc     = Flipped(new CsrExcBundle(w))
         val csr_out     = Flipped(new CsrOutBundle(w))
-        val ws_forward  = Valid(new ForwardingBundle(w, false))
+        val ws_forward  = Valid(new ForwardingBundle(w))
         val ebreak      = Output(Bool())
     })
     val ws_valid     = RegInit(0.B)
