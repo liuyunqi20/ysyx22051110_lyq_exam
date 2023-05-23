@@ -294,24 +294,16 @@ class Id_stage(w: Int) extends Module{
         val wb2rf     = Flipped(new WbtoRfBundle(w))
         val exc_flush = Input(Bool())
         val br_flush  = Input(Bool())
+        val ws_forward = Flipped(Valid(new ForwardingBundle(w)))
     })
     val ds_valid    = RegInit(0.B)
-    val ds_ready_go = 1.B
-    io.if2id.ready := !ds_valid || (ds_ready_go && io.id2ex.ready)
-    io.id2ex.valid :=  ds_valid && ds_ready_go
-    //TODO: exc / br flush
-    when(io.exc_flush || io.br_flush){
-        ds_valid   := 0.B
-    }.elsewhen(io.if2id.ready){
-        ds_valid   := io.if2id.valid
-    }
     val fs_ds_r     = RegInit(0.U.asTypeOf(new IftoIdBundle(w)))
     when(io.if2id.fire) {
         fs_ds_r    := io.if2id.bits
     }
     //inst code
         val inst = fs_ds_r.inst
-    //catch ebreak
+    // ------------------------ catch ebreak ------------------------ 
         val my_inst_monitor = Module(new InstMonitor(w))
         val inst_ebreak = (inst(6,0) === "b1110011".U) & (inst(19, 7) === 0.U) & (inst(31, 20) === 1.U)
         my_inst_monitor.io.clock       := clock
@@ -319,11 +311,11 @@ class Id_stage(w: Int) extends Module{
         my_inst_monitor.io.inst_ebreak := inst_ebreak
         my_inst_monitor.io.inst        := inst
 
-    //decoder 
+    // ------------------------ decoder ------------------------ 
         val my_decoder = Module(new MyDecoder())
         my_decoder.io.inst := inst
         val inst_type = my_decoder.io.inst_type
-    //control unit
+    // ------------------------ control unit ------------------------ 
         //val (Rtype, Itype, Stype, Btype, Utype, Jtype) = ("h01".U, "h02".U, "h04".U, "h08".U, "h10".U, "h20".U)
         val rs2 = inst(24, 20)
         val rs1 = inst(19, 15)
@@ -342,19 +334,31 @@ class Id_stage(w: Int) extends Module{
                 inst_type(5) -> imm_J,
         ))
 
-    //regfile
+    // ------------------------ regfile ------------------------ 
         val my_rf = Module(new RegFile(5, w, 2))
         val rf_raddr1    = Mux(inst_type(4) | inst_type(5), 0.U(5.W), rs1) //rs1 = 0 when J/U type
         val rf_raddr2    = rs2
+
+        //data forwarding 
+        //rs1
+        val rs1_is_zero    = rf_raddr1 === 0.U
+        val rs1_depend_ws  = (io.ws_forward.bits.stage_valid && (io.ws_forward.bits.dest === rf_raddr1))
+        val src1_depend    = !my_decoder.io.src1_sel && rs1_depend_ws && ~rs1_is_zero && ds_valid
+        val src1_block     = rs1_depend_ws && ~io.ws_forward.valid
+        //rs2
+        val rs2_is_zero    = rf_raddr2 === 0.U
+        val rs2_depend_ws  = (io.ws_forward.bits.stage_valid && (io.ws_forward.bits.dest === rf_raddr2))
+        val src2_depend    = !my_decoder.io.src2_sel && rs2_depend_ws && ~rs2_is_zero && ds_valid
+        val src2_block     = rs2_depend_ws && ~io.ws_forward.valid
+
         my_rf.io.raddr1 := rf_raddr1
         my_rf.io.raddr2 := rf_raddr2
-        val rf_rdata1    = my_rf.io.rdata1
-        val rf_rdata2    = my_rf.io.rdata2
+        val rf_rdata1    = Mux(src1_depend, io.ws_forward.bits.data, my_rf.io.rdata1)
+        val rf_rdata2    = Mux(src2_depend, io.ws_forward.bits.data, my_rf.io.rdata2)
         my_rf.io.wen    := io.wb2rf.rf_we
         my_rf.io.waddr  := io.wb2rf.waddr
         my_rf.io.wdata  := io.wb2rf.wdata
-    
-    //to EX stage
+    // ------------------------ to EX stage ------------------------ 
         //control signals
         io.id2ex.bits.alu_op    := my_decoder.io.alu_op
         io.id2ex.bits.src1_sel  := my_decoder.io.src1_sel
@@ -379,4 +383,13 @@ class Id_stage(w: Int) extends Module{
         io.id2ex.bits.imm       := imm
         io.id2ex.bits.mem_wdata := rf_rdata2
         io.id2ex.bits.csr_num   := inst(31, 20)
+    // ------------------------ pipeline shake hands ------------------------ 
+        val ds_ready_go = ~src1_block && ~src2_block
+        io.if2id.ready := !ds_valid || (ds_ready_go && io.id2ex.ready)
+        io.id2ex.valid :=  ds_valid && ds_ready_go
+        when(io.exc_flush || io.br_flush){
+            ds_valid   := 0.B
+        }.elsewhen(io.if2id.ready){
+            ds_valid   := io.if2id.valid
+        }
 }
