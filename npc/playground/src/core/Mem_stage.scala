@@ -21,7 +21,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         val branch       = new BranchBundle(w)
         val exc_flush    = Input(Bool())
         val data_mem     = new CPUMemBundle(w, w)
-        val ms_forward   = Valid(new ForwardingBundle(w))
+        val ms_forward   = Valid(new ForwardingBundle(w, false))
     })    
     val ms_valid     = RegInit(0.B)
     val es_ms_r      = RegInit(0.U.asTypeOf(new ExtoMemBundle(w)))
@@ -153,7 +153,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         ms_valid := io.ex2mem.valid
     }
     // ------------------------ Forwarding ------------------------
-    io.ms_forward.valid            := ms_valid && ms_ready_go
+    io.ms_forward.valid            := io.mem2wb.valid
     io.ms_forward.bits.stage_valid := ms_valid
     io.ms_forward.bits.dest        := io.mem2wb.bits.dest
     io.ms_forward.bits.data        := io.mem2wb.bits.result

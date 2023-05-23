@@ -51,14 +51,14 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_id.io.wb2rf         <> my_wb.io.wb2rf
     my_id.io.exc_flush     := my_wb.io.exc_br.exc_br
     my_id.io.br_flush      := my_mem.io.branch.br_en
+    my_id.io.es_forward    <> my_ex.io.es_forward
+    my_id.io.ms_forward    <> my_mem.io.ms_forward
     my_id.io.ws_forward    <> my_wb.io.ws_forward
     my_id.io.ebreak        := my_wb.io.ebreak
     //EX stage
     my_ex.io.id2ex         <> my_id.io.id2ex
     my_ex.io.exc_flush     := my_wb.io.exc_br.exc_br
     my_ex.io.br_flush      := my_mem.io.branch.br_en
-    my_ex.io.ms_forward    <> my_mem.io.ms_forward
-    my_ex.io.ws_forward    <> my_wb.io.ws_forward
     //MEM stage
     my_mem.io.ex2mem       <> my_ex.io.ex2mem
     my_mem.io.exc_flush    := my_wb.io.exc_br.exc_br 

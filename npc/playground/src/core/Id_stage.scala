@@ -294,7 +294,9 @@ class Id_stage(w: Int) extends Module{
         val wb2rf      = Flipped(new WbtoRfBundle(w))
         val exc_flush  = Input(Bool())
         val br_flush   = Input(Bool())
-        val ws_forward = Flipped(Valid(new ForwardingBundle(w)))
+        val es_forward = Flipped(Valid(new ForwardingBundle(w, true)))
+        val ms_forward = Flipped(Valid(new ForwardingBundle(w, false)))
+        val ws_forward = Flipped(Valid(new ForwardingBundle(w, false)))
         val ebreak     = Input(Bool())
     })
     val ds_valid    = RegInit(0.B)
@@ -343,19 +345,37 @@ class Id_stage(w: Int) extends Module{
         //data forwarding 
         //rs1
         val rs1_is_zero    = rf_raddr1 === 0.U
+        val rs1_depend_es  = (io.es_forward.bits.stage_valid && (io.es_forward.bits.dest === rf_raddr1))
+        val rs1_depend_ms  = (io.ms_forward.bits.stage_valid && (io.ms_forward.bits.dest === rf_raddr1))
         val rs1_depend_ws  = (io.ws_forward.bits.stage_valid && (io.ws_forward.bits.dest === rf_raddr1))
-        val src1_depend    = !my_decoder.io.src1_sel && rs1_depend_ws && ~rs1_is_zero && ds_valid
-        val src1_block     = rs1_depend_ws && ~io.ws_forward.valid
+        val src1_depend    = !my_decoder.io.src1_sel && ~rs1_is_zero && ds_valid
+                            && (rs1_depend_es || rs1_depend_ms || rs1_depend_ws)
+        val src1_block     = (rs1_depend_es && io.es_forward.is_load) 
+                            || (rs1_depend_es && ~io.ws_forward.valid && ~io.es_forward.is_load)
+                            || (rs1_depend_ms && ~io.ms_forward.valid)
+                            || (rs1_depend_ws && ~io.ws_forward.valid)
         //rs2
         val rs2_is_zero    = rf_raddr2 === 0.U
+        val rs2_depend_es  = (io.es_forward.bits.stage_valid && (io.es_forward.bits.dest === rf_raddr2))
+        val rs2_depend_ms  = (io.ms_forward.bits.stage_valid && (io.ms_forward.bits.dest === rf_raddr2))
         val rs2_depend_ws  = (io.ws_forward.bits.stage_valid && (io.ws_forward.bits.dest === rf_raddr2))
-        val src2_depend    = !my_decoder.io.src2_sel && rs2_depend_ws && ~rs2_is_zero && ds_valid
-        val src2_block     = rs2_depend_ws && ~io.ws_forward.valid
+        val src2_depend    = !my_decoder.io.src2_sel && ~rs2_is_zero && ds_valid
+                            && (rs2_depend_es || rs2_depend_ms || rs2_depend_ws)
+        val src2_block     =   (rs2_depend_es && io.es_forward.is_load)
+                            || (rs2_depend_es && ~io.ws_forward.valid && ~io.es_forward.is_load)
+                            || (rs2_depend_ms && ~io.ms_forward.valid)
+                            || (rs2_depend_ws && ~io.ws_forward.valid)
 
         my_rf.io.raddr1 := rf_raddr1
         my_rf.io.raddr2 := rf_raddr2
-        val rf_rdata1    = Mux(src1_depend, io.ws_forward.bits.data, my_rf.io.rdata1)
-        val rf_rdata2    = Mux(src2_depend, io.ws_forward.bits.data, my_rf.io.rdata2)
+        val rf_rdata1    = Mux(rs1_depend_es, io.es_forward.bits.data,
+                                     Mux(rs1_depend_ms, io.ms_forward.bits.data, 
+                                             Mux(rs1_depend_ws, io.ws_forward.bits.data, my_rf.io.rdata1))
+                            )
+        val rf_rdata2    = Mux(rs2_depend_es, io.es_forward.bits.data,
+                                     Mux(rs2_depend_ms, io.ms_forward.bits.data, 
+                                             Mux(rs2_depend_ws, io.ws_forward.bits.data, my_rf.io.rdata2))
+                            )
         my_rf.io.wen    := io.wb2rf.rf_we
         my_rf.io.waddr  := io.wb2rf.waddr
         my_rf.io.wdata  := io.wb2rf.wdata

@@ -15,8 +15,7 @@ class Ex_stage(w: Int) extends Module{
         val ex2mem     = Decoupled(new ExtoMemBundle(w))
         val exc_flush  = Input(Bool())
         val br_flush   = Input(Bool())
-        val ms_forward = Flipped(Valid(new ForwardingBundle(w)))
-        val ws_forward = Flipped(Valid(new ForwardingBundle(w)))
+        val es_forward = Valid(new ForwardingBundle(w, true))
     })
     val es_valid     = RegInit(0.B)
     // exc / br flush 
@@ -29,25 +28,10 @@ class Ex_stage(w: Int) extends Module{
     when(io.id2ex.fire){
         ds_es_r := io.id2ex.bits
     }
-    // ------------------------ data forwarding ------------------------ 
-        //rs1
-        val rs1_is_zero    = ds_es_r.rs1_addr === 0.U
-        val rs1_depend_ms  = (io.ms_forward.bits.stage_valid && (io.ms_forward.bits.dest === ds_es_r.rs1_addr))
-        val rs1_depend_ws  = (io.ws_forward.bits.stage_valid && (io.ws_forward.bits.dest === ds_es_r.rs1_addr))
-        val src1_depend    = !ds_es_r.src1_sel && (rs1_depend_ms || rs1_depend_ws) && ~rs1_is_zero && es_valid
-        val src1_block     = (rs1_depend_ms && ~io.ms_forward.valid) || (rs1_depend_ws && ~io.ws_forward.valid)
-        //rs2
-        val rs2_is_zero    = ds_es_r.rs2_addr === 0.U
-        val rs2_depend_ms  = (io.ms_forward.bits.stage_valid && (io.ms_forward.bits.dest === ds_es_r.rs2_addr))
-        val rs2_depend_ws  = (io.ws_forward.bits.stage_valid && (io.ws_forward.bits.dest === ds_es_r.rs2_addr))
-        val src2_depend    = !ds_es_r.src2_sel && (rs2_depend_ms || rs2_depend_ws) && ~rs2_is_zero && es_valid
-        val src2_block     = (rs2_depend_ms && ~io.ms_forward.valid) || (rs2_depend_ws && ~io.ws_forward.valid)
     // ------------------------ ALU ------------------------ 
         val my_alu        = Module(new Alu(w))
-        val alu_src1      = Mux(src1_depend, Mux(rs1_depend_ms, io.ms_forward.bits.data, io.ws_forward.bits.data), ds_es_r.rs1) //TODO: data forwarding
-        val alu_src2      = Mux(src2_depend, Mux(rs2_depend_ms, io.ms_forward.bits.data, io.ws_forward.bits.data), ds_es_r.rs2) //TODO: data forwarding
-        my_alu.io.src1   := Mux(ds_es_r.src1_sel, ds_es_r.pc, alu_src1)
-        my_alu.io.src2   := Mux(ds_es_r.src2_sel, ds_es_r.imm, alu_src2)
+        my_alu.io.src1   := Mux(ds_es_r.src1_sel, ds_es_r.pc, ds_es_r.rs1)
+        my_alu.io.src2   := Mux(ds_es_r.src2_sel, ds_es_r.imm, ds_es_r.rs2)
         my_alu.io.alu_op := ds_es_r.alu_op
         //sign-extend lower 32 bits when RV64W inst
         val alu_res       = Cat(Mux(ds_es_r.rv64w, Fill(w - 32, my_alu.io.res(31)), my_alu.io.res(63, 32)), 
@@ -99,8 +83,14 @@ class Ex_stage(w: Int) extends Module{
         io.ex2mem.bits.result    := Mux(is_jal, pc_seq, res)
         io.ex2mem.bits.csr_num   := ds_es_r.csr_num
         io.ex2mem.bits.rs1       := ds_es_r.rs1
+    // ------------------------ forwarding ------------------------ 
+        io.es_forward.valid       := io.ex2mem.valid
+        io.es_forward.stage_valid := es_valid && io.ex2mem.bits.gr_we
+        io.es_forward.dest        := io.ex2mem.bits.dest
+        io.es_forward.data        := io.ex2mem.bits.result
+        io.es_forward.is_load     := ds_es_r.mem_en && ~ds_es_r.mem_wr
     // ------------------------ pipeline shake hands ------------------------ 
-    val es_ready_go  = ~src1_block && ~src2_block
-    io.id2ex.ready  := !es_valid || (es_ready_go && io.ex2mem.ready)
-    io.ex2mem.valid :=  es_valid && es_ready_go
+        val es_ready_go  = ~src1_block && ~src2_block
+        io.id2ex.ready  := !es_valid || (es_ready_go && io.ex2mem.ready)
+        io.ex2mem.valid :=  es_valid && es_ready_go
 }
