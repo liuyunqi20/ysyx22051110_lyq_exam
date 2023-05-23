@@ -349,8 +349,8 @@ class Id_stage(w: Int) extends Module{
         val rs1_depend_ms  = (io.ms_forward.bits.stage_valid && (io.ms_forward.bits.dest === rf_raddr1))
         val rs1_depend_ws  = (io.ws_forward.bits.stage_valid && (io.ws_forward.bits.dest === rf_raddr1))
         val src1_depend    = !my_decoder.io.src1_sel && ~rs1_is_zero && ds_valid && (rs1_depend_es || rs1_depend_ms || rs1_depend_ws)
-        val src1_block     = ( (rs1_depend_es && io.es_forward.bits.is_load) 
-                            || (rs1_depend_es && ~io.ws_forward.valid && ~io.es_forward.bits.is_load)
+        val src1_block     = ( (rs1_depend_es && io.es_forward.bits.is_load === 1.U) 
+                            || (rs1_depend_es && ~io.ws_forward.valid && io.es_forward.bits.is_load === 0.U)
                             || (rs1_depend_ms && ~io.ms_forward.valid)
                             || (rs1_depend_ws && ~io.ws_forward.valid))
         //rs2
@@ -359,8 +359,8 @@ class Id_stage(w: Int) extends Module{
         val rs2_depend_ms  = (io.ms_forward.bits.stage_valid && (io.ms_forward.bits.dest === rf_raddr2))
         val rs2_depend_ws  = (io.ws_forward.bits.stage_valid && (io.ws_forward.bits.dest === rf_raddr2))
         val src2_depend    = !my_decoder.io.src2_sel && ~rs2_is_zero && ds_valid && (rs2_depend_es || rs2_depend_ms || rs2_depend_ws)
-        val src2_block     = ( (rs2_depend_es && io.es_forward.bits.is_load)
-                            || (rs2_depend_es && ~io.ws_forward.valid && ~io.es_forward.bits.is_load)
+        val src2_block     = ( (rs2_depend_es && io.es_forward.bits.is_load === 1.U)
+                            || (rs2_depend_es && ~io.ws_forward.valid && io.es_forward.bits.is_load === 0.U)
                             || (rs2_depend_ms && ~io.ms_forward.valid)
                             || (rs2_depend_ws && ~io.ws_forward.valid))
 
