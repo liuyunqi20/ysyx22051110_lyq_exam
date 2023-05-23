@@ -31,13 +31,13 @@ class Ex_stage(w: Int) extends Module{
     }
     // ------------------------ data forwarding ------------------------ 
         //rs1
-        val rs1_is_zero    = ds_es_r.rs1_addr =/= 0.U
+        val rs1_is_zero    = ds_es_r.rs1_addr === 0.U
         val rs1_depend_ms  = (io.ms_forward.bits.stage_valid && (io.ms_forward.bits.dest === ds_es_r.rs1_addr))
         val rs1_depend_ws  = (io.ws_forward.bits.stage_valid && (io.ws_forward.bits.dest === ds_es_r.rs1_addr))
         val src1_depend    = !ds_es_r.src1_sel && (rs1_depend_ms || rs1_depend_ws) && ~rs1_is_zero && es_valid
         val src1_block     = (rs1_depend_ms && ~io.ms_forward.valid) || (rs1_depend_ws && ~io.ws_forward.valid)
         //rs2
-        val rs2_is_zero    = ds_es_r.rs2_addr =/= 0.U
+        val rs2_is_zero    = ds_es_r.rs2_addr === 0.U
         val rs2_depend_ms  = (io.ms_forward.bits.stage_valid && (io.ms_forward.bits.dest === ds_es_r.rs2_addr))
         val rs2_depend_ws  = (io.ws_forward.bits.stage_valid && (io.ws_forward.bits.dest === ds_es_r.rs2_addr))
         val src2_depend    = !ds_es_r.src2_sel && (rs2_depend_ms || rs2_depend_ws) && ~rs2_is_zero && es_valid
