@@ -36,7 +36,8 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         /* s_req  */    fs_state(1) -> Mux(io.exc_br.exc_br || io.branch.br_en, 
                                                              Mux(io.inst_mem.req.fire, s_reg_ret.U, s_reg_req.U),
                                                              Mux(io.inst_mem.req.fire, s_resp.U, s_req.U)),
-        /* s_resp */    fs_state(2) -> Mux(io.exc_br.exc_br, Mux(io.inst_mem.ret.valid, s_reg_req.U, s_clr.U), 
+        /* s_resp */    fs_state(2) -> Mux(io.exc_br.exc_br || io.branch.br_en, 
+                                                             Mux(io.inst_mem.ret.valid, s_reg_req.U, s_clr.U), 
                                                              Mux(io.inst_mem.ret.valid, s_req.U, s_resp.U)),
         /* s_clr     */ fs_state(3) -> Mux(io.inst_mem.ret.valid, s_reg_req.U, s_clr.U),
         /* s_reg_req */ fs_state(4) -> Mux(io.inst_mem.req.fire , s_reg_ret.U, s_reg_req.U),
@@ -54,7 +55,8 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     // ---------------- read response ---------------- 
     val rdata_buf         = RegInit(0.U(w.W))
     //IFU memory ok when exception inst fetch ok(fs_state(5)) or normal ret valid
-    val fs_mem_ok         = io.inst_mem.ret.valid && ( fs_state(5) || (~io.exc_br.exc_br && fs_state(2)) )
+    val fs_mem_ok         = io.inst_mem.ret.valid && 
+                                ( fs_state(5) || (~io.exc_br.exc_br && ~io.branch.br_en && fs_state(2)) )
     //choose inst code from buffer or port when IFU is prepared to enter next instrution
     val fs_inst_data      = Mux(fs_wait_r, rdata_buf, io.inst_mem.ret.rdata)
     //set inst and pc
@@ -64,14 +66,14 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     //Buffer for exception/branch entry
     when(io.branch.br_en | io.exc_br.exc_br) { nextpc_r := nextpc }
     //when exception triggered, no need to wait MSU(MSU is cleared, ms_mem_ok is always 1)
-    when(io.exc_br.exc_br || (fs_wait_r && io.if2id.fire)){
+    when(io.exc_br.exc_br || io.branch.br_en || (fs_wait_r && io.if2id.fire)){
         fs_wait_r := 0.B
     }.elsewhen(fs_mem_ok && ~io.if2id.ready){
         fs_wait_r := 1.B
         rdata_buf  := io.inst_mem.ret.rdata
     }
     //to ID stage
-    io.if2id.valid     := fs_mem_ok || fs_wait_r
+    io.if2id.valid     := (fs_mem_ok || fs_wait_r) && ~io.exc_br.exc_br && ~io.branch.br_en
     io.if2id.bits.inst := Mux(pc(2) === 1.U, fs_inst_data(63,32), fs_inst_data(31,0))
     io.if2id.bits.pc   := pc
 }
