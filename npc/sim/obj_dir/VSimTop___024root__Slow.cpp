@@ -1962,19 +1962,9 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT___io_id2ex_ready_T_2 
         = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__es_valid)) 
                  | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_ex2mem_ready_T_2)));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__ds_ready_go 
-        = (1U & ((~ ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs1_depend_es) 
-                       & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ws_valid))) 
-                      | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs1_depend_ms) 
-                         & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_mem2wb_valid_T)))) 
-                     | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs1_depend_ws) 
-                        & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ws_valid))))) 
-                 & (~ ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs2_depend_es) 
-                         & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ws_valid))) 
-                        | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs2_depend_ms) 
-                           & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_mem2wb_valid_T)))) 
-                       | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs2_depend_ws) 
-                          & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ws_valid)))))));
+    vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_ms_forward_valid 
+        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_mem2wb_valid_T) 
+           & (0U == (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__es_ms_r_csr_op)));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_branch_br_en_T_1 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__es_ms_r_br_br_en) 
            & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT___io_mem2wb_valid_T));
@@ -1993,13 +1983,19 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T 
         = ((IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rstate) 
            & (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_arbiter__DOT___arbiter_rd_io_out_valid));
-    vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_valid 
-        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__ds_valid) 
-           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__ds_ready_go));
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___io_if2id_ready_T_2 
-        = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__ds_valid)) 
-                 | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__ds_ready_go) 
-                    & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT___io_id2ex_ready_T_2))));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__ds_ready_go 
+        = (1U & ((~ ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs1_depend_es) 
+                       & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ws_valid))) 
+                      | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs1_depend_ms) 
+                         & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_ms_forward_valid)))) 
+                     | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs1_depend_ws) 
+                        & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ws_valid))))) 
+                 & (~ ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs2_depend_es) 
+                         & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ws_valid))) 
+                        | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs2_depend_ms) 
+                           & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_ms_forward_valid)))) 
+                       | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__rs2_depend_ws) 
+                          & (~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ws_valid)))))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_mem_ok 
         = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT___my_icache_io_in_ret_valid) 
            & (((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_state) 
@@ -2021,6 +2017,13 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
                       >> 1U) & ((~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT__rdata_ok)) 
                                 | (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_sram_rd_en_T_3))) 
                     & (~ (IData)(vlSelf->SimTop__DOT__my_axi_sram__DOT__my_axi_sram_driver__DOT___io_rd_bits_rlast_T_3)))));
+    vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_valid 
+        = ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__ds_valid) 
+           & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__ds_ready_go));
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT___io_if2id_ready_T_2 
+        = (1U & ((~ (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__ds_valid)) 
+                 | ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_id__DOT__ds_ready_go) 
+                    & (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT___io_id2ex_ready_T_2))));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT___io_if2id_valid_T_4 
         = ((((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_mem_ok) 
              | (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_wait_r)) 
@@ -2099,6 +2102,7 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_exc_br_exc_target = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_req_bits_wstrb = VL_RAND_RESET_I(8);
+    vlSelf->SimTop__DOT__my_core_top__DOT___my_mem_io_ms_forward_valid = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_es_forward_bits_stage_valid = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_valid = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_id_io_id2ex_bits_alu_op = VL_RAND_RESET_I(23);
