@@ -153,8 +153,8 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         ms_valid := io.ex2mem.valid
     }
     // ------------------------ Forwarding ------------------------
-    io.ms_forward.valid            := io.mem2wb.valid && ~es_ms_r.csr_op.orR
-    io.ms_forward.bits.stage_valid := ms_valid
-    io.ms_forward.bits.dest        := io.mem2wb.bits.dest
-    io.ms_forward.bits.data        := io.mem2wb.bits.result
+    io.ms_forward.valid     := io.mem2wb.valid && ~es_ms_r.csr_op.orR
+    io.ms_forward.bits.en   := ms_valid && es_ms_r.gr_we
+    io.ms_forward.bits.dest := io.mem2wb.bits.dest
+    io.ms_forward.bits.data := io.mem2wb.bits.result
 }
