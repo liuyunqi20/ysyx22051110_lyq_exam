@@ -157,7 +157,7 @@ void execute(uint64_t step){
             break;
         }
         //printf("pc: %lx\n", cpu_pc);
-        if(g_nr_step > 30000) { printf("inst count reaches to 300\n"); return;}
+        //if(g_nr_step > 30000) { printf("inst count reaches to 300\n"); return;}
 #ifdef DEVICE
         device_update();
 #endif
