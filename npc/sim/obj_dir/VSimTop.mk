@@ -39,7 +39,6 @@ VM_USER_CFLAGS = \
 	-DDEVICE \
 	-DHAS_VGA \
 	-DHAS_KEYBOARD \
-	-DBATCH_MODE \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
