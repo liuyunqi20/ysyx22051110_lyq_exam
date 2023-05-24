@@ -137,6 +137,10 @@ static int cmd_x(char * args){
 }
 
 void sdb_mainloop(){
+#ifdef BATCH_MODE
+  cmd_c(NULL);
+  return;
+#endif
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
 

@@ -8,6 +8,7 @@ CPP_INCLUDE = $(NPC_HOME)/sim/cpp/include/
 #MTRACE = 1
 #DIFF = 1
 #WAVE = 1
+BATCH_MODE = 1
 DEVICE = 1
 HAS_VGA = 1
 HAS_KEYBOARD = 1
@@ -78,6 +79,10 @@ endif
 
 ifdef HAS_KEYBOARD
 VERILATOR_FLAGS += -CFLAGS -DHAS_KEYBOARD
+endif
+
+ifdef BATCH_MODE
+VERILATOR_FLAGS += -CFLAGS -DBATCH_MODE
 endif
 # ------------------------ verilator run parameters  ------------------------
 IMAGE ?=
