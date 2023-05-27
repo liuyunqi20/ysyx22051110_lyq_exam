@@ -34,8 +34,7 @@ class MultShiftAdd(w: Int) extends Module{
         signed_r := io.bits.mul_signed
     }
     //add accumulate
-    val cur_add = Mux1H( for( i <- 0 until w) yield 
-            (cnt(i) -> Mux(src2_r(i), Cat(src1_r(2*w - 1, i), Fill(i, 0.U(1.W))), 0.U((2*w).W))))
+    val cur_add = Mux1H( for( i <- 0 until w) yield (cnt(i) -> Mux(src2_r(i), Cat(src1_r(2*w - 1, i), Fill(i, 0.U(1.W))), 0.U((2*w).W))))
     when(cnt.orR) {
         res_r := cur_add + res_r
     }
