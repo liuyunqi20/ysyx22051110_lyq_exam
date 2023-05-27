@@ -18,14 +18,22 @@ class Alu(w: Int) extends Module{
      |    |    |    |    |    |    |    |    |
      14   15   16   17   18   19   20   21   22
     */
-    val io = IO(new Bundle{
-        val src1     = Input(UInt(w.W))
-        val src2     = Input(UInt(w.W))
-        val alu_op   = Input(UInt(ALUOP_LEN.W))
-        val res      = Output(UInt(w.W))
-        val cout     = Output(UInt(1.W))
-        val overflow = Output(UInt(1.W))
-    })
+    val io = IO(Decoupled(new Bundle{
+        val src1      = Input(UInt(w.W))
+        val src2      = Input(UInt(w.W))
+        val alu_op    = Input(UInt(ALUOP_LEN.W))
+        val res       = Output(UInt(w.W))
+        val cout      = Output(UInt(1.W))
+        val overflow  = Output(UInt(1.W))
+
+        val valid     = Input(Bool())
+        val ready     = Output(Bool())
+        val alu_flush = Input(Bool())
+        val out_valid = Output(Bool())
+        val test_eq   = Output(Bool())
+    }))
+    val is_mul = (io.alu_op(14, 10).orR) === 1.U
+    val is_div = (io.alu_op(22, 15).orR) === 1.U
     //arith
     val cin      = Mux(io.alu_op(1) === 1.U, 1.U(w.W), 0.U(w.W))
     val add_src1 = io.src1
@@ -51,9 +59,22 @@ class Alu(w: Int) extends Module{
     )
     //mul
     val mul_src2_msb = Mux(io.alu_op(13) === 1.U, 0.U(1.W), io.src2(w - 1))
-    val mul_res_s    = Cat(io.src1(w - 1), io.src1(w - 1, 0)).asSInt * Cat(mul_src2_msb, io.src2(w - 1, 0)).asSInt
-    val mul_res_u    = Cat(0.U(1.W)   , io.src1(w - 1, 0)).asUInt * Cat(0.U(1.W)    , io.src2(w - 1, 0)).asUInt
-    val mul_res_w    = io.src1(31, 0) * io.src2(31, 0)
+    val mul_res_s_t  = Cat(io.src1(w - 1), io.src1(w - 1, 0)).asSInt * Cat(mul_src2_msb, io.src2(w - 1, 0)).asSInt
+    val mul_res_u_t  = Cat(0.U(1.W)   , io.src1(w - 1, 0)).asUInt * Cat(0.U(1.W)    , io.src2(w - 1, 0)).asUInt
+    val mul_res_w_t  = io.src1(31, 0) * io.src2(31, 0)
+
+    val my_mul = Module(new MultUnit(w))
+    my_mul.io.bits.flush        := io.alu_flush
+    my_mul.io.bits.mulw         := io.alu_op(14)
+    my_mul.io.bits.mul_signed   := Mux(io.alu_op(13) === 1.U, "b10".U, 
+                                        Mux(io.alu_op(12) === 1.U, "b00".U, "b11".U))
+    my_mul.io.bits.multiplicand := io.src1
+    my_mul.io.bits.multiplier   := io.src2
+    val mul_res_s = Cat(my_mul.io.bits.result_hi, my_mul.io.bits.result_lo)
+    val mul_res_u = my_mul.io.bits_s
+    val mul_res_w = Cat(Fill(w-32, my_mul.io.bits.result_lo(31)),  my_mul.io.bits.result_lo(31, 0))
+
+
     //div
     val div_res   = io.src1.asSInt / io.src2.asSInt
     val divu_res  = io.src1 / io.src2
@@ -89,4 +110,11 @@ class Alu(w: Int) extends Module{
         /* remw   */ io.alu_op(21) -> Cat(Fill(w - 32, remw_res(31)) , remw_res(31, 0)).asUInt,
         /* remuw  */ io.alu_op(22) -> Cat(Fill(w - 32, remuw_res(31)), remuw_res(31, 0)),
     ))
+
+    io.ready    := Mux(is_mul, my_mul.io.ready, io.valid) //TODO: div
+
+    //for debug
+    io.test_eq  := Mux( io.alu_op(14) === 1.U, mul_res_w === mul_res_w_t,  //TODO: div
+                                               Mux(io.alu_op(13, 10), mul_res_s === mul_res_s_t) )
+    io.out_valid := Mux(is_mul, my_mul.io.out_valid, io.valid && io.ready) //TODO: div
 }

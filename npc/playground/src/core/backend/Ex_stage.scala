@@ -17,29 +17,48 @@ class Ex_stage(w: Int) extends Module{
         val br_flush   = Input(Bool())
         val es_forward = Valid(new ForwardingBundle(w))
     })
-    val es_valid     = RegInit(0.B)
+    val es_valid   = RegInit(0.B)
+    val ex_flush   = io.exc_flush || io.br_flush  
+    val my_alu     = Module(new Alu(w))
+    val alu_wait   = RegInit(0.B)
+    val alu_buf_en = RegInit(0.B)
+    val alu_buf    = RegInit(0.U(w.W))
     // exc / br flush 
-    when(io.exc_flush || io.br_flush){
-        es_valid := 0.B
-    }.elsewhen(io.id2ex.ready) {
-        es_valid := io.id2ex.valid
-    }
-    val ds_es_r      = RegInit(0.U.asTypeOf(new IdtoExBundle(w)))
-    when(io.id2ex.fire){
-        ds_es_r := io.id2ex.bits
-    }
+        when(ex_flush){
+            es_valid := 0.B
+        }.elsewhen(io.id2ex.ready) {
+            es_valid := io.id2ex.valid
+        }
+        val ds_es_r  = RegInit(0.U.asTypeOf(new IdtoExBundle(w)))
+        when(io.id2ex.fire){
+            ds_es_r := io.id2ex.bits
+        }
     // ------------------------ ALU ------------------------ 
-        val my_alu        = Module(new Alu(w))
-        my_alu.io.src1   := Mux(ds_es_r.src1_sel, ds_es_r.pc, ds_es_r.rs1)
-        my_alu.io.src2   := Mux(ds_es_r.src2_sel, ds_es_r.imm, ds_es_r.rs2)
-        my_alu.io.alu_op := ds_es_r.alu_op
+        my_alu.io.valid       := es_valid
+        my_alu.io.alu_flush   := ex_flush
+        my_alu.io.bits.src1   := Mux(ds_es_r.src1_sel, ds_es_r.pc, ds_es_r.rs1)
+        my_alu.io.bits.src2   := Mux(ds_es_r.src2_sel, ds_es_r.imm, ds_es_r.rs2)
+        my_alu.io.bits.alu_op := ds_es_r.alu_op
         //sign-extend lower 32 bits when RV64W inst
-        val alu_res       = Cat(Mux(ds_es_r.rv64w, Fill(w - 32, my_alu.io.res(31)), my_alu.io.res(63, 32)), 
-                                my_alu.io.res(31, 0))
-        val carry_out     = my_alu.io.cout
-        val overflow      = my_alu.io.overflow
+        val alu_res       = Mux(alu_buf_en, alu_buf, 
+                                    Cat(Mux(ds_es_r.rv64w, Fill(w - 32, my_alu.io.bits.res(31)), my_alu.io.bits.res(63, 32)), 
+                                my_alu.io.bits.res(31, 0)) )
+        val carry_out     = my_alu.io.bits.cout
+        val overflow      = my_alu.io.bits.overflow
         val s1_lt_s2      = overflow ^ alu_res(w-1)
         val s1_ltu_s2     = ~carry_out
+    // ------------------------ Ex Reg ------------------------
+        when(ex_flush) {
+            alu_wait := 0.B
+        } .elsewhen(my_alu.io.fire && ~my_alu.io.bits.out_valid) {
+            alu_wait := 1.B
+        }
+        when(ex_flush || (alu_buf_en && io.ex2mem.ready)){
+            alu_buf_en := 0.B
+        } .elsewhen(my_alu.io.bits.out_valid && alu_wait && ~io.ex2mem.ready) {
+            alu_buf_en := 1.B
+            alu_buf    := alu_res
+        }
     // ------------------------ branch ------------------------ 
         //val (NB, BEQ, BNE, BLT, BGE, BLTU, BGEU, JAL, JALR) = 
         //   ("h01".U, "h02".U, "h04".U, "h08".U, "h10".U, "h20".U, "h40".U, "h80".U, "h100".U)

@@ -252,3 +252,26 @@ import chisel3.util._
         val clint_hit  = Input(Bool())
         val ret_valid  = Input(Bool())
     }
+
+// ----------------- Mult/Div Bundle -----------------
+    class MultUnitBundle(w: Int) extends Bundle{
+        val flush        = Output(Bool())
+        val mulw         = Output(Bool())
+        val mul_signed   = Output(UInt(2.W)) // 2'b00:uu, 2'b10:su, 2'b11:ss
+        val multiplicand = Output(UInt(w.W))
+        val multiplier   = Output(UInt(w.W))
+        val out_valid    = Input(Bool())
+        val result_hi    = Input(UInt(w.W))
+        val result_lo    = Input(Bool(w.W))
+    }
+
+    class DivUnitBundle(w: Int) extends Bundle{
+        val flush      = Output(Bool())
+        val divw       = Output(Bool()) //1'b1: 32bit
+        val div_signed = Output(Bool()) //1'b1: signed
+        val dividend   = Output(UInt(w.W))
+        val divisor    = Output(UInt(w.W))
+        val out_valid  = Input(Bool())
+        val quotient   = Input(UInt(w.W))
+        val reminder   = Input(UInt(w.W))
+    }
