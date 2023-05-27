@@ -255,23 +255,23 @@ import chisel3.util._
 
 // ----------------- Mult/Div Bundle -----------------
     class MultUnitBundle(w: Int) extends Bundle{
-        val flush        = Output(Bool())
-        val mulw         = Output(Bool())
-        val mul_signed   = Output(UInt(2.W)) // 2'b00:uu, 2'b10:su, 2'b11:ss
-        val multiplicand = Output(UInt(w.W))
-        val multiplier   = Output(UInt(w.W))
-        val out_valid    = Input(Bool())
-        val result_hi    = Input(UInt(w.W))
-        val result_lo    = Input(UInt(w.W))
+        val flush        = Input(Bool())
+        val mulw         = Input(Bool())
+        val mul_signed   = Input(UInt(2.W)) // 2'b00:uu, 2'b10:su, 2'b11:ss
+        val multiplicand = Input(UInt(w.W))
+        val multiplier   = Input(UInt(w.W))
+        val out_valid    = Output(Bool())
+        val result_hi    = Output(UInt(w.W))
+        val result_lo    = Output(UInt(w.W))
     }
 
     class DivUnitBundle(w: Int) extends Bundle{
-        val flush      = Output(Bool())
-        val divw       = Output(Bool()) //1'b1: 32bit
-        val div_signed = Output(Bool()) //1'b1: signed
-        val dividend   = Output(UInt(w.W))
-        val divisor    = Output(UInt(w.W))
-        val out_valid  = Input(Bool())
-        val quotient   = Input(UInt(w.W))
-        val reminder   = Input(UInt(w.W))
+        val flush      = Input(Bool())
+        val divw       = Input(Bool()) //1'b1: 32bit
+        val div_signed = Input(Bool()) //1'b1: signed
+        val dividend   = Input(UInt(w.W))
+        val divisor    = Input(UInt(w.W))
+        val out_valid  = Output(Bool())
+        val quotient   = Output(UInt(w.W))
+        val reminder   = Output(UInt(w.W))
     }

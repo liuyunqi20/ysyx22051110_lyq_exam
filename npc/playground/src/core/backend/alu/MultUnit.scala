@@ -3,13 +3,13 @@ import chisel3._
 import chisel3.util._
 
 class MultUnit(w: Int) extends Module{
-    val io = IO(Flipped(Decoupled(new MultUnitBundle(w))))
+    val io = IO(Decoupled(new MultUnitBundle(w)))
     val mult_core = Module(new MultShiftAdd(w))
     io <> mult_core.io
 }
 
 class MultShiftAdd(w: Int) extends Module{
-    val io = IO(Flipped(Decoupled(new MultUnitBundle(w))))
+    val io = IO(Decoupled(new MultUnitBundle(w)))
     val src1_r   = RegInit(0.U((2*w).W))
     val src2_r   = RegInit(0.U(w.W))
     val signed_r = RegInit(0.U(2.W))
@@ -49,7 +49,6 @@ class MultShiftAdd(w: Int) extends Module{
     }.elsewhen(cnt(w-1) === 1.U) {
         done := 1.B
     }
-    val hehe = io.bits.out_valid
     io.bits.out_valid := done
     io.bits.result_hi := res_r(2 * w - 1, w)
     io.bits.result_lo := res_r(w - 1, 0)
