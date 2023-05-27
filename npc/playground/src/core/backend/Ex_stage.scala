@@ -48,7 +48,7 @@ class Ex_stage(w: Int) extends Module{
         val s1_lt_s2      = overflow ^ alu_res(w-1)
         val s1_ltu_s2     = ~carry_out
     // ------------------------ Ex Reg ------------------------
-        when(ex_flush) {
+        when(ex_flush || my_alu.io.bits.out_valid) {
             alu_wait := 0.B
         } .elsewhen(my_alu.io.fire && ~my_alu.io.bits.out_valid) {
             alu_wait := 1.B
@@ -108,7 +108,7 @@ class Ex_stage(w: Int) extends Module{
         io.es_forward.bits.dest := io.ex2mem.bits.dest
         io.es_forward.bits.data := io.ex2mem.bits.result
     // ------------------------ pipeline shake hands ------------------------ 
-        val es_ready_go  = 1.B
+        val es_ready_go  = ~alu_wait || (my_alu.io.fire && my_alu.io.bits.out_valid)
         io.id2ex.ready  := !es_valid || (es_ready_go && io.ex2mem.ready)
         io.ex2mem.valid :=  es_valid && es_ready_go
 }
