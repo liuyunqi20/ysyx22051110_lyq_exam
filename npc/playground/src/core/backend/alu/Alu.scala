@@ -32,89 +32,89 @@ class Alu(w: Int) extends Module{
         val out_valid = Output(Bool())
         val test_eq   = Output(Bool())
     }))
-    val is_mul = (io.alu_op(14, 10).orR) === 1.U
-    val is_div = (io.alu_op(22, 15).orR) === 1.U
+    val is_mul = (io.bits.alu_op(14, 10).orR) === 1.U
+    val is_div = (io.bits.alu_op(22, 15).orR) === 1.U
     //arith
-    val cin      = Mux(io.alu_op(1) === 1.U, 1.U(w.W), 0.U(w.W))
-    val add_src1 = io.src1
-    val add_src2 = Mux(io.alu_op(1) === 1.U, ~io.src2,io.src2)
+    val cin      = Mux(io.bits.alu_op(1) === 1.U, 1.U(w.W), 0.U(w.W))
+    val add_src1 = io.bits.src1
+    val add_src2 = Mux(io.bits.alu_op(1) === 1.U, ~io.bits.src2,io.bits.src2)
     val add_res  = (add_src1 +& add_src2) + cin
     //logic
-    val and_res  = io.src1 & io.src2
-    val or_res   = io.src1 | io.src2
-    val xor_res  = io.src1 ^ io.src2
+    val and_res  = io.bits.src1 & io.bits.src2
+    val or_res   = io.bits.src1 | io.bits.src2
+    val xor_res  = io.bits.src1 ^ io.bits.src2
     //shift
-    val shift_len   = io.src2(5, 0)
-    val shift_len_w = io.src2(4, 0)
-    val sll         = io.src1 << shift_len
-    val srl         = io.src1 >> shift_len
-    val sra         = (io.src1.asSInt) >> shift_len
-    val srlw        = (io.src1(31, 0)) >> shift_len_w
-    val sraw        = ((io.src1(31, 0)).asSInt) >> shift_len_w
+    val shift_len   = io.bits.src2(5, 0)
+    val shift_len_w = io.bits.src2(4, 0)
+    val sll         = io.bits.src1 << shift_len
+    val srl         = io.bits.src1 >> shift_len
+    val sra         = (io.bits.src1.asSInt) >> shift_len
+    val srlw        = (io.bits.src1(31, 0)) >> shift_len_w
+    val sraw        = ((io.bits.src1(31, 0)).asSInt) >> shift_len_w
     //io
-    io.cout     := add_res(w)
-    io.overflow := Mux(io.alu_op(0) === 1.U, 
-        ( ~(io.src1(w-1) ^ io.src2(w-1)) & (io.src1(w-1) ^ add_res(w-1)) ),
-        (  (io.src1(w-1) ^ io.src2(w-1)) & (io.src1(w-1) ^ add_res(w-1)) )
+    io.bits.cout     := add_res(w)
+    io.bits.overflow := Mux(io.bits.alu_op(0) === 1.U, 
+        ( ~(io.bits.src1(w-1) ^ io.bits.src2(w-1)) & (io.bits.src1(w-1) ^ add_res(w-1)) ),
+        (  (io.bits.src1(w-1) ^ io.bits.src2(w-1)) & (io.bits.src1(w-1) ^ add_res(w-1)) )
     )
     //mul
-    val mul_src2_msb = Mux(io.alu_op(13) === 1.U, 0.U(1.W), io.src2(w - 1))
-    val mul_res_s_t  = Cat(io.src1(w - 1), io.src1(w - 1, 0)).asSInt * Cat(mul_src2_msb, io.src2(w - 1, 0)).asSInt
-    val mul_res_u_t  = Cat(0.U(1.W)   , io.src1(w - 1, 0)).asUInt * Cat(0.U(1.W)    , io.src2(w - 1, 0)).asUInt
-    val mul_res_w_t  = io.src1(31, 0) * io.src2(31, 0)
+    val mul_src2_msb = Mux(io.bits.alu_op(13) === 1.U, 0.U(1.W), io.bits.src2(w - 1))
+    val mul_res_s_t  = Cat(io.bits.src1(w - 1), io.bits.src1(w - 1, 0)).asSInt * Cat(mul_src2_msb, io.bits.src2(w - 1, 0)).asSInt
+    val mul_res_u_t  = Cat(0.U(1.W)   , io.bits.src1(w - 1, 0)).asUInt * Cat(0.U(1.W)    , io.bits.src2(w - 1, 0)).asUInt
+    val mul_res_w_t  = io.bits.src1(31, 0) * io.bits.src2(31, 0)
 
     val my_mul = Module(new MultUnit(w))
-    my_mul.io.bits.flush        := io.alu_flush
-    my_mul.io.bits.mulw         := io.alu_op(14)
-    my_mul.io.bits.mul_signed   := Mux(io.alu_op(13) === 1.U, "b10".U, 
-                                        Mux(io.alu_op(12) === 1.U, "b00".U, "b11".U))
-    my_mul.io.bits.multiplicand := io.src1
-    my_mul.io.bits.multiplier   := io.src2
-    val mul_res_s = Cat(my_mul.io.bits.result_hi, my_mul.io.bits.result_lo)
-    val mul_res_u = my_mul.io.bits_s
-    val mul_res_w = Cat(Fill(w-32, my_mul.io.bits.result_lo(31)),  my_mul.io.bits.result_lo(31, 0))
+    my_mul.io.bits.bits.flush        := io.bits.alu_flush
+    my_mul.io.bits.bits.mulw         := io.bits.alu_op(14)
+    my_mul.io.bits.bits.mul_signed   := Mux(io.bits.alu_op(13) === 1.U, "b10".U, 
+                                        Mux(io.bits.alu_op(12) === 1.U, "b00".U, "b11".U))
+    my_mul.io.bits.bits.multiplicand := io.bits.src1
+    my_mul.io.bits.bits.multiplier   := io.bits.src2
+    val mul_res_s = Cat(my_mul.io.bits.bits.result_hi, my_mul.io.bits.bits.result_lo)
+    val mul_res_u = my_mul.io.bits.bits_s
+    val mul_res_w = Cat(Fill(w-32, my_mul.io.bits.bits.result_lo(31)),  my_mul.io.bits.bits.result_lo(31, 0))
 
 
     //div
-    val div_res   = io.src1.asSInt / io.src2.asSInt
-    val divu_res  = io.src1 / io.src2
-    val divw_res  = io.src1(31, 0).asSInt / io.src2(31, 0).asSInt
-    val divuw_res = io.src1(31, 0) / io.src2(31, 0)
+    val div_res   = io.bits.src1.asSInt / io.bits.src2.asSInt
+    val divu_res  = io.bits.src1 / io.bits.src2
+    val divw_res  = io.bits.src1(31, 0).asSInt / io.bits.src2(31, 0).asSInt
+    val divuw_res = io.bits.src1(31, 0) / io.bits.src2(31, 0)
     //rem 
-    val rem_res   = io.src1.asSInt % io.src2.asSInt
-    val remu_res  = io.src1 % io.src2
-    val remw_res  = io.src1(31, 0).asSInt % io.src2(31, 0).asSInt
-    val remuw_res = io.src1(31, 0) % io.src2(31, 0)
-    io.res      := Mux1H(Seq(
-        /* add    */ io.alu_op(0)  -> add_res(w-1, 0),
-        /* sub    */ io.alu_op(1)  -> add_res(w-1, 0),
-        /* and    */ io.alu_op(2)  -> and_res,
-        /* or     */ io.alu_op(3)  -> or_res,
-        /* xor    */ io.alu_op(4)  -> xor_res,
-        /* sll    */ io.alu_op(5)  -> sll(w - 1, 0),
-        /* srl    */ io.alu_op(6)  -> srl,
-        /* sra    */ io.alu_op(7)  -> sra.asUInt,
-        /* srlw   */ io.alu_op(8)  -> srlw,
-        /* sraw   */ io.alu_op(9)  -> sraw.asUInt,
-        /* mul    */ io.alu_op(10) -> mul_res_s(w - 1    , 0).asUInt,
-        /* mulh   */ io.alu_op(11) -> mul_res_s(2 * w - 1, w).asUInt,
-        /* mulhu  */ io.alu_op(12) -> mul_res_u(2 * w - 1, w)       ,
-        /* mulhsu */ io.alu_op(13) -> mul_res_s(w - 1    , 0).asUInt,
-        /* mulw   */ io.alu_op(14) -> mul_res_w.asUInt,
-        /* div    */ io.alu_op(15) -> div_res.asUInt,
-        /* divu   */ io.alu_op(16) -> divu_res,
-        /* divw   */ io.alu_op(17) -> Cat(Fill(w - 32, divw_res(31)) , divw_res(31, 0)).asUInt,
-        /* divuw  */ io.alu_op(18) -> Cat(Fill(w - 32, divuw_res(31)), divuw_res(31, 0)),
-        /* rem    */ io.alu_op(19) -> rem_res.asUInt,
-        /* remu   */ io.alu_op(20) -> remu_res,
-        /* remw   */ io.alu_op(21) -> Cat(Fill(w - 32, remw_res(31)) , remw_res(31, 0)).asUInt,
-        /* remuw  */ io.alu_op(22) -> Cat(Fill(w - 32, remuw_res(31)), remuw_res(31, 0)),
+    val rem_res   = io.bits.src1.asSInt % io.bits.src2.asSInt
+    val remu_res  = io.bits.src1 % io.bits.src2
+    val remw_res  = io.bits.src1(31, 0).asSInt % io.bits.src2(31, 0).asSInt
+    val remuw_res = io.bits.src1(31, 0) % io.bits.src2(31, 0)
+    io.bits.res      := Mux1H(Seq(
+        /* add    */ io.bits.alu_op(0)  -> add_res(w-1, 0),
+        /* sub    */ io.bits.alu_op(1)  -> add_res(w-1, 0),
+        /* and    */ io.bits.alu_op(2)  -> and_res,
+        /* or     */ io.bits.alu_op(3)  -> or_res,
+        /* xor    */ io.bits.alu_op(4)  -> xor_res,
+        /* sll    */ io.bits.alu_op(5)  -> sll(w - 1, 0),
+        /* srl    */ io.bits.alu_op(6)  -> srl,
+        /* sra    */ io.bits.alu_op(7)  -> sra.asUInt,
+        /* srlw   */ io.bits.alu_op(8)  -> srlw,
+        /* sraw   */ io.bits.alu_op(9)  -> sraw.asUInt,
+        /* mul    */ io.bits.alu_op(10) -> mul_res_s(w - 1    , 0).asUInt,
+        /* mulh   */ io.bits.alu_op(11) -> mul_res_s(2 * w - 1, w).asUInt,
+        /* mulhu  */ io.bits.alu_op(12) -> mul_res_u(2 * w - 1, w)       ,
+        /* mulhsu */ io.bits.alu_op(13) -> mul_res_s(w - 1    , 0).asUInt,
+        /* mulw   */ io.bits.alu_op(14) -> mul_res_w.asUInt,
+        /* div    */ io.bits.alu_op(15) -> div_res.asUInt,
+        /* divu   */ io.bits.alu_op(16) -> divu_res,
+        /* divw   */ io.bits.alu_op(17) -> Cat(Fill(w - 32, divw_res(31)) , divw_res(31, 0)).asUInt,
+        /* divuw  */ io.bits.alu_op(18) -> Cat(Fill(w - 32, divuw_res(31)), divuw_res(31, 0)),
+        /* rem    */ io.bits.alu_op(19) -> rem_res.asUInt,
+        /* remu   */ io.bits.alu_op(20) -> remu_res,
+        /* remw   */ io.bits.alu_op(21) -> Cat(Fill(w - 32, remw_res(31)) , remw_res(31, 0)).asUInt,
+        /* remuw  */ io.bits.alu_op(22) -> Cat(Fill(w - 32, remuw_res(31)), remuw_res(31, 0)),
     ))
 
-    io.ready    := Mux(is_mul, my_mul.io.ready, io.valid) //TODO: div
+    io.bits.ready    := Mux(is_mul, my_mul.io.ready, io.valid) //TODO: div
 
     //for debug
-    io.test_eq  := Mux( io.alu_op(14) === 1.U, mul_res_w === mul_res_w_t,  //TODO: div
-                                               Mux(io.alu_op(13, 10), mul_res_s === mul_res_s_t) )
-    io.out_valid := Mux(is_mul, my_mul.io.out_valid, io.valid && io.ready) //TODO: div
+    io.bits.test_eq  := Mux( io.bits.alu_op(14) === 1.U, mul_res_w === mul_res_w_t,  //TODO: div
+                                               Mux(io.bits.alu_op(13, 10), mul_res_s === mul_res_s_t) )
+    io.bits.out_valid := Mux(is_mul, my_mul.io.bits.out_valid, io.fire) //TODO: div
 }
