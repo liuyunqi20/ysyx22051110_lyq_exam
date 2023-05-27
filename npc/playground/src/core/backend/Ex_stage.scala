@@ -34,11 +34,11 @@ class Ex_stage(w: Int) extends Module{
             ds_es_r := io.id2ex.bits
         }
     // ------------------------ ALU ------------------------ 
-        my_alu.io.valid       := es_valid
-        my_alu.io.alu_flush   := ex_flush
-        my_alu.io.bits.src1   := Mux(ds_es_r.src1_sel, ds_es_r.pc, ds_es_r.rs1)
-        my_alu.io.bits.src2   := Mux(ds_es_r.src2_sel, ds_es_r.imm, ds_es_r.rs2)
-        my_alu.io.bits.alu_op := ds_es_r.alu_op
+        my_alu.io.valid          := es_valid
+        my_alu.io.bits.alu_flush := ex_flush
+        my_alu.io.bits.src1      := Mux(ds_es_r.src1_sel, ds_es_r.pc, ds_es_r.rs1)
+        my_alu.io.bits.src2      := Mux(ds_es_r.src2_sel, ds_es_r.imm, ds_es_r.rs2)
+        my_alu.io.bits.alu_op    := ds_es_r.alu_op
         //sign-extend lower 32 bits when RV64W inst
         val alu_res       = Mux(alu_buf_en, alu_buf, 
                                     Cat(Mux(ds_es_r.rv64w, Fill(w - 32, my_alu.io.bits.res(31)), my_alu.io.bits.res(63, 32)), 

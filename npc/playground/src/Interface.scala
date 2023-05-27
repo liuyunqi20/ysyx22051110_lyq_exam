@@ -262,7 +262,7 @@ import chisel3.util._
         val multiplier   = Output(UInt(w.W))
         val out_valid    = Input(Bool())
         val result_hi    = Input(UInt(w.W))
-        val result_lo    = Input(Bool(w.W))
+        val result_lo    = Input(UInt(w.W))
     }
 
     class DivUnitBundle(w: Int) extends Bundle{

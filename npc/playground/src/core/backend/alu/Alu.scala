@@ -71,7 +71,7 @@ class Alu(w: Int) extends Module{
     my_mul.io.bits.multiplicand := io.bits.src1
     my_mul.io.bits.multiplier   := io.bits.src2
     val mul_res_s = Cat(my_mul.io.bits.result_hi, my_mul.io.bits.result_lo)
-    val mul_res_u = my_mul.io.bits.s
+    val mul_res_u = mul_res_s
     val mul_res_w = Cat(Fill(w-32, my_mul.io.bits.result_lo(31)),  my_mul.io.bits.result_lo(31, 0))
 
 
@@ -115,6 +115,6 @@ class Alu(w: Int) extends Module{
 
     //for debug
     io.bits.test_eq  := Mux( io.bits.alu_op(14) === 1.U, mul_res_w === mul_res_w_t,  //TODO: div
-                                               Mux(io.bits.alu_op(13, 10), mul_res_s === mul_res_s_t) )
+                                               Mux(io.bits.alu_op(13, 10), mul_res_s === mul_res_s_t, 0.B) )
     io.bits.out_valid := Mux(is_mul, my_mul.io.bits.out_valid, io.fire) //TODO: div
 }
