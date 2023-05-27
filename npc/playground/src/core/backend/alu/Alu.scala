@@ -64,15 +64,15 @@ class Alu(w: Int) extends Module{
     val mul_res_w_t  = io.bits.src1(31, 0) * io.bits.src2(31, 0)
 
     val my_mul = Module(new MultUnit(w))
-    my_mul.io.bits.bits.flush        := io.bits.alu_flush
-    my_mul.io.bits.bits.mulw         := io.bits.alu_op(14)
-    my_mul.io.bits.bits.mul_signed   := Mux(io.bits.alu_op(13) === 1.U, "b10".U, 
+    my_mul.io.bits.flush        := io.bits.alu_flush
+    my_mul.io.bits.mulw         := io.bits.alu_op(14)
+    my_mul.io.bits.mul_signed   := Mux(io.bits.alu_op(13) === 1.U, "b10".U, 
                                         Mux(io.bits.alu_op(12) === 1.U, "b00".U, "b11".U))
-    my_mul.io.bits.bits.multiplicand := io.bits.src1
-    my_mul.io.bits.bits.multiplier   := io.bits.src2
-    val mul_res_s = Cat(my_mul.io.bits.bits.result_hi, my_mul.io.bits.bits.result_lo)
-    val mul_res_u = my_mul.io.bits.bits_s
-    val mul_res_w = Cat(Fill(w-32, my_mul.io.bits.bits.result_lo(31)),  my_mul.io.bits.bits.result_lo(31, 0))
+    my_mul.io.bits.multiplicand := io.bits.src1
+    my_mul.io.bits.multiplier   := io.bits.src2
+    val mul_res_s = Cat(my_mul.io.bits.result_hi, my_mul.io.bits.result_lo)
+    val mul_res_u = my_mul.io.bits.s
+    val mul_res_w = Cat(Fill(w-32, my_mul.io.bits.result_lo(31)),  my_mul.io.bits.result_lo(31, 0))
 
 
     //div
