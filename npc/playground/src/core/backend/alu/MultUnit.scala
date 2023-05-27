@@ -35,8 +35,9 @@ class MultShiftAdd(w: Int) extends Module{
     }
     //add accumulate
     val add_vec = Wire(Vec(w, UInt((2*w).W)))
-    for( i <- 0 until w) {
-        add_vec(i) := Cat(Mux(src2_r(i), src1_r(2*w - 1, i), 0.U((2*w - i).W) ), if(i == 0) Some(0.U(i.W)) else None)
+    add_vec(0) := Mux(src2_r(0), src1_r, 0.U((2*w).W) )
+    for( i <- 1 until w) {
+        add_vec(i) := Cat(Mux(src2_r(i), src1_r(2*w - 1, i), 0.U((2*w - i).W) ), 0.U(i.W))
     }
     val cur_add = Mux1H( for( i <- 0 until w) yield (cnt(i) -> add_vec(i)))
     when(cnt.orR) {
