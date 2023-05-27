@@ -49,7 +49,7 @@ class MultShiftAdd(w: Int) extends Module{
     }.elsewhen(cnt(w-1) === 1.U) {
         done := 1.B
     }
-    io.bits.out_valid := done
+    io.bits.out_valid := done === 1.B
     io.bits.result_hi := res_r(2 * w - 1, w)
     io.bits.result_lo := res_r(w - 1, 0)
 }
