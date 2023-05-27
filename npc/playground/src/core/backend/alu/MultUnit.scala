@@ -14,7 +14,7 @@ class MultShiftAdd(w: Int) extends Module{
     val src2_r   = RegInit(0.U(w.W))
     val signed_r = RegInit(0.U(2.W))
     val mulw_r   = RegInit(0.B)
-    val res_r    = RegInit(0.U((2*w.W)))
+    val res_r    = RegInit( 0.U(( (2*w).W )) )
     val cnt      = RegInit(0.U(w.W))
     val done     = RegInit(0.B)
     //counter
