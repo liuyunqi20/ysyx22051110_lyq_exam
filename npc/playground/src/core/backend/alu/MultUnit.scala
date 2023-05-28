@@ -29,7 +29,7 @@ class MultShiftAdd(w: Int) extends Module{
     }.elsewhen(io.in.fire){
         cnt := 1.U
     }.otherwise{
-        cnt := Cat(cnt(w-1, 0), cnt(w))
+        cnt := Cat(cnt(w-2, 0), 0.U(1.W))
     }
 
     //input buffer
