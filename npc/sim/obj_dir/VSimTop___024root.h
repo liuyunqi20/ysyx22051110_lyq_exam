@@ -96,13 +96,13 @@ VL_MODULE(VSimTop___024root) {
         CData/*4:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__ds_es_r_dest;
     };
     struct {
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT___my_alu_io_in_valid_T_1;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT___my_alu_io_in_valid_T_3;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__s1_lt_s2;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__is_jal;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__es_ready_go;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT___io_id2ex_ready_T_2;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__unnamedblk1__DOT___T_6;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__unnamedblk1__DOT___T_9;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__unnamedblk1__DOT___T_8;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT___io_in_ready_T;
         CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_mul__DOT__mult_core__DOT__signed_r;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_mul__DOT__mult_core__DOT__done;
