@@ -108,7 +108,7 @@ void execute_once(){
     uint64_t old_pc = cpu_pc;
     int cnt  = 0;
     while(cpu_pc == old_pc){ 
-        if(cnt >= 50) {wave_end(); assert(0);}
+        if(cnt >= 200) {wave_end(); assert(0);}
         // ----------------- NEG ----------------- 
         contextp->timeInc(1);
         SimTop->clock = !SimTop->clock;
@@ -157,7 +157,7 @@ void execute(uint64_t step){
             break;
         }
         //printf("pc: %lx\n", cpu_pc);
-        //if(g_nr_step > 30000) { printf("inst count reaches to 300\n"); return;}
+        if(g_nr_step > 300) { printf("inst count reaches to 300\n"); return;}
 #ifdef DEVICE
         device_update();
 #endif

@@ -44,7 +44,7 @@ int init_image(){
             vaddr_write(iaddr + 0x110 + 4 * i, isize, 0x11223344);
             vaddr_write(iaddr + 0x120 + 4 * i, isize, 0x5566eeff);
         }
-        const char * name = "default_test/br_1.o";
+        const char * name = "default_test/mul_1.o";
         int ret = 0;
         FILE *fp = fopen(name, "rb");
         assert(fp != NULL);
