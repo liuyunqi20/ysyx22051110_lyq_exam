@@ -78,7 +78,7 @@ class Alu(w: Int) extends Module{
 
     //div
     val div_res   = io.in.bits.src1.asSInt / io.in.bits.src2.asSInt
-    val divu_res  = io.in.bits.src1 / io.bits.src2
+    val divu_res  = io.in.bits.src1 / io.in.bits.src2
     val divw_res  = io.in.bits.src1(31, 0).asSInt / io.in.bits.src2(31, 0).asSInt
     val divuw_res = io.in.bits.src1(31, 0) / io.in.bits.src2(31, 0)
     //rem 
