@@ -13,17 +13,17 @@ extern "C" {
 
 
     // DPI EXPORTS
-    // DPI export at ../build/SimTop.v:3942:9
+    // DPI export at ../build/SimTop.v:3937:9
     extern void catch_ebreak(int* i);
 
     // DPI IMPORTS
-    // DPI import at ../build/SimTop.v:4037:37
+    // DPI import at ../build/SimTop.v:4032:37
     extern void cpu_dmem_read(svBit en, svBit wr, long long raddr, long long* rdata);
-    // DPI import at ../build/SimTop.v:4055:37
+    // DPI import at ../build/SimTop.v:4050:37
     extern void cpu_dmem_write(svBit en, svBit wr, long long waddr, long long wdata, char wmask);
-    // DPI import at ../build/SimTop.v:3969:33
+    // DPI import at ../build/SimTop.v:3964:33
     extern void set_gpr_ptr(const svOpenArrayHandle a);
-    // DPI import at ../build/SimTop.v:3939:33
+    // DPI import at ../build/SimTop.v:3934:33
     extern void set_inst_ptr(const svOpenArrayHandle a);
 
 #ifdef __cplusplus
