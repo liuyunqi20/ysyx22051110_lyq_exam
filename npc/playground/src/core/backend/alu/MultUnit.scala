@@ -4,7 +4,7 @@ import chisel3.util._
 
 class MultUnit(w: Int) extends Module{
     val io = IO(new Bundle{
-        val in  = Decoupled(new MultUnitInBundle(w))
+        val in  = Flipped(Decoupled(new MultUnitInBundle(w)))
         val out = Valid(new MultUnitOutBundle(w)) 
     })
     val mult_core = Module(new MultShiftAdd(w))
@@ -13,7 +13,7 @@ class MultUnit(w: Int) extends Module{
 
 class MultShiftAdd(w: Int) extends Module{
     val io = IO(new Bundle{
-        val in  = Decoupled(new MultUnitInBundle(w))
+        val in  = Flipped(Decoupled(new MultUnitInBundle(w)))
         val out = Valid(new MultUnitOutBundle(w)) 
     })
     val src1_r   = RegInit(0.U((2*w).W))
