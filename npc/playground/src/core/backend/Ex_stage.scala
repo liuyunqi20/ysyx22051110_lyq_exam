@@ -34,28 +34,28 @@ class Ex_stage(w: Int) extends Module{
             ds_es_r := io.id2ex.bits
         }
     // ------------------------ ALU ------------------------ 
-        my_alu.io.valid          := es_valid
-        my_alu.io.bits.alu_flush := ex_flush
-        my_alu.io.bits.src1      := Mux(ds_es_r.src1_sel, ds_es_r.pc, ds_es_r.rs1)
-        my_alu.io.bits.src2      := Mux(ds_es_r.src2_sel, ds_es_r.imm, ds_es_r.rs2)
-        my_alu.io.bits.alu_op    := ds_es_r.alu_op
+        my_alu.io.in.valid          := es_valid
+        my_alu.io.in.bits.alu_flush := ex_flush
+        my_alu.io.in.bits.src1      := Mux(ds_es_r.src1_sel, ds_es_r.pc, ds_es_r.rs1)
+        my_alu.io.in.bits.src2      := Mux(ds_es_r.src2_sel, ds_es_r.imm, ds_es_r.rs2)
+        my_alu.io.in.bits.alu_op    := ds_es_r.alu_op
         //sign-extend lower 32 bits when RV64W inst
         val alu_res       = Mux(alu_buf_en, alu_buf, 
-                                    Cat(Mux(ds_es_r.rv64w, Fill(w - 32, my_alu.io.bits.res(31)), my_alu.io.bits.res(63, 32)), 
-                                my_alu.io.bits.res(31, 0)) )
-        val carry_out     = my_alu.io.bits.cout
-        val overflow      = my_alu.io.bits.overflow
+                                    Cat(Mux(ds_es_r.rv64w, Fill(w - 32, my_alu.io.out.bits.res(31)), my_alu.io.out.bits.res(63, 32)), 
+                                my_alu.io.out.bits.res(31, 0)) )
+        val carry_out     = my_alu.io.out.bits.cout
+        val overflow      = my_alu.io.out.bits.overflow
         val s1_lt_s2      = overflow ^ alu_res(w-1)
         val s1_ltu_s2     = ~carry_out
     // ------------------------ Ex Reg ------------------------
-        when(ex_flush || my_alu.io.bits.out_valid) {
+        when(ex_flush || my_alu.io.out.valid) {
             alu_wait := 0.B
-        } .elsewhen(my_alu.io.fire && ~my_alu.io.bits.out_valid) {
+        } .elsewhen(my_alu.io.in.fire && ~my_alu.io.out.valid) {
             alu_wait := 1.B
         }
         when(ex_flush || (alu_buf_en && io.ex2mem.ready)){
             alu_buf_en := 0.B
-        } .elsewhen(my_alu.io.bits.out_valid && alu_wait && ~io.ex2mem.ready) {
+        } .elsewhen(my_alu.io.out.valid && alu_wait && ~io.ex2mem.ready) {
             alu_buf_en := 1.B
             alu_buf    := alu_res
         }
@@ -108,7 +108,7 @@ class Ex_stage(w: Int) extends Module{
         io.es_forward.bits.dest := io.ex2mem.bits.dest
         io.es_forward.bits.data := io.ex2mem.bits.result
     // ------------------------ pipeline shake hands ------------------------ 
-        val es_ready_go  = ~alu_wait || (my_alu.io.fire && my_alu.io.bits.out_valid)
+        val es_ready_go  = ~alu_wait || (my_alu.io.in.fire && my_alu.io.out.valid)
         io.id2ex.ready  := !es_valid || (es_ready_go && io.ex2mem.ready)
         io.ex2mem.valid :=  es_valid && es_ready_go
 }
