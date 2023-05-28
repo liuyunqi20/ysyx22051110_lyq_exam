@@ -24,6 +24,7 @@ class MultShiftAdd(w: Int) extends Module{
     val cnt      = RegInit(0.U(w.W))
     val done     = RegInit(0.B)
     //counter
+    val working = cnt.orR === 1.U
     when(io.in.bits.flush || cnt(w-1) === 1.U){
         cnt := 0.U
     }.elsewhen(io.in.fire){
@@ -46,7 +47,7 @@ class MultShiftAdd(w: Int) extends Module{
         add_vec(i) := Cat(Mux(src2_r(i), src1_r(2*w - 1, i), 0.U((2*w - i).W) ), 0.U(i.W))
     }
     val cur_add = Mux1H( for( i <- 0 until w) yield (cnt(i) -> add_vec(i)))
-    when(cnt.orR) {
+    when(working) {
         res_r := cur_add + res_r
     }
 
@@ -55,6 +56,8 @@ class MultShiftAdd(w: Int) extends Module{
     }.elsewhen(cnt(w-1) === 1.U) {
         done := 1.B
     }
+
+    io.in.ready  := working
     io.out.valid := done
     io.out.bits.result_hi := res_r(2 * w - 1, w)
     io.out.bits.result_lo := res_r(w - 1, 0)

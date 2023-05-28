@@ -263,18 +263,19 @@ import chisel3.util._
     }
 
     class MultUnitOutBundle(w: Int) extends Bundle{
-        val out_valid    = Output(Bool())
         val result_hi    = Output(UInt(w.W))
         val result_lo    = Output(UInt(w.W))
     }
 
-    class DivUnitBundle(w: Int) extends Bundle{
+    class DivUnitInBundle(w: Int) extends Bundle{
         val flush      = Input(Bool())
         val divw       = Input(Bool()) //1'b1: 32bit
         val div_signed = Input(Bool()) //1'b1: signed
         val dividend   = Input(UInt(w.W))
         val divisor    = Input(UInt(w.W))
-        val out_valid  = Output(Bool())
+    }
+
+    class DivUnitOutBundle(w: Int) extends Bundle{
         val quotient   = Output(UInt(w.W))
         val reminder   = Output(UInt(w.W))
     }
