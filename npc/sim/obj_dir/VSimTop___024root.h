@@ -484,6 +484,7 @@ VL_MODULE(VSimTop___024root) {
 
     // LOCAL VARIABLES
     CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT____Vcellinp__my_mul__io_in_bits_mul_signed;
+    CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT____Vcellinp__my_mul__io_in_valid;
     CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRamV__WEN;
     CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRamV_1__WEN;
     CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_icache__DOT____Vcellinp__CacheDataRamV_2__WEN;

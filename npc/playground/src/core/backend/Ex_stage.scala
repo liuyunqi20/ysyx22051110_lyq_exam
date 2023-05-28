@@ -34,7 +34,7 @@ class Ex_stage(w: Int) extends Module{
             ds_es_r := io.id2ex.bits
         }
     // ------------------------ ALU ------------------------ 
-        my_alu.io.in.valid          := es_valid
+        my_alu.io.in.valid          := es_valid && ~alu_wait
         my_alu.io.in.bits.alu_flush := ex_flush
         my_alu.io.in.bits.src1      := Mux(ds_es_r.src1_sel, ds_es_r.pc, ds_es_r.rs1)
         my_alu.io.in.bits.src2      := Mux(ds_es_r.src2_sel, ds_es_r.imm, ds_es_r.rs2)
@@ -109,7 +109,7 @@ class Ex_stage(w: Int) extends Module{
         io.es_forward.bits.data := io.ex2mem.bits.result
     // ------------------------ pipeline shake hands ------------------------ 
         val es_ready_go  = ~ds_es_r.op_muldiv || ex_flush ||
-                            (ds_es_r.op_muldiv && (alu_wait || my_alu.io.out.valid) )
+                            (ds_es_r.op_muldiv && my_alu.io.out.valid)
         io.id2ex.ready  := !es_valid || (es_ready_go && io.ex2mem.ready)
         io.ex2mem.valid :=  es_valid && es_ready_go
 }
