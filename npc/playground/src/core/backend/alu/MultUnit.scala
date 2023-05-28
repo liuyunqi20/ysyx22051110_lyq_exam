@@ -3,7 +3,7 @@ import chisel3._
 import chisel3.util._
 
 class MultUnit(w: Int) extends Module{
-    val io = IO({Decoupled(new MultUnitBundle(w))})
+    val io = IO(Decoupled(new MultUnitBundle(w)))
     val mult_core = Module(new MultShiftAdd(w))
     io <> mult_core.io
 }
