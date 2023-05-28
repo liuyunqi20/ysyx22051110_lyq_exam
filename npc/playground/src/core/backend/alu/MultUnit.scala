@@ -41,6 +41,7 @@ class MultShiftAdd(w: Int) extends Module{
         src2_r   := io.in.bits.multiplier
         mulw_r   := io.in.bits.mulw
         signed_r := io.in.bits.mul_signed
+        res_r    := 0.U(w.W)
     }
     // ------------------------ add accumulate ------------------------ 
     //add add_vec(i) to result register in i(th) iteration
