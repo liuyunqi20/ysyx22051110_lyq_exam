@@ -64,7 +64,7 @@ class Alu(w: Int) extends Module{
     val mul_res_w_t  = io.in.bits.src1(31, 0) * io.in.bits.src2(31, 0)
 
     val my_mul = Module(new MultUnit(w))
-    my_mul.io.in.valid             := io.in.valid
+    my_mul.io.in.valid             := io.in.valid && is_mul
     my_mul.io.in.bits.flush        := io.in.bits.alu_flush
     my_mul.io.in.bits.mulw         := io.in.bits.alu_op(14)
     my_mul.io.in.bits.mul_signed   := Mux(io.in.bits.alu_op(13) === 1.U, "b10".U, 
