@@ -23,7 +23,7 @@ class MultShiftAdd(w: Int) extends Module{
     val res_r    = RegInit( 0.U(( (2*w).W )) )
     val cnt      = RegInit(0.U(w.W))
     val done     = RegInit(0.B)
-    //counter
+    // ------------------------ counter ------------------------ 
     val working = cnt.orR === 1.U
     when(io.in.bits.flush || cnt(w-1) === 1.U){
         cnt := 0.U
@@ -33,24 +33,30 @@ class MultShiftAdd(w: Int) extends Module{
         cnt := Cat(cnt(w-2, 0), 0.U(1.W))
     }
 
-    //input buffer
+    // ------------------------ input buffer ------------------------ 
+    val rvs_src1 = ~src1_r + 1.U
     when(io.in.fire){
-        src1_r   := io.in.bits.multiplicand
+        src1_r   := Cat(Mux(io.in.bits.mul_signed(1), Fill(w, io.in.bits.multiplicand(w-1)), 0.U(w.W)),
+                        io.in.bits.multiplicand)
         src2_r   := io.in.bits.multiplier
         mulw_r   := io.in.bits.mulw
         signed_r := io.in.bits.mul_signed
     }
-    //add accumulate
+    // ------------------------ add accumulate ------------------------ 
+    //add add_vec(i) to result register in i(th) iteration
     val add_vec = Wire(Vec(w, UInt((2*w).W)))
     add_vec(0) := Mux(src2_r(0), src1_r, 0.U((2*w).W) )
-    for( i <- 1 until w) {
+    for( i <- 1 until w-1) {
         add_vec(i) := Cat(Mux(src2_r(i), src1_r(2*w - 1, i), 0.U((2*w - i).W) ), 0.U(i.W))
     }
+    //last iteration depends on op type and sign bit
+    add_vec(w-1) := Mux(signed_r(0), Cat(Mux(src2_r(w-1), rvs_src1(2*w - 1, w - 1), 0.U), 0.U)
+                                     Cat(Mux(src2_r(w-1), src1_r(2*w - 1, w - 1)  , 0.U), 0.U) )
     val cur_add = Mux1H( for( i <- 0 until w) yield (cnt(i) -> add_vec(i)))
     when(working) {
         res_r := cur_add + res_r
     }
-
+    // ------------------------ done  ------------------------ 
     when(done) { 
         done := 0.B
     }.elsewhen(cnt(w-1) === 1.U) {
