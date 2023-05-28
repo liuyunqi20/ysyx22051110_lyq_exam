@@ -57,7 +57,7 @@ class MultShiftAdd(w: Int) extends Module{
         done := 1.B
     }
 
-    io.in.ready  := working
+    io.in.ready  := ~working
     io.out.valid := done
     io.out.bits.result_hi := res_r(2 * w - 1, w)
     io.out.bits.result_lo := res_r(w - 1, 0)
