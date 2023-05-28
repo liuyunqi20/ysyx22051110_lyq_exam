@@ -19,12 +19,12 @@ class Alu(w: Int) extends Module{
      14   15   16   17   18   19   20   21   22
     */
     val io = IO(new Bundle{
-        val in = Decoupled(new Bundle{
+        val in = Flipped(Decoupled(new Bundle{
             val src1      = Input(UInt(w.W))
             val src2      = Input(UInt(w.W))
             val alu_op    = Input(UInt(ALUOP_LEN.W))
             val alu_flush = Input(Bool())
-        })
+        }))
         val out = Valid(new Bundle{
             val res       = Output(UInt(w.W))
             val cout      = Output(UInt(1.W))
