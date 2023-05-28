@@ -17,7 +17,7 @@
 #ifndef VL_DPIDECL_catch_ebreak_
 #define VL_DPIDECL_catch_ebreak_
 void catch_ebreak(int* i) {
-    // DPI export at ../build/SimTop.v:3937:9
+    // DPI export at ../build/SimTop.v:4339:9
     return VSimTop::catch_ebreak(i);
 }
 #endif

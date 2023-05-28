@@ -33,8 +33,8 @@ trait HasConfigConst{
     val nr_mport = 2
     val cache_block_word_n = 2
     val has_sram_delay = true
-    val sram_rd_delay = 120
-    val sram_wt_delay = 5
+    val sram_rd_delay = 5
+    val sram_wt_delay = 120
 }
 
 class SimTop(w: Int) extends Module with HasConfigConst{
