@@ -254,12 +254,15 @@ import chisel3.util._
     }
 
 // ----------------- Mult/Div Bundle -----------------
-    class MultUnitBundle(w: Int) extends Bundle{
+    class MultUnitInBundle(w: Int) extends Bundle{
         val flush        = Input(Bool())
         val mulw         = Input(Bool())
         val mul_signed   = Input(UInt(2.W)) // 2'b00:uu, 2'b10:su, 2'b11:ss
         val multiplicand = Input(UInt(w.W))
         val multiplier   = Input(UInt(w.W))
+    }
+
+    class MultUnitOutBundle(w: Int) extends Bundle{
         val out_valid    = Output(Bool())
         val result_hi    = Output(UInt(w.W))
         val result_lo    = Output(UInt(w.W))

@@ -3,13 +3,19 @@ import chisel3._
 import chisel3.util._
 
 class MultUnit(w: Int) extends Module{
-    val io = IO(Decoupled(new MultUnitBundle(w)))
+    val io = IO(new Bundle{
+        val in  = Decoupled(new MultUnitInBundle(w))
+        val out = Valid(new MultUnitOutBundle(w)) 
+    })
     val mult_core = Module(new MultShiftAdd(w))
     io <> mult_core.io
 }
 
 class MultShiftAdd(w: Int) extends Module{
-    val io = IO({Decoupled(new MultUnitBundle(w))})
+    val io = IO(new Bundle{
+        val in  = Decoupled(new MultUnitInBundle(w))
+        val out = Valid(new MultUnitOutBundle(w)) 
+    })
     val src1_r   = RegInit(0.U((2*w).W))
     val src2_r   = RegInit(0.U(w.W))
     val signed_r = RegInit(0.U(2.W))
@@ -18,20 +24,20 @@ class MultShiftAdd(w: Int) extends Module{
     val cnt      = RegInit(0.U(w.W))
     val done     = RegInit(0.B)
     //counter
-    when(io.bits.flush || cnt(w-1) === 1.U){
+    when(io.in.bits.flush || cnt(w-1) === 1.U){
         cnt := 0.U
-    }.elsewhen(io.fire){
+    }.elsewhen(io.in.fire){
         cnt := 1.U
     }.otherwise{
         cnt := Cat(cnt(w-1, 0), cnt(w))
     }
 
     //input buffer
-    when(io.fire){
-        src1_r   := io.bits.multiplicand
-        src2_r   := io.bits.multiplier
-        mulw_r   := io.bits.mulw
-        signed_r := io.bits.mul_signed
+    when(io.in.fire){
+        src1_r   := io.in.bits.multiplicand
+        src2_r   := io.in.bits.multiplier
+        mulw_r   := io.in.bits.mulw
+        signed_r := io.in.bits.mul_signed
     }
     //add accumulate
     val add_vec = Wire(Vec(w, UInt((2*w).W)))
@@ -49,7 +55,7 @@ class MultShiftAdd(w: Int) extends Module{
     }.elsewhen(cnt(w-1) === 1.U) {
         done := 1.B
     }
-    io.bits.out_valid := done
-    io.bits.result_hi := res_r(2 * w - 1, w)
-    io.bits.result_lo := res_r(w - 1, 0)
+    io.out.valid := done
+    io.out.bits.result_hi := res_r(2 * w - 1, w)
+    io.out.bits.result_lo := res_r(w - 1, 0)
 }
