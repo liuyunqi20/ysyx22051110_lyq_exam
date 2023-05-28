@@ -34,7 +34,7 @@ class Ex_stage(w: Int) extends Module{
             ds_es_r := io.id2ex.bits
         }
     // ------------------------ ALU ------------------------ 
-        my_alu.io.in.valid          := es_valid && ~alu_wait
+        my_alu.io.in.valid          := es_valid && ~alu_wait && ~alu_buf_en
         my_alu.io.in.bits.alu_flush := ex_flush
         my_alu.io.in.bits.src1      := Mux(ds_es_r.src1_sel, ds_es_r.pc, ds_es_r.rs1)
         my_alu.io.in.bits.src2      := Mux(ds_es_r.src2_sel, ds_es_r.imm, ds_es_r.rs2)
@@ -55,7 +55,7 @@ class Ex_stage(w: Int) extends Module{
         }
         when(ex_flush || (alu_buf_en && io.ex2mem.ready)){
             alu_buf_en := 0.B
-        } .elsewhen(my_alu.io.out.valid && alu_wait && ~io.ex2mem.ready) {
+        } .elsewhen(my_alu.io.out.valid && ~io.ex2mem.ready) {
             alu_buf_en := 1.B
             alu_buf    := alu_res
         }
