@@ -65,6 +65,7 @@ import chisel3.util._
         val csr_op    = Output(UInt(CSRT_LEN.W))
         val exc_type  = Output(UInt(EXCT_LEN.W))
         val is_ebreak = Output(Bool())
+        val op_muldiv = Output(Bool())
         //data signals
         val dest      = Output(UInt(5.W))
         val pc        = Output(UInt(w.W))

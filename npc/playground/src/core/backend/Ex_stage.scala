@@ -108,7 +108,8 @@ class Ex_stage(w: Int) extends Module{
         io.es_forward.bits.dest := io.ex2mem.bits.dest
         io.es_forward.bits.data := io.ex2mem.bits.result
     // ------------------------ pipeline shake hands ------------------------ 
-        val es_ready_go  = ~alu_wait || (my_alu.io.in.fire && my_alu.io.out.valid)
+        val es_ready_go  = ~ds_es_r.op_muldiv || ex_flush ||
+                            (ds_es_r.op_muldiv && (alu_wait || my_alu.io.out.valid) )
         io.id2ex.ready  := !es_valid || (es_ready_go && io.ex2mem.ready)
         io.ex2mem.valid :=  es_valid && es_ready_go
 }

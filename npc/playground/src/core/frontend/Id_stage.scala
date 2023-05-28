@@ -53,6 +53,7 @@ class MyDecoder() extends Module with HasDecodeConst{
         val ex_sel    = Output(UInt(SLTT_LEN.W))
         val csr_op    = Output(UInt(CSRT_LEN.W))
         val exc_type  = Output(UInt(EXCT_LEN.W))
+        val op_muldiv = Output(Bool())
     })
     //Declare control signals
         //alu_op
@@ -279,6 +280,7 @@ class MyDecoder() extends Module with HasDecodeConst{
         io.ex_sel    := ex_sel
         io.csr_op    := csr_op
         io.exc_type  := exc_type
+        io.op_muldiv := alu_op(22, 10).orR === 1.U
 }
 
 /*
@@ -392,6 +394,7 @@ class Id_stage(w: Int) extends Module{
         io.id2ex.bits.csr_op    := my_decoder.io.csr_op 
         io.id2ex.bits.exc_type  := my_decoder.io.exc_type
         io.id2ex.bits.is_ebreak := inst_ebreak
+        io.id2ex.bits.op_muldiv := my_decoder.io.op_muldiv
         //data signals
         io.id2ex.bits.pc        := fs_ds_r.pc
         io.id2ex.bits.rs1_addr  := rf_raddr1
