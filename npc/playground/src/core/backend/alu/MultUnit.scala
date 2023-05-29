@@ -52,8 +52,8 @@ class MultShiftAdd(w: Int) extends Module{
         add_vec(i) := Cat(Mux(src2_r(i), src1_r(2*w - i - 1, 0), 0.U((2*w - i - 1).W) ), 0.U(i.W))
     }
     //last iteration depends on op type and sign bit
-    add_vec(w-1) := Mux(signed_r(0), Cat(Mux(src2_r(w-1), rvs_src1(2*w - w - 2, 0), 0.U), 0.U),
-                                     Cat(Mux(src2_r(w-1), src1_r(2*w - w - 2, 0)  , 0.U), 0.U) )
+    add_vec(w-1) := Mux(signed_r(0), Cat(Mux(src2_r(w-1), rvs_src1(2*w - w, 0), 0.U), 0.U((w-1).W)),
+                                     Cat(Mux(src2_r(w-1), src1_r(2*w - w, 0)  , 0.U), 0.U((w-1).W)) )
     val cur_add = Mux1H( for( i <- 0 until w) yield (cnt(i) -> add_vec(i)))
     when(working) {
         res_r := cur_add + res_r
