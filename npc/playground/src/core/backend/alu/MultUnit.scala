@@ -18,7 +18,7 @@ class MultShiftAdd(w: Int) extends Module{
     })
     val src1_r   = RegInit(0.U((2*w).W))
     val src2_r   = RegInit(0.U(w.W))
-    val signed_r = RegInit(0.U(2.W))
+    val signed_r = RegInit(0.U(2.W)) //b11:sxs b10:sxu b00:uxu
     val mulw_r   = RegInit(0.B)
     val res_r    = RegInit( 0.U(( (2*w).W )) )
     val cnt      = RegInit(0.U(w.W))
@@ -69,3 +69,16 @@ class MultShiftAdd(w: Int) extends Module{
     io.out.bits.result_hi := res_r(2 * w - 1, w)
     io.out.bits.result_lo := res_r(w - 1, 0)
 }
+
+// class MultWallaceTree(w: Int) extends Module{
+//     def addOneColoumn(col: Seq[Bool], cin: Seq[Bool]): (Seq[Bool], Seq[Bool], Seq[Bool]) {
+//         //TODO
+//     }
+
+
+
+//     val io = IO(new Bundle{
+//         val in  = Flipped(Decoupled(new MultUnitInBundle(w)))
+//         val out = Valid(new MultUnitOutBundle(w))
+//     })
+// }
