@@ -11,6 +11,7 @@ class MultUnit(w: Int) extends Module{
     io <> mult_core.io
 }
 
+//TODO: io.in.mulw
 class MultShiftAdd(w: Int) extends Module{
     val io = IO(new Bundle{
         val in  = Flipped(Decoupled(new MultUnitInBundle(w)))
