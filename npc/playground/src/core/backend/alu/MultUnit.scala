@@ -85,7 +85,7 @@ class MultBooth2(w: Int) extends Module{
     val cnt      = RegInit(0.U(max_cnt.W))
     val done     = RegInit(0.B)
     // ------------------------ counter ------------------------ 
-    val last_step = (cnt(w-1) === 1.U && ~mulw_r) || (cnt(31)  === 1.U && mulw_r)
+    val last_step = (cnt(max_cnt-1) === 1.U && ~mulw_r) || (cnt(16)  === 1.U && mulw_r)
     val working   = cnt.orR === 1.U
     when(io.in.bits.flush || last_step){
         cnt := 0.U
