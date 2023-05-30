@@ -92,7 +92,7 @@ class MultBooth2(w: Int) extends Module{
     }.elsewhen(io.in.fire){
         cnt := 1.U
     }.otherwise{
-        cnt := Cat(cnt(w-2, 0), 0.U(1.W))
+        cnt := Cat(cnt(max_cnt-2, 0), 0.U(1.W))
     }
 
     // ------------------------ input buffer ------------------------ 
@@ -100,7 +100,7 @@ class MultBooth2(w: Int) extends Module{
     val src1_neg        = ~src1_r + 1.U
     val src1_double_neg = Cat(src1_neg, 0.U(1.W))
     when(io.in.fire){
-        src1_r   := Cat(Mux(io.in.bits.mul_signed(1), Fill(w, io.in.bits.multiplicand(w + 4)), 0.U((w + 4).W)),
+        src1_r   := Cat(Mux(io.in.bits.mul_signed(1), Fill(w + 4, io.in.bits.multiplicand(w - 1)), 0.U((w + 4).W)),
                         io.in.bits.multiplicand)
         src2_r   := Cat(Mux(io.in.bits.mul_signed(0), Fill(2, io.in.bits.multiplier(w - 1)), 0.U(2.W)), 
                         io.in.bits.multiplier, 0.U(1.W))
