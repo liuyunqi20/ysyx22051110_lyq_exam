@@ -11,7 +11,6 @@ class MultUnit(w: Int) extends Module{
     io <> mult_core.io
 }
 
-//TODO: io.in.mulw
 class MultShiftAdd(w: Int) extends Module{
     val io = IO(new Bundle{
         val in  = Flipped(Decoupled(new MultUnitInBundle(w)))
@@ -110,7 +109,7 @@ class MultBooth2(w: Int) extends Module{
         res_r    := 0.U(w.W)
     }
     // ------------------------ booth control ------------------------ 
-    val sel   = MuxLookUp(src2_r(2, 0), 0.U, List(
+    val sel   = MuxLookup(src2_r(2, 0), 0.U, List(
         ("b000".U) -> "b00001".U, // 0
         ("b001".U) -> "b00010".U, // + x
         ("b010".U) -> "b00010".U, // + x
