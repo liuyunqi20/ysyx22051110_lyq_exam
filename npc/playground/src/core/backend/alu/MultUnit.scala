@@ -25,8 +25,9 @@ class MultShiftAdd(w: Int) extends Module{
     val cnt      = RegInit(0.U(w.W))
     val done     = RegInit(0.B)
     // ------------------------ counter ------------------------ 
-    val working = cnt.orR === 1.U
-    when(io.in.bits.flush || cnt(w-1) === 1.U){
+    val last_step = (cnt(w-1) === 1.U && ~mulw_r) || (cnt(31)  === 1.U && mulw_r)
+    val working   = cnt.orR === 1.U
+    when(io.in.bits.flush || last_step){
         cnt := 0.U
     }.elsewhen(io.in.fire){
         cnt := 1.U
@@ -61,14 +62,18 @@ class MultShiftAdd(w: Int) extends Module{
     // ------------------------ done  ------------------------ 
     when(done) { 
         done := 0.B
-    }.elsewhen(cnt(w-1) === 1.U) {
+    }.elsewhen(last_step) {
         done := 1.B
     }
 
     io.in.ready  := ~working
     io.out.valid := done
-    io.out.bits.result_hi := res_r(2 * w - 1, w)
-    io.out.bits.result_lo := res_r(w - 1, 0)
+    io.out.bits.result_hi := Mux(mulw_r, Fill(w, res_r(31)), res_r(2 * w - 1, w))
+    io.out.bits.result_lo := Cat(Mux(mulw_r, Fill(32, res_r(31)), res_r(w - 1, 32)), res_r(31, 0))
+}
+
+class MultBooth2(w: Int) extends Module{
+
 }
 
 // class MultWallaceTree(w: Int) extends Module{
