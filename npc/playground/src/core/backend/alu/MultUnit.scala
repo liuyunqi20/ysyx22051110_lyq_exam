@@ -81,7 +81,7 @@ class MultBooth2(w: Int) extends Module{
     val src2_r   = RegInit(0.U((w + 3).W))
     val signed_r = RegInit(0.U(2.W)) //b11:sxs b10:sxu b00:uxu
     val mulw_r   = RegInit(0.B)
-    val res_r    = RegInit(0.U(((2 * w).W)))
+    val res_r    = RegInit(0.U(((2*w + 4).W)))
     val cnt      = RegInit(0.U(max_cnt.W))
     val done     = RegInit(0.B)
     // ------------------------ counter ------------------------ 
