@@ -88,10 +88,10 @@ class Alu(w: Int) extends Module{
     val my_div = Module(new DivUnit(w))
     my_div.io.valid              := io.in.valid && is_mul
     my_div.io.in.bits.flush      := io.in.bits.alu_flush
-    my_div.io.in.bits.divw       := io.in.bits.alu_op(17) | io.in.bits.alu_op(18) 
-                                  | io.in.bits.alu_op(21) | io.in.bits.alu_op(22)
-    my_div.io.in.bits.div_signed := io.in.bits.alu_op(15) | io.in.bits.alu_op(17) 
-                                  | io.in.bits.alu_op(19) | io.in.bits.alu_op(21)
+    my_div.io.in.bits.divw       := io.in.bits.alu_op(17) | io.in.bits.alu_op(18) |
+                                    io.in.bits.alu_op(21) | io.in.bits.alu_op(22)
+    my_div.io.in.bits.div_signed := io.in.bits.alu_op(15) | io.in.bits.alu_op(17) |
+                                    io.in.bits.alu_op(19) | io.in.bits.alu_op(21)
     my_div.io.in.bits.dividend   := io.in.bits.src1
     my_div.io.in.bits.divisor    := io.in.bits.src2
     val div_res   = io.out.bits.quotient
