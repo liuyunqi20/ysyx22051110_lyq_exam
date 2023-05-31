@@ -24,6 +24,7 @@ class DivRestoreRem(w: Int) extends Module{
     val signed_r   = RegInit(0.B)
     val sel_q_sign = RegInit(0.B)  // b1: neg, b0: pos
     val sel_r_sign = RegInit(0.B)  // b1: neg, b0: pos
+    val done       = RegInit(0.B)
     val cnt        = RegInit(0.U(w.W))
 
     // ------------------------ counter ------------------------ 
