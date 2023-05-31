@@ -130,5 +130,5 @@ class Alu(w: Int) extends Module{
     ))
 
     io.in.ready  := Mux(is_mul, my_mul.io.in.ready,  Mux(is_div, my_div.io.in.ready, io.in.valid))
-    io.out.valid := Mux(is_mul, my_mul.io.out.valid, Mux(is_div, my_div.io.in.ready, io.in.fire))
+    io.out.valid := Mux(is_mul, my_mul.io.out.valid, Mux(is_div, my_div.io.out.valid, io.in.fire))
 }
