@@ -56,7 +56,7 @@ class DivRestoreRem(w: Int) extends Module{
     // ------------------------ add accumulate ------------------------ 
         //add_src1/2 is w+1 bits wide
         val add_src1  = Mux(divw_r, Cat(0.U((w - 32).W), dividend_r(63, 31)), dividend_r(2 * w - 1, w - 1))
-        val add_src2  = Cat(0.U(1.W), ~Mux(divw_r, Cat(0.U((w - 32).W), divisor_r(31, 0)), divisor_r) + 1.U)
+        val add_src2  = ~Cat(0.U(1.W), Mux(divw_r, Cat(0.U((w - 32).W), divisor_r(31, 0)), divisor_r)) + 1.U
         val add_res   = add_src1 + add_src2
         val next_valw = Cat(dividend_r(2*w - 1, w), Mux(add_res(w), Cat(dividend_r(w - 2, 0), 0.U(1.W)), 
                                                                     Cat(add_res(w - 33, 0), dividend_r(30, 0), 0.U(1.W)))  )
