@@ -2226,12 +2226,14 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__sel_r_sign = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__done = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__cnt = VL_RAND_RESET_Q(64);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__unnamedblk1__DOT__last_step = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__unnamedblk1__DOT__dividend_msb = VL_RAND_RESET_I(1);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__unnamedblk1__DOT___T_2 = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__unnamedblk1__DOT___sel_r_sign_T = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__unnamedblk1__DOT__last_step = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__unnamedblk1__DOT___T_2 = VL_RAND_RESET_I(1);
+    VL_RAND_RESET_W(65, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__unnamedblk1__DOT__unnamedblk2__DOT__add_src1);
     VL_RAND_RESET_W(65, vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__unnamedblk1__DOT__unnamedblk2__DOT___GEN);
-    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__unnamedblk1__DOT__unnamedblk3__DOT__divisor_msb = VL_RAND_RESET_I(1);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__unnamedblk1__DOT__unnamedblk3__DOT__dividend_lo = VL_RAND_RESET_Q(64);
+    vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__my_alu__DOT__my_div__DOT__div_core__DOT__unnamedblk1__DOT__unnamedblk4__DOT__divisor_msb = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__ms_valid = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__es_ms_r_pc = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT__my_mem__DOT__es_ms_r_gr_we = VL_RAND_RESET_I(1);
