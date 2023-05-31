@@ -26,17 +26,9 @@ class DivRestoreRem(w: Int) extends Module{
     val sel_r_sign = RegInit(0.B)  // b1: neg, b0: pos
     val done       = RegInit(0.B)
     val cnt        = RegInit(0.U(w.W))
-
-    def dividend_mask(dividend: UInt, divW: Bool, div_signed: Bool): UInt = {
-        val dividend_msb = Mux(divW, dividend(31), dividend(w - 1))
-        val dividend_lo = Mux(div_signed && dividend_msb, ~dividend + 1.U, dividend)
-        Cat(0.U(w.W), Mux(divW, 0.U((w-32).W), dividend_lo(w - 1, 32)), dividend_lo(31, 0))
-    }
-
-    def divisor_mask(divisor: UInt, divW: Bool, div_signed: Bool): UInt = {
-        val divisor_msb  = Mux(divW, divisor(31) , divisor(w - 1))
-        Mux(div_signed && divisor_msb, ~divisor  + 1.U, divisor)
-    }
+    val dividend_msb = Mux(io.in.bits.divw, io.in.bits.dividend(31), io.in.bits.dividend(w - 1))
+    val divisor_msb  = Mux(io.in.bits.divw, io.in.bits.divisor(31) , io.in.bits.divisor(w - 1))
+    val dividend_lo =  Mux(io.in.bits.div_signed && dividend_msb, ~io.in.bits.dividend + 1.U, io.in.bits.dividend)
 
     // ------------------------ counter ------------------------ 
         val last_step = (cnt(w-1) === 1.U && ~divw_r) || (cnt(31)  === 1.U && divw_r)
@@ -51,8 +43,8 @@ class DivRestoreRem(w: Int) extends Module{
 
     // ------------------------ input buffer ------------------------ 
         when(io.in.fire){
-            dividend_r := dividend_mask(io.in.bits.dividend, io.in.bits.divw, io.in.bits.div_signed) //TODO: 63:31 = 0 when w
-            divisor_r  := divisor_mask(io.in.bits.dividend, io.in.bits.divw, io.in.bits.div_signed)
+            dividend_r := Cat(0.U(w.W), Mux(io.in.bits.divw, 0.U((w-32).W), dividend_lo(w - 1, 32)), dividend_lo(31, 0)) //TODO: 63:31 = 0 when w
+            divisor_r  := Mux(io.in.bits.div_signed && divisor_msb, ~io.in.bits.divisor  + 1.U, io.in.bits.divisor)
             quotient_r := 0.U
             reminder_r := 0.U
             divw_r     := io.in.bits.divw
