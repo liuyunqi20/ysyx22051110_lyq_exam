@@ -86,7 +86,7 @@ class Alu(w: Int) extends Module{
     // val remw_res  = io.in.bits.src1(31, 0).asSInt % io.in.bits.src2(31, 0).asSInt
     // val remuw_res = io.in.bits.src1(31, 0) % io.in.bits.src2(31, 0)
     val my_div = Module(new DivUnit(w))
-    my_div.io.in.valid              := io.in.valid && is_mul
+    my_div.io.in.valid           := io.in.valid && is_div
     my_div.io.in.bits.flush      := io.in.bits.alu_flush
     my_div.io.in.bits.divw       := io.in.bits.alu_op(17) | io.in.bits.alu_op(18) |
                                     io.in.bits.alu_op(21) | io.in.bits.alu_op(22)
