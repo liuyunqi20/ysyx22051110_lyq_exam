@@ -57,14 +57,14 @@ class DivRestoreRem(w: Int) extends Module{
         val add_src1  =  Mux(divw_r, Cat(0.U((w - 32).W), dividend_r(63, 31)), dividend_r(2 * w - 1, w - 1))
         val add_src2  = ~Mux(divw_r, Cat(0.U((w - 31).W), divisor_r(31, 0)), Cat(0.U(1.W), divisor_r)) + 1.U
         val add_res   = add_src1 +& add_src2
-        val next_valw = Cat(dividend_r(2*w - 1, w), Mux(add_res(w), Cat(dividend_r(w - 2, 0), 0.U(1.W)), 
+        val next_valw = Cat(dividend_r(2*w - 1, w), Mux(add_res(w + 1), Cat(dividend_r(w - 2, 0), 0.U(1.W)), 
                                                                     Cat(add_res(w - 33, 0), dividend_r(30, 0), 0.U(1.W)))  )
-        val next_val  = Mux(add_res(w), Cat(dividend_r(2*w - 2, 0), 0.U(1.W)),  
+        val next_val  = Mux(add_res(w + 1), Cat(dividend_r(2*w - 2, 0), 0.U(1.W)),  
                                         Cat(add_res(w - 1, 0), dividend_r(w - 2, 0), 0.U(1.W))  )
         when(working){
             dividend_r := Mux(divw_r, next_valw, next_val)
-            quotient_r := Cat(quotient_r(w - 2, 0), ~add_res(w)) // if less than 0 after sub then set 0
-            reminder_r := add_res(w - 1, 0)
+            quotient_r := Cat(quotient_r(w - 2, 0), ~add_res(w = 1)) // if less than 0 after sub then set 0
+            reminder_r := Mux(add_res(w + 1), add_src1(w - 1, 0), add_res(w - 1, 0))
         }
         val rvs_quotient_r = ~quotient_r + 1.U
         val rvs_reminder_r = ~reminder_r + 1.U
