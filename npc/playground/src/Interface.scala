@@ -270,8 +270,8 @@ import chisel3.util._
 
     class DivUnitInBundle(w: Int) extends Bundle{
         val flush      = Input(Bool())
-        val divw       = Input(Bool()) //1'b1: 32bit
-        val div_signed = Input(Bool()) //1'b1: signed
+        val divw       = Input(Bool()) //1'b1: 32 bits, 1'b0: w bits
+        val div_signed = Input(Bool()) //1'b1: signed, 1'b0: unsigned
         val dividend   = Input(UInt(w.W))
         val divisor    = Input(UInt(w.W))
     }

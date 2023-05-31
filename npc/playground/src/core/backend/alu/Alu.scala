@@ -29,7 +29,6 @@ class Alu(w: Int) extends Module{
             val res       = Output(UInt(w.W))
             val cout      = Output(UInt(1.W))
             val overflow  = Output(UInt(1.W))
-            val test_eq   = Output(Bool())
         })
     })
     val is_mul = (io.in.bits.alu_op(14, 10).orR) === 1.U
@@ -77,15 +76,33 @@ class Alu(w: Int) extends Module{
 
 
     //div
-    val div_res   = io.in.bits.src1.asSInt / io.in.bits.src2.asSInt
-    val divu_res  = io.in.bits.src1 / io.in.bits.src2
-    val divw_res  = io.in.bits.src1(31, 0).asSInt / io.in.bits.src2(31, 0).asSInt
-    val divuw_res = io.in.bits.src1(31, 0) / io.in.bits.src2(31, 0)
-    //rem 
-    val rem_res   = io.in.bits.src1.asSInt % io.in.bits.src2.asSInt
-    val remu_res  = io.in.bits.src1 % io.in.bits.src2
-    val remw_res  = io.in.bits.src1(31, 0).asSInt % io.in.bits.src2(31, 0).asSInt
-    val remuw_res = io.in.bits.src1(31, 0) % io.in.bits.src2(31, 0)
+    // val div_res   = io.in.bits.src1.asSInt / io.in.bits.src2.asSInt
+    // val divu_res  = io.in.bits.src1 / io.in.bits.src2
+    // val divw_res  = io.in.bits.src1(31, 0).asSInt / io.in.bits.src2(31, 0).asSInt
+    // val divuw_res = io.in.bits.src1(31, 0) / io.in.bits.src2(31, 0)
+    // //rem 
+    // val rem_res   = io.in.bits.src1.asSInt % io.in.bits.src2.asSInt
+    // val remu_res  = io.in.bits.src1 % io.in.bits.src2
+    // val remw_res  = io.in.bits.src1(31, 0).asSInt % io.in.bits.src2(31, 0).asSInt
+    // val remuw_res = io.in.bits.src1(31, 0) % io.in.bits.src2(31, 0)
+    val my_div = Module(new DivUnit(w))
+    my_div.io.valid              := io.in.valid && is_mul
+    my_div.io.in.bits.flush      := io.in.bits.alu_flush
+    my_div.io.in.bits.divw       := io.in.bits.alu_op(17) | io.in.bits.alu_op(18) 
+                                  | io.in.bits.alu_op(21) | io.in.bits.alu_op(22)
+    my_div.io.in.bits.div_signed := io.in.bits.alu_op(15) | io.in.bits.alu_op(17) 
+                                  | io.in.bits.alu_op(19) | io.in.bits.alu_op(21)
+    my_div.io.in.bits.dividend   := io.in.bits.src1
+    my_div.io.in.bits.divisor    := io.in.bits.src2
+    val div_res   = io.out.bits.quotient
+    val divu_res  = div_res
+    val divw_res  = Cat(Fill(w - 32, io.out.bits.quotient(31)), io.out.bits.quotient(31, 0))
+    val divuw_res = divw_res
+    val rem_res   = io.out.bits.reminder
+    val remu_res  = remu_res
+    val remw_res  = Cat(Fill(w - 32, io.out.bits.reminder(31)), io.out.bits.reminder(31, 0))
+    val remuw_res = remuw_res
+
     io.out.bits.res      := Mux1H(Seq(
         /* add    */ io.in.bits.alu_op(0)  -> add_res(w-1, 0),
         /* sub    */ io.in.bits.alu_op(1)  -> add_res(w-1, 0),
@@ -112,10 +129,6 @@ class Alu(w: Int) extends Module{
         /* remuw  */ io.in.bits.alu_op(22) -> Cat(Fill(w - 32, remuw_res(31)), remuw_res(31, 0)),
     ))
 
-    io.in.ready    := Mux(is_mul, my_mul.io.in.ready, io.in.valid) //TODO: div
-
-    //for debug
-    io.out.bits.test_eq  := Mux( io.in.bits.alu_op(14) === 1.U, mul_res_w === mul_res_w_t,  //TODO: div
-                                Mux(io.in.bits.alu_op(13, 10).orR === 1.U, mul_res_s === mul_res_s_t.asUInt, 0.B) )
-    io.out.valid := Mux(is_mul, my_mul.io.out.valid, io.in.fire) //TODO: div
+    io.in.ready  := Mux(is_mul, my_mul.io.in.ready,  Mux(is_div, my_div.io.in.ready, io.in.valid))
+    io.out.valid := Mux(is_mul, my_mul.io.out.valid, Mux(is_div, my_div.io.in.ready, io.in.fire))
 }
