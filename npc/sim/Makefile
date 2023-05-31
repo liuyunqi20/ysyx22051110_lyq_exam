@@ -7,7 +7,7 @@ CPP_INCLUDE = $(NPC_HOME)/sim/cpp/include/
 #ITRACE = 1
 #MTRACE = 1
 #DIFF = 1
-#WAVE = 1
+WAVE = 1
 #BATCH_MODE = 1
 DEVICE = 1
 HAS_VGA = 1
@@ -85,7 +85,7 @@ ifdef BATCH_MODE
 VERILATOR_FLAGS += -CFLAGS -DBATCH_MODE
 endif
 # ------------------------ verilator run parameters  ------------------------
-IMAGE ?=
+IMAGE ?= 
 ifdef DIFF
 DIFF_PATH = $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 RUN_ARGS += --diff=$(DIFF_PATH)
