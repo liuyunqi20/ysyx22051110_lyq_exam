@@ -17,7 +17,7 @@ class DivRestoreRem(w: Int) extends Module{
         val out = Valid(new DivUnitOutBundle(w))
     })
     val dividend_r = RegInit(0.U((2*w).W))
-    val divisor_r  = RegInit(0.U((w + 1).W))
+    val divisor_r  = RegInit(0.U(w.W))
     val quotient_r = RegInit(0.U(w.W))
     val reminder_r = RegInit(0.U(w.W))
     val divw_r     = RegInit(0.B)
@@ -44,9 +44,7 @@ class DivRestoreRem(w: Int) extends Module{
         when(io.in.fire){
             dividend_r := Cat(0.U(w.W), Mux(io.in.bits.div_signed && dividend_msb, ~io.in.bits.dividend + 1.U, 
                                                                                     io.in.bits.dividend))
-            divisor_r  := Cat(0.U(1.W), Mux(io.in.bits.div_signed && divisor_msb, 
-                                                    ~io.in.bits.divisor  + 1.U  , 
-                                                     io.in.bits.divisor          ))
+            divisor_r  := Mux(io.in.bits.div_signed && divisor_msb, ~io.in.bits.divisor  + 1.U, io.in.bits.divisor)
             quotient_r := 0.U
             reminder_r := 0.U
             divw_r     := io.in.bits.divw
@@ -56,25 +54,26 @@ class DivRestoreRem(w: Int) extends Module{
         }
     
     // ------------------------ add accumulate ------------------------ 
-    val add_src1  =  Mux(divw_r, Cat(0.U((w - 32).W), dividend_r(63, 31)), dividend_r(2 * w - 1, w - 1))
-    val add_src2  = ~Mux(divw_r, Cat(0.U((w - 31).W), divisor_r(31, 0)), divisor_r) + 1.U
-    val add_res   = add_src1 +& add_src2
-    val next_valw = Cat(0.U(w.W), Mux(add_res(w), dividend_r(62, 0), add_res(62, 0)), 0.U(1.W))
-    val next_val  = Cat(Mux(add_res(w), dividend_r(2*w - 2, w - 2), add_res(2*w - 2, w - 2)), 0.U((w - 1).W))
-
-    when(working){
-        dividend_r := Mux(divw_r, next_valw, next_val)
-        quotient_r := Cat(quotient_r(w - 2, 0), ~add_res(w)) // if less than 0 after sub then set 0
-        reminder_r := add_res(w - 1, 0)
-    }
-    val rvs_quotient_r = ~quotient_r + 1.U
-    val rvs_reminder_r = ~reminder_r + 1.U
+        val add_src1  =  Mux(divw_r, Cat(0.U((w - 32).W), dividend_r(63, 31)), dividend_r(2 * w - 1, w - 1))
+        val add_src2  = ~Mux(divw_r, Cat(0.U((w - 31).W), divisor_r(31, 0)), Cat(0.U(1.W), divisor_r)) + 1.U
+        val add_res   = add_src1 +& add_src2
+        val next_valw = Cat(dividend_r(2*w - 1, w), Mux(add_res(w), Cat(dividend_r(w - 2, 0), 0.U(1.W)), 
+                                                                    Cat(add_res(w - 33, 0), dividend_r(30, 0), 0.U(1.W)))  )
+        val next_val  = Mux(add_res(w), Cat(dividend_r(2*w - 2, 0), 0.U(1.W)),  
+                                        Cat(add_res(w - 1, 0), dividend_r(w - 2, 0), 0.U(1.W))  )
+        when(working){
+            dividend_r := Mux(divw_r, next_valw, next_val)
+            quotient_r := Cat(quotient_r(w - 2, 0), ~add_res(w)) // if less than 0 after sub then set 0
+            reminder_r := add_res(w - 1, 0)
+        }
+        val rvs_quotient_r = ~quotient_r + 1.U
+        val rvs_reminder_r = ~reminder_r + 1.U
     // ------------------------ done  ------------------------ 
-    when(done) { 
-        done := 0.B
-    }.elsewhen(last_step) {
-        done := 1.B
-    }
+        when(done) { 
+            done := 0.B
+        }.elsewhen(last_step) {
+            done := 1.B
+        }
 
     io.in.ready  := ~working
     io.out.valid := done
