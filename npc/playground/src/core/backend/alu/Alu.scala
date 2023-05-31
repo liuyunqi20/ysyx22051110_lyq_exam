@@ -86,7 +86,7 @@ class Alu(w: Int) extends Module{
     // val remw_res  = io.in.bits.src1(31, 0).asSInt % io.in.bits.src2(31, 0).asSInt
     // val remuw_res = io.in.bits.src1(31, 0) % io.in.bits.src2(31, 0)
     val my_div = Module(new DivUnit(w))
-    my_div.io.valid              := io.in.valid && is_mul
+    my_div.io.in.valid              := io.in.valid && is_mul
     my_div.io.in.bits.flush      := io.in.bits.alu_flush
     my_div.io.in.bits.divw       := io.in.bits.alu_op(17) | io.in.bits.alu_op(18) |
                                     io.in.bits.alu_op(21) | io.in.bits.alu_op(22)
@@ -94,14 +94,14 @@ class Alu(w: Int) extends Module{
                                     io.in.bits.alu_op(19) | io.in.bits.alu_op(21)
     my_div.io.in.bits.dividend   := io.in.bits.src1
     my_div.io.in.bits.divisor    := io.in.bits.src2
-    val div_res   = io.out.bits.quotient
+    val div_res   = my_div.io.out.bits.quotient
     val divu_res  = div_res
-    val divw_res  = Cat(Fill(w - 32, io.out.bits.quotient(31)), io.out.bits.quotient(31, 0))
+    val divw_res  = Cat(Fill(w - 32, my_div.io.out.bits.quotient(31)), my_div.io.out.bits.quotient(31, 0))
     val divuw_res = divw_res
-    val rem_res   = io.out.bits.reminder
-    val remu_res  = remu_res
-    val remw_res  = Cat(Fill(w - 32, io.out.bits.reminder(31)), io.out.bits.reminder(31, 0))
-    val remuw_res = remuw_res
+    val rem_res   = my_div.io.out.bits.reminder
+    val remu_res  = rem_res
+    val remw_res  = Cat(Fill(w - 32, my_div.io.out.bits.reminder(31)), my_div.io.out.bits.reminder(31, 0))
+    val remuw_res = remw_res
 
     io.out.bits.res      := Mux1H(Seq(
         /* add    */ io.in.bits.alu_op(0)  -> add_res(w-1, 0),

@@ -7,7 +7,7 @@ class DivUnit(w: Int) extends Module{
         val in  = Flipped(Decoupled(new DivUnitInBundle(w)))
         val out = Valid(new DivUnitOutBundle(w))
     })
-    val div_core = Module()
+    val div_core = Module(new DivRestoreRem(w))
     io <> div_core.io
 }
 
