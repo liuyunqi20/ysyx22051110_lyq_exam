@@ -131,7 +131,8 @@ void execute_once(){
         SimTop->eval();
         wave_dump();
         //update current pc
-        cpu_pc = SimTop->io_core_debug_debug_pc;
+        if(SimTop->io_core_debug_debug_valid)
+            cpu_pc = SimTop->io_core_debug_debug_pc;
         VSimTop::catch_ebreak(&ebreak_f);
         cnt++;
     }
@@ -145,7 +146,8 @@ void execute(uint64_t step){
         execute_once();
         g_nr_step++;
 #ifdef DIFFTEST
-        if(SimTop->io_core_debug_debug_skip) difftest_raise_intr(INTR_T_NO);
+        if(SimTop->io_core_debug_raise_intr) difftest_raise_intr(INTR_T_NO);
+        if(SimTop->io_core_debug_op_csr) difftest_skip_ref();
         difftest_step(SimTop->io_core_debug_debug_pc, 0);
 #endif
         if(npc_state.state != NPC_RUNNING) break;
