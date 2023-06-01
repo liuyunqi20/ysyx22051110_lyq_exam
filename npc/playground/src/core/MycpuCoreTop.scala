@@ -81,9 +81,5 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_axi_bridge1.io.in   <> my_mmc.io.axi_out
     io.axi_sram(1)         <> my_axi_bridge1.io.out
     //debug
-    io.core_debug.debug_pc       := my_wb.io.mem2wb.bits.pc
-    io.core_debug.debug_rf_we    := my_wb.io.wb2rf.rf_we
-    io.core_debug.debug_rf_wnum  := my_wb.io.wb2rf.waddr
-    io.core_debug.debug_rf_wdata := my_wb.io.wb2rf.wdata
-    io.core_debug.raise_intr     := my_csr.io.exc.intr_t
+    io.core_debug          <> my_wb.io.debug
 }

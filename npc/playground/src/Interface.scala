@@ -25,6 +25,7 @@ import chisel3.util._
 
 // ----------------- Debug Bundle -----------------
     class DebugBundle(w: Int) extends Bundle{
+        val debug_valid    = Output(Bool())
         val debug_pc       = Output(UInt(w.W))
         val debug_rf_we    = Output(Bool())
         val debug_rf_wnum  = Output(UInt(5.W))
