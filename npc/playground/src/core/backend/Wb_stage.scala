@@ -55,7 +55,7 @@ class Wb_stage(w: Int) extends Module{
     io.ebreak := ms_ws_r.is_ebreak
     
     //debug
-    io.debug.valid          := ws_valid
+    io.debug.debug_valid    := ws_valid
     io.debug.debug_rf_we    := io.wb2rf.rf_we
     io.debug.debug_rf_wnum  := io.wb2rf.waddr
     io.debug.debug_rf_wdata := io.wb2rf.wdata
