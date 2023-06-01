@@ -18,6 +18,16 @@
 #include <device/mmio.h>
 #include <isa.h>
 
+#define MT_ADDR         0xbff8
+#define MTCMP_ADDR      0x4000
+int in_clint(uint64_t addr){
+  if(addr == MT_ADDR || addr == MTCMP_ADDR)
+    return 1;
+  else 
+    return 0;
+}
+
+
 #if   defined(CONFIG_PMEM_MALLOC)
 static uint8_t *pmem = NULL;
 #else // CONFIG_PMEM_GARRAY
@@ -77,6 +87,7 @@ void init_mem() {
 word_t paddr_read(paddr_t addr, int len) {
   if (likely(in_pmem(addr))) return pmem_read(addr, len);
   IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
+  if (in_clint(addr)) return 0;
   out_of_bound(addr);
   return 0;
 }
@@ -84,5 +95,6 @@ word_t paddr_read(paddr_t addr, int len) {
 void paddr_write(paddr_t addr, int len, word_t data) {
   if (likely(in_pmem(addr))) { pmem_write(addr, len, data); return; }
   IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
+  if (in_clint(addr)) return;
   out_of_bound(addr);
 }
