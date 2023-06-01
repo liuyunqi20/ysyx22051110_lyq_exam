@@ -123,6 +123,9 @@ void execute_once(){
                     SimTop->io_core_debug_debug_rf_wnum,
                     SimTop->io_core_debug_debug_rf_wdata);
         */
+#ifdef DIFFTEST
+        if(SimTop->io_core_debug_raise_intr) difftest_raise_intr(INTR_T_NO);
+#endif
 #ifdef ITRACE
         write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
 #endif
@@ -134,9 +137,6 @@ void execute_once(){
         //update current pc
         if(SimTop->io_core_debug_debug_valid)
             cpu_pc = SimTop->io_core_debug_debug_pc;
-#ifdef DIFFTEST
-        if(SimTop->io_core_debug_raise_intr) difftest_raise_intr(INTR_T_NO);
-#endif
         VSimTop::catch_ebreak(&ebreak_f);
         cnt++;
     }
