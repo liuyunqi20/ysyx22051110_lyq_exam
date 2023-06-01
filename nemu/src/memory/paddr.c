@@ -64,10 +64,10 @@ static void pmem_write(paddr_t addr, int len, word_t data) {
 #endif
 }
 
-static void out_of_bound(paddr_t addr) {
-  panic("address = " FMT_PADDR " is out of bound of pmem [" FMT_PADDR ", " FMT_PADDR "] at pc = " FMT_WORD,
-      addr, PMEM_LEFT, PMEM_RIGHT, cpu.pc);
-}
+// static void out_of_bound(paddr_t addr) {
+//   panic("address = " FMT_PADDR " is out of bound of pmem [" FMT_PADDR ", " FMT_PADDR "] at pc = " FMT_WORD,
+//       addr, PMEM_LEFT, PMEM_RIGHT, cpu.pc);
+// }
 
 void init_mem() {
 #if   defined(CONFIG_PMEM_MALLOC)
@@ -89,7 +89,7 @@ word_t paddr_read(paddr_t addr, int len) {
   printf("raddr: %lx\n", (uint64_t)addr);
   if (in_clint(addr)) return 0;
   IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
-  out_of_bound(addr);
+  //out_of_bound(addr);
   return 0;
 }
 
@@ -98,5 +98,5 @@ void paddr_write(paddr_t addr, int len, word_t data) {
   printf("waddr: %lx\n", (uint64_t)addr);
   if (in_clint(addr)) return;
   IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
-  out_of_bound(addr);
+  //out_of_bound(addr);
 }
