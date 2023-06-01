@@ -145,7 +145,7 @@ void execute(uint64_t step){
         execute_once();
         g_nr_step++;
 #ifdef DIFFTEST
-        if(SimTop->io_core_debug_raise_intr) difftest_raise_intr(INTR_T_NO);
+        if(SimTop->io_core_debug_debug_skip) difftest_raise_intr(INTR_T_NO);
         difftest_step(SimTop->io_core_debug_debug_pc, 0);
 #endif
         if(npc_state.state != NPC_RUNNING) break;

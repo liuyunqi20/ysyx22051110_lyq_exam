@@ -31,6 +31,7 @@ import chisel3.util._
         val debug_rf_wnum  = Output(UInt(5.W))
         val debug_rf_wdata = Output(UInt(w.W))
         val raise_intr     = Output(Bool())
+        val op_csr         = Output(Bool())      
     }
 
 // ----------------- Stage Interact Bundle -----------------
