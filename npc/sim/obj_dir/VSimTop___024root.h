@@ -25,6 +25,7 @@ VL_MODULE(VSimTop___024root) {
     VL_OUT8(io_core_debug_debug_rf_we,0,0);
     VL_OUT8(io_core_debug_debug_rf_wnum,4,0);
     VL_OUT8(io_core_debug_raise_intr,0,0);
+    VL_OUT8(io_core_debug_op_csr,0,0);
     VL_OUT64(io_core_debug_debug_pc,63,0);
     VL_OUT64(io_core_debug_debug_rf_wdata,63,0);
 

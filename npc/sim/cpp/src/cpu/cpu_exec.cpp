@@ -36,6 +36,7 @@ uint64_t * cpu_inst = NULL;
 extern "C" void set_inst_ptr(const svOpenArrayHandle a) {
   cpu_inst = (uint64_t *)(((VerilatedDpiOpenVar*)a)->datap());
 }
+void difftest_skip_ref();
 
 void device_update();
 

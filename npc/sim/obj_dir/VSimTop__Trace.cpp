@@ -1700,6 +1700,7 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
         tracep->chgCData(oldp+786,(vlSelf->io_core_debug_debug_rf_wnum),5);
         tracep->chgQData(oldp+787,(vlSelf->io_core_debug_debug_rf_wdata),64);
         tracep->chgBit(oldp+789,(vlSelf->io_core_debug_raise_intr));
+        tracep->chgBit(oldp+790,(vlSelf->io_core_debug_op_csr));
     }
 }
 

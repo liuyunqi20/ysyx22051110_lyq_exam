@@ -19,6 +19,7 @@ VSimTop::VSimTop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , io_core_debug_debug_rf_wnum{vlSymsp->TOP.io_core_debug_debug_rf_wnum}
     , io_core_debug_debug_rf_wdata{vlSymsp->TOP.io_core_debug_debug_rf_wdata}
     , io_core_debug_raise_intr{vlSymsp->TOP.io_core_debug_raise_intr}
+    , io_core_debug_op_csr{vlSymsp->TOP.io_core_debug_op_csr}
     , rootp{&(vlSymsp->TOP)}
 {
 }
@@ -65,7 +66,7 @@ static void _eval_initial_loop(VSimTop__Syms* __restrict vlSymsp) {
             Verilated::debug(1);
             __Vchange = VSimTop___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("../build/SimTop.v", 3932, "",
+            VL_FATAL_MT("../build/SimTop.v", 3936, "",
                 "Verilated model didn't DC converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {
@@ -96,7 +97,7 @@ void VSimTop::eval_step() {
             Verilated::debug(1);
             __Vchange = VSimTop___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("../build/SimTop.v", 3932, "",
+            VL_FATAL_MT("../build/SimTop.v", 3936, "",
                 "Verilated model didn't converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {

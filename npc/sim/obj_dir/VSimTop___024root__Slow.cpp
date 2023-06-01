@@ -147,6 +147,7 @@ void VSimTop___024root___settle__TOP__2(VSimTop___024root* vlSelf) {
         = (IData)((0U != (0x660000U & vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT__ds_es_r_alu_op)));
     vlSelf->io_core_debug_debug_pc = vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ms_ws_r_pc;
     vlSelf->io_core_debug_debug_rf_wnum = vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ms_ws_r_dest;
+    vlSelf->io_core_debug_op_csr = (0U != (IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ms_ws_r_csr_op));
     vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT___s3_ready_go_T_6 
         = (1U & ((IData)(vlSelf->SimTop__DOT__my_core_top__DOT__my_icache__DOT__stage3__DOT__state) 
                  >> 5U));
@@ -2086,6 +2087,7 @@ void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) {
     vlSelf->io_core_debug_debug_rf_wnum = VL_RAND_RESET_I(5);
     vlSelf->io_core_debug_debug_rf_wdata = VL_RAND_RESET_Q(64);
     vlSelf->io_core_debug_raise_intr = VL_RAND_RESET_I(1);
+    vlSelf->io_core_debug_op_csr = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_in_ret_rdata = VL_RAND_RESET_Q(64);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_in_ret_valid = VL_RAND_RESET_I(1);
     vlSelf->SimTop__DOT__my_core_top__DOT___my_dcache_io_out_req_bits_wr = VL_RAND_RESET_I(1);
