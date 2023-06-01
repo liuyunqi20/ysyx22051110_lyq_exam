@@ -6,7 +6,7 @@ CPP_INCLUDE = $(NPC_HOME)/sim/cpp/include/
 # ------------------------ config ------------------------
 #ITRACE = 1
 #MTRACE = 1
-DIFF = 1
+#DIFF = 1
 WAVE = 1
 BATCH_MODE = 1
 DEVICE = 1
