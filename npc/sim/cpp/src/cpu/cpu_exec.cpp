@@ -123,9 +123,6 @@ void execute_once(){
                     SimTop->io_core_debug_debug_rf_wnum,
                     SimTop->io_core_debug_debug_rf_wdata);
         */
-#ifdef DIFFTEST
-        if(SimTop->io_core_debug_raise_intr) difftest_raise_intr(INTR_T_NO);
-#endif
 #ifdef ITRACE
         write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
 #endif
@@ -150,6 +147,7 @@ void execute(uint64_t step){
         execute_once();
         g_nr_step++;
 #ifdef DIFFTEST
+        if(SimTop->io_core_debug_raise_intr) difftest_raise_intr(INTR_T_NO);
         if(SimTop->io_core_debug_op_csr) difftest_skip_ref();
         difftest_step(SimTop->io_core_debug_debug_pc, 0);
 #endif
