@@ -18,14 +18,14 @@
 #include <device/mmio.h>
 #include <isa.h>
 
-#define MT_ADDR         0xbff8
-#define MTCMP_ADDR      0x4000
-int in_clint(uint64_t addr){
-  if(addr == MT_ADDR || addr == MTCMP_ADDR)
-    return 1;
-  else 
-    return 0;
-}
+// #define MT_ADDR         0xbff8
+// #define MTCMP_ADDR      0x4000
+// int in_clint(uint64_t addr){
+//   if(addr == MT_ADDR || addr == MTCMP_ADDR)
+//     return 1;
+//   else 
+//     return 0;
+// }
 
 
 #if   defined(CONFIG_PMEM_MALLOC)
