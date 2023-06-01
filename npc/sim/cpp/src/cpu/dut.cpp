@@ -82,6 +82,7 @@ static void checkregs(CPU_state *ref_r, vaddr_t pc) {
 }
 
 void difftest_step(vaddr_t pc, vaddr_t npc){
+    printf("diff 1\n");
     CPU_state ref_r;
     if (is_skip_ref) {
         is_skip_ref -= 1;
