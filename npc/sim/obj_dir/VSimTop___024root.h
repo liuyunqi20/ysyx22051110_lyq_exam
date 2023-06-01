@@ -21,6 +21,7 @@ VL_MODULE(VSimTop___024root) {
     // PORTS
     VL_IN8(clock,0,0);
     VL_IN8(reset,0,0);
+    VL_OUT8(io_core_debug_debug_valid,0,0);
     VL_OUT8(io_core_debug_debug_rf_we,0,0);
     VL_OUT8(io_core_debug_debug_rf_wnum,4,0);
     VL_OUT8(io_core_debug_raise_intr,0,0);
@@ -36,7 +37,6 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_icache_io_out_req_bits_wr;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_mmc_io_in_ret_valid;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_mmc_io_axi_out_req_valid;
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_wb_io_ws_forward_bits_en;
         CData/*7:0*/ SimTop__DOT__my_core_top__DOT___my_mem_io_data_mem_req_bits_wstrb;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT___my_mem_io_ms_forward_valid;
@@ -94,9 +94,9 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__ds_es_r_is_ebreak;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__ds_es_r_op_muldiv;
         CData/*4:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__ds_es_r_dest;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT___my_alu_io_in_valid_T_3;
     };
     struct {
-        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT___my_alu_io_in_valid_T_3;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__s1_lt_s2;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__is_jal;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_ex__DOT__es_ready_go;
@@ -146,6 +146,7 @@ VL_MODULE(VSimTop___024root) {
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__ms_ws_r_is_ebreak;
         CData/*4:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__ms_ws_r_dest;
         CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT__has_trap;
+        CData/*0:0*/ SimTop__DOT__my_core_top__DOT__my_wb__DOT___io_wb2rf_rf_we_T_2;
         CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_sxl;
         CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_uxl;
         CData/*1:0*/ SimTop__DOT__my_core_top__DOT__my_csr__DOT__mstatus_mpp;

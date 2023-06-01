@@ -123,7 +123,7 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
             tracep->chgBit(oldp+62,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_mem_ok));
             tracep->chgQData(oldp+63,(vlSelf->SimTop__DOT__my_core_top__DOT__my_if__DOT__fs_inst_data),64);
             tracep->chgBit(oldp+65,(vlSelf->SimTop__DOT__my_core_top__DOT__my_ex__DOT___io_id2ex_ready_T_2));
-            tracep->chgBit(oldp+66,(vlSelf->SimTop__DOT__my_core_top__DOT___my_wb_io_wb2rf_rf_we));
+            tracep->chgBit(oldp+66,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT___io_wb2rf_rf_we_T_2));
             tracep->chgCData(oldp+67,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT__ms_ws_r_dest),5);
             tracep->chgQData(oldp+68,(vlSelf->SimTop__DOT__my_core_top__DOT__my_wb__DOT___io_wb2rf_wdata_T_2),64);
             tracep->chgBit(oldp+70,(vlSelf->SimTop__DOT__my_core_top__DOT___my_ex_io_es_forward_bits_en));
@@ -1694,11 +1694,12 @@ void VSimTop___024root__traceChgSub0(VSimTop___024root* vlSelf, VerilatedVcd* tr
         }
         tracep->chgBit(oldp+780,(vlSelf->clock));
         tracep->chgBit(oldp+781,(vlSelf->reset));
-        tracep->chgQData(oldp+782,(vlSelf->io_core_debug_debug_pc),64);
-        tracep->chgBit(oldp+784,(vlSelf->io_core_debug_debug_rf_we));
-        tracep->chgCData(oldp+785,(vlSelf->io_core_debug_debug_rf_wnum),5);
-        tracep->chgQData(oldp+786,(vlSelf->io_core_debug_debug_rf_wdata),64);
-        tracep->chgBit(oldp+788,(vlSelf->io_core_debug_raise_intr));
+        tracep->chgBit(oldp+782,(vlSelf->io_core_debug_debug_valid));
+        tracep->chgQData(oldp+783,(vlSelf->io_core_debug_debug_pc),64);
+        tracep->chgBit(oldp+785,(vlSelf->io_core_debug_debug_rf_we));
+        tracep->chgCData(oldp+786,(vlSelf->io_core_debug_debug_rf_wnum),5);
+        tracep->chgQData(oldp+787,(vlSelf->io_core_debug_debug_rf_wdata),64);
+        tracep->chgBit(oldp+789,(vlSelf->io_core_debug_raise_intr));
     }
 }
 
