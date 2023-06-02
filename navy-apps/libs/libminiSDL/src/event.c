@@ -31,7 +31,7 @@ int SDL_PollEvent(SDL_Event *ev) {
   if(ev == NULL) return 1;
   if(!NDL_PollEvent(buf, sizeof(buf)))
     return 0;
-  printf("buf: %s\n", buf);
+  //printf("buf: %s\n", buf);
   if(buf[0] == 'k' && buf[1] == 'd'){
     ev->type = SDL_KEYDOWN;
     ev->key.type = SDL_KEYDOWN;
