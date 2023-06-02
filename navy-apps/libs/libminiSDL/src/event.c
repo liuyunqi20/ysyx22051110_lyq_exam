@@ -48,8 +48,10 @@ int SDL_PollEvent(SDL_Event *ev) {
     ev->key.type = SDL_KEYUP;
     ev->key.keysym.sym = str2keysym(buf);
     keystate[ev->key.keysym.sym] = 0;
-  }else
+  }else{
     ev->type = SDL_USEREVENT;
+    return 0;
+  }
   return 1;
 }
 
