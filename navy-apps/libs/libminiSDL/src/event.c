@@ -33,6 +33,7 @@ int SDL_PollEvent(SDL_Event *ev) {
 //  printf("EVENT==NULL:%d\n",ev==NULL?1:0);
   if(ev==NULL) return 1;
   if(!NDL_PollEvent(buf,100)) return /*printf("Nothing!\n"),*/0;
+  printf("buf %s\n", buf);
   deal_event(ev);
   return 1;
 }
