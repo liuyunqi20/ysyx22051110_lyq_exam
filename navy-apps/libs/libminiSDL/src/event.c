@@ -42,11 +42,13 @@ int SDL_PollEvent(SDL_Event *ev) {
     ev->type = SDL_KEYDOWN;
     ev->key.type = SDL_KEYDOWN;
     ev->key.keysym.sym = str2keysym(buf);
+    printf("poll event %d down\n", ev->key.keysym.sym);
     keystate[ev->key.keysym.sym] = 1;
   }else if(buf[0] == 'k' && buf[0] == 'u'){
     ev->type = SDL_KEYUP;
     ev->key.type = SDL_KEYUP;
     ev->key.keysym.sym = str2keysym(buf);
+    printf("poll event %d up\n", ev->key.keysym.sym);
     keystate[ev->key.keysym.sym] = 0;
   }else{
     ev->type = SDL_USEREVENT;
