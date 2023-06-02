@@ -52,20 +52,8 @@ int SDL_PollEvent(SDL_Event *ev) {
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
-  char buf[64];
-  while(!NDL_PollEvent(buf, sizeof(buf))){;}
-  if(buf[0] == 'k' && buf[1] == 'd'){
-    event->type = SDL_KEYDOWN;
-    event->key.type = SDL_KEYDOWN;
-    event->key.keysym.sym = str2keysym(buf);
-    keystate[event->key.keysym.sym] = 1;
-  }else if(buf[0] == 'k' && buf[0] == 'u'){
-    event->type = SDL_KEYUP;
-    event->key.type = SDL_KEYUP;
-    event->key.keysym.sym = str2keysym(buf);
-    keystate[event->key.keysym.sym] = 0;
-  }else
-    event->type = SDL_USEREVENT;
+  if(event == NULL) return 0;
+  while(!SDL_PollEvent(event)) {;}
   return 1;
 }
 
