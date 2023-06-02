@@ -82,5 +82,5 @@ uint8_t* SDL_GetKeyState(int *numkeys) {
   //   else if(event.type == SDL_KEYUP)
   //     keystate[(event.key.keysym.sym)] = 0;
   // }
-  return keystate;
+  return &keystate[0];
 }
