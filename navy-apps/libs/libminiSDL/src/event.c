@@ -80,12 +80,12 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  SDL_Event event;
-  while(SDL_PollEvent(&event)){
-    if(event.type == SDL_KEYDOWN)
-      keystate[(event.key.keysym.sym)] = 1;
-    else if(event.type == SDL_KEYUP)
-      keystate[(event.key.keysym.sym)] = 0;
-  }
+  // SDL_Event event;
+  // while(SDL_PollEvent(&event)){
+  //   if(event.type == SDL_KEYDOWN)
+  //     keystate[(event.key.keysym.sym)] = 1;
+  //   else if(event.type == SDL_KEYUP)
+  //     keystate[(event.key.keysym.sym)] = 0;
+  // }
   return keystate;
 }
