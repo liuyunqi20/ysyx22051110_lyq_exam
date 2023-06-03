@@ -97,10 +97,13 @@ void difftest_step(vaddr_t pc, vaddr_t npc){
             return;
         }
     }
+    printf("diff1\n");
     //REF execute one step
     ref_difftest_exec(1);
+    printf("diff2\n");
     //copy regs from REF
     ref_difftest_regcpy(&ref_r, cpu_pc, DIFFTEST_TO_DUT);
+    printf("diff3\n");
     //check reg and pc
     checkregs(&ref_r, pc);
     //check intr

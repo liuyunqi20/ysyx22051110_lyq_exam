@@ -150,13 +150,9 @@ void execute(uint64_t step){
         execute_once();
         g_nr_step++;
 #ifdef DIFFTEST
-        printf("diff1\n");
         if(SimTop->io_core_debug_raise_intr) difftest_raise_intr(INTR_T_NO);
-        printf("diff2\n");
         if(SimTop->io_core_debug_op_csr) difftest_skip_ref();
-        printf("diff3\n");
         difftest_step(SimTop->io_core_debug_debug_pc, 0);
-        printf("diff4\n");
 #endif
         if(npc_state.state != NPC_RUNNING) break;
         if(ebreak_f == 1){
