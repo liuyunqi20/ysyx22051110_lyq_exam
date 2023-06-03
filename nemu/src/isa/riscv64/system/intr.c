@@ -30,7 +30,7 @@ uint64_t mip, mie;
 
 word_t csr_rw(uint32_t csr_num, uint64_t wdata){
   word_t res;
-  printf("csrrw %x %lx\n",csr_num, wdata);
+  //printf("csrrw %x %lx\n",csr_num, wdata);
   switch(csr_num){
     case 0x300: res = mstatus; mstatus = wdata; break;
     case 0x305: res = mtvec;   mtvec   = wdata; break;
@@ -42,13 +42,13 @@ word_t csr_rw(uint32_t csr_num, uint64_t wdata){
           printf("rwcsr_unm: %x\n", csr_num);
       assert(0);
   }
-  printf("mtvec: %lx\n", mtvec);
+  //printf("mtvec: %lx\n", mtvec);
   return res;
 }
 
 word_t csr_rs(uint32_t csr_num, uint64_t wmask){
   word_t res;
-  printf("csrrs %x %lx\n",csr_num, wmask);
+  //printf("csrrs %x %lx\n",csr_num, wmask);
   switch(csr_num){
     case 0x300: res = mstatus; mstatus |= wmask; break;
     case 0x305: res = mtvec;   mtvec   |= wmask; break;
@@ -66,7 +66,7 @@ word_t csr_rs(uint32_t csr_num, uint64_t wmask){
 
 word_t csr_rc(uint32_t csr_num, uint64_t wmask){
   word_t res;
-  printf("csrrs %x %lx\n",csr_num, wmask);
+  //printf("csrrs %x %lx\n",csr_num, wmask);
   switch(csr_num){
     case 0x300: res = mstatus; mstatus &= ~wmask; break;
     case 0x305: res = mtvec;   mtvec   &= ~wmask; break;
