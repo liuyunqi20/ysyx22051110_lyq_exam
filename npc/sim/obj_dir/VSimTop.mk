@@ -36,7 +36,7 @@ VM_MODPREFIX = VSimTop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
 	-I/home/llyyqq/Desktop/ysyx/ysyx-workbench/npc/sim/cpp/include/ \
-	-DDUMPWAVE \
+	-DDIFFTEST \
 	-DDEVICE \
 	-DHAS_VGA \
 	-DHAS_KEYBOARD \
