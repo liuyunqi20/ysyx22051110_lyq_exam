@@ -6,35 +6,36 @@
 #include <stdio.h>
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
+
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
-  int sr_x, sr_y, sr_w, sr_h;
-  int dr_x, dr_y;
-  if(srcrect){
-    sr_x = srcrect->x;
-    sr_y = srcrect->y;
-    sr_w = srcrect->w;
-    sr_h = srcrect->h;
-  }else{
-    sr_x = 0;
-    sr_y = 0;
-    sr_w = src->w;
-    sr_h = src->h;
+  int sx,sy,sw,sh;
+  int dx,dy;
+  if (srcrect ==NULL)
+  {
+    sx = 0;
+    sy = 0;
+    sw = src->w;
+    sh = src->h;
   }
-  if(dstrect){
-    dr_x = dstrect->x;
-    dr_y = dstrect->y;
-  }else{
-    dr_x = 0;
-    dr_y = 0;
+  else
+  {
+    sx = srcrect->x;
+    sy = srcrect->y;
+    sw = srcrect->w;
+    sh = srcrect->h;
   }
-  uint8_t pixsize = src->format->BytesPerPixel;
-  uint8_t * src_ptr = src->pixels + (sr_y * src->w * pixsize + sr_x * pixsize);
-  uint8_t * dst_ptr = dst->pixels + (dr_y * dst->w * pixsize + dr_x * pixsize);
-  for(int i = 0; i < sr_h; ++i){
-    memcpy(dst_ptr, src_ptr, sr_w * pixsize);
-    dst_ptr += dst->w * pixsize;
-    src_ptr += src->w * pixsize;
+  if (dstrect == NULL)
+  {
+    dx = 0;dy=0;
+  }
+  else
+  {
+    dx = dstrect->x;dy=dstrect->y;
+  }
+    for (int i = 0; i < sh; i++,dy++,sy++)
+  {
+    memcpy(dst->pixels+dy*dst->pitch+dx*dst->format->BytesPerPixel,src->pixels+sy*src->pitch+sx*src->format->BytesPerPixel,sw*dst->format->BytesPerPixel);
   }
 }
 
