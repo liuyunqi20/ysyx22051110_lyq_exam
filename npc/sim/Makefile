@@ -4,7 +4,7 @@ DUT_DIR = ../build
 DUT_NAME = SimTop
 CPP_INCLUDE = $(NPC_HOME)/sim/cpp/include/
 # ------------------------ config ------------------------
-#ITRACE = 1
+ITRACE = 1
 #MTRACE = 1
 #DIFF = 1
 #WAVE = 1
