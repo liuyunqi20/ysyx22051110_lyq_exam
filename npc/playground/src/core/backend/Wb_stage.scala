@@ -60,7 +60,7 @@ class Wb_stage(w: Int) extends Module{
     io.debug.debug_rf_we    := io.wb2rf.rf_we
     io.debug.debug_rf_wnum  := io.wb2rf.waddr
     io.debug.debug_rf_wdata := io.wb2rf.wdata
-    io.debug.raise_intr     := has_trap
+    io.debug.raise_intr     := io.csr_exc.intr_t
     io.debug.op_csr         := ms_ws_r.csr_op.orR === 1.U
     
 }
