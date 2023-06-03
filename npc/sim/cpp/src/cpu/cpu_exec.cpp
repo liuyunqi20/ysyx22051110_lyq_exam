@@ -54,9 +54,9 @@ void wave_end(){
 
 void wave_dump(){
 #ifdef DUMPWAVE
-    if(g_nr_step > 400 && g_nr_step < 420)
+    if(g_nr_step > 2608750 && g_nr_step < 2608800)
         tfp->dump(contextp->time());
-    if(g_nr_step == 420)
+    if(g_nr_step == 2608800)
         wave_end();
 #endif
 }
