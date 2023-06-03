@@ -89,14 +89,20 @@ void NDL_OpenCanvas(int *w, int *h) {
   fclose(fd_dinfo);
 }
 
-  uint32_t buf[400];
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  for (size_t i = 0; i < h; i++)
-  {
-    lseek(fb_dev,(x+(y+i)*screen_w)*(sizeof(uint32_t)),0);  
-    memset(&buf,0,1600); 
-    memcpy(&buf,pixels+i*w,w*sizeof(uint32_t));
-    write(fb_dev,buf,w*sizeof(uint32_t));
+  //printf("x: %d y: %d w: %d h: %d\n", x, y, w, h);
+  int offset_pix = screen_w * y + x;
+  //to center
+  offset_pix += offset_center;
+  uint32_t * temp = (uint32_t *)pixels;
+  for(int i = 0; i < h; ++i){
+    //printf("offset_pix: %d\n", offset_pix);
+    //fseek(fb_dev, offset_pix * sizeof(uint32_t), SEEK_SET);
+    //fwrite((void *)temp, w * sizeof(uint32_t), 1, fb_dev);
+    lseek(fb_dev, offset_pix * sizeof(uint32_t), 0);
+    write(fb_dev, (void *)temp, w * sizeof(uint32_t));
+    offset_pix += screen_w;
+    temp += w;
   }
 }
 
@@ -125,5 +131,5 @@ int NDL_Init(uint32_t flags) {
 
 void NDL_Quit() {
   close(evtdev);
-  fclose(fb_dev);
+  close(fb_dev);
 }
