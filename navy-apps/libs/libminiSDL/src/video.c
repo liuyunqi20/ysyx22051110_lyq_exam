@@ -3,8 +3,9 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
-
+extern void printf_SDL(char * func_name);
+extern void printf_num(char * name ,int num);
+extern int screen_w , screen_h;
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
 
   assert(dst && src);
@@ -38,7 +39,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     memcpy(dst->pixels+dy*dst->pitch+dx*dst->format->BytesPerPixel,src->pixels+sy*src->pitch+sx*src->format->BytesPerPixel,sw*dst->format->BytesPerPixel);
   }
 }
-
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   int x,y,w,h;
   if (dstrect == NULL)
@@ -77,7 +77,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     }
   }
 }	
-
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 	if (x == 0 && y ==0 && w==0 && h ==0)
 	{
@@ -307,10 +306,8 @@ uint32_t SDL_MapRGBA(SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b, uint
 }
 
 int SDL_LockSurface(SDL_Surface *s) {
-  printf("SDL_LockSurface not implemented\n");
   return 0;
 }
 
 void SDL_UnlockSurface(SDL_Surface *s) {
-  printf("SDL_UnlockSurface not implemented\n");
 }
