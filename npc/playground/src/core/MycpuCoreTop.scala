@@ -4,6 +4,8 @@ import chisel3.util._
 
 trait HasCoreTopConst{
     val nr_mmc_port       = 1
+    val has_icache        = false
+    val has_dcache        = false
     val Cache_tag_width   = 23
     val DCache_nr_lines   = 32
     val ICache_nr_lines   = 32
