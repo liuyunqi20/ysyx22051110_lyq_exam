@@ -32,7 +32,7 @@ NOTE: Arbiter module arbits in read-read and write-write requests from IFU and
 trait HasConfigConst{
     val nr_mport = 2
     val cache_block_word_n = 2
-    val has_sram_delay = true
+    val has_sram_delay = false
     val sram_rd_delay = 5
     val sram_wt_delay = 5
 }
