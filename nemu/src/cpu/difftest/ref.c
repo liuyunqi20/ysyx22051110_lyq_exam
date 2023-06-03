@@ -36,7 +36,9 @@ void difftest_regcpy(void *dut, uint64_t pc_to_ref, bool direction) {
 }
 
 void difftest_exec(uint64_t n) {
+  printf("haha\n");
   cpu_exec(n);
+  printf("en?\n");
 }
 
 void difftest_raise_intr(word_t NO) {
