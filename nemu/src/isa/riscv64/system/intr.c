@@ -30,7 +30,7 @@ uint64_t mip, mie;
 
 word_t csr_rw(uint32_t csr_num, uint64_t wdata){
   word_t res;
-  //printf("rw %lx\n", wdata);
+  printf("csrrw %x %lx\n",csr_num, wdata);
   switch(csr_num){
     case 0x300: res = mstatus; mstatus = wdata; break;
     case 0x305: res = mtvec;   mtvec   = wdata; break;
@@ -42,6 +42,7 @@ word_t csr_rw(uint32_t csr_num, uint64_t wdata){
           printf("rwcsr_unm: %x\n", csr_num);
       assert(0);
   }
+  printf("mtvec: %lx\n", mtvec);
   return res;
 }
 
