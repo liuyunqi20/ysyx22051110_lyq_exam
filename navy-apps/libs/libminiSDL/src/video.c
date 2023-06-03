@@ -39,56 +39,43 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  int rect_x, rect_y, rect_w, rect_h;
-  if(dstrect == NULL){
-    rect_x = 0;
-    rect_y = 0;
-    rect_w = dst->w;
-    rect_h = dst->h;
-  }else{
-    rect_x = dstrect->x;
-    rect_y = dstrect->y;
-    rect_w = dstrect->w;
-    rect_h = dstrect->h;
+  int x,y,w,h;
+  if (dstrect == NULL)
+  {
+    x = y = 0;
+    w = dst->w;
+    h = dst->h;
   }
-  assert(dst);
-  assert((rect_x + rect_w) <= (dst->w));
-  assert((rect_y + rect_h) <= (dst->h));
-  uint8_t pixsize = dst->format->BytesPerPixel;
-  if(pixsize == 1){
-    int count = dst->format->palette->ncolors;
-    uint8_t color_idx;
-    for(int i = 0; i < count; ++i)
-      if(dst->format->palette->colors[i].val == color){
-        color_idx = (uint8_t)i;
+  else
+  {
+    x = dstrect->x;
+    y = dstrect->y;
+    w = dstrect->w;
+    h = dstrect->h;
+  }
+  if(dst->format->BytesPerPixel==1){
+    for(int i=0;i<dst->format->palette->ncolors;i++){
+      if((dst->format->palette->colors+i)->val==color){
+        color=i;
         break;
       }
-    uint8_t * pix_ptr = (uint8_t * )dst->pixels + (rect_y * dst->w + rect_x);
-    for(int i = 0; i < rect_h; ++i){
-      memset(pix_ptr, color_idx, rect_w);
-      pix_ptr += dst->w;
-    }
-  }else{
-    uint32_t * pix_ptr = (uint32_t *)dst->pixels + (rect_y * dst->w + rect_x);
-    for(int i = 0; i < rect_h; ++i){
-      for(int j = 0; j < rect_w; ++j){
-        *(pix_ptr + j) = color;
-      }
-      pix_ptr += dst->w;
-    }
-    if(color & dst->format->Amask){
-      assert(0);
-      pix_ptr = (uint32_t *)dst->pixels;
-      uint32_t alpha = color & dst->format->Amask;
-      for(int i = 0; i < dst->h; ++i)
-        for(int j = 0; j < dst->w; ++j){
-          *pix_ptr = (*pix_ptr & ~(dst->format->Amask)) | alpha;
-          pix_ptr++;
-        }
     }
   }
-  SDL_UpdateRect(dst, rect_x, rect_y, rect_w, rect_h);
-}
+  for (int j = 0; j < h ; j++)
+  {
+    for (size_t i = 0; i < w; i++)
+    {
+      if (dst->format->BytesPerPixel == 4)
+      {
+        *(uint32_t *)(dst->pixels+(y+j)*dst->pitch+(i+x)*dst->format->BytesPerPixel) = color;
+      }
+      else if (dst->format->BytesPerPixel == 1)
+      {
+		    *(dst->pixels+(y+j)*dst->pitch+(i+x)*dst->format->BytesPerPixel) = (uint8_t)color;
+      }
+    }
+  }
+}	
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   //printf("SDL_UpdateRect not implemented\n");
