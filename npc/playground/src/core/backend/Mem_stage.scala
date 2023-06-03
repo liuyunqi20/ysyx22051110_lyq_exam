@@ -126,7 +126,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
         es_ms_r.mem_type(2) -> Cat(Fill(w - 32, rdata_w(31)), rdata_w(31, 0)), //LW
         es_ms_r.mem_type(3) -> Cat(Fill(w - 8 , 0.U(1.W))   , rdata_b(7, 0)),  //LBU
         es_ms_r.mem_type(4) -> Cat(Fill(w - 16, 0.U(1.W))   , rdata_h(15, 0)), //LHU
-        es_ms_r.mem_type(5) -> Cat(Fill(w - 32, 0.U(1.W))   , mrdata(31, 0)),  //LWU
+        es_ms_r.mem_type(5) -> Cat(Fill(w - 32, 0.U(1.W))   , rdata_w(31, 0)),  //LWU
         es_ms_r.mem_type(6) -> mrdata, //LD
     ))
     // ------------------------ to Wb stage ------------------------
