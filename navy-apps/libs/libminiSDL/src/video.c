@@ -79,29 +79,54 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }	
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  //printf("SDL_UpdateRect not implemented\n");
-  if(w == 0 && h == 0 && w == 0 && h == 0){
-    w = s->w;
-    h = s->h;
-  }
-  uint8_t pixsize = s->format->BytesPerPixel;
-  if(pixsize == 1){
-    int cur_y = y;
-    uint32_t buf[400];
-    SDL_Color * plt_color = s->format->palette->colors;
-    uint8_t * color_idx_p = s->pixels + y * s->w + x;
-    for(int i = 0; i < h; ++i){
-      for(int j = 0; j < w; ++j){
-        uint8_t color_idx = *(color_idx_p + j);
-        buf[j] = plt_color[color_idx].val;
+	if (x == 0 && y ==0 && w==0 && h ==0)
+	{
+		if (s->format->BytesPerPixel==4)
+		{
+			NDL_DrawRect((uint32_t*)(s->pixels),0,0,s->w,s->h);
+		}
+		else 
+		{
+			uint32_t * buf=malloc(s->w*s->h*sizeof(uint32_t));
+			assert(s->format->BytesPerPixel==1);
+			uint8_t * temp=s->pixels;
+			uint32_t * palette=(uint32_t * )s->format->palette->colors;
+			for(int i=0;i<s->h;i++){
+        for(int j=0;j<s->w;j++){
+          buf[i*s->w+j]=palette[*(temp+(y+i)*s->w+(x+j))];
+        }
       }
-      color_idx_p += s->w;
-      NDL_DrawRect(buf, x, cur_y, w, 1);
-      cur_y += 1;
-    }
-  }else{
-    NDL_DrawRect((uint32_t *)(s->pixels), x, y, w, h);
-  }
+			
+			NDL_DrawRect(buf,x,y,s->w,s->h);
+			free(buf);
+		}
+	}
+	else
+	{
+		uint32_t * buf=malloc(w*h*sizeof(uint32_t));
+		if (s->format->BytesPerPixel==4)
+		{
+			uint32_t * temp=(uint32_t *)s->pixels;
+			for(int i=0;i<h;i++)
+			for(int j=0;j<w;j++){
+				buf[i*w+j]=*(temp+(y+i)*s->w+(x+j));
+			}
+			NDL_DrawRect(buf,x,y,w,h);
+		}
+		else 
+		{
+			uint8_t * temp=s->pixels;
+			uint32_t * palette=(uint32_t * )s->format->palette->colors;
+			for(int i=0;i<h;i++){
+        for(int j=0;j<w;j++){
+          buf[i*w+j]=palette[*(temp+(y+i)*s->w+(x+j))];
+        }
+			}
+			NDL_DrawRect(buf,x,y,w,h);
+			
+		}
+		 free(buf);
+	}
 }
 
 // APIs below are already implemented.
