@@ -48,6 +48,7 @@ word_t csr_rw(uint32_t csr_num, uint64_t wdata){
 
 word_t csr_rs(uint32_t csr_num, uint64_t wmask){
   word_t res;
+  printf("csrrs %x %lx\n",csr_num, wmask);
   switch(csr_num){
     case 0x300: res = mstatus; mstatus |= wmask; break;
     case 0x305: res = mtvec;   mtvec   |= wmask; break;
@@ -65,6 +66,7 @@ word_t csr_rs(uint32_t csr_num, uint64_t wmask){
 
 word_t csr_rc(uint32_t csr_num, uint64_t wmask){
   word_t res;
+  printf("csrrs %x %lx\n",csr_num, wmask);
   switch(csr_num){
     case 0x300: res = mstatus; mstatus &= ~wmask; break;
     case 0x305: res = mtvec;   mtvec   &= ~wmask; break;
