@@ -8,9 +8,7 @@ static int difftest_port = 1234;
 static char *img_file = NULL;
 static char *elf_file = NULL;
 static int elf_en = 0;
-#ifdef ITRACE
 extern "C" void init_disasm(const char *triple);
-#endif
 
 int load_sim_image(){
 
