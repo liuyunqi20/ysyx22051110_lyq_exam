@@ -124,26 +124,22 @@ void init_monitor(int argc, char *argv[]){
     //parse arguments
     parse_args(argc, argv);
     //load image to memory
-    int image_size = init_image();
+    int image_size = init_image();    
+#ifdef ITRACE
+    printf("init itrace\n");
+    init_disasm("riscv64-pc-linux-gnu");
+#endif
     //init cpu
     init_cpu();
-    printf("tag1\n");
     //initialize difftest
 #ifdef DIFFTEST
     init_difftest(diff_so_file, image_size, difftest_port);
 #endif
     //initialize sdb
     init_sdb();
-    printf("tag2\n");
 #ifdef DEVICE
     init_device();
 #endif
-    printf("en??\n");
-#ifdef ITRACE
-    printf("init itrace\n");
-    init_disasm("riscv64-pc-linux-gnu");
-#endif
-    printf("haha\n");
     printf("[npc] monitor initialize success!\n");
     if(img_file)
         printf("The image file is %s\n", elf_file);
