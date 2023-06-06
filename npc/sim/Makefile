@@ -5,7 +5,7 @@ DUT_NAME = SimTop
 CPP_INCLUDE = $(NPC_HOME)/sim/cpp/include/
 SRC_PATH = $(NPC_HOME)/playground/src/vsrc
 # ------------------------ config ------------------------
-#ITRACE = 1
+ITRACE = 1
 #MTRACE = 1
 #DIFF = 1
 #WAVE = 1
