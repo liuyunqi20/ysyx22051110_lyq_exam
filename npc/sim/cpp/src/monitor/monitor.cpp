@@ -127,16 +127,18 @@ void init_monitor(int argc, char *argv[]){
     int image_size = init_image();
     //init cpu
     init_cpu();
+    printf("tag1\n");
     //initialize difftest
 #ifdef DIFFTEST
     init_difftest(diff_so_file, image_size, difftest_port);
 #endif
     //initialize sdb
     init_sdb();
+    printf("tag2\n");
 #ifdef DEVICE
     init_device();
 #endif
-    printf("en??");
+    printf("en??\n");
 #ifdef ITRACE
     printf("init itrace\n");
     init_disasm("riscv64-pc-linux-gnu");
