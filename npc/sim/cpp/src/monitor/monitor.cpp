@@ -139,6 +139,7 @@ void init_monitor(int argc, char *argv[]){
     init_device();
 #endif
 #ifdef ITRACE
+    printf("init itrace\n");
     init_disasm("riscv64-pc-linux-gnu");
 #endif
     printf("[npc] monitor initialize success!\n");
