@@ -264,5 +264,5 @@ void init_cpu_env(int argc, char** argv, char** env)
     svSetScope(scope);
     printf("[npc] module init success!\n");
 
-    debug_trace_fp = fopen("../debug_trace.txt", "w");
+    //debug_trace_fp = fopen("../debug_trace.txt", "w");
 }
