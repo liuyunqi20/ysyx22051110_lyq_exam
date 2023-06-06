@@ -68,6 +68,7 @@ class Wb_stage(w: Int) extends Module{
     //debug
     io.debug.debug_valid    := ws_valid
     io.debug.debug_pc       := ms_ws_r.pc
+    io.debug.debug_inst     := ms_ws_r.inst
     io.debug.debug_rf_we    := io.wb2rf.rf_we
     io.debug.debug_rf_wnum  := io.wb2rf.waddr
     io.debug.debug_rf_wdata := io.wb2rf.wdata
