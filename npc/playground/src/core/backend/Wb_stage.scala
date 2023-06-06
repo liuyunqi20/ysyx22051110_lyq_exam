@@ -63,7 +63,7 @@ class Wb_stage(w: Int) extends Module{
     val my_inst_monitor = Module(new InstMonitor(w))
     my_inst_monitor.io.clock       := clock
     my_inst_monitor.io.reset       := reset
-    my_inst_monitor.io.inst_ebreak := ms_ws_r.is_ebreak
+    my_inst_monitor.io.inst_ebreak := ms_ws_r.is_ebreak && ws_valid
     my_inst_monitor.io.inst        := Cat(0.U(32.W), ms_ws_r.inst)
     //debug
     io.debug.debug_valid    := ws_valid

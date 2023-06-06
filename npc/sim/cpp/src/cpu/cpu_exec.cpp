@@ -141,7 +141,7 @@ void execute_once(){
 #ifdef ITRACE
     write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
 #endif
-    printf("inst: %lx\n", *cpu_inst);
+    printf("inst: %lx\n", (uint64_t)*cpu_inst);
     //wave_end();
     //printf("after one step: %lx\n", cpu_pc);
 }
