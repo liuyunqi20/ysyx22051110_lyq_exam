@@ -126,17 +126,18 @@ void execute_once(){
                     SimTop->io_core_debug_debug_rf_wnum,
                     SimTop->io_core_debug_debug_rf_wdata);
         */
-#ifdef ITRACE
-        write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
-#endif
         // ----------------- POS -----------------
         contextp->timeInc(1);
         SimTop->clock = !SimTop->clock;
         SimTop->eval();
         wave_dump();
         //update current pc
-        if(SimTop->io_core_debug_debug_valid)
+        if(SimTop->io_core_debug_debug_valid){
             cpu_pc = SimTop->io_core_debug_debug_pc;
+            #ifdef ITRACE
+            write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
+            #endif
+        }
         VSimTop::catch_ebreak(&ebreak_f);
         cnt++;
     }
