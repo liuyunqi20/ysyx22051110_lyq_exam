@@ -52,11 +52,13 @@ void wave_end(){
 #endif
 }
 
+#define WAVE_HEAD 0
+#define WAVE_TAIL 1000
 void wave_dump(){
 #ifdef DUMPWAVE
-    // if(g_nr_step > 13174880 && g_nr_step < 13174910)
-    //     tfp->dump(contextp->time());
-    // if(g_nr_step == 13174910)
+    if(g_nr_step >= WAVE_HEAD && g_nr_step < WAVE_TAIL)
+        tfp->dump(contextp->time());
+    if(g_nr_step == WAVE_TAIL)
         wave_end();
 #endif
 }
