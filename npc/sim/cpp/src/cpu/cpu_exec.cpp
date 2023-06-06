@@ -93,7 +93,9 @@ void write_itrace(uint64_t pc, uint64_t inst){
     }
     memset(p, ' ', 4);
     p += 4;
+    printf("ss\n");
     disassemble(p, IBUF_SIZE-(p-iringbuf.buf[iringbuf.head]), pc, (uint8_t *)&inst, ilen);
+    printf("aa\n");
     if(iringbuf.head == (IRINGBUF_SIZE - 1))
     iringbuf.head = 0;
     else
