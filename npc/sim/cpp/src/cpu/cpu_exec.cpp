@@ -134,14 +134,14 @@ void execute_once(){
         //update current pc
         if(SimTop->io_core_debug_debug_valid){
             cpu_pc = SimTop->io_core_debug_debug_pc;
-            #ifdef ITRACE
-            write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
-            #endif
-            printf("inst: %lx\n", *cpu_inst);
         }
         VSimTop::catch_ebreak(&ebreak_f);
         cnt++;
     }
+#ifdef ITRACE
+    write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
+#endif
+    printf("inst: %lx\n", *cpu_inst);
     //wave_end();
     //printf("after one step: %lx\n", cpu_pc);
 }
