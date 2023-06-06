@@ -259,7 +259,7 @@ void init_cpu_env(int argc, char** argv, char** env)
     tfp->open("waveform.vcd");
 #endif
     //set scope for exported function from verilog
-    const svScope scope = svGetScopeFromName("TOP.SimTop.my_core_top.my_id.my_inst_monitor");
+    const svScope scope = svGetScopeFromName("TOP.SimTop.my_core_top.my_wb.my_inst_monitor");
     assert(scope); // Check for nullptr if scope not found
     svSetScope(scope);
     printf("[npc] module init success!\n");
