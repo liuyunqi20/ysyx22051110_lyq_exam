@@ -8,111 +8,154 @@
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
-  int sr_x, sr_y, sr_w, sr_h;
-  int dr_x, dr_y;
-  if(srcrect){
-    sr_x = srcrect->x;
-    sr_y = srcrect->y;
-    sr_w = srcrect->w;
-    sr_h = srcrect->h;
-  }else{
-    sr_x = 0;
-    sr_y = 0;
-    sr_w = src->w;
-    sr_h = src->h;
+  printf("SDL_BlitSurface\n");
+  int x1 ,y1, w1, h1, x1_min, x1_max, y1_max;
+  int x2, y2, w2, h2, x2_min, x2_max, y2_max;
+  if(srcrect == NULL){
+    x1 = 0;
+    y1 = 0;
+    w1 = src->w;
+    h1 = src->h;
   }
-  if(dstrect){
-    dr_x = dstrect->x;
-    dr_y = dstrect->y;
-  }else{
-    dr_x = 0;
-    dr_y = 0;
+  else{
+    x1 = srcrect->x;
+    y1 = srcrect->y;
+    w1 = srcrect->w;
+    h1 = srcrect->h;
   }
-  uint8_t pixsize = src->format->BytesPerPixel;
-  uint8_t * src_ptr = src->pixels + (sr_y * src->w * pixsize + sr_x * pixsize);
-  uint8_t * dst_ptr = dst->pixels + (dr_y * dst->w * pixsize + dr_x * pixsize);
-  for(int i = 0; i < sr_h; ++i){
-    memcpy(dst_ptr, src_ptr, sr_w * pixsize);
-    dst_ptr += dst->w * pixsize;
-    src_ptr += src->w * pixsize;
+  if(dstrect == NULL){
+    x2 = 0;
+    y2 = 0;
+    w2 = w1;
+    h2 = h1;
+  }
+  else{
+    x2 = dstrect->x;
+    y2 = dstrect->y;
+    w2 = w1;
+    h2 = h1;
+  }
+  x1_min = x1;      x2_min = x2;
+  x1_max = x1 + w1; x2_max = x2 + w2;
+  y1_max = y1 + h1; y2_max = y2 + h2;
+  //超出部分截断
+  if(x1_max > src->w){x1_max = src->w;}
+  if(y1_max > src->h){y1_max = src->h;}
+  if(x2_max > dst->w){x2_max = dst->w;}
+  if(y2_max > dst->h){y2_max = dst->h;}
+  int offset1, offset2;
+  if(src->format->palette != NULL && dst->format->palette != NULL){ //使用调色板
+    while(y1 < y1_max && y2 < y2_max){
+      while(x1 < x1_max && x2 < x2_max){
+        offset1 = x1 + y1 * src->w;
+        offset2 = x2 + y2 * dst->w;
+        *((uint8_t *)dst->pixels + offset2) = *((uint8_t *)src->pixels + offset1);
+        x1++; x2++;
+      }
+      y1++; y2++;
+      x1 = x1_min; x2 = x2_min;
+    }
+  }
+  else{
+    while(y1 < y1_max && y2 < y2_max){
+      while(x1 < x1_max && x2 < x2_max){
+        offset1 = x1 + y1 * src->w;
+        offset2 = x2 + y2 * dst->w;
+        *((uint32_t *)dst->pixels + offset2) = *((uint32_t *)src->pixels + offset1);
+        x1++; x2++;
+      }
+      y1++; y2++;
+      x1 = x1_min; x2 = x2_min;
+    }
   }
 }
 
+//往画布的指定矩形区域中填充指定的颜色
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  int rect_x, rect_y, rect_w, rect_h;
+  printf("SDL_FillRect\n");
+  int x, y, w, h, x_min, x_max, y_max;
   if(dstrect == NULL){
-    rect_x = 0;
-    rect_y = 0;
-    rect_w = dst->w;
-    rect_h = dst->h;
-  }else{
-    rect_x = dstrect->x;
-    rect_y = dstrect->y;
-    rect_w = dstrect->w;
-    rect_h = dstrect->h;
+    x = 0;
+    y = 0;
+    w = dst->w;
+    h = dst->h;
   }
-  assert(dst);
-  assert((rect_x + rect_w) <= (dst->w));
-  assert((rect_y + rect_h) <= (dst->h));
-  uint8_t pixsize = dst->format->BytesPerPixel;
-  if(pixsize == 1){
-    int count = dst->format->palette->ncolors;
-    uint8_t color_idx;
-    for(int i = 0; i < count; ++i)
-      if(dst->format->palette->colors[i].val == color){
-        color_idx = (uint8_t)i;
+  else{
+    x = dstrect->x;
+    y = dstrect->y;
+    w = dstrect->w;
+    h = dstrect->h;
+  }
+  x_min = x;
+  x_max = x + w;
+  y_max = y + h;
+  //超出部分截断
+  if(x_max > dst->w){
+    x_max = dst->w;
+  }
+  if(y_max > dst->w){
+    y_max = dst->h;
+  }
+  int offset;
+  int i;  
+  if(dst->format->palette != NULL){ //使用调色板
+    uint8_t num;
+    uint32_t _color = (color << 8) | (color >> 24);
+    int n = dst->format->palette->ncolors;
+    for(num = 0; num < n; num++){
+      if((dst->format->palette->colors + num)->val == _color){
         break;
       }
-    uint8_t * pix_ptr = (uint8_t * )dst->pixels + (rect_y * dst->w + rect_x);
-    for(int i = 0; i < rect_h; ++i){
-      memset(pix_ptr, color_idx, rect_w);
-      pix_ptr += dst->w;
     }
-  }else{
-    uint32_t * pix_ptr = (uint32_t *)dst->pixels + (rect_y * dst->w + rect_x);
-    for(int i = 0; i < rect_h; ++i){
-      for(int j = 0; j < rect_w; ++j){
-        *(pix_ptr + j) = color;
+    for(; y < y_max; y++){
+      for(; x < x_max; x++){
+        offset = x + y * dst->w;
+        *(dst->pixels + offset) = num;
       }
-      pix_ptr += dst->w;
-    }
-    if(color & dst->format->Amask){
-      assert(0);
-      pix_ptr = (uint32_t *)dst->pixels;
-      uint32_t alpha = color & dst->format->Amask;
-      for(int i = 0; i < dst->h; ++i)
-        for(int j = 0; j < dst->w; ++j){
-          *pix_ptr = (*pix_ptr & ~(dst->format->Amask)) | alpha;
-          pix_ptr++;
-        }
+      x = x_min;
     }
   }
-  SDL_UpdateRect(dst, rect_x, rect_y, rect_w, rect_h);
+  else{
+    for(; y < y_max; y++){
+      for(; x < x_max; x++){
+        offset = x + y * dst->w;
+        *((uint32_t *)dst->pixels + offset) = color;
+      }
+      x = x_min;
+    }
+  }
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  //printf("SDL_UpdateRect not implemented\n");
-  if(x == 0 && y == 0 && w == 0 && h == 0){
-    w = s->w;
-    h = s->h;
-  }
-  uint8_t pixsize = s->format->BytesPerPixel;
-  if(pixsize == 1){
-    int cur_y = y;
-    uint32_t buf[400];
-    SDL_Color * plt_color = s->format->palette->colors;
-    uint8_t * color_idx_p = s->pixels + y * s->w + x;
-    for(int i = 0; i < h; ++i){
-      for(int j = 0; j < w; ++j){
-        uint8_t color_idx = *(color_idx_p + j);
-        buf[j] = plt_color[color_idx].val;
-      }
-      color_idx_p += s->w;
-      NDL_DrawRect(buf, x, cur_y, w, 1);
-      cur_y += 1;
+  int draw_w = s->w;
+  int draw_h = s->h;
+  printf("SDL_UpdateRect\n");
+  NDL_OpenCanvas(&draw_w, &draw_h);
+  if(s->format->palette != NULL){   //使用调色板
+    uint8_t pixels[480000];
+    int i = 0;
+    for(i = 0; i < draw_w * draw_h; i++){
+      uint8_t num = *(s->pixels + i);
+      SDL_Color *color = (SDL_Color *)(s->format->palette->colors + num);
+      pixels[i * 4] = color->b;
+      pixels[i * 4 + 1] = color->g;
+      pixels[i * 4 + 2] = color->r;
+      pixels[i * 4 + 3] = color->a;
     }
-  }else{
-    NDL_DrawRect((uint32_t *)(s->pixels), x, y, w, h);
+    if(x == 0 && y == 0 && w == 0 && h == 0){
+      NDL_DrawRect(pixels, 0, 0, draw_w, draw_h);
+    }
+    else{
+      NDL_DrawRect(pixels, x, y, w, h);
+    }
+  }
+  else{
+    if(x == 0 && y == 0 && w == 0 && h == 0){
+      NDL_DrawRect(s->pixels, 0, 0, draw_w, draw_h);
+    }
+    else{
+      NDL_DrawRect(s->pixels, x, y, w, h);
+    }
   }
 }
 
@@ -294,10 +337,8 @@ uint32_t SDL_MapRGBA(SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b, uint
 }
 
 int SDL_LockSurface(SDL_Surface *s) {
-  printf("SDL_LockSurface not implemented\n");
   return 0;
 }
 
 void SDL_UnlockSurface(SDL_Surface *s) {
-  printf("SDL_UnlockSurface not implemented\n");
 }
