@@ -91,35 +91,29 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  int draw_w = s->w;
-  int draw_h = s->h;
-  printf("SDL_UpdateRect\n");
-  NDL_OpenCanvas(&draw_w, &draw_h);
-  if(s->format->palette != NULL){   //使用调色板
-    uint8_t pixels[480000];
-    int i = 0;
-    for(i = 0; i < draw_w * draw_h; i++){
-      uint8_t num = *(s->pixels + i);
-      SDL_Color *color = (SDL_Color *)(s->format->palette->colors + num);
-      pixels[i * 4] = color->b;
-      pixels[i * 4 + 1] = color->g;
-      pixels[i * 4 + 2] = color->r;
-      pixels[i * 4 + 3] = color->a;
-    }
-    if(x == 0 && y == 0 && w == 0 && h == 0){
-      NDL_DrawRect(pixels, 0, 0, draw_w, draw_h);
-    }
-    else{
-      NDL_DrawRect(pixels, x, y, w, h);
-    }
+  //printf("SDL_UpdateRect not implemented\n");
+  if(x == 0 && y == 0 && w == 0 && h == 0){
+    w = s->w;
+    h = s->h;
   }
-  else{
-    if(x == 0 && y == 0 && w == 0 && h == 0){
-      NDL_DrawRect(s->pixels, 0, 0, draw_w, draw_h);
+  uint8_t pixsize = s->format->BytesPerPixel;
+  if(pixsize == 1){
+    int cur_y = y;
+    uint32_t buf[400];
+    SDL_Color * plt_color = s->format->palette->colors;
+    uint8_t * color_idx_p = s->pixels + y * s->w + x;
+    for(int i = 0; i < h; ++i){
+      for(int j = 0; j < w; ++j){
+        uint8_t color_idx = *(color_idx_p + j);
+        buf[j] = plt_color[color_idx].a << 24 | plt_color[color_idx].r << 16
+              |  plt_color[color_idx].g << 8  | plt_color[color_idx].b;
+      }
+      color_idx_p += s->w;
+      NDL_DrawRect(buf, x, cur_y, w, 1);
+      cur_y += 1;
     }
-    else{
-      NDL_DrawRect(s->pixels, x, y, w, h);
-    }
+  }else{
+    NDL_DrawRect((uint32_t *)(s->pixels), x, y, w, h);
   }
 }
 
