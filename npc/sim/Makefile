@@ -3,6 +3,7 @@ CPP_HOME = ./cpp
 DUT_DIR = ../build
 DUT_NAME = SimTop
 CPP_INCLUDE = $(NPC_HOME)/sim/cpp/include/
+SRC_PATH = $(NPC_HOME)/playground/src/vsrc
 # ------------------------ config ------------------------
 ITRACE = 1
 #MTRACE = 1
@@ -36,6 +37,7 @@ VERILATOR_FLAGS += -cc
 VERILATOR_FLAGS += --exe
 VERILATOR_FLAGS += --build
 VERILATOR_FLAGS += --trace
+VERILATOR_FLAGS += -y $(SRC_PATH)
 VERILATOR_FLAGS += -CFLAGS -I$(CPP_INCLUDE)
 
 ifdef ITRACE
