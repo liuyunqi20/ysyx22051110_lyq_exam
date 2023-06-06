@@ -142,6 +142,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.mem2wb.bits.result       := Mux(es_ms_r.wb_sel, rdata, es_ms_r.result)
     io.mem2wb.bits.csr_num      := es_ms_r.csr_num
     io.mem2wb.bits.rs1          := es_ms_r.rs1
+    io.mem2wb.bits.inst         := es_ms_r.inst
     // ------------------------ branch ------------------------
     io.branch.br_en             := es_ms_r.br.br_en && io.mem2wb.fire
     io.branch.br_target         := es_ms_r.br.br_target

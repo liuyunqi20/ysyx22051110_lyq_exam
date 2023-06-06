@@ -12,30 +12,6 @@ trait HasDecodeConst{
     val EXCT_LEN   = 2 
 }
 
-class InstMonitor(w: Int) extends BlackBox with HasBlackBoxInline{
-    val io = IO(new Bundle{
-        val clock       = Input(Clock())
-        val reset       = Input(Bool())
-        val inst_ebreak = Input(Bool())
-        val inst        = Input(UInt(w.W))
-    })
-    setInline("InstMonitor.v",
-    """module InstMonitor(
-        |   input clock,
-        |   input reset,
-        |   input inst_ebreak,
-        |   input [63 : 0] inst
-        |   );
-        |   import "DPI-C" function void set_inst_ptr(input logic [63:0] a[]);
-        |   initial set_inst_ptr(inst);
-        |   export "DPI-C" task catch_ebreak;
-        |   task catch_ebreak(output int i);
-        |       i = (!reset && (inst_ebreak == 1'b1)) ? 1 : 0;
-        |   endtask
-        |   endmodule
-    """.stripMargin)
-}
-
 class MyDecoder() extends Module with HasDecodeConst{
     val io = IO(new Bundle{
         val inst      = Input(UInt(32.W))
@@ -299,7 +275,6 @@ class Id_stage(w: Int) extends Module{
         val es_forward = Flipped(Valid(new ForwardingBundle(w)))
         val ms_forward = Flipped(Valid(new ForwardingBundle(w)))
         val ws_forward = Flipped(Valid(new ForwardingBundle(w)))
-        val ebreak     = Input(Bool())
     })
     val ds_valid    = RegInit(0.B)
     val fs_ds_r     = RegInit(0.U.asTypeOf(new IftoIdBundle(w)))
@@ -308,14 +283,7 @@ class Id_stage(w: Int) extends Module{
     }
     //inst code
         val inst = fs_ds_r.inst
-    // ------------------------ catch ebreak ------------------------ 
-        val my_inst_monitor = Module(new InstMonitor(w))
         val inst_ebreak = (inst(6,0) === "b1110011".U) & (inst(19, 7) === 0.U) & (inst(31, 20) === 1.U)
-        my_inst_monitor.io.clock       := clock
-        my_inst_monitor.io.reset       := reset
-        my_inst_monitor.io.inst_ebreak := io.ebreak
-        my_inst_monitor.io.inst        := inst
-
     // ------------------------ decoder ------------------------ 
         val my_decoder = Module(new MyDecoder())
         my_decoder.io.inst := inst
@@ -404,6 +372,7 @@ class Id_stage(w: Int) extends Module{
         io.id2ex.bits.imm       := imm
         io.id2ex.bits.mem_wdata := rf_rdata2
         io.id2ex.bits.csr_num   := inst(31, 20)
+        io.id2ex.bits.inst      := inst
     // ------------------------ pipeline shake hands ------------------------ 
         val ds_ready_go = ~src1_block && ~src2_block
         io.if2id.ready := !ds_valid || (ds_ready_go && io.id2ex.ready)

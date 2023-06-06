@@ -78,6 +78,7 @@ import chisel3.util._
         val imm       = Output(UInt(w.W))
         val mem_wdata = Output(UInt(w.W))
         val csr_num   = Output(UInt(12.W))
+        val inst      = Output(UInt(32.W))
     }
 
     class ExtoMemBundle(w: Int) extends Bundle with HasDecodeConst{
@@ -98,6 +99,7 @@ import chisel3.util._
         val csr_num   = Output(UInt(12.W))
         val rs1       = Output(UInt(w.W))
         val br        = new BranchBundle(w)
+        val inst      = Output(UInt(32.W))
     }
 
     class MemtoWbBundle(w: Int) extends Bundle with HasDecodeConst{
@@ -112,6 +114,7 @@ import chisel3.util._
         val result    = Output(UInt(w.W))
         val csr_num   = Output(UInt(12.W))
         val rs1       = Output(UInt(w.W))
+        val inst      = Output(UInt(32.W))
     }
 
     class WbtoRfBundle(w: Int) extends Bundle{

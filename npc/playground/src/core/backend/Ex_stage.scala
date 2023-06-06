@@ -102,6 +102,7 @@ class Ex_stage(w: Int) extends Module{
         io.ex2mem.bits.result    := Mux(is_jal, pc_seq, res)
         io.ex2mem.bits.csr_num   := ds_es_r.csr_num
         io.ex2mem.bits.rs1       := ds_es_r.rs1
+        io.ex2mem.bits.inst      := ds_es_r.inst
     // ------------------------ forwarding ------------------------ 
         io.es_forward.valid     := io.ex2mem.valid && ~(ds_es_r.mem_en && ~ds_es_r.mem_wr) && ~ds_es_r.csr_op.orR
         io.es_forward.bits.en   := es_valid && io.ex2mem.bits.gr_we
