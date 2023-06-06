@@ -137,6 +137,7 @@ void execute_once(){
             #ifdef ITRACE
             write_itrace(SimTop->io_core_debug_debug_pc, *cpu_inst);
             #endif
+            printf("inst: %lx\n", *cpu_inst);
         }
         VSimTop::catch_ebreak(&ebreak_f);
         cnt++;
