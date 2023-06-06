@@ -64,7 +64,7 @@ class Wb_stage(w: Int) extends Module{
     my_inst_monitor.io.clock       := clock
     my_inst_monitor.io.reset       := reset
     my_inst_monitor.io.inst_ebreak := ms_ws_r.is_ebreak
-    my_inst_monitor.io.inst        := ms_ws_r.inst
+    my_inst_monitor.io.inst        := Cat(0.U(32.W), ms_ws_r.inst)
     //debug
     io.debug.debug_valid    := ws_valid
     io.debug.debug_pc       := ms_ws_r.pc
