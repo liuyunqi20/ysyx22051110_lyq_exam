@@ -12,33 +12,16 @@ trait HasAXIstateConst{
     val s_write_resp = 0x04
 }
 
-class Read_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
+class Read_mem_port(w: Int) extends BlackBox{
     val io = IO(new Bundle{
         val en    = Input(Bool())
         val wr    = Input(Bool())
         val addr  = Input(UInt(w.W))
         val rdata = Output(UInt(w.W))
     })
-    setInline("Read_mem_port.v",
-        """module Read_mem_port(
-        |   input           en   ,
-        |   input           wr   ,
-        |   input  [63 : 0] addr ,
-        |   output [63 : 0] rdata
-        |   );
-        |       wire [63 : 0] tmprdata;
-        |       assign rdata = tmprdata;
-        |       import "DPI-C" function void cpu_dmem_read(
-        |           input bit en, input bit wr, input longint raddr, 
-        |           output longint rdata);
-        |       always @(*) begin
-        |           cpu_dmem_read(en, wr, addr, rdata);
-        |       end
-        |   endmodule
-        """.stripMargin)
 }
 
-class Write_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
+class Write_mem_port(w: Int) extends BlackBox{
     val io = IO(new Bundle{
         val en    = Input(Bool())
         val wr    = Input(Bool())
@@ -46,22 +29,6 @@ class Write_mem_port(w: Int) extends BlackBox with HasBlackBoxInline{
         val wdata = Input(UInt(w.W))
         val wmask = Input(UInt((w/8).W))
     })
-    setInline("Write_mem_port.v",
-        """module Write_mem_port(
-        |   input           en   ,
-        |   input           wr   ,
-        |   input  [63 : 0] addr ,
-        |   input  [63 : 0] wdata,
-        |   input  [7  : 0] wmask
-        |   );
-        |       import "DPI-C" function void cpu_dmem_write(
-        |           input bit en, input bit wr, input longint waddr, 
-        |           input longint wdata, input byte wmask);
-        |       always @(*) begin
-        |           cpu_dmem_write(en, wr, addr, wdata, wmask);
-        |       end
-        |   endmodule
-        """.stripMargin)
 }
 
 class AXI4LiteSramDriver(w: Int, block_word_n: Int) extends Module with HasAXIstateConst{
