@@ -38,7 +38,7 @@ clean_wave:
 
 .PHONY: test verilog help compile bsp reformat checkformat clean wave sim
 
-sim:
+sim: verilog
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	make -C $(SIM_HOME) sim IMAGE=$(IMG) ELF_SRC=$(ELF_SRC)
 
