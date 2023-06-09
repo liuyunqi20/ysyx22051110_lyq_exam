@@ -46,7 +46,7 @@ LLVM_CXXFLAGS    = $(shell llvm-config --cxxflags)
 VERILATOR_FLAGS += $(addprefix -CFLAGS , $(LLVM_CXXFLAGS))
 VERILATOR_FLAGS += -CFLAGS -fPIE
 VERILATOR_FLAGS += -CFLAGS -DITRACE
-VERILATOR_FLAGS += -LDFLAGS $(LLVM_LIBS)
+VERILATOR_FLAGS += $(addprefix -LDFLAGS , $(LLVM_LIBS))
 else
 TEMP_VAR := $(VERILATOR_INPUT)
 VERILATOR_INPUT = $(filter-out ./cpp/src/utils/disasm.cpp, $(TEMP_VAR))
