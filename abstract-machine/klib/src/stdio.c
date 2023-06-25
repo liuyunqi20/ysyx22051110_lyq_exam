@@ -85,6 +85,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   int p = 0;
   char num_buf[68];
 
+  char * s = NULL;
+  int temp;
+  uint64_t templ;
   while((ch = *fmt) != '\0'){
     if(ch != '%'){
       out[p++] = ch;
@@ -93,28 +96,28 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       ch = *fmt;
       switch(ch){
         case 's': 
-          char * s = (char *)va_arg(ap, char *);
+          s = (char *)va_arg(ap, char *);
           if(s == out) return -1;
           p += cats(out + p, s);
           break;
         case 'd':
-          int temp = (int)va_arg(ap, int);
+          temp = (int)va_arg(ap, int);
           itoa(num_buf, temp);
           p += cats(out + p, num_buf);
           break;
         case 'c':
-          int tmpch = (int)va_arg(ap, int);
-          out[p++] = (char)tmpch;
+          temp = (int)va_arg(ap, int);
+          out[p++] = (char)temp;
           break;
         case 'x':
-          int tempx = (int)va_arg(ap, int);
-          itoa(num_buf, tempx);
+          temp = (int)va_arg(ap, int);
+          itoa(num_buf, temp);
           p += cats(out + p, num_buf);
           break;
         case 'l':
-          uint64_t templx = (uint64_t)va_arg(ap, uint64_t);
+          templ = (uint64_t)va_arg(ap, uint64_t);
           if(*(fmt + 1) == 'x'){
-            htoa(num_buf, templx);
+            htoa(num_buf, templ);
             p += cats(out + p, num_buf);
             fmt++;
           }
