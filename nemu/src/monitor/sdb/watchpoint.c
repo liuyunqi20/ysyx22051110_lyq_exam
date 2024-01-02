@@ -51,7 +51,7 @@ WP * new_wp(char * s){
   temp->val = expr(temp->expr_str, &flag);
   if(!flag)
     assert(0);
-  //printf("watchpoint %d: %s %lu\n", temp->NO, temp->expr_str, temp->val);
+  //printf("watchpoint %d: %s %lu\n", temp->NO, temp->expr_str, (uint64_t)temp->val);
   //insert to head list
   temp->next = head;
   head = temp;
@@ -85,7 +85,7 @@ void free_wp(WP * wp){
 void print_wp(){
   WP * h = head;
   while(h){
-    printf("watchpoint %d: %s %lu\n", h->NO, h->expr_str, h->val);
+    printf("watchpoint %d: %s %lu\n", h->NO, h->expr_str, (uint64_t)h->val);
     h = h->next;
   }
 }
@@ -99,8 +99,8 @@ int check_wp(){
     if(temp != h->val){
       flag = 0;
       printf("watchpoint %d: %s\n\n", h->NO, h->expr_str);
-      printf("Old value = %lu\n", h->val);
-      printf("New value = %lu\n", temp);
+      printf("Old value = %lu\n", (uint64_t)h->val);
+      printf("New value = %lu\n", (uint64_t)temp);
       h->val = temp;
     }
     h = h->next;

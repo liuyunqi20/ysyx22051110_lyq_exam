@@ -165,7 +165,7 @@ static int cmd_x(char * args){
   //print memory
   int i = nr_byte;
   while(i > 0){
-    printf("0x%lx   ", addr);
+    printf("0x%lx   ", (uint64_t)addr);
     for(int j = 0; j < 4; ++j){
       uint32_t temp = vaddr_read(addr, 4); 
       printf(" %08x", temp);
@@ -187,7 +187,7 @@ static int cmd_w(char * args){
   }
   WP * temp = new_wp(arg);
   printf("watchpoint %d: %s %lu\n", 
-    temp->NO, temp->expr_str, temp->val);
+    temp->NO, temp->expr_str, (uint64_t)temp->val);
   return 0;
 }
 

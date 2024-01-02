@@ -10,7 +10,7 @@ test:
 	mill -i __.test
 
 verilog:
-	$(call git_commit, "generate verilog")
+	# $(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
 	mill -i __.test.runMain Elaborate -td $(BUILD_DIR)
 
@@ -39,7 +39,7 @@ clean_wave:
 .PHONY: test verilog help compile bsp reformat checkformat clean wave sim
 
 sim: verilog
-	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
+	# $(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	make -C $(SIM_HOME) sim IMAGE=$(IMG) ELF_SRC=$(ELF_SRC)
 
 wave:

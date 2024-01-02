@@ -34,7 +34,7 @@ static bool g_print_step = false;
 bool difftest_en = true;
 
 #define IRINGBUF_SIZE 32
-#define IBUF_SIZE 64
+#define IBUF_SIZE 136
 struct iring{
   char buf[IRINGBUF_SIZE][IBUF_SIZE];
   int head;

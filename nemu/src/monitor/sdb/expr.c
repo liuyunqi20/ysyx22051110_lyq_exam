@@ -254,7 +254,7 @@ word_t expr_eval(int p, int q){
         case TK_EQ: return val1 == val2;
         case TK_NEQ: return val1 != val2;
         case TK_AND: return val1 && val2;
-        case TK_DEREF: return *(word_t *)val1;
+	case TK_DEREF: return *((word_t *)(uint64_t)val1);
         default: assert(0);
       }
     }
