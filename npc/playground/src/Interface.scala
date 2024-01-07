@@ -2,7 +2,7 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
-// ----------------- CPU-core Memory Access Bundle ----------------- 
+// ----------------- CPU-core Memory Access Bundle -----------------
 
     class CPUMemReqBundle(w: Int, wdata_w: Int) extends Bundle{
         val wr        = Bits(1.W)
@@ -32,7 +32,7 @@ import chisel3.util._
         val debug_rf_wnum  = Output(UInt(5.W))
         val debug_rf_wdata = Output(UInt(w.W))
         val raise_intr     = Output(Bool())
-        val op_csr         = Output(Bool())      
+        val op_csr         = Output(Bool())
     }
 
 // ----------------- Stage Interact Bundle -----------------
@@ -69,6 +69,7 @@ import chisel3.util._
         val exc_type  = Output(UInt(EXCT_LEN.W))
         val is_ebreak = Output(Bool())
         val op_muldiv = Output(Bool())
+        val is_fencei = Output(Bool())
         //data signals
         val dest      = Output(UInt(5.W))
         val pc        = Output(UInt(w.W))
@@ -85,7 +86,7 @@ import chisel3.util._
     class ExtoMemBundle(w: Int) extends Bundle with HasDecodeConst{
         val pc        = Output(UInt(w.W))
         //control signals
-        val gr_we     = Output(Bool()) 
+        val gr_we     = Output(Bool())
         val dest      = Output(UInt(5.W))
         val wb_sel    = Output(Bool())
         val mem_en    = Output(Bool())
@@ -94,6 +95,7 @@ import chisel3.util._
         val csr_op    = Output(UInt(CSRT_LEN.W))
         val exc_type  = Output(UInt(EXCT_LEN.W))
         val is_ebreak = Output(Bool())
+        val is_fencei = Output(Bool())
         //data signals
         val result    = Output(UInt(w.W))
         val mem_wdata = Output(UInt(w.W))
@@ -232,7 +234,7 @@ import chisel3.util._
         val tag      = Bits(config.tag_width.W)
         val index    = Bits(config.index_width.W)
         val offset   = Bits(config.offset_width.W)
-    } 
+    }
 
     class CacheStage2to3Bundle(config: CacheConfig) extends Bundle{
         //write
@@ -250,7 +252,7 @@ import chisel3.util._
         val target_line  = new CacheLineBundle(config.w, config.tag_width, config.block_word_n)
     }
 
-// ----------------- Clint Bundle -----------------  
+// ----------------- Clint Bundle -----------------
     class ClintIOBundle(w: Int) extends Bundle{
         val en         = Output(Bool())
         val wr         = Output(Bool())

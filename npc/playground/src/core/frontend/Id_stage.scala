@@ -9,7 +9,7 @@ trait HasDecodeConst{
     val MT_LEN     = 7
     val SLTT_LEN   = 3
     val CSRT_LEN   = 3
-    val EXCT_LEN   = 2 
+    val EXCT_LEN   = 2
 }
 
 class MyDecoder() extends Module with HasDecodeConst{
@@ -42,7 +42,7 @@ class MyDecoder() extends Module with HasDecodeConst{
         val ALU_DUW  = "h40000".U  ; val ALU_R    = "h80000".U ; val ALU_RU   = "h100000".U;
         val ALU_RW   = "h200000".U ; val ALU_RUW  = "h400000".U;
         //inst_type
-        val Rtype   = "h01".U; val Itype   = "h02".U; val Stype   = "h04".U ; 
+        val Rtype   = "h01".U; val Itype   = "h02".U; val Stype   = "h04".U ;
         val Btype   = "h08".U; val Utype   = "h10".U; val Jtype   = "h20".U ;
         val Ntype   = "h00".U;
         //src1_sel
@@ -54,7 +54,7 @@ class MyDecoder() extends Module with HasDecodeConst{
         //wb_sel
         val WB_ALU  = 0.B    ; val WB_MEM  = 1.B    ;
         //br_type
-        val NB      = "h01".U; val BEQ_T   = "h02".U; val BNE_T   = "h04".U ; 
+        val NB      = "h01".U; val BEQ_T   = "h02".U; val BNE_T   = "h04".U ;
         val BLT_T   = "h08".U; val BGE_T   = "h10".U; val BLTU_T  = "h20".U ;
         val BGEU_T  = "h40".U; val JAL_T   = "h80".U; val JALR_T  = "h100".U;
         //mem_en
@@ -70,10 +70,10 @@ class MyDecoder() extends Module with HasDecodeConst{
         //slt type
         val NSLT    = "h01".U; val SLT_T   = "h02".U; val SLTU_T  = "h04".U ;
         //csr type
-        val CSR_W   = "h01".U; val CSR_S   = "h02".U; val CSR_C   = "h04".U ; 
+        val CSR_W   = "h01".U; val CSR_S   = "h02".U; val CSR_C   = "h04".U ;
         val NCSR    = "h00".U;
         //exc type
-        val EC_T    = "h01".U; val RET_T   = "h02".U; val NINT    = "h00".U ; 
+        val EC_T    = "h01".U; val RET_T   = "h02".U; val NINT    = "h00".U ;
     //BitPat
         val LUI    = BitPat("b???????_?????_?????_???_?????_01101_11")
         val AUIPC  = BitPat("b???????_?????_?????_???_?????_00101_11")
@@ -144,6 +144,8 @@ class MyDecoder() extends Module with HasDecodeConst{
         val DIVUW  = BitPat("b0000001_?????_?????_101_?????_01110_11")
         val REMW   = BitPat("b0000001_?????_?????_110_?????_01110_11")
         val REMUW  = BitPat("b0000001_?????_?????_111_?????_01110_11")
+        //Zifence
+        val FENCEI = BitPat("b???????_?????_?????_001_?????_00011_11")
         //Zicsr
         val CSRRW  = BitPat("b???????_?????_?????_001_?????_11100_11")
         val CSRRS  = BitPat("b???????_?????_?????_010_?????_11100_11")
@@ -155,7 +157,7 @@ class MyDecoder() extends Module with HasDecodeConst{
         val ECALL  = BitPat("b0000000_00000_00000_000_00000_11100_11")
         val MRET   = BitPat("b0011000_00010_00000_000_00000_11100_11")
     //Decode
-    val csignals = 
+    val csignals =
         ListLookup(io.inst,
                          List(0.U  , 0.U     , 0.B    , 0.B    , 0.B  , 0.B   ,  0.U   , 0.B  , 0.B , 0.U  , 0.B  , 0.U   , 0.U  , 0.U),
             Array(         /* inst |  ALUop  |  op1   |   op2  |  rf  |  wb   |  br    | mem  | mem | mem  | rv64w| slt   | csr  | intr */
@@ -228,6 +230,8 @@ class MyDecoder() extends Module with HasDecodeConst{
                 REMU  -> List(Rtype, ALU_RU  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
                 REMW  -> List(Rtype, ALU_RW  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
                 REMUW -> List(Rtype, ALU_RUW , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
+                //Zifence
+                FENCEI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_0, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
                 //Zicsr
                 CSRRW -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , CSR_W, NINT ),
                 CSRRS -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , CSR_S, NINT ),
@@ -284,11 +288,12 @@ class Id_stage(w: Int) extends Module{
     //inst code
         val inst = fs_ds_r.inst
         val inst_ebreak = (inst(6,0) === "b1110011".U) & (inst(19, 7) === 0.U) & (inst(31, 20) === 1.U)
-    // ------------------------ decoder ------------------------ 
+        val inst_fencei = (inst(6,0) === "b0001111".U) & (inst(14,12) === 1.U)
+    // ------------------------ decoder ------------------------
         val my_decoder = Module(new MyDecoder())
         my_decoder.io.inst := inst
         val inst_type = my_decoder.io.inst_type
-    // ------------------------ control unit ------------------------ 
+    // ------------------------ control unit ------------------------
         //val (Rtype, Itype, Stype, Btype, Utype, Jtype) = ("h01".U, "h02".U, "h04".U, "h08".U, "h10".U, "h20".U)
         val rs2 = inst(24, 20)
         val rs1 = inst(19, 15)
@@ -299,7 +304,7 @@ class Id_stage(w: Int) extends Module{
         val imm_U = Cat(Fill(w - 31, inst(31)), inst(30, 12), 0.U(12.W))
         val imm_J = Cat(Fill(w - 20, inst(31)), inst(19, 12), inst(20), inst(30, 21), 0.U(1.W))
         val imm = Mux1H(Seq(
-                inst_type(0) -> 0.U(w.W), 
+                inst_type(0) -> 0.U(w.W),
                 inst_type(1) -> imm_I,
                 inst_type(2) -> imm_S,
                 inst_type(3) -> imm_B,
@@ -307,12 +312,12 @@ class Id_stage(w: Int) extends Module{
                 inst_type(5) -> imm_J,
         ))
 
-    // ------------------------ regfile ------------------------ 
+    // ------------------------ regfile ------------------------
         val my_rf = Module(new RegFile(5, w, 2))
         val rf_raddr1    = Mux(inst_type(4) | inst_type(5), 0.U(5.W), rs1) //rs1 = 0 when J/U type
         val rf_raddr2    = rs2
 
-        //data forwarding 
+        //data forwarding
         //rs1
         val rs1_is_zero    = rf_raddr1 === 0.U
         val rs1_depend_es  = (io.es_forward.bits.en && (io.es_forward.bits.dest === rf_raddr1))
@@ -335,17 +340,17 @@ class Id_stage(w: Int) extends Module{
         my_rf.io.raddr1 := rf_raddr1
         my_rf.io.raddr2 := rf_raddr2
         val rf_rdata1    = Mux(rs1_depend_es, io.es_forward.bits.data,
-                                     Mux(rs1_depend_ms, io.ms_forward.bits.data, 
+                                     Mux(rs1_depend_ms, io.ms_forward.bits.data,
                                              Mux(rs1_depend_ws, io.ws_forward.bits.data, my_rf.io.rdata1))
                             )
         val rf_rdata2    = Mux(rs2_depend_es, io.es_forward.bits.data,
-                                     Mux(rs2_depend_ms, io.ms_forward.bits.data, 
+                                     Mux(rs2_depend_ms, io.ms_forward.bits.data,
                                              Mux(rs2_depend_ws, io.ws_forward.bits.data, my_rf.io.rdata2))
                             )
         my_rf.io.wen    := io.wb2rf.rf_we
         my_rf.io.waddr  := io.wb2rf.waddr
         my_rf.io.wdata  := io.wb2rf.wdata
-    // ------------------------ to EX stage ------------------------ 
+    // ------------------------ to EX stage ------------------------
         //control signals
         io.id2ex.bits.alu_op    := my_decoder.io.alu_op
         io.id2ex.bits.src1_sel  := my_decoder.io.src1_sel
@@ -359,10 +364,11 @@ class Id_stage(w: Int) extends Module{
         io.id2ex.bits.mem_type  := my_decoder.io.mem_type
         io.id2ex.bits.rv64w     := my_decoder.io.rv64w
         io.id2ex.bits.ex_sel    := my_decoder.io.ex_sel
-        io.id2ex.bits.csr_op    := my_decoder.io.csr_op 
+        io.id2ex.bits.csr_op    := my_decoder.io.csr_op
         io.id2ex.bits.exc_type  := my_decoder.io.exc_type
         io.id2ex.bits.is_ebreak := inst_ebreak
         io.id2ex.bits.op_muldiv := my_decoder.io.op_muldiv
+        io.id2ex.bits.is_fencei := inst_fencei
         //data signals
         io.id2ex.bits.pc        := fs_ds_r.pc
         io.id2ex.bits.rs1_addr  := rf_raddr1
@@ -373,7 +379,7 @@ class Id_stage(w: Int) extends Module{
         io.id2ex.bits.mem_wdata := rf_rdata2
         io.id2ex.bits.csr_num   := inst(31, 20)
         io.id2ex.bits.inst      := inst
-    // ------------------------ pipeline shake hands ------------------------ 
+    // ------------------------ pipeline shake hands ------------------------
         val ds_ready_go = ~src1_block && ~src2_block
         io.if2id.ready := !ds_valid || (ds_ready_go && io.id2ex.ready)
         io.id2ex.valid :=  ds_valid && ds_ready_go

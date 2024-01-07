@@ -4,10 +4,10 @@ import chisel3.util._
 import chisel3.experimental.BundleLiterals._
 
 /*
-Warnning: 
+Warnning:
     This cache is designed to have a 3 stage pipeline, but current CPU is a single-issue pipline CPU.
-    Only one request can be in cache pipeline as CPU pipeline will block before cache commit, so 
-    data forwarding 
+    Only one request can be in cache pipeline as CPU pipeline will block before cache commit, so
+    data forwarding
 */
 
 trait HasCacheConst{
@@ -27,7 +27,17 @@ trait HasCacheStage3Const{
     val s_commit     = 0x20
 }
 
-class CacheConfig(val w: Int, val tag_width: Int, val nr_lines: Int, 
+trait HasCacheFenceiConst{
+    val nr_state  = 5
+    val s_idle    = 0x01
+    val s_clear_v = 0x02
+    val s_rd_meta = 0x04
+    val s_wb_req  = 0x08
+    val s_wb_ret  = 0x10
+
+}
+
+class CacheConfig(val w: Int, val tag_width: Int, val nr_lines: Int,
                   val nr_ways: Int, val block_size: Int){
     val block_word_n: Int = CacheTop.getBlockWordsNum(w, block_size)
     val index_width:  Int = CacheTop.getIndexWidth(nr_lines)
@@ -79,7 +89,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
     // ------------------------------------------- Data RAM -------------------------------------------
     val data_way_sel  = Wire(Vec(nr_ways, Bool()))
     for( i <- 0 until nr_ways){
-        data_way_sel(i)     := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U) 
+        data_way_sel(i)     := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U)
         cache_data(i).clock := clock
         cache_data(i).CEN   := ~(stage1.io.rd.en || stage3.io.wt.en)
         cache_data(i).WEN   := ~(stage3.io.wt.en && (stage3.io.wt.way === i.U))
@@ -92,15 +102,15 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         s2_rd_lines(i).valid := meta_rd(i).valid
         s2_rd_lines(i).dirty := meta_rd(i).dirty
         s2_rd_lines(i).tag   := meta_rd(i).tag
-        for( j <- 0 until config.block_word_n) { 
+        for( j <- 0 until config.block_word_n) {
             s2_rd_lines(i).data(j) := cache_data(i).Q((j + 1) * w - 1, j * w)
         }
         stage2.io.rd_lines(i) := s2_rd_lines(i)
     }
-    // ------------------------------------------- stage connection ------------------------------------------- 
+    // ------------------------------------------- stage connection -------------------------------------------
     stage1.io.s1_to_s2 <> stage2.io.s1_to_s2
     stage2.io.s2_to_s3 <> stage3.io.s2_to_s3
-    // ------------------------------------------- CPU  ------------------------------------------- 
+    // ------------------------------------------- CPU  -------------------------------------------
     stage1.io.cpu <> io.in.req
     stage3.io.cpu <> io.in.ret
     io.in.rlast   := io.in.ret.valid
@@ -109,9 +119,9 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
 
 object CacheTop{
     //default size is 2KB
-    def apply(w: Int, tag_w: Int = 23, nr_lines: Int = 32, nr_ways: Int = 4, block_size: Int = 16): CacheTop = 
+    def apply(w: Int, tag_w: Int = 23, nr_lines: Int = 32, nr_ways: Int = 4, block_size: Int = 16): CacheTop =
         new CacheTop(w, tag_w, nr_lines, nr_ways, block_size)
-    def getTagWidth(w: Int, nr_lines: Int, block_size: Int): Int = 
+    def getTagWidth(w: Int, nr_lines: Int, block_size: Int): Int =
         w - log2Ceil(nr_lines) - log2Ceil(block_size)
     def getBlockWordsNum = (w: Int, block_size: Int) => ((block_size * 8) / w)
     def getIndexWidth  = (n: Int) => log2Ceil(n)
