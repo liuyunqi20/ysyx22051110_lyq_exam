@@ -3,9 +3,9 @@ import chisel3._
 import chisel3.util._
 
 trait HasIFSConst{
-    val s_idle = 0x1 
-    val s_req  = 0x2 
-    val s_resp = 0x4 
+    val s_idle = 0x1
+    val s_req  = 0x2
+    val s_resp = 0x4
     val s_clr = 0x8
     val s_reg_req = 0x10
     val s_reg_ret = 0x20
@@ -25,7 +25,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
         val exc_br       = Flipped(new ExcBranchBundle(w))
     })
     val pc        = RegInit("h7fff_fffc".U(w.W))
-    val nextpc    = Mux(io.exc_br.exc_br, io.exc_br.exc_target,  
+    val nextpc    = Mux(io.exc_br.exc_br, io.exc_br.exc_target,
                             Mux(io.branch.br_en, io.branch.br_target, pc + 4.U(32.W)))
     val fs_wait_r =  RegInit(0.B)
     val fs_state  = RegInit(s_idle.U(nr_state.W))
@@ -33,11 +33,11 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val mm        = Module(new MemoryMappingUnit(w))
     fs_state     := Mux1H(Seq(
         /* s_idle */    fs_state(0) -> (s_req.U),
-        /* s_req  */    fs_state(1) -> Mux(io.exc_br.exc_br || io.branch.br_en, 
+        /* s_req  */    fs_state(1) -> Mux(io.exc_br.exc_br || io.branch.br_en,
                                                              Mux(io.inst_mem.req.fire, s_reg_ret.U, s_reg_req.U),
                                                              Mux(io.inst_mem.req.fire, s_resp.U, s_req.U)),
-        /* s_resp */    fs_state(2) -> Mux(io.exc_br.exc_br || io.branch.br_en, 
-                                                             Mux(io.inst_mem.ret.valid, s_reg_req.U, s_clr.U), 
+        /* s_resp */    fs_state(2) -> Mux(io.exc_br.exc_br || io.branch.br_en,
+                                                             Mux(io.inst_mem.ret.valid, s_reg_req.U, s_clr.U),
                                                              Mux(io.inst_mem.ret.valid, s_req.U, s_resp.U)),
         /* s_clr     */ fs_state(3) -> Mux(io.inst_mem.ret.valid, s_reg_req.U, s_clr.U),
         /* s_reg_req */ fs_state(4) -> Mux(io.inst_mem.req.fire , s_reg_ret.U, s_reg_req.U),
@@ -49,13 +49,14 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     io.inst_mem.req.bits.addr     := Mux(fs_state(4) === 1.U, nextpc_r, nextpc)
     io.inst_mem.req.bits.wdata    := 0.U
     io.inst_mem.req.bits.wstrb    := 0.U
+    io.inst_mem.req.bits.fencei   := 0.B
     //use memory mapping unit to decide mtype
     mm.io.addr_in                 := io.inst_mem.req.bits.addr
     io.inst_mem.req.bits.mthrough := mm.io.mthrough
-    // ---------------- read response ---------------- 
+    // ---------------- read response ----------------
     val rdata_buf         = RegInit(0.U(w.W))
     //IFU memory ok when exception inst fetch ok(fs_state(5)) or normal ret valid
-    val fs_mem_ok         = io.inst_mem.ret.valid && 
+    val fs_mem_ok         = io.inst_mem.ret.valid &&
                                 ( fs_state(5) || (~io.exc_br.exc_br && ~io.branch.br_en && fs_state(2)) )
     //choose inst code from buffer or port when IFU is prepared to enter next instrution
     val fs_inst_data      = Mux(fs_wait_r, rdata_buf, io.inst_mem.ret.rdata)

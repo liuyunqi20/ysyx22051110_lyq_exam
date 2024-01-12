@@ -1,16 +1,19 @@
 module CacheMetaRamV(
-    input clock        , input reset , input en, input wr,
+    input clock        , input reset , input flush        , input en, input wr,
     output valid       , output dirty, output [22 : 0] tag,
     input [5 : 0] addr , input wvalid, input wdirty      ,
-    input [22 : 0] wtag 
+    input [22 : 0] wtag
 );
     reg [22 : 0] ram_tag[63 : 0];
     reg [63 : 0] ram_valid;
     reg [63 : 0] ram_dirty;
-    reg [22 : 0] rtag; 
+    reg [22 : 0] rtag;
     reg rvalid, rdirty;
     always @(posedge clock) begin
-        if(en && wr) begin
+        if(reset | flush)
+            ram_valid[63 : 0] <= 64'b0;
+            ram_dirty[63 : 0] <= 64'b0;
+        else if(en && wr) begin
             ram_tag[addr]   <= wtag;
             ram_valid[addr] <= wvalid;
             ram_dirty[addr] <= wdirty;

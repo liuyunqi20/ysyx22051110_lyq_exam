@@ -30,17 +30,18 @@ class Wb_stage(w: Int) extends Module{
     when(io.mem2wb.fire){
         ms_ws_r     := io.mem2wb.bits
     }
-    // ------------------ intrrupt/exception ------------------ 
-    
+    // ------------------ intrrupt/exception ------------------
+
     io.exc_br.exc_br     := has_trap
     io.exc_br.exc_target := MuxCase(0.U(w.W), Seq(
         ( (ms_ws_r.exc_type(0) === 1.U) || io.csr_exc.intr_t ) -> (io.csr_out.mtvec),    /* trap entry */
         (  ms_ws_r.exc_type(1) === 1.U                       ) -> (io.csr_exc.mret_addr),  /*trap return */
+        (  ms_ws_r.exc_type(2) === 1.U                       ) -> (ms_ws_r.pc + 4.U)
     ))
     val exc_code    = MuxLookup(ms_ws_r.exc_type, 0.U(w.W), Seq(
         /* ecall  */ ms_ws_r.exc_type(0) -> (11.U(w.W)),
     ))
-    // ------------------ CSR ------------------ 
+    // ------------------ CSR ------------------
     //csr inst
     io.csr_op.csr_op     := ms_ws_r.csr_op
     io.csr_op.csr_num    := ms_ws_r.csr_num
@@ -50,7 +51,7 @@ class Wb_stage(w: Int) extends Module{
     io.csr_exc.mret      := ms_ws_r.exc_type(1) === 1.U
     io.csr_exc.epc       := ms_ws_r.pc
     io.csr_exc.exc_code  := exc_code
-    // ------------------ RF write back ------------------ 
+    // ------------------ RF write back ------------------
     io.wb2rf.rf_we := ms_ws_r.gr_we && ~has_trap && ws_valid
     io.wb2rf.waddr := ms_ws_r.dest
     io.wb2rf.wdata := Mux(ms_ws_r.csr_op.orR === 1.U, io.csr_op.csr_old, ms_ws_r.result)
@@ -59,7 +60,7 @@ class Wb_stage(w: Int) extends Module{
     io.ws_forward.bits.en   := ws_valid && ms_ws_r.gr_we
     io.ws_forward.bits.dest := io.wb2rf.waddr
     io.ws_forward.bits.data := io.wb2rf.wdata
-    // ------------------------ catch ebreak ------------------------ 
+    // ------------------------ catch ebreak ------------------------
     val my_inst_monitor = Module(new InstMonitor(w))
     my_inst_monitor.io.clock       := clock
     my_inst_monitor.io.reset       := reset
@@ -74,5 +75,5 @@ class Wb_stage(w: Int) extends Module{
     io.debug.debug_rf_wdata := io.wb2rf.wdata
     io.debug.raise_intr     := io.csr_exc.intr_t
     io.debug.op_csr         := ms_ws_r.csr_op.orR === 1.U
-    
+
 }

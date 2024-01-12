@@ -18,13 +18,14 @@ trait HasCacheConst{
 }
 
 trait HasCacheStage3Const{
-    val nr_state     = 6
+    val nr_state     = 7
     val s_idle       = 0x01
     val s_wb         = 0x02
     val s_refill_req = 0x04
     val s_refill     = 0x08
     val s_mmio       = 0x10
     val s_commit     = 0x20
+    val s_wait_fencei = 0x40
 }
 
 trait HasCacheFenceiConst{
@@ -38,7 +39,7 @@ trait HasCacheFenceiConst{
 }
 
 class CacheConfig(val w: Int, val tag_width: Int, val nr_lines: Int,
-                  val nr_ways: Int, val block_size: Int){
+                  val nr_ways: Int, val block_size: Int, val isICache: Boolean){
     val block_word_n: Int = CacheTop.getBlockWordsNum(w, block_size)
     val index_width:  Int = CacheTop.getIndexWidth(nr_lines)
     val offset_width: Int = CacheTop.getOffsetWidth(block_size)
@@ -46,13 +47,14 @@ class CacheConfig(val w: Int, val tag_width: Int, val nr_lines: Int,
     val cache_addr_w: Int = tag_width + index_width + offset_width
 }
 
-class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int) extends Module with HasCacheConst{
+class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int, isICache: Boolean) extends Module with HasCacheConst{
     val io = IO(new Bundle{
         val in  = Flipped(new CPUMemBundle(w, w))
         val out = new CPUMemBundle(w, block_size * 8)
+        val flush = if(isICache) Input(Bool()) else Output(Bool())
     })
 
-    val config = new CacheConfig(w, tag_w, nr_lines, nr_ways, block_size)
+    val config = new CacheConfig(w, tag_w, nr_lines, nr_ways, block_size, isICache)
     val stage1 = Module(new CacheStage1(config))
     val stage2 = Module(new CacheStage2(config))
     val stage3 = Module(new CacheStage3(config))
@@ -75,10 +77,13 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         // }
     val cache_wt_addr = Cat(0.U((cache_data_addr_w - config.index_width).W), stage3.io.wt.index)
     val cache_rd_addr = Cat(0.U((cache_data_addr_w - config.index_width).W), stage1.io.rd.index)
-    val cache_addr    = Mux(stage3.io.wt.en, cache_wt_addr, cache_rd_addr)
+    val cache_addr    = Mux(stage3.io.rd.en, stage3.io.rd.index, Mux(stage3.io.wt.en, cache_wt_addr, cache_rd_addr))
     // ------------------------------------------- Meta RAM -------------------------------------------
     val cache_meta = Module(new CacheMetaRam(nr_ways, nr_lines, config.tag_width))
-    cache_meta.io.en    := stage1.io.rd.en || stage3.io.wt.en
+    val cache_meta_flush = if(isICache) io.flush else stage3.io.meta_flush
+    if(!isICache) io.flush := stage3.io.meta_flush
+    cache_meta.io.flush := cache_meta_flush
+    cache_meta.io.en    := stage1.io.rd.en || stage3.io.wt.en || stage3.io.rd.en
     cache_meta.io.wr    := stage3.io.wt.en
     cache_meta.io.way   := stage3.io.wt.way //stage1 ignored (read all ways in stage1)
     cache_meta.io.index := cache_addr
@@ -98,14 +103,20 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
         cache_data(i).D     := stage3.io.wt.line.data.reverse.reduce((a, b) => Cat(a, b))
     }
     val s2_rd_lines = Wire(Vec(nr_ways, new CacheLineBundle(w, config.tag_width, config.block_word_n)))
+    val s3_rd_lines = Wire(Vec(nr_ways, new CacheLineBundle(w, config.tag_width, config.block_word_n)))
     for( i <- 0 until nr_ways){
         s2_rd_lines(i).valid := meta_rd(i).valid
         s2_rd_lines(i).dirty := meta_rd(i).dirty
         s2_rd_lines(i).tag   := meta_rd(i).tag
+        s3_rd_lines(i).valid := meta_rd(i).valid
+        s3_rd_lines(i).dirty := meta_rd(i).dirty
+        s3_rd_lines(i).tag   := meta_rd(i).tag
         for( j <- 0 until config.block_word_n) {
             s2_rd_lines(i).data(j) := cache_data(i).Q((j + 1) * w - 1, j * w)
+            s3_rd_lines(i).data(j) := cache_data(i).Q((j + 1) * w - 1, j * w)
         }
         stage2.io.rd_lines(i) := s2_rd_lines(i)
+        stage3.io.rd_lines(i) := s3_rd_lines(i)
     }
     // ------------------------------------------- stage connection -------------------------------------------
     stage1.io.s1_to_s2 <> stage2.io.s1_to_s2
@@ -119,8 +130,8 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int)
 
 object CacheTop{
     //default size is 2KB
-    def apply(w: Int, tag_w: Int = 23, nr_lines: Int = 32, nr_ways: Int = 4, block_size: Int = 16): CacheTop =
-        new CacheTop(w, tag_w, nr_lines, nr_ways, block_size)
+    def apply(w: Int, tag_w: Int = 23, nr_lines: Int = 32, nr_ways: Int = 4, block_size: Int = 16, isICache: Boolean = false): CacheTop =
+        new CacheTop(w, tag_w, nr_lines, nr_ways, block_size, false)
     def getTagWidth(w: Int, nr_lines: Int, block_size: Int): Int =
         w - log2Ceil(nr_lines) - log2Ceil(block_size)
     def getBlockWordsNum = (w: Int, block_size: Int) => ((block_size * 8) / w)

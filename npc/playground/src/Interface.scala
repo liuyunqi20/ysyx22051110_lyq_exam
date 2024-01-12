@@ -10,6 +10,7 @@ import chisel3.util._
         val wdata     = Bits(wdata_w.W)
         val wstrb     = Bits((w/8).W)
         val mthrough  = Bits(1.W)
+        val fencei    = Bits(1.W)
     }
 
     class CPUMemRespBundle(w: Int) extends Bundle{
@@ -112,6 +113,7 @@ import chisel3.util._
         val csr_op    = Output(UInt(CSRT_LEN.W))
         val exc_type  = Output(UInt(EXCT_LEN.W))
         val is_ebreak = Output(Bool())
+        val is_fencei = Output(Bool())
         //data signals
         val dest      = Output(UInt(5.W))
         val result    = Output(UInt(w.W))
@@ -234,6 +236,8 @@ import chisel3.util._
         val tag      = Bits(config.tag_width.W)
         val index    = Bits(config.index_width.W)
         val offset   = Bits(config.offset_width.W)
+        //fence.i
+        val fencei   = Bits(1.W)
     }
 
     class CacheStage2to3Bundle(config: CacheConfig) extends Bundle{
@@ -250,6 +254,8 @@ import chisel3.util._
         val hit          = Bits(1.W)
         val target_way   = Bits(config.ways_width.W)
         val target_line  = new CacheLineBundle(config.w, config.tag_width, config.block_word_n)
+        //fence.i
+        val fencei       = Bits(1.W)
     }
 
 // ----------------- Clint Bundle -----------------

@@ -36,13 +36,13 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val my_axi_bridge0 = Module(new AXIBridge(w, ICache_block_size * 8 / w))
     val my_axi_bridge1 = Module(new AXIBridge(w, DCache_block_size * 8 / w))
     val my_mmc         = Module(new MemoryController(w, DCache_block_size * 8 / w))
-    //ICache: 
-    val my_icache      = Module(new CacheTop(w, Cache_tag_width, ICache_nr_lines, 
-                                            ICache_nr_ways, ICache_block_size))
+    //ICache:
+    val my_icache      = Module(new CacheTop(w, Cache_tag_width, ICache_nr_lines,
+                                            ICache_nr_ways, ICache_block_size, true))
     val my_dcache      = Module(new CacheTop(w, Cache_tag_width, DCache_nr_lines,
-                                            DCache_nr_ways, DCache_block_size))
+                                            DCache_nr_ways, DCache_block_size, false))
     val my_clint       = Module(new Clint(w))
-                                        
+
     //IF stage
     my_if.io.branch        <> my_mem.io.branch
     my_if.io.exc_br        <> my_wb.io.exc_br
@@ -60,7 +60,7 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_ex.io.br_flush      := my_mem.io.branch.br_en
     //MEM stage
     my_mem.io.ex2mem       <> my_ex.io.ex2mem
-    my_mem.io.exc_flush    := my_wb.io.exc_br.exc_br 
+    my_mem.io.exc_flush    := my_wb.io.exc_br.exc_br
     //Wb stage
     my_wb.io.mem2wb        <> my_mem.io.mem2wb
     //CSR/CLINT
@@ -81,4 +81,6 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     io.axi_sram(1)         <> my_axi_bridge1.io.out
     //debug
     io.core_debug          <> my_wb.io.debug
+    //cache flush
+    my_icache.io.flush     := my_dcache.io.flush
 }

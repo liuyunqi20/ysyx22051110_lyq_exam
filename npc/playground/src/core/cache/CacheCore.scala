@@ -25,6 +25,7 @@ class CacheStage1(config: CacheConfig) extends Module{
     io.s1_to_s2.bits.wdata    := io.cpu.bits.wdata
     io.s1_to_s2.bits.wstrb    := io.cpu.bits.wstrb
     io.s1_to_s2.bits.mthrough := io.cpu.bits.mthrough
+    io.s1_to_s2.bits.fencei   := io.cpu.bits.fencei
     io.s1_to_s2.bits.tag      := tag
     io.s1_to_s2.bits.index    := index
     io.s1_to_s2.bits.offset   := offset
@@ -79,6 +80,7 @@ class CacheStage2(config: CacheConfig) extends Module{
     io.s2_to_s3.bits.wdata        := buf.wdata
     io.s2_to_s3.bits.wstrb        := buf.wstrb
     io.s2_to_s3.bits.mthrough     := buf.mthrough
+    io.s2_to_s3.bits.fencei       := buf.fencei
     io.s2_to_s3.bits.index        := buf.index
     io.s2_to_s3.bits.tag          := buf.tag
     io.s2_to_s3.bits.offset       := buf.offset
@@ -113,6 +115,15 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
             val line  = Output(new CacheLineBundle(config.w, config.tag_width, config.block_word_n))
         }
         val mem_out  = new CPUMemBundle(config.w, config.block_size * 8)
+        //fence.i
+        val do_fencei  = Output(Bool())
+        val meta_flush = Output(Bool())
+        val rd         = new Bundle{
+            val en    = Output(Bool())
+            val index = Output(UInt(config.index_width.W))
+        }
+        val rd_lines   = Input(Vec(config.nr_ways,
+            new CacheLineBundle(config.w, config.tag_width, config.block_word_n)))
     })
     val s3_ready_go    = Wire(Bool())
     val s3_valid       = RegInit(0.B)
@@ -134,6 +145,20 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     //when write back, use word counter( buf.offset() is word-align )
     val cpu_word_idx = buf.offset(config.offset_width - 1, log2Ceil(config.w / 8))
     val cpu_req_addr = Cat(0.U((config.w - config.cache_addr_w).W), buf.tag, buf.index, buf.offset)
+
+    //fence.i module
+    val fenceiModule = Module(new CacheFencei(config))
+    fenceiModule.io.req.valid         := state(0) & s3_valid & buf.fencei
+    fenceiModule.io.ret.ready         := state(6) & s3_valid & buf.fencei
+    fenceiModule.io.rd_lines          := io.rd_lines // fence.i read meta ret
+    fenceiModule.io.mem_out.req.ready := io.mem_out.req.ready
+    fenceiModule.io.mem_out.ret       := io.mem_out.ret
+    fenceiModule.io.mem_out.rlast     := io.mem_out.rlast
+    io.rd         := fenceiModule.io.rd              // fence.i read meta req
+    io.do_fencei  := state(6) & s3_valid & buf.fencei
+    io.meta_flush := fenceiModule.io.meta_flush  // fence.i clear valid bits
+
+
     // -------------------------------- word select --------------------------------
 
     val cpu_word_sel       = Wire(Vec(config.block_word_n, Bool()))
@@ -181,13 +206,25 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     }
     // -------------------------------- memory read/write --------------------------------
 
-    io.mem_out.req.valid         := s3_valid & ((state(0) & ~hit) | state(2)) //miss or after wb
-    io.mem_out.req.bits.wr       := wb_en | (buf.mthrough & buf.wr) //wb or mmio write
-    io.mem_out.req.bits.addr     := Mux(wb_en === 1.U, wb_addr, cpu_req_addr)
-    io.mem_out.req.bits.wdata    := Mux(buf.mthrough === 1.U, mmio_wblock.reverse.reduce((a, b) => Cat(a, b)),
+    val stage3_mem_req       = Wire(new CPUMemReqBundle(config.w, config.w))
+    val stage3_mem_req_valid = Wire(Bool())
+    stage3_mem_req_valid    := s3_valid & ((state(0) & ~hit & ~buf.fencei) | state(2)) //miss or after wb
+    stage3_mem_req.wr       := wb_en | (buf.mthrough & buf.wr) //wb or mmio write
+    stage3_mem_req.addr     := Mux(wb_en === 1.U, wb_addr, cpu_req_addr)
+    stage3_mem_req.wdata    := Mux(buf.mthrough === 1.U, mmio_wblock.reverse.reduce((a, b) => Cat(a, b)),
                                                               buf.target_line.data.reverse.reduce((a, b) => Cat(a, b)) )
-    io.mem_out.req.bits.wstrb    := Mux(buf.mthrough === 1.U, buf.wstrb, Fill(((config.w) / 8), 1.U(1.W)))
-    io.mem_out.req.bits.mthrough := buf.mthrough
+    stage3_mem_req.wstrb    := Mux(buf.mthrough === 1.U, buf.wstrb, Fill(((config.w) / 8), 1.U(1.W)))
+    stage3_mem_req.mthrough := buf.mthrough
+    stage3_mem_req.fencei   := 0.B
+
+    io.mem_out.req.valid         := Mux(state(6), fenceiModule.io.mem_out.req.valid, stage3_mem_req_valid)
+    // io.mem_out.req.bits  := Mux(state(6), fenceiModule.io.mem_out.req.bits, stage3_mem_req)
+    io.mem_out.req.bits.wr       := Mux(state(6), fenceiModule.io.mem_out.req.bits.wr, stage3_mem_req.wr)
+    io.mem_out.req.bits.addr     := Mux(state(6), fenceiModule.io.mem_out.req.bits.addr, stage3_mem_req.addr)
+    io.mem_out.req.bits.wdata    := Mux(state(6), fenceiModule.io.mem_out.req.bits.wdata, stage3_mem_req.wdata)
+    io.mem_out.req.bits.wstrb    := Mux(state(6), fenceiModule.io.mem_out.req.bits.wstrb, stage3_mem_req.wstrb)
+    io.mem_out.req.bits.mthrough := Mux(state(6), fenceiModule.io.mem_out.req.bits.mthrough, stage3_mem_req.mthrough)
+    io.mem_out.req.bits.fencei   := 0.B
 
     // -------------------------------- mmio write --------------------------------
 
@@ -223,27 +260,32 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
 
     // -------------------------------- state machine --------------------------------
     state := Mux1H(Seq(
-        /* IDLE       */ state(0) -> Mux(hit, Mux(buf.wr === 1.U, s_commit.U, s_idle.U),
-                                        Mux(!io.mem_out.req.fire, s_idle.U,
-                                            Mux(buf.mthrough === 1.U, s_mmio.U,
-                                                Mux(wb_en === 1.U, s_wb.U, s_refill.U))
+        /* IDLE       */ state(0) -> Mux(buf.fencei.asBool(), Mux(fenceiModule.io.req.fire, s_wait_fencei.U, s_idle.U),
+                                            Mux(hit, Mux(buf.wr === 1.U, s_commit.U, s_idle.U),
+                                                    Mux(!io.mem_out.req.fire, s_idle.U,
+                                                        Mux(buf.mthrough === 1.U, s_mmio.U,
+                                                            Mux(wb_en === 1.U, s_wb.U, s_refill.U))
+                                                    )
                                             )
-                                        ),
+                                    ),
         /* WB         */ state(1) -> Mux(burst_last, s_refill_req.U, s_wb.U),
         /* REFILL REQ */ state(2) -> Mux(io.mem_out.req.fire, s_refill.U, s_refill_req.U),
         /* REFILL     */ state(3) -> Mux(burst_last, s_commit.U, s_refill.U),
         /* MMIO       */ state(4) -> Mux(io.mem_out.ret.valid, s_idle.U, s_mmio.U),
         /* COMMIT     */ state(5) -> (s_idle.U),
+        /* WAIT FENCEI */state(6) -> Mux(fenceiModule.io.ret.fire, s_idle.U, s_wait_fencei.U),
     ))
     s3_ready_go := (hit && (buf.wr === 0.U)) ||           //read hit
                    (state(4) && io.mem_out.ret.valid)  || //mmio
-                   (state(5) === 1.U)                     //refill/write commit
+                   (state(5) === 1.U) ||                  //refill/write commit
+                   (state(6) && fenceiModule.io.ret.fire) //fencei
     // -------------------------------- CPU commit --------------------------------
 
     io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx),
                         Mux(state(4), io.mem_out.ret.rdata, write_line.data(cpu_word_idx)) )
-    io.cpu.valid   := s3_valid && Mux(hit, 1.B,
-                                    Mux(state(4), io.mem_out.ret.valid, refill_whit & refill_come) )
+    io.cpu.valid   := s3_valid && Mux(buf.fencei.asBool(), (state(6) && fenceiModule.io.ret.fire),
+                                        Mux(hit, 1.B, Mux(state(4), io.mem_out.ret.valid, refill_whit & refill_come) )
+                                    )
 }
 
 /*
@@ -252,22 +294,23 @@ Stage-fence.i: Write back dirty blocks in DCache & Invalidate blocks in ICache
     flows to CacheStage3. For D$, traverse every blocks and write them back to memory one by one. For I$, set
     signal to cache meta data and set all valid bit in meta data to 0.
     State Machine:
-    s_idle:       begin memory request for mmio\write back\refill, or commit when read hit.
-    s_wb:         transfer write back burst data.
-    s_refill_req: begin memory read request after s_wb.
-    s_refill:     read refill data to buffer, send ok to CPU when target word comes.
-    s_commit:     this states indicate transaction is done, stage1 can read data array now.
+    s_idle:       wait fence.i request from cache stage3
+    s_clear_v:    clear all valid bits in I$
+    s_rd_meta:    send read request to D$ meta data
+    s_wb_ret:     writeback request
+    s_wb_ret:     wait for writeback request
 */
-Class CacheFencei(config: CacheConfig) extends Module {
+class CacheFencei(config: CacheConfig) extends Module with HasCacheFenceiConst{
     val io = IO(new Bundle{
-        val req = Flipped(Decoupled(Bool()))
-        val ret = Flipped(Decoupled(Bits(0.W)))
-        // Cache meta/data read req
-        val rd_req = new Bundle{
+        val req = Flipped(Decoupled())
+        val ret = Decoupled()
+        // I$ flush
+        val meta_flush = Output(Bool())
+        // D$ write back
+        val rd = new Bundle{
             val en    = Output(Bool())
             val index = Output(UInt(config.index_width.W))
         }
-        // Cache meta/data read ret
         val rd_lines = Input(Vec(config.nr_ways,
             new CacheLineBundle(config.w, config.tag_width, config.block_word_n)))
         val mem_out  = new CPUMemBundle(config.w, config.block_size * 8)
@@ -275,13 +318,24 @@ Class CacheFencei(config: CacheConfig) extends Module {
     val state        = RegInit(s_idle.U(nr_state.W))
 
     val wb_done      = Wire(Bool())
+    val wb_index_done = Wire(Bool())
     val wb_index     = RegInit(0.U((config.index_width + 1).W))
-    val wb_way       = RegInit(0.U(config.ways_width.W))
+    val wb_way       = RegInit(0.U((config.ways_width + 1).W))
+    val wb_way_sel   = Wire(UInt(config.ways_width.W))
+    val wb_index_sel = Wire(UInt(config.index_width.W))
 
-    wb_done = (state(2) && (wb_index === config.nr_lines)) || state(1)
+    io.req.ready := state(0)
+    io.ret.valid := state(1)
+
+    // D$ write back
+    wb_done       := state(2) && (wb_index === config.nr_lines.U) // scanned all cache lines
+    wb_index_done := state(4) && (wb_way === config.nr_ways.U)    // scanned all current line set
+    wb_index_sel  := wb_index(config.index_width - 1, 0)          // current index of line set
+    wb_way_sel    := wb_way(config.ways_width - 1, 0)             // current way of line set
+
     when(io.req.fire) {
         wb_index := 0.U
-    } .elsewhen() {
+    } .elsewhen(wb_index_done && io.mem_out.ret.valid) {
         wb_index := wb_index + 1.U
     }
 
@@ -291,24 +345,31 @@ Class CacheFencei(config: CacheConfig) extends Module {
         wb_way := wb_way + 1.U
     }
 
-    io.rd_meta.en := state(2) && !wb_done
-    io.rd_meta.index := wb_index(config.index_width - 1, 0)
+    io.rd.en := state(2) && !wb_done
+    io.rd.index := wb_index_sel
 
-    io.mem_out.req.valid         := state(3)
+    io.mem_out.req.valid         := state(3) & io.rd_lines(wb_way_sel).dirty
     io.mem_out.req.bits.wr       := 1.B
-    io.mem_out.req.bits.addr     := // TODO
-    io.mem_out.req.bits.wdata    := // TODO
+    io.mem_out.req.bits.addr     := Cat(0.U((config.w - config.cache_addr_w).W),
+                                        io.rd_lines(wb_way_sel).tag,
+                                        wb_index_sel,
+                                        0.U(config.offset_width.W))
+    io.mem_out.req.bits.wdata    := io.rd_lines(wb_way_sel).data.reverse.reduce((a, b) => Cat(a, b))
 
     io.mem_out.req.bits.wstrb    := Fill(((config.w) / 8), 1.U(1.W))
     io.mem_out.req.bits.mthrough := 0.B
+    io.mem_out.req.bits.fencei   := 1.B
+
+    // I$ clear valid
+    io.meta_flush := state(1)
 
     state := Mux1H(Seq(
-        /* IDLE    */ state(0) -> Mux(io.req.fire, Mux(io.req.bits, s_rd_meta.U, s_clear_v.U), s_idle.U),
-        /* CLEAR_V */ state(1) -> s_idle.U
-        /* RD_META */ state(2) -> Mux(wb_done, s_idle.U, s_wb_req.U)),
+        /* IDLE    */ state(0) -> Mux(io.req.fire, s_rd_meta.U, s_idle.U),
+        /* CLEAR_V */ state(1) -> s_idle.U,
+        /* RD_META */ state(2) -> Mux(wb_done, s_clear_v.U, s_wb_req.U),
         /* WB_REQ  */ state(3) -> Mux(io.mem_out.req.fire, s_wb_ret.U, s_wb_req.U),
         /* WB_RET  */ state(4) -> Mux(io.mem_out.ret.valid,
-                                    Mux(wb_index === config.nr_ways.U, s_rd_meta.U, s_wb_req.U),
+                                    Mux(wb_index_done, s_rd_meta.U, s_wb_req.U),
                                     s_wb_ret.U),
     ))
 }

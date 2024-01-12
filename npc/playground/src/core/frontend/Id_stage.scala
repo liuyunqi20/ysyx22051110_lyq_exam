@@ -9,7 +9,7 @@ trait HasDecodeConst{
     val MT_LEN     = 7
     val SLTT_LEN   = 3
     val CSRT_LEN   = 3
-    val EXCT_LEN   = 2
+    val EXCT_LEN   = 3
 }
 
 class MyDecoder() extends Module with HasDecodeConst{
@@ -73,7 +73,8 @@ class MyDecoder() extends Module with HasDecodeConst{
         val CSR_W   = "h01".U; val CSR_S   = "h02".U; val CSR_C   = "h04".U ;
         val NCSR    = "h00".U;
         //exc type
-        val EC_T    = "h01".U; val RET_T   = "h02".U; val NINT    = "h00".U ;
+        val EC_T    = "h01".U; val RET_T   = "h02".U; val CLR_T   = "h04".U ;
+        val NINT    = "h00".U ;
     //BitPat
         val LUI    = BitPat("b???????_?????_?????_???_?????_01101_11")
         val AUIPC  = BitPat("b???????_?????_?????_???_?????_00101_11")
@@ -231,7 +232,7 @@ class MyDecoder() extends Module with HasDecodeConst{
                 REMW  -> List(Rtype, ALU_RW  , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
                 REMUW -> List(Rtype, ALU_RUW , OP1_RS1, OP2_RS2, REN_1, WB_ALU, NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , NCSR , NINT ),
                 //Zifence
-                FENCEI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_0, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_X, NSLT  , NCSR , NINT ),
+                FENCEI-> List(Ntype, 0.U     , 0.U    , 0.U    , REN_0, 0.B   , NB     , MEN_1, M_RD, 0.U  , LEN_X, NSLT  , NCSR , CLR_T),
                 //Zicsr
                 CSRRW -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , CSR_W, NINT ),
                 CSRRS -> List(Ntype, 0.U     , 0.U    , 0.U    , REN_1, 0.B   , NB     , MEN_0, 0.B , 0.U  , LEN_W, NSLT  , CSR_S, NINT ),

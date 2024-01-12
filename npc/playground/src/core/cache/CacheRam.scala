@@ -17,6 +17,7 @@ class CacheDataRamV extends BlackBox{
 
 class CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
     val io = IO(new Bundle{
+        val flush = Input(Bool())
         val en    = Input(Bool())
         val wr    = Input(Bool())
         val way   = Input(UInt(log2Ceil(nr_ways).W))
@@ -30,6 +31,7 @@ class CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
         hit_array(i)         := io.way === i.U || io.wr === 0.U
         cache_meta(i).clock  := clock
         cache_meta(i).reset  := reset
+        cache_meta(i).flush  := io.flush
         cache_meta(i).en     := hit_array(i) && io.en
         cache_meta(i).wr     := io.wr
         cache_meta(i).addr   := io.index
@@ -46,6 +48,7 @@ class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
     val io = IO(new Bundle{
         val clock  = Input(Clock())
         val reset  = Input(Bool())
+        val flush  = Input(Bool())
         val valid  = Output(Bool())
         val dirty  = Output(Bool())
         val tag    = Output(UInt(tag_width.W))
