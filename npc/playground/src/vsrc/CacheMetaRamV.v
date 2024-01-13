@@ -10,9 +10,10 @@ module CacheMetaRamV(
     reg [22 : 0] rtag;
     reg rvalid, rdirty;
     always @(posedge clock) begin
-        if(reset | flush)
+        if(reset | flush) begin
             ram_valid[63 : 0] <= 64'b0;
             ram_dirty[63 : 0] <= 64'b0;
+        end
         else if(en && wr) begin
             ram_tag[addr]   <= wtag;
             ram_valid[addr] <= wvalid;

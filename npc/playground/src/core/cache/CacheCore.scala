@@ -323,6 +323,9 @@ class CacheFencei(config: CacheConfig) extends Module with HasCacheFenceiConst{
     val wb_way       = RegInit(0.U((config.ways_width + 1).W))
     val wb_way_sel   = Wire(UInt(config.ways_width.W))
     val wb_index_sel = Wire(UInt(config.index_width.W))
+    val wb_req_done  = Wire(Bool())
+    val wb_ret_done  = Wire(Bool())
+    val wb_flag      = RegInit(0.B)
 
     io.req.ready := state(0)
     io.ret.valid := state(1)
@@ -335,13 +338,13 @@ class CacheFencei(config: CacheConfig) extends Module with HasCacheFenceiConst{
 
     when(io.req.fire) {
         wb_index := 0.U
-    } .elsewhen(wb_index_done && io.mem_out.ret.valid) {
+    } .elsewhen(wb_index_done && wb_ret_done) {
         wb_index := wb_index + 1.U
     }
 
     when(state(2)) {
         wb_way := 0.U
-    } .elsewhen(io.mem_out.req.fire) {
+    } .elsewhen(wb_req_done) {
         wb_way := wb_way + 1.U
     }
 
@@ -360,6 +363,12 @@ class CacheFencei(config: CacheConfig) extends Module with HasCacheFenceiConst{
     io.mem_out.req.bits.mthrough := 0.B
     io.mem_out.req.bits.fencei   := 1.B
 
+    wb_req_done := state(3) && Mux(io.mem_out.req.valid, io.mem_out.req.fire, 1.B)
+    when(wb_req_done) {
+        wb_flag := io.mem_out.req.valid
+    }
+    wb_ret_done := state(4) && Mux(wb_flag, io.mem_out.ret.valid, 1.B)
+
     // I$ clear valid
     io.meta_flush := state(1)
 
@@ -367,8 +376,8 @@ class CacheFencei(config: CacheConfig) extends Module with HasCacheFenceiConst{
         /* IDLE    */ state(0) -> Mux(io.req.fire, s_rd_meta.U, s_idle.U),
         /* CLEAR_V */ state(1) -> s_idle.U,
         /* RD_META */ state(2) -> Mux(wb_done, s_clear_v.U, s_wb_req.U),
-        /* WB_REQ  */ state(3) -> Mux(io.mem_out.req.fire, s_wb_ret.U, s_wb_req.U),
-        /* WB_RET  */ state(4) -> Mux(io.mem_out.ret.valid,
+        /* WB_REQ  */ state(3) -> Mux(wb_req_done, s_wb_ret.U, s_wb_req.U),
+        /* WB_RET  */ state(4) -> Mux(wb_ret_done,
                                     Mux(wb_index_done, s_rd_meta.U, s_wb_req.U),
                                     s_wb_ret.U),
     ))
