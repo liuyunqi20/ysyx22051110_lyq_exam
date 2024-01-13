@@ -1,7 +1,8 @@
 import circt.stage._
 
 object Elaborate extends App {
-  def top = new mycpu.SimTop(64)
+  // def top = new mycpu.SimTop(64)
+  def top = new mycpu.MycpuCoreTop(64, 2)
   val useMFC = true // use MLIR-based firrtl compiler
   val generator = Seq(chisel3.stage.ChiselGeneratorAnnotation(() => top))
   if (useMFC) {
