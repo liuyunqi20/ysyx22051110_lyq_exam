@@ -22,7 +22,7 @@ trait HasCoreTopConst{
 
     The memory access bus in CPU core is SimpleBus(See CPUMemBundle in Interface.scala).
 */
-class ysyx_22051110_MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
+class ysyx_22051110(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val io = IO(new Bundle{
         val core_debug = new DebugBundle(w)
         val ar = Decoupled(new AXI4LiteAR(w))
