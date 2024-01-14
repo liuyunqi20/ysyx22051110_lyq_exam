@@ -294,3 +294,41 @@ import chisel3.util._
         val quotient   = Output(UInt(w.W))
         val reminder   = Output(UInt(w.W))
     }
+
+// ----------------- Soc -----------------
+    class AXI4LiteSocBundle(w: Int) extends Bundle{
+        // AW
+        val awready = Input(Bool())
+        val awvalid = Output(Bool())
+        val awid    = Output(UInt(4.W))
+        val awaddr  = Output(UInt(w.W))
+        val awlen   = Output(UInt(8.W))
+        val awsize  = Output(UInt(3.W))
+        val awburst = Output(UInt(2.W))
+        // W
+        val wready = Input(Bool())
+        val wvalid = Output(Bool())
+        val wdata  = Output(UInt(w.W))
+        val wstrb  = Output(UInt((w/8).W))
+        val wlast  = Output(Bool())
+        // B
+        val bready = Output(Bool())
+        val bvalid = Input(Bool())
+        val bid    = Input(UInt(4.W))
+        val bresp  = Input(UInt(2.W))
+        // AR
+        val arready = Input(Bool())
+        val arvalid = Output(Bool())
+        val arid    = Output(UInt(4.W))
+        val araddr  = Output(UInt(w.W))
+        val arlen   = Output(UInt(8.W))
+        val arsize  = Output(UInt(3.W))
+        val arburst = Output(UInt(2.W))
+        // R
+        val rready = Output(Bool())
+        val rvalid = Input(Bool())
+        val rid    = Input(UInt(4.W))
+        val rresp  = Input(UInt(2.W))
+        val rdata  = Input(UInt(w.W))
+        val rlast  = Input(Bool())
+    }

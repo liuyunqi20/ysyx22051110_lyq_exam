@@ -24,12 +24,8 @@ trait HasCoreTopConst{
 */
 class ysyx_22051110(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val io = IO(new Bundle{
-        val core_debug = new DebugBundle(w)
-        val ar = Decoupled(new AXI4LiteAR(w))
-        val rd = Flipped(Decoupled(new AXI4LiteRD(w)))
-        val aw = Decoupled(new AXI4LiteAW(w))
-        val wt = Decoupled(new AXI4LiteWR(w))
-        val b  = Flipped(Decoupled(new AXI4LiteWB(w)))
+        val master = new AXI4LiteSocBundle(w)
+        val slave  = Flipped(new AXI4LiteSocBundle(w))
     });
     val my_if          = Module(new ysyx_22051110_If_stage(w, w))
     val my_id          = Module(new ysyx_22051110_Id_stage(w))
@@ -81,17 +77,56 @@ class ysyx_22051110(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_mmc.io.in           <> my_dcache.io.out
     my_clint.io.in         <> my_mmc.io.clint_out
     my_axi_bridges(1).in   <> my_mmc.io.axi_out
-    //debug
-    io.core_debug          <> my_wb.io.debug
     //cache flush
     my_icache.io.flush     := my_dcache.io.flush
     //AXI Arbiter
     for( i <- 0 until nr_mport){
         my_arbiter.io.in(i) <> my_axi_bridges(i).out
     }
-    io.ar <> my_arbiter.io.out.ar
-    io.rd <> my_arbiter.io.out.rd
-    io.aw <> my_arbiter.io.out.aw
-    io.wt <> my_arbiter.io.out.wt
-    io.b  <> my_arbiter.io.out.b
+    // AXI4Lite Slave
+    io.slave.awready := 0.B
+    io.slave.wready  := 0.B
+    io.slave.bvalid  := 0.B
+    io.slave.bresp   := 0.U
+    io.slave.bid     := 0.U
+    io.slave.arready := 0.B
+    io.slave.rvalid  := 0.B
+    io.slave.rresp   := 0.U
+    io.slave.rdata   := 0.U
+    io.slave.rlast   := 0.B
+    io.slave.rid     := 0.U
+    // AXI4Lite Master
+    my_arbiter.io.out.aw.ready := io.master.awready
+    io.master.awvalid := my_arbiter.io.out.aw.valid
+    io.master.awid    := 0.U
+    io.master.awaddr  := my_arbiter.io.out.aw.bits.awaddr
+    io.master.awlen   := my_arbiter.io.out.aw.bits.awlen
+    io.master.awsize  := my_arbiter.io.out.aw.bits.awsize
+    io.master.awburst := my_arbiter.io.out.aw.bits.awburst
+
+    my_arbiter.io.out.wt.ready := io.master.wready
+    io.master.wvalid := my_arbiter.io.out.wt.valid
+    io.master.wdata := my_arbiter.io.out.wt.bits.wdata
+    io.master.wstrb := my_arbiter.io.out.wt.bits.wstrb
+    io.master.wlast := my_arbiter.io.out.wt.bits.wlast
+
+    io.master.bready := my_arbiter.io.out.b.ready
+    my_arbiter.io.out.b.valid := io.master.bvalid
+    // my_arbiter.io.out.b.bid   := io.master.bid
+    my_arbiter.io.out.b.bits.bresp := io.master.bresp
+
+    my_arbiter.io.out.ar.ready := io.master.arready
+    io.master.arvalid := my_arbiter.io.out.ar.valid
+    io.master.arid    := 0.U
+    io.master.araddr  := my_arbiter.io.out.ar.bits.araddr
+    io.master.arlen   := my_arbiter.io.out.ar.bits.arlen
+    io.master.arsize  := my_arbiter.io.out.ar.bits.arsize
+    io.master.arburst := my_arbiter.io.out.ar.bits.arburst
+
+    io.master.rready := my_arbiter.io.out.rd.ready
+    my_arbiter.io.out.rd.valid := io.master.rvalid
+    // my_arbiter.io.out.rd.rid   := io.master.rid
+    my_arbiter.io.out.rd.bits.rresp := io.master.rresp
+    my_arbiter.io.out.rd.bits.rdata := io.master.rdata
+    my_arbiter.io.out.rd.bits.rlast := io.master.rlast
 }

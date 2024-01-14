@@ -11,7 +11,6 @@ class ysyx_22051110_Wb_stage(w: Int) extends Module{
         val csr_exc     = Flipped(new CsrExcBundle(w))
         val csr_out     = Flipped(new CsrOutBundle(w))
         val ws_forward  = Valid(new ForwardingBundle(w))
-        val debug       = Output(new DebugBundle(w))
     })
     val ws_valid     = RegInit(0.B)
     val ms_ws_r      = RegInit(0.U.asTypeOf(new MemtoWbBundle(w)))
@@ -54,13 +53,4 @@ class ysyx_22051110_Wb_stage(w: Int) extends Module{
     // ------------------------ catch ebreak ------------------------
     //delete in Soc
     //debug
-    io.debug.debug_valid    := ws_valid
-    io.debug.debug_pc       := ms_ws_r.pc
-    io.debug.debug_inst     := ms_ws_r.inst
-    io.debug.debug_rf_we    := io.wb2rf.rf_we
-    io.debug.debug_rf_wnum  := io.wb2rf.waddr
-    io.debug.debug_rf_wdata := io.wb2rf.wdata
-    io.debug.raise_intr     := io.csr_exc.intr_t
-    io.debug.op_csr         := ms_ws_r.csr_op.orR === 1.U
-
 }
