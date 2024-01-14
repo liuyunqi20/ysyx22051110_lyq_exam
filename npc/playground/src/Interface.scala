@@ -332,3 +332,12 @@ import chisel3.util._
         val rdata  = Input(UInt(w.W))
         val rlast  = Input(Bool())
     }
+
+    class SramSocBundle(w: Int) extends Bundle{
+        val addr  = Output(UInt(6.W))
+        val cen   = Output(Bool())
+        val wen   = Output(Bool())
+        val wmask = Output(UInt(128.W))
+        val wdata = Output(UInt(128.W))
+        val rdata = Input(UInt(128.W))
+    }

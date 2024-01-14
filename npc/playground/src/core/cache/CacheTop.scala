@@ -52,6 +52,7 @@ class ysyx_22051110_CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, bl
         val in  = Flipped(new CPUMemBundle(w, w))
         val out = new CPUMemBundle(w, block_size * 8)
         val flush = if(isICache) Input(Bool()) else Output(Bool())
+        val cache_data = Vec(nr_ways, new SramSocBundle(w))
     })
 
     val config = new CacheConfig(w, tag_w, nr_lines, nr_ways, block_size, isICache)
@@ -60,7 +61,7 @@ class ysyx_22051110_CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, bl
     val stage3 = Module(new ysyx_22051110_CacheStage3(config))
     val cache_data_addr_w = 6 //log2Ceil(data_ram_word_depth)
     val meta_rd    = Wire(Vec(nr_ways, new CacheMetaBundle(config.tag_width) ))
-    val cache_data = Seq.fill(nr_ways){ Module(new ysyx_22051110_CacheDataRamV()).io }
+    // val cache_data = Seq.fill(nr_ways){ Module(new ysyx_22051110_CacheDataRamV()).io }
     /* reserved for meta ram in scala */
         // val cache_meta = Seq.fill(nr_ways) {
         //     RegInit(VecInit(Seq.fill(nr_lines){ 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) } ))
@@ -95,12 +96,11 @@ class ysyx_22051110_CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, bl
     val data_way_sel  = Wire(Vec(nr_ways, Bool()))
     for( i <- 0 until nr_ways){
         data_way_sel(i)     := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U) || (stage3.io.rd.index === i.U)
-        cache_data(i).clock := clock
-        cache_data(i).CEN   := ~(stage1.io.rd.en || stage3.io.rd.en || stage3.io.wt.en)
-        cache_data(i).WEN   := ~(stage3.io.wt.en && (stage3.io.wt.way === i.U))
-        cache_data(i).BWEN  := Fill(128, 0.U)
-        cache_data(i).A     := cache_addr
-        cache_data(i).D     := stage3.io.wt.line.data.reverse.reduce((a, b) => Cat(a, b))
+        io.cache_data(i).cen   := ~(stage1.io.rd.en || stage3.io.rd.en || stage3.io.wt.en)
+        io.cache_data(i).wen   := ~(stage3.io.wt.en && (stage3.io.wt.way === i.U))
+        io.cache_data(i).wmask  := Fill(128, 0.U)
+        io.cache_data(i).addr     := cache_addr
+        io.cache_data(i).wdata     := stage3.io.wt.line.data.reverse.reduce((a, b) => Cat(a, b))
     }
     val s2_rd_lines = Wire(Vec(nr_ways, new CacheLineBundle(w, config.tag_width, config.block_word_n)))
     val s3_rd_lines = Wire(Vec(nr_ways, new CacheLineBundle(w, config.tag_width, config.block_word_n)))
@@ -112,8 +112,8 @@ class ysyx_22051110_CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, bl
         s3_rd_lines(i).dirty := meta_rd(i).dirty
         s3_rd_lines(i).tag   := meta_rd(i).tag
         for( j <- 0 until config.block_word_n) {
-            s2_rd_lines(i).data(j) := cache_data(i).Q((j + 1) * w - 1, j * w)
-            s3_rd_lines(i).data(j) := cache_data(i).Q((j + 1) * w - 1, j * w)
+            s2_rd_lines(i).data(j) := io.cache_data(i).rdata((j + 1) * w - 1, j * w)
+            s3_rd_lines(i).data(j) := io.cache_data(i).rdata((j + 1) * w - 1, j * w)
         }
         stage2.io.rd_lines(i) := s2_rd_lines(i)
         stage3.io.rd_lines(i) := s3_rd_lines(i)

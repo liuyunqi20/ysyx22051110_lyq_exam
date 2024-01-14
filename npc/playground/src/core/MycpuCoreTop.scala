@@ -26,6 +26,14 @@ class ysyx_22051110(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val io = IO(new Bundle{
         val master = new AXI4LiteSocBundle(w)
         val slave  = Flipped(new AXI4LiteSocBundle(w))
+        val sram0  = new SramSocBundle(w)
+        val sram1  = new SramSocBundle(w)
+        val sram2  = new SramSocBundle(w)
+        val sram3  = new SramSocBundle(w)
+        val sram4  = new SramSocBundle(w)
+        val sram5  = new SramSocBundle(w)
+        val sram6  = new SramSocBundle(w)
+        val sram7  = new SramSocBundle(w)
     });
     val my_if          = Module(new ysyx_22051110_If_stage(w, w))
     val my_id          = Module(new ysyx_22051110_Id_stage(w))
@@ -129,4 +137,61 @@ class ysyx_22051110(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_arbiter.io.out.rd.bits.rresp := io.master.rresp
     my_arbiter.io.out.rd.bits.rdata := io.master.rdata
     my_arbiter.io.out.rd.bits.rlast := io.master.rlast
+
+    // Cache Sram
+    io.sram0.addr  := my_icache.io.cache_data(0).addr
+    io.sram0.cen   := my_icache.io.cache_data(0).cen
+    io.sram0.wen   := my_icache.io.cache_data(0).wen
+    io.sram0.wdata := my_icache.io.cache_data(0).wdata
+    io.sram0.wmask := my_icache.io.cache_data(0).wmask
+    my_icache.io.cache_data(0).rdata := io.sram0.rdata
+
+    io.sram1.addr  := my_icache.io.cache_data(1).addr
+    io.sram1.cen   := my_icache.io.cache_data(1).cen
+    io.sram1.wen   := my_icache.io.cache_data(1).wen
+    io.sram1.wdata := my_icache.io.cache_data(1).wdata
+    io.sram1.wmask := my_icache.io.cache_data(1).wmask
+    my_icache.io.cache_data(1).rdata := io.sram1.rdata
+
+    io.sram2.addr  := my_icache.io.cache_data(2).addr
+    io.sram2.cen   := my_icache.io.cache_data(2).cen
+    io.sram2.wen   := my_icache.io.cache_data(2).wen
+    io.sram2.wdata := my_icache.io.cache_data(2).wdata
+    io.sram2.wmask := my_icache.io.cache_data(2).wmask
+    my_icache.io.cache_data(2).rdata := io.sram2.rdata
+
+    io.sram3.addr  := my_icache.io.cache_data(3).addr
+    io.sram3.cen   := my_icache.io.cache_data(3).cen
+    io.sram3.wen   := my_icache.io.cache_data(3).wen
+    io.sram3.wdata := my_icache.io.cache_data(3).wdata
+    io.sram3.wmask := my_icache.io.cache_data(3).wmask
+    my_icache.io.cache_data(3).rdata := io.sram3.rdata
+
+    io.sram4.addr  := my_dcache.io.cache_data(0).addr
+    io.sram4.cen   := my_dcache.io.cache_data(0).cen
+    io.sram4.wen   := my_dcache.io.cache_data(0).wen
+    io.sram4.wdata := my_dcache.io.cache_data(0).wdata
+    io.sram4.wmask := my_dcache.io.cache_data(0).wmask
+    my_dcache.io.cache_data(0).rdata := io.sram4.rdata
+
+    io.sram5.addr  := my_dcache.io.cache_data(1).addr
+    io.sram5.cen   := my_dcache.io.cache_data(1).cen
+    io.sram5.wen   := my_dcache.io.cache_data(1).wen
+    io.sram5.wdata := my_dcache.io.cache_data(1).wdata
+    io.sram5.wmask := my_dcache.io.cache_data(1).wmask
+    my_dcache.io.cache_data(1).rdata := io.sram5.rdata
+
+    io.sram6.addr  := my_dcache.io.cache_data(2).addr
+    io.sram6.cen   := my_dcache.io.cache_data(2).cen
+    io.sram6.wen   := my_dcache.io.cache_data(2).wen
+    io.sram6.wdata := my_dcache.io.cache_data(2).wdata
+    io.sram6.wmask := my_dcache.io.cache_data(2).wmask
+    my_dcache.io.cache_data(2).rdata := io.sram6.rdata
+
+    io.sram7.addr  := my_dcache.io.cache_data(3).addr
+    io.sram7.cen   := my_dcache.io.cache_data(3).cen
+    io.sram7.wen   := my_dcache.io.cache_data(3).wen
+    io.sram7.wdata := my_dcache.io.cache_data(3).wdata
+    io.sram7.wmask := my_dcache.io.cache_data(3).wmask
+    my_dcache.io.cache_data(3).rdata := io.sram7.rdata
 }
