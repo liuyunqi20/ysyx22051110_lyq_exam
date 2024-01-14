@@ -6,7 +6,7 @@ import chisel3.util._
 Stage-1:  Accpet request
     Accept CPU request, parse request address, read meta array and data array
 */
-class CacheStage1(config: CacheConfig) extends Module{
+class ysyx_22051110_CacheStage1(config: CacheConfig) extends Module{
     val io = IO(new Bundle{
         val cpu      = Flipped(Decoupled(new CPUMemReqBundle(config.w, config.w)))
         val rd       = new Bundle{
@@ -44,7 +44,7 @@ Stage-2: Hit check & Replace choose
         Stage-2 will transfer CPU request signals, target cache line, replace way choice and
     cache hit signal to stage-3
 */
-class CacheStage2(config: CacheConfig) extends Module{
+class ysyx_22051110_CacheStage2(config: CacheConfig) extends Module{
     val io = IO(new Bundle{
         val s1_to_s2 = Flipped(Decoupled(new CacheStage1to2Bundle(config)))
         //cache read set
@@ -104,7 +104,7 @@ Stage-3: Request Commit & Write back & Refill
     s_refill:     read refill data to buffer, send ok to CPU when target word comes.
     s_commit:     this states indicate transaction is done, stage1 can read data array now.
 */
-class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
+class ysyx_22051110_CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val io = IO(new Bundle{
         val cpu      = Flipped(new CPUMemRespBundle(config.w))
         val s2_to_s3 = Flipped(Decoupled(new CacheStage2to3Bundle(config)))
@@ -147,7 +147,7 @@ class CacheStage3(config: CacheConfig) extends Module with HasCacheStage3Const{
     val cpu_req_addr = Cat(0.U((config.w - config.cache_addr_w).W), buf.tag, buf.index, buf.offset)
 
     //fence.i module
-    val fenceiModule = Module(new CacheFencei(config))
+    val fenceiModule = Module(new ysyx_22051110_CacheFencei(config))
     fenceiModule.io.req.valid         := state(0) & s3_valid & buf.fencei
     fenceiModule.io.ret.ready         := state(6) & s3_valid & buf.fencei
     fenceiModule.io.rd_lines          := io.rd_lines // fence.i read meta ret
@@ -300,7 +300,7 @@ Stage-fence.i: Write back dirty blocks in DCache & Invalidate blocks in ICache
     s_wb_ret:     writeback request
     s_wb_ret:     wait for writeback request
 */
-class CacheFencei(config: CacheConfig) extends Module with HasCacheFenceiConst{
+class ysyx_22051110_CacheFencei(config: CacheConfig) extends Module with HasCacheFenceiConst{
     val io = IO(new Bundle{
         val req = Flipped(Decoupled())
         val ret = Decoupled()

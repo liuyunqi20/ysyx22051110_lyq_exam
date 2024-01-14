@@ -42,16 +42,16 @@ class CsrExcBundle(w: Int) extends Bundle{
 /*
     Csr module is for managing CSR registers. io.op is used for CSR-type operation.
 io.out transmit CSR register data into pipeline units. io.exc is used for exception
-signal transmission from or to pipeline. Interrupt pins(CLINT) are linked to Csr 
+signal transmission from or to pipeline. Interrupt pins(CLINT) are linked to Csr
 module.
-    When trap triggered from pipeline, exc.ecall is set to 1 and exc.exc_code shows 
-exception type. exc.epc will send current pc value to EPC reg in Csr module. 
+    When trap triggered from pipeline, exc.ecall is set to 1 and exc.exc_code shows
+exception type. exc.epc will send current pc value to EPC reg in Csr module.
     When executing mret instrution exc.mret will indicates this operation from pipline
 and exc.mret_addr will be sent to pipeline from EPC reg in Csr module.
     When interrput occurs exc.intr_t will be sent to pipeline to indicates interrupt
 from Csr module/
 */
-class Csr(w: Int) extends Module with HasCsrConst{
+class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
     val io = IO(new Bundle{
         val op    = new CsrOpBundle(w)
         val out   = new CsrOutBundle(w)
@@ -68,13 +68,13 @@ class Csr(w: Int) extends Module with HasCsrConst{
     val mtvec   = RegInit(0.U(w.W))
     val mip     = RegInit(0.U(w.W))
     val mie     = RegInit(0.U(w.W))
-    val mstatus_rval = Cat(0.U(28.W) , mstatus_sxl, mstatus_uxl, 0.U(19.W), 
+    val mstatus_rval = Cat(0.U(28.W) , mstatus_sxl, mstatus_uxl, 0.U(19.W),
                             mstatus_mpp, 0.U(3.W), mstatus_mpie, 0.U(3.W), mstatus_mie, 0.U(3.W))
     val mtvec_rval   = Cat(mtvec(w-1, 2), 0.U(2.W))
     val mepc_rval    = Cat(mepc(w-1, 2), 0.U(2.W))
     val mcause_rval  = mcause
     val has_intr_t   = io.clint_intr_t && (mstatus_mie === 1.U) && (mie(7) === 1.U)
-    // ------------------- CSR inst ------------------- 
+    // ------------------- CSR inst -------------------
         val csr_1H  = MuxLookup(io.op.csr_num, 0.U(w.W), Seq(
             /* mstatus */ (Mstatus.U) -> ("h01".U),
             /* mtvec   */ (Mtvec.U)   -> ("h02".U),
@@ -93,15 +93,15 @@ class Csr(w: Int) extends Module with HasCsrConst{
             csr_1H(5) -> mip         ,
         ))
         val csrrs_res = csr_src | io.op.csr_wdata
-        val csrrc_res = csr_src & (~io.op.csr_wdata)   
+        val csrrc_res = csr_src & (~io.op.csr_wdata)
         val csr_res   = Mux1H(Seq(
             io.op.csr_op(0) -> io.op.csr_wdata,
             io.op.csr_op(1) -> csrrs_res,
             io.op.csr_op(2) -> csrrc_res,
         ))
     // ------------------- CSR regs -------------------
-        // ----- mstatus ----- 
-        
+        // ----- mstatus -----
+
         when(io.exc.ecall || has_intr_t){
             mstatus_mie  := 0.U(1.W)
             mstatus_mpie := mstatus_mie
@@ -116,17 +116,17 @@ class Csr(w: Int) extends Module with HasCsrConst{
             mstatus_mpie := csr_res(7)
             mstatus_mie  := csr_res(3)
         }
-        // ----- mtvec ----- 
+        // ----- mtvec -----
         when(csr_en && csr_1H(1)){
             mtvec   := csr_res
         }
-        // ----- mepc ----- 
+        // ----- mepc -----
         when(io.exc.ecall || has_intr_t){
             mepc    := io.exc.epc
         } .elsewhen(csr_en && csr_1H(2)){
             mepc    := csr_res
         }
-        // ----- mcause ----- 
+        // ----- mcause -----
         when(io.exc.ecall){
             mcause  := io.exc.exc_code
         } .elsewhen(has_intr_t){
@@ -134,16 +134,16 @@ class Csr(w: Int) extends Module with HasCsrConst{
         } .elsewhen(csr_en && csr_1H(3)){
             mcause  := csr_res
         }
-        // ----- mie ----- 
+        // ----- mie -----
         when(csr_en && csr_1H(4)){
             mie     := csr_res
         }
-        // ----- mip ----- 
+        // ----- mip -----
         when(has_intr_t){
             mip     := Mip_MTIP.U(w.W)
         }.elsewhen(csr_en && csr_1H(5)){
             mip     := csr_res
-        } 
+        }
     // ------------------- CSR out port -------------------
     io.op.csr_old    := csr_src
     io.out.mepc      := mepc_rval

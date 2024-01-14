@@ -2,16 +2,7 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
-class InstMonitor(w: Int) extends BlackBox with HasBlackBoxInline{
-    val io = IO(new Bundle{
-        val clock       = Input(Clock())
-        val reset       = Input(Bool())
-        val inst_ebreak = Input(Bool())
-        val inst        = Input(UInt(w.W))
-    })
-}
-
-class Wb_stage(w: Int) extends Module{
+class ysyx_22051110_Wb_stage(w: Int) extends Module{
     val io = IO(new Bundle{
         val mem2wb      = Flipped(Decoupled(new MemtoWbBundle(w)))
         val wb2rf       = new WbtoRfBundle(w)
@@ -61,11 +52,7 @@ class Wb_stage(w: Int) extends Module{
     io.ws_forward.bits.dest := io.wb2rf.waddr
     io.ws_forward.bits.data := io.wb2rf.wdata
     // ------------------------ catch ebreak ------------------------
-    val my_inst_monitor = Module(new InstMonitor(w))
-    my_inst_monitor.io.clock       := clock
-    my_inst_monitor.io.reset       := reset
-    my_inst_monitor.io.inst_ebreak := ms_ws_r.is_ebreak && ws_valid
-    my_inst_monitor.io.inst        := Cat(0.U(32.W), ms_ws_r.inst)
+    //delete in Soc
     //debug
     io.debug.debug_valid    := ws_valid
     io.debug.debug_pc       := ms_ws_r.pc

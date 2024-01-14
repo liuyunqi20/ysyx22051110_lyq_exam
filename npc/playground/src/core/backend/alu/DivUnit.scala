@@ -2,16 +2,16 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
-class DivUnit(w: Int) extends Module{
+class ysyx_22051110_DivUnit(w: Int) extends Module{
     val io = IO(new Bundle{
         val in  = Flipped(Decoupled(new DivUnitInBundle(w)))
         val out = Valid(new DivUnitOutBundle(w))
     })
-    val div_core = Module(new DivRestoreRem(w))
+    val div_core = Module(new ysyx_22051110_DivRestoreRem(w))
     io <> div_core.io
 }
 
-class DivRestoreRem(w: Int) extends Module{
+class ysyx_22051110_DivRestoreRem(w: Int) extends Module{
     val io = IO(new Bundle{
         val in  = Flipped(Decoupled(new DivUnitInBundle(w)))
         val out = Valid(new DivUnitOutBundle(w))
@@ -30,7 +30,7 @@ class DivRestoreRem(w: Int) extends Module{
     val divisor_msb  = Mux(io.in.bits.divw, io.in.bits.divisor(31) , io.in.bits.divisor(w - 1))
     val dividend_lo =  Mux(io.in.bits.div_signed && dividend_msb, ~io.in.bits.dividend + 1.U, io.in.bits.dividend)
 
-    // ------------------------ counter ------------------------ 
+    // ------------------------ counter ------------------------
         val last_step = (cnt(w-1) === 1.U && ~divw_r) || (cnt(31)  === 1.U && divw_r)
         val working   = cnt.orR === 1.U
         when(io.in.bits.flush || last_step){
@@ -41,7 +41,7 @@ class DivRestoreRem(w: Int) extends Module{
             cnt := Cat(cnt(w-2, 0), 0.U(1.W))
         }
 
-    // ------------------------ input buffer ------------------------ 
+    // ------------------------ input buffer ------------------------
         when(io.in.fire){
             dividend_r := Cat(0.U(w.W), Mux(io.in.bits.divw, 0.U((w-32).W), dividend_lo(w - 1, 32)), dividend_lo(31, 0)) //TODO: 63:31 = 0 when w
             divisor_r  := Mux(io.in.bits.div_signed && divisor_msb, ~io.in.bits.divisor  + 1.U, io.in.bits.divisor)
@@ -52,15 +52,15 @@ class DivRestoreRem(w: Int) extends Module{
             sel_q_sign := io.in.bits.div_signed && (dividend_msb ^ divisor_msb)
             sel_r_sign := io.in.bits.div_signed &&  dividend_msb
         }
-    
-    // ------------------------ add accumulate ------------------------ 
+
+    // ------------------------ add accumulate ------------------------
         //add_src1/2 is w+1 bits wide
         val add_src1  = Mux(divw_r, Cat(0.U((w - 32).W), dividend_r(63, 31)), dividend_r(2 * w - 1, w - 1))
         val add_src2  = ~Cat(0.U(1.W), Mux(divw_r, Cat(0.U((w - 32).W), divisor_r(31, 0)), divisor_r)) + 1.U
         val add_res   = add_src1 + add_src2
-        val next_valw = Cat(dividend_r(2*w - 1, w), Mux(add_res(w), Cat(dividend_r(w - 2, 0), 0.U(1.W)), 
+        val next_valw = Cat(dividend_r(2*w - 1, w), Mux(add_res(w), Cat(dividend_r(w - 2, 0), 0.U(1.W)),
                                                                     Cat(add_res(w - 33, 0), dividend_r(30, 0), 0.U(1.W)))  )
-        val next_val  = Mux(add_res(w), Cat(dividend_r(2*w - 2, 0), 0.U(1.W)),  
+        val next_val  = Mux(add_res(w), Cat(dividend_r(2*w - 2, 0), 0.U(1.W)),
                                         Cat(add_res(w - 1, 0), dividend_r(w - 2, 0), 0.U(1.W))  )
         when(working){
             dividend_r := Mux(divw_r, next_valw, next_val)
@@ -69,8 +69,8 @@ class DivRestoreRem(w: Int) extends Module{
         }
         val rvs_quotient_r = ~quotient_r + 1.U
         val rvs_reminder_r = ~reminder_r + 1.U
-    // ------------------------ done  ------------------------ 
-        when(done) { 
+    // ------------------------ done  ------------------------
+        when(done) {
             done := 0.B
         }.elsewhen(last_step) {
             done := 1.B

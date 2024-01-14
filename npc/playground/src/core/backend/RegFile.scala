@@ -8,7 +8,7 @@ import chisel3.util._
 to design. Current design has only 2 read ports and 1 write port. ID stage module uses 2 read
 ports and WB stage module uses the only write port.
 */
-class RegFileV(addr_w: Int, data_w: Int) extends BlackBox{
+class ysyx_22051110_RegFileV(addr_w: Int, data_w: Int) extends BlackBox{
     val io = IO(new Bundle{
         val clock  = Input(Clock())
         val reset  = Input(Bool())
@@ -22,7 +22,7 @@ class RegFileV(addr_w: Int, data_w: Int) extends BlackBox{
     })
 }
 
-class RegFile(addr_w: Int, data_w: Int, read_ports: Int) extends Module{
+class ysyx_22051110_RegFile(addr_w: Int, data_w: Int, read_ports: Int) extends Module{
     val io = IO(new Bundle{
         val raddr1 = Input(UInt(addr_w.W))
         val raddr2 = Input(UInt(addr_w.W))
@@ -32,7 +32,7 @@ class RegFile(addr_w: Int, data_w: Int, read_ports: Int) extends Module{
         val rdata1 = Output(UInt(data_w.W))
         val rdata2 = Output(UInt(data_w.W))
     })
-    val my_gpr = Module(new RegFileV(addr_w, data_w))
+    val my_gpr = Module(new ysyx_22051110_RegFileV(addr_w, data_w))
     my_gpr.io.clock := clock
     my_gpr.io.reset := reset
     my_gpr.io.raddr1 := io.raddr1

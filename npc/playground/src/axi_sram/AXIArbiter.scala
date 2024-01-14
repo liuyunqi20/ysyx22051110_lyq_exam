@@ -2,7 +2,7 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
-class AXIArbiter(w: Int, nr_src: Int) extends Module{
+class ysyx_22051110_AXIArbiter(w: Int, nr_src: Int) extends Module{
     val io = IO(new Bundle{
         val in  = Flipped(Vec(nr_src, new AXI4LiteBundle(w)))
         val out = new AXI4LiteBundle(w)
@@ -15,18 +15,18 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module{
     when(io.out.ar.fire){
         rd_chosen := arbiter_rd.io.chosen
     }
-    // --------------------------- read arbiter in --------------------------- 
+    // --------------------------- read arbiter in ---------------------------
     //arbiter for read request
     for( i <- 0 until nr_src){
         arbiter_rd.io.in(i).valid := io.in(i).ar.valid
         arbiter_rd.io.in(i).bits  <> io.in(i).ar.bits
         io.in(i).ar.ready         := arbiter_rd.io.in(i).ready
     }
-    // --------------------------- read arbiter out --------------------------- 
+    // --------------------------- read arbiter out ---------------------------
     arbiter_rd.io.out.ready   := io.out.ar.ready
     io.out.ar.valid           := arbiter_rd.io.out.valid
     io.out.ar.bits            <> arbiter_rd.io.out.bits
-    // --------------------------- read response --------------------------- 
+    // --------------------------- read response ---------------------------
     for( i <- 0 until nr_src){
         io.in(i).rd.valid := io.out.rd.valid && (rd_chosen === i.U)
         io.in(i).rd.bits  := io.out.rd.bits
@@ -41,18 +41,18 @@ class AXIArbiter(w: Int, nr_src: Int) extends Module{
     when(io.out.aw.fire){
         wt_chosen := arbiter_wt.io.chosen
     }
-    // --------------------------- write arbiter in --------------------------- 
+    // --------------------------- write arbiter in ---------------------------
     //arbiter for write request
     for( i <- 0 until nr_src){
         arbiter_wt.io.in(i).valid := io.in(i).aw.valid
         arbiter_wt.io.in(i).bits  <> io.in(i).aw.bits
         io.in(i).aw.ready         := arbiter_wt.io.in(i).ready
     }
-    // --------------------------- write arbiter out --------------------------- 
+    // --------------------------- write arbiter out ---------------------------
     arbiter_wt.io.out.ready   := io.out.aw.ready
     io.out.aw.valid           := arbiter_wt.io.out.valid
     io.out.aw.bits            <> arbiter_wt.io.out.bits
-    // --------------------------- write data&response --------------------------- 
+    // --------------------------- write data&response ---------------------------
     for( i <- 0 until nr_src){
         io.in(i).wt.ready := io.out.wt.ready && (wt_chosen === i.U)
         io.in(i).b.valid  := io.out.b.valid && (wt_chosen === i.U)

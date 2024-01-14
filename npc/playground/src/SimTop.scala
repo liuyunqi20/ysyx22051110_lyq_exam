@@ -41,7 +41,7 @@ class SimTop(w: Int) extends Module with HasConfigConst{
     val io = IO(new Bundle{
         val core_debug = new DebugBundle(w)
     });
-    val my_core_top = Module(new MycpuCoreTop(w, nr_mport))
+    val my_core_top = Module(new ysyx_22051110_MycpuCoreTop(w, nr_mport))
     val my_axi_sram = Module(new AXI4LiteSramTop(w, nr_mport, cache_block_word_n, has_sram_delay,
                                                  sram_rd_delay, sram_wt_delay))
     my_core_top.io.ar <> my_axi_sram.io.ar

@@ -17,7 +17,7 @@ trait HasIFSConst{
 module will discard result of previous memory request and repeatly request for an inst
 of exception entry.
 */
-class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
+class ysyx_22051110_If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val io = IO(new Bundle{
         val branch       = Flipped(new BranchBundle(w))
         val inst_mem     = new CPUMemBundle(w, w)
@@ -30,7 +30,7 @@ class If_stage(w: Int, if_id_w: Int) extends Module with HasIFSConst{
     val fs_wait_r =  RegInit(0.B)
     val fs_state  = RegInit(s_idle.U(nr_state.W))
     val nextpc_r  = RegInit(0.U(w.W))
-    val mm        = Module(new MemoryMappingUnit(w))
+    val mm        = Module(new ysyx_22051110_MemoryMappingUnit(w))
     fs_state     := Mux1H(Seq(
         /* s_idle */    fs_state(0) -> (s_req.U),
         /* s_req  */    fs_state(1) -> Mux(io.exc_br.exc_br || io.branch.br_en,

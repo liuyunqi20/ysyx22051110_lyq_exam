@@ -12,7 +12,7 @@ trait HasDecodeConst{
     val EXCT_LEN   = 3
 }
 
-class MyDecoder() extends Module with HasDecodeConst{
+class ysyx_22051110_MyDecoder() extends Module with HasDecodeConst{
     val io = IO(new Bundle{
         val inst      = Input(UInt(32.W))
         val inst_type = Output(UInt(INSTT_LEN.W))
@@ -270,7 +270,7 @@ module MyDecoder to generates control signals. EbreakMonitor module is set to mo
 instruction. When this module catches ebreak inst, a signal will be sent to simulation environment
 and then end the simulation.
 */
-class Id_stage(w: Int) extends Module{
+class ysyx_22051110_Id_stage(w: Int) extends Module{
     val io = IO(new Bundle{
         val if2id      = Flipped(Decoupled(new IftoIdBundle(w)))
         val id2ex      = Decoupled(new IdtoExBundle(w))
@@ -291,7 +291,7 @@ class Id_stage(w: Int) extends Module{
         val inst_ebreak = (inst(6,0) === "b1110011".U) & (inst(19, 7) === 0.U) & (inst(31, 20) === 1.U)
         val inst_fencei = (inst(6,0) === "b0001111".U) & (inst(14,12) === 1.U)
     // ------------------------ decoder ------------------------
-        val my_decoder = Module(new MyDecoder())
+        val my_decoder = Module(new ysyx_22051110_MyDecoder())
         my_decoder.io.inst := inst
         val inst_type = my_decoder.io.inst_type
     // ------------------------ control unit ------------------------
@@ -314,7 +314,7 @@ class Id_stage(w: Int) extends Module{
         ))
 
     // ------------------------ regfile ------------------------
-        val my_rf = Module(new RegFile(5, w, 2))
+        val my_rf = Module(new ysyx_22051110_RegFile(5, w, 2))
         val rf_raddr1    = Mux(inst_type(4) | inst_type(5), 0.U(5.W), rs1) //rs1 = 0 when J/U type
         val rf_raddr2    = rs2
 

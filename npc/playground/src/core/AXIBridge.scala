@@ -14,7 +14,7 @@ trait HasAXIBridgeConst{
     AXI Bridge transform SimpleBus from CPU into AXI Bus signals.
     AXI Bridge only supports no-burst normal r/w and wrap burst write.
 */
-class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst{
+class ysyx_22051110_AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst{
     val io = IO(new Bundle{
         val in  = Flipped(new CPUMemBundle(w, block_word_n * w))
         val out = new AXI4LiteBundle(w)
@@ -37,13 +37,13 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     val burst_len           = RegInit(0.U(8.W))
     //read after write
     val rd_after_wt         = io.in.req.valid && (io.in.req.bits.wr === 0.U) && state(0) &&
-                            (io.in.req.bits.mthrough === 0.U) && 
+                            (io.in.req.bits.mthrough === 0.U) &&
                             (wtag_r === io.in.req.bits.addr(w - 1, log2Ceil(block_word_n) + log2Ceil(w/8)))
-    val rd_after_wt_rdata   = MuxLookup(rd_widx, 0.U, 
+    val rd_after_wt_rdata   = MuxLookup(rd_widx, 0.U,
                                 for(i <- 0 until block_word_n) yield ((i.U) -> wdata_r((i+1)*w - 1, i*w)))
     //read
-    when(rd_after_wt) { 
-        rd_widx       := io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(w/8) - 1, log2Ceil(w/8)) 
+    when(rd_after_wt) {
+        rd_widx       := io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(w/8) - 1, log2Ceil(w/8))
         rd_after_wt_r := 1.B
     } .elsewhen(io.in.rlast && io.in.ret.valid) {
         rd_after_wt_r := 0.B
@@ -58,8 +58,8 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     io.in.ret.rdata        := Mux(rd_after_wt_r, rd_after_wt_rdata, io.out.rd.bits.rdata)
     io.in.rlast            := Mux(rd_after_wt_r, 1.B, io.out.rd.bits.rlast)
     //write
-    when(io.in.req.valid && (io.in.req.bits.wr === 1.U) && io.out.aw.fire) { 
-        wdata_r   := io.in.req.bits.wdata 
+    when(io.in.req.valid && (io.in.req.bits.wr === 1.U) && io.out.aw.fire) {
+        wdata_r   := io.in.req.bits.wdata
         wtag_r    := io.in.req.bits.addr(w - 1, log2Ceil(block_word_n) + log2Ceil(w/8))
         wstrb_r   := io.in.req.bits.wstrb
         wt_widx   := io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(w/8) - 1, log2Ceil(w/8))
@@ -71,7 +71,7 @@ class AXIBridge(w: Int, block_word_n: Int) extends Module with HasAXIBridgeConst
     } .elsewhen(io.out.b.fire){
         wtag_r    := 0.U
         burst_cnt := 0.U
-    } 
+    }
     io.out.aw.valid        := io.in.req.valid && (io.in.req.bits.wr === 1.U) && state(0)
     io.out.aw.bits.awaddr  := io.in.req.bits.addr
     io.out.aw.bits.awprot  := 0.U(3.W)

@@ -12,7 +12,7 @@ trait HasClintConst{
 mtime and mtimecmp register to implements time interrupt function. These 2 regs
 are accessed by memory mapping.
 */
-class Clint(w: Int) extends Module with HasClintConst{
+class ysyx_22051110_Clint(w: Int) extends Module with HasClintConst{
     val io = IO(new Bundle{
         val in         = Flipped(new ClintIOBundle(w))
         val has_intr_t = Output(Bool())

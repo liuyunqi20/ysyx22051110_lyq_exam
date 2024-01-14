@@ -2,7 +2,7 @@ package mycpu
 import chisel3._
 import chisel3.util._
 
-class CacheDataRamV extends BlackBox{
+class ysyx_22051110_CacheDataRamV extends BlackBox{
     val io = IO(new Bundle{
         val clock = Input(Clock())
         val reset = Input(Bool())
@@ -15,7 +15,7 @@ class CacheDataRamV extends BlackBox{
     })
 }
 
-class CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
+class ysyx_22051110_CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
     val io = IO(new Bundle{
         val flush = Input(Bool())
         val en    = Input(Bool())
@@ -25,7 +25,7 @@ class CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
         val out   = Output(Vec(nr_ways, new CacheMetaBundle(tag_width)))
         val in    = Input(new CacheMetaBundle(tag_width))
     })
-    val cache_meta = Seq.fill(nr_ways) { Module(new CacheMetaRamV(tag_width)).io }
+    val cache_meta = Seq.fill(nr_ways) { Module(new ysyx_22051110_CacheMetaRamV(tag_width)).io }
     val hit_array  = Wire(Vec(nr_ways, Bool()))
     for( i <- 0 until nr_ways) {
         hit_array(i)         := io.way === i.U || io.wr === 0.U
@@ -44,7 +44,7 @@ class CacheMetaRam(nr_ways: Int, nr_lines: Int, tag_width: Int) extends Module{
     }
 }
 
-class CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
+class ysyx_22051110_CacheMetaRamV(tag_width: Int) extends BlackBox with HasBlackBoxInline{
     val io = IO(new Bundle{
         val clock  = Input(Clock())
         val reset  = Input(Bool())

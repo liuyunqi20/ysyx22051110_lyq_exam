@@ -22,7 +22,7 @@ trait HasCoreTopConst{
 
     The memory access bus in CPU core is SimpleBus(See CPUMemBundle in Interface.scala).
 */
-class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
+class ysyx_22051110_MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val io = IO(new Bundle{
         val core_debug = new DebugBundle(w)
         val ar = Decoupled(new AXI4LiteAR(w))
@@ -31,21 +31,21 @@ class MycpuCoreTop(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
         val wt = Decoupled(new AXI4LiteWR(w))
         val b  = Flipped(Decoupled(new AXI4LiteWB(w)))
     });
-    val my_if          = Module(new If_stage(w, w))
-    val my_id          = Module(new Id_stage(w))
-    val my_ex          = Module(new Ex_stage(w))
-    val my_mem         = Module(new Mem_stage(w))
-    val my_wb          = Module(new Wb_stage(w))
-    val my_csr         = Module(new Csr(w))
-    val my_axi_bridges = Seq.fill(nr_mport) { Module(new AXIBridge(w, ICache_block_size * 8 / w)).io }
-    val my_mmc         = Module(new MemoryController(w, DCache_block_size * 8 / w))
+    val my_if          = Module(new ysyx_22051110_If_stage(w, w))
+    val my_id          = Module(new ysyx_22051110_Id_stage(w))
+    val my_ex          = Module(new ysyx_22051110_Ex_stage(w))
+    val my_mem         = Module(new ysyx_22051110_Mem_stage(w))
+    val my_wb          = Module(new ysyx_22051110_Wb_stage(w))
+    val my_csr         = Module(new ysyx_22051110_Csr(w))
+    val my_axi_bridges = Seq.fill(nr_mport) { Module(new ysyx_22051110_AXIBridge(w, ICache_block_size * 8 / w)).io }
+    val my_mmc         = Module(new ysyx_22051110_MemoryController(w, DCache_block_size * 8 / w))
     //ICache:
-    val my_icache      = Module(new CacheTop(w, Cache_tag_width, ICache_nr_lines,
+    val my_icache      = Module(new ysyx_22051110_CacheTop(w, Cache_tag_width, ICache_nr_lines,
                                             ICache_nr_ways, ICache_block_size, true))
-    val my_dcache      = Module(new CacheTop(w, Cache_tag_width, DCache_nr_lines,
+    val my_dcache      = Module(new ysyx_22051110_CacheTop(w, Cache_tag_width, DCache_nr_lines,
                                             DCache_nr_ways, DCache_block_size, false))
-    val my_clint       = Module(new Clint(w))
-    val my_arbiter    = Module(new AXIArbiter(w, nr_mport))
+    val my_clint       = Module(new ysyx_22051110_Clint(w))
+    val my_arbiter    = Module(new ysyx_22051110_AXIArbiter(w, nr_mport))
 
     //IF stage
     my_if.io.branch        <> my_mem.io.branch

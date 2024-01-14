@@ -40,14 +40,14 @@ trait HasCacheFenceiConst{
 
 class CacheConfig(val w: Int, val tag_width: Int, val nr_lines: Int,
                   val nr_ways: Int, val block_size: Int, val isICache: Boolean){
-    val block_word_n: Int = CacheTop.getBlockWordsNum(w, block_size)
-    val index_width:  Int = CacheTop.getIndexWidth(nr_lines)
-    val offset_width: Int = CacheTop.getOffsetWidth(block_size)
-    val ways_width:   Int = CacheTop.getWaysWidth(nr_ways)
+    val block_word_n: Int = ysyx_22051110_CacheTop.getBlockWordsNum(w, block_size)
+    val index_width:  Int = ysyx_22051110_CacheTop.getIndexWidth(nr_lines)
+    val offset_width: Int = ysyx_22051110_CacheTop.getOffsetWidth(block_size)
+    val ways_width:   Int = ysyx_22051110_CacheTop.getWaysWidth(nr_ways)
     val cache_addr_w: Int = tag_width + index_width + offset_width
 }
 
-class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int, isICache: Boolean) extends Module with HasCacheConst{
+class ysyx_22051110_CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int, isICache: Boolean) extends Module with HasCacheConst{
     val io = IO(new Bundle{
         val in  = Flipped(new CPUMemBundle(w, w))
         val out = new CPUMemBundle(w, block_size * 8)
@@ -55,12 +55,12 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int,
     })
 
     val config = new CacheConfig(w, tag_w, nr_lines, nr_ways, block_size, isICache)
-    val stage1 = Module(new CacheStage1(config))
-    val stage2 = Module(new CacheStage2(config))
-    val stage3 = Module(new CacheStage3(config))
+    val stage1 = Module(new ysyx_22051110_CacheStage1(config))
+    val stage2 = Module(new ysyx_22051110_CacheStage2(config))
+    val stage3 = Module(new ysyx_22051110_CacheStage3(config))
     val cache_data_addr_w = 6 //log2Ceil(data_ram_word_depth)
     val meta_rd    = Wire(Vec(nr_ways, new CacheMetaBundle(config.tag_width) ))
-    val cache_data = Seq.fill(nr_ways){ Module(new CacheDataRamV()).io }
+    val cache_data = Seq.fill(nr_ways){ Module(new ysyx_22051110_CacheDataRamV()).io }
     /* reserved for meta ram in scala */
         // val cache_meta = Seq.fill(nr_ways) {
         //     RegInit(VecInit(Seq.fill(nr_lines){ 0.U.asTypeOf(new CacheMetaBundle(config.tag_width)) } ))
@@ -79,7 +79,7 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int,
     val cache_rd_addr = Cat(0.U((cache_data_addr_w - config.index_width).W), stage1.io.rd.index)
     val cache_addr    = Mux(stage3.io.rd.en, stage3.io.rd.index, Mux(stage3.io.wt.en, cache_wt_addr, cache_rd_addr))
     // ------------------------------------------- Meta RAM -------------------------------------------
-    val cache_meta = Module(new CacheMetaRam(nr_ways, nr_lines, config.tag_width))
+    val cache_meta = Module(new ysyx_22051110_CacheMetaRam(nr_ways, nr_lines, config.tag_width))
     val cache_meta_flush = if(isICache) io.flush else stage3.io.meta_flush
     if(!isICache) io.flush := stage3.io.meta_flush
     cache_meta.io.flush := cache_meta_flush
@@ -128,10 +128,10 @@ class CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, block_size: Int,
     io.out <> stage3.io.mem_out
 }
 
-object CacheTop{
+object ysyx_22051110_CacheTop{
     //default size is 2KB
-    def apply(w: Int, tag_w: Int = 23, nr_lines: Int = 32, nr_ways: Int = 4, block_size: Int = 16, isICache: Boolean = false): CacheTop =
-        new CacheTop(w, tag_w, nr_lines, nr_ways, block_size, false)
+    def apply(w: Int, tag_w: Int = 23, nr_lines: Int = 32, nr_ways: Int = 4, block_size: Int = 16, isICache: Boolean = false): ysyx_22051110_CacheTop =
+        new ysyx_22051110_CacheTop(w, tag_w, nr_lines, nr_ways, block_size, false)
     def getTagWidth(w: Int, nr_lines: Int, block_size: Int): Int =
         w - log2Ceil(nr_lines) - log2Ceil(block_size)
     def getBlockWordsNum = (w: Int, block_size: Int) => ((block_size * 8) / w)

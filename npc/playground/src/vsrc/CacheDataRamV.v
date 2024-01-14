@@ -1,8 +1,8 @@
-module CacheDataRamV(
+module ysyx_22051110_CacheDataRamV(
     input clock       , input reset          ,
     input WEN         , input CEN            ,
     input  [5 : 0] A  , input  [127 : 0] BWEN,
-    input  [127 : 0] D, output [127 : 0] Q    
+    input  [127 : 0] D, output [127 : 0] Q
 );
     wire cen = ~CEN;
     wire wen = ~WEN;

@@ -14,7 +14,7 @@ trait HasMEMSconst{
 CPU request will be send at this stage and wait until return valid. In Pipeline CPU, request is
 sent at EX stage module and CPU will wait return signals at this stage module.
 */
-class Mem_stage(w: Int) extends Module with HasMEMSconst{
+class ysyx_22051110_Mem_stage(w: Int) extends Module with HasMEMSconst{
     val io = IO(new Bundle{
         val ex2mem       = Flipped(Decoupled(new ExtoMemBundle(w)))
         val mem2wb       = Decoupled(new MemtoWbBundle(w))
@@ -88,7 +88,7 @@ class Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.data_mem.req.bits.wstrb    := wmask
     io.data_mem.req.bits.fencei   := es_ms_r.is_fencei
     //use memory mapping unit to decide mtype
-    val mm                         = Module(new MemoryMappingUnit(w))
+    val mm                         = Module(new ysyx_22051110_MemoryMappingUnit(w))
     mm.io.addr_in                 := io.data_mem.req.bits.addr
     io.data_mem.req.bits.mthrough := mm.io.mthrough
     //io.data_mem.req.bits.mthrough := 1.B

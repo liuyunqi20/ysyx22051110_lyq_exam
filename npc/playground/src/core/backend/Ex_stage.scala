@@ -9,7 +9,7 @@ inst and target address of branch and jal inst.
 but Ex module only provides one ALU unit, thus Ex module calculates branch target address
 using an extra adder(See io.branch.br_target).
 */
-class Ex_stage(w: Int) extends Module{
+class ysyx_22051110_Ex_stage(w: Int) extends Module{
     val io = IO(new Bundle{
         val id2ex      = Flipped(Decoupled(new IdtoExBundle(w)))
         val ex2mem     = Decoupled(new ExtoMemBundle(w))
@@ -19,7 +19,7 @@ class Ex_stage(w: Int) extends Module{
     })
     val es_valid   = RegInit(0.B)
     val ex_flush   = io.exc_flush || io.br_flush
-    val my_alu     = Module(new Alu(w))
+    val my_alu     = Module(new ysyx_22051110_Alu(w))
     val alu_wait   = RegInit(0.B)
     val alu_buf_en = RegInit(0.B)
     val alu_buf    = RegInit(0.U(w.W))

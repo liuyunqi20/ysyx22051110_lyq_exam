@@ -8,7 +8,7 @@ of integer sources. All operation is binary, thus src1 and src2 are the sources.
 indicates type of operation using one hot code, the mapping table of alu_op is shown below.
 cout and overflow is only used for add and sub operations.
 */
-class Alu(w: Int) extends Module{
+class ysyx_22051110_Alu(w: Int) extends Module{
     val ALUOP_LEN = 23
     /*
     add sub and or xor sll srl sra srlw sraw mul mulh mulhu mulhsu
@@ -52,7 +52,7 @@ class Alu(w: Int) extends Module{
     val sraw        = ((io.in.bits.src1(31, 0)).asSInt) >> shift_len_w
     //io
     io.out.bits.cout     := add_res(w)
-    io.out.bits.overflow := Mux(io.in.bits.alu_op(0) === 1.U, 
+    io.out.bits.overflow := Mux(io.in.bits.alu_op(0) === 1.U,
         ( ~(io.in.bits.src1(w-1) ^ io.in.bits.src2(w-1)) & (io.in.bits.src1(w-1) ^ add_res(w-1)) ),
         (  (io.in.bits.src1(w-1) ^ io.in.bits.src2(w-1)) & (io.in.bits.src1(w-1) ^ add_res(w-1)) )
     )
@@ -62,11 +62,11 @@ class Alu(w: Int) extends Module{
     val mul_res_u_t  = Cat(0.U(1.W)   , io.in.bits.src1(w - 1, 0)).asUInt * Cat(0.U(1.W)    , io.in.bits.src2(w - 1, 0)).asUInt
     val mul_res_w_t  = io.in.bits.src1(31, 0) * io.in.bits.src2(31, 0)
 
-    val my_mul = Module(new MultUnit(w))
+    val my_mul = Module(new ysyx_22051110_MultUnit(w))
     my_mul.io.in.valid             := io.in.valid && is_mul
     my_mul.io.in.bits.flush        := io.in.bits.alu_flush
     my_mul.io.in.bits.mulw         := io.in.bits.alu_op(14)
-    my_mul.io.in.bits.mul_signed   := Mux(io.in.bits.alu_op(13) === 1.U, "b10".U, 
+    my_mul.io.in.bits.mul_signed   := Mux(io.in.bits.alu_op(13) === 1.U, "b10".U,
                                         Mux(io.in.bits.alu_op(12) === 1.U, "b00".U, "b11".U))
     my_mul.io.in.bits.multiplicand := io.in.bits.src1
     my_mul.io.in.bits.multiplier   := io.in.bits.src2
@@ -80,12 +80,12 @@ class Alu(w: Int) extends Module{
     // val divu_res  = io.in.bits.src1 / io.in.bits.src2
     // val divw_res  = io.in.bits.src1(31, 0).asSInt / io.in.bits.src2(31, 0).asSInt
     // val divuw_res = io.in.bits.src1(31, 0) / io.in.bits.src2(31, 0)
-    // //rem 
+    // //rem
     // val rem_res   = io.in.bits.src1.asSInt % io.in.bits.src2.asSInt
     // val remu_res  = io.in.bits.src1 % io.in.bits.src2
     // val remw_res  = io.in.bits.src1(31, 0).asSInt % io.in.bits.src2(31, 0).asSInt
     // val remuw_res = io.in.bits.src1(31, 0) % io.in.bits.src2(31, 0)
-    val my_div = Module(new DivUnit(w))
+    val my_div = Module(new ysyx_22051110_DivUnit(w))
     my_div.io.in.valid           := io.in.valid && is_div
     my_div.io.in.bits.flush      := io.in.bits.alu_flush
     my_div.io.in.bits.divw       := io.in.bits.alu_op(17) | io.in.bits.alu_op(18) |
