@@ -24,6 +24,7 @@ trait HasCoreTopConst{
 */
 class ysyx_22051110(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     val io = IO(new Bundle{
+        val interrupt = Input(Bool())
         val master = new AXI4LiteSocBundle(w)
         val slave  = Flipped(new AXI4LiteSocBundle(w))
         val sram0  = new SramSocBundle(w)
@@ -75,7 +76,8 @@ class ysyx_22051110(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_csr.io.op           <> my_wb.io.csr_op
     my_csr.io.exc          <> my_wb.io.csr_exc
     my_csr.io.out          <> my_wb.io.csr_out
-    my_csr.io.clint_intr_t := my_clint.io.has_intr_t
+    my_csr.io.clint_intr   := my_clint.io.has_intr_t
+    my_csr.io.external_intr := io.interrupt
     //Memory Access
     //icache current ignored
     my_if.io.inst_mem      <> my_icache.io.in

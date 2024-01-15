@@ -15,7 +15,8 @@ trait HasCsrConst{
     val Mstatus_MPP_init = 0x3
     val Mip_MTIP         = "h0000_0000_0000_0080"
     val Mie_MTIE         = "h0000_0000_0000_0080"
-    val Mcause_INT_T     = "h8000_0000_0000_0007"
+    val Mcause_TINT      = "h8000_0000_0000_0007"
+    val Mcause_EINT      = "h8000_0000_0000_000b"
 }
 
 class CsrOpBundle(w: Int) extends Bundle{
@@ -48,7 +49,7 @@ module.
 exception type. exc.epc will send current pc value to EPC reg in Csr module.
     When executing mret instrution exc.mret will indicates this operation from pipline
 and exc.mret_addr will be sent to pipeline from EPC reg in Csr module.
-    When interrput occurs exc.intr_t will be sent to pipeline to indicates interrupt
+    When interrupt occurs exc.intr_t will be sent to pipeline to indicates interrupt
 from Csr module/
 */
 class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
@@ -56,7 +57,8 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
         val op    = new CsrOpBundle(w)
         val out   = new CsrOutBundle(w)
         val exc   = new CsrExcBundle(w)
-        val clint_intr_t = Input(Bool())
+        val clint_intr    = Input(Bool())
+        val external_intr = Input(Bool())
     })
     val mstatus_sxl  = RegInit(Mstatus_SXL_init.U(2.W))
     val mstatus_uxl  = RegInit(Mstatus_UXL_init.U(2.W))
@@ -73,7 +75,9 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
     val mtvec_rval   = Cat(mtvec(w-1, 2), 0.U(2.W))
     val mepc_rval    = Cat(mepc(w-1, 2), 0.U(2.W))
     val mcause_rval  = mcause
-    val has_intr_t   = io.clint_intr_t && (mstatus_mie === 1.U) && (mie(7) === 1.U)
+    val has_t_intr   = io.clint_intr && (mstatus_mie === 1.U) && (mie(7) === 1.U)
+    val has_e_intr   = io.external_intr && (mstatus_mie === 1.U) && (mie(7) === 1.U)
+    val has_intr     = has_t_intr || has_e_intr
     // ------------------- CSR inst -------------------
         val csr_1H  = MuxLookup(io.op.csr_num, 0.U(w.W), Seq(
             /* mstatus */ (Mstatus.U) -> ("h01".U),
@@ -102,7 +106,7 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
     // ------------------- CSR regs -------------------
         // ----- mstatus -----
 
-        when(io.exc.ecall || has_intr_t){
+        when(io.exc.ecall || has_intr){
             mstatus_mie  := 0.U(1.W)
             mstatus_mpie := mstatus_mie
             mstatus_mpp  := 3.U(2.W)
@@ -121,7 +125,7 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
             mtvec   := csr_res
         }
         // ----- mepc -----
-        when(io.exc.ecall || has_intr_t){
+        when(io.exc.ecall || has_intr){
             mepc    := io.exc.epc
         } .elsewhen(csr_en && csr_1H(2)){
             mepc    := csr_res
@@ -129,8 +133,10 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
         // ----- mcause -----
         when(io.exc.ecall){
             mcause  := io.exc.exc_code
-        } .elsewhen(has_intr_t){
-            mcause  := Mcause_INT_T.U(w.W)
+        } .elsewhen(has_t_intr){
+            mcause  := Mcause_TINT.U(w.W)
+        } .elsewhen(has_e_intr){
+            mcause  := Mcause_EINT.U(w.W)
         } .elsewhen(csr_en && csr_1H(3)){
             mcause  := csr_res
         }
@@ -139,7 +145,7 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
             mie     := csr_res
         }
         // ----- mip -----
-        when(has_intr_t){
+        when(has_intr){
             mip     := Mip_MTIP.U(w.W)
         }.elsewhen(csr_en && csr_1H(5)){
             mip     := csr_res
@@ -148,7 +154,7 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
     io.op.csr_old    := csr_src
     io.out.mepc      := mepc_rval
     io.out.mtvec     := mtvec_rval
-    io.exc.intr_t    := has_intr_t
+    io.exc.intr_t    := has_intr
         //when intr return to epc, else return to epc + 4
     io.exc.mret_addr := Mux(mcause(w-1) === 1.U, mepc_rval, mepc_rval + 4.U(w.W))
 }
