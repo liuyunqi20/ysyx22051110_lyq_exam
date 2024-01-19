@@ -30,7 +30,8 @@ class ysyx_22051110_Mem_stage(w: Int) extends Module with HasMEMSconst{
     }
 
     val has_trap     = io.exc_flush
-    val maddr        = Cat(es_ms_r.result(w-1, 3), 0.U(3.W))
+    // val maddr        = Cat(es_ms_r.result(w-1, 3), 0.U(3.W))
+    val maddr        = es_ms_r.result
     val offset       = es_ms_r.result(2, 0)
     // -------------- write mask --------------
     val wmask_b = MuxLookup(offset, 0.U(8.W), Seq(
@@ -87,6 +88,15 @@ class ysyx_22051110_Mem_stage(w: Int) extends Module with HasMEMSconst{
     io.data_mem.req.bits.wdata    := wdata
     io.data_mem.req.bits.wstrb    := wmask
     io.data_mem.req.bits.fencei   := es_ms_r.is_fencei
+    io.data_mem.req.bits.size     := Mux1H(Seq(
+        es_ms_r.mem_type(0) -> 0.U, // b
+        es_ms_r.mem_type(1) -> 1.U, // h
+        es_ms_r.mem_type(2) -> 2.U, // w
+        es_ms_r.mem_type(3) -> 0.U, // bu
+        es_ms_r.mem_type(4) -> 1.U, // hu
+        es_ms_r.mem_type(5) -> 2.U, // wu
+        es_ms_r.mem_type(6) -> 3.U, // d
+    ))
     //use memory mapping unit to decide mtype
     val mm                         = Module(new ysyx_22051110_MemoryMappingUnit(w))
     mm.io.addr_in                 := io.data_mem.req.bits.addr

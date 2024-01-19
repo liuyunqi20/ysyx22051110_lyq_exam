@@ -24,7 +24,7 @@ class ysyx_22051110_If_stage(w: Int, if_id_w: Int) extends Module with HasIFSCon
         val if2id        = Decoupled(new IftoIdBundle(w))
         val exc_br       = Flipped(new ExcBranchBundle(w))
     })
-    val pc        = RegInit("h7fff_fffc".U(w.W))
+    val pc        = RegInit("h2fff_fffc".U(w.W))
     val nextpc    = Mux(io.exc_br.exc_br, io.exc_br.exc_target,
                             Mux(io.branch.br_en, io.branch.br_target, pc + 4.U(32.W)))
     val fs_wait_r =  RegInit(0.B)
@@ -47,6 +47,7 @@ class ysyx_22051110_If_stage(w: Int, if_id_w: Int) extends Module with HasIFSCon
     io.inst_mem.req.valid         := (fs_state(1) && ~fs_wait_r && ~io.exc_br.exc_br) || fs_state(4)
     io.inst_mem.req.bits.wr       := 0.B
     io.inst_mem.req.bits.addr     := Mux(fs_state(4) === 1.U, nextpc_r, nextpc)
+    io.inst_mem.req.bits.size     := 2.U
     io.inst_mem.req.bits.wdata    := 0.U
     io.inst_mem.req.bits.wstrb    := 0.U
     io.inst_mem.req.bits.fencei   := 0.B

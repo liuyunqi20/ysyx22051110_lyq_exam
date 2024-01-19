@@ -79,7 +79,7 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
     val has_e_intr   = io.external_intr && (mstatus_mie === 1.U) && (mie(7) === 1.U)
     val has_intr     = has_t_intr || has_e_intr
     // ------------------- CSR inst -------------------
-        val csr_1H  = MuxLookup(io.op.csr_num, 0.U(w.W), Seq(
+        val csr_1H  = MuxLookup(io.op.csr_num, 0.U(6.W), Seq(
             /* mstatus */ (Mstatus.U) -> ("h01".U),
             /* mtvec   */ (Mtvec.U)   -> ("h02".U),
             /* mepc    */ (Mepc.U)    -> ("h04".U),

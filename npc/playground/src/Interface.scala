@@ -7,6 +7,7 @@ import chisel3.util._
     class CPUMemReqBundle(w: Int, wdata_w: Int) extends Bundle{
         val wr        = Bits(1.W)
         val addr      = Bits(w.W)
+        val size      = Bits(2.W)
         val wdata     = Bits(wdata_w.W)
         val wstrb     = Bits((w/8).W)
         val mthrough  = Bits(1.W)
@@ -236,6 +237,7 @@ import chisel3.util._
         val tag      = Bits(config.tag_width.W)
         val index    = Bits(config.index_width.W)
         val offset   = Bits(config.offset_width.W)
+        val size     = Bits(2.W)
         //fence.i
         val fencei   = Bits(1.W)
     }
@@ -250,6 +252,7 @@ import chisel3.util._
         val tag          = Bits(config.tag_width.W)
         val index        = Bits(config.index_width.W)
         val offset       = Bits(config.offset_width.W)
+        val size         = Bits(2.W)
         //hit check / replace choose
         val hit          = Bits(1.W)
         val target_way   = Bits(config.ways_width.W)
@@ -301,7 +304,7 @@ import chisel3.util._
         val awready = Input(Bool())
         val awvalid = Output(Bool())
         val awid    = Output(UInt(4.W))
-        val awaddr  = Output(UInt(w.W))
+        val awaddr  = Output(UInt(32.W))
         val awlen   = Output(UInt(8.W))
         val awsize  = Output(UInt(3.W))
         val awburst = Output(UInt(2.W))
@@ -320,7 +323,7 @@ import chisel3.util._
         val arready = Input(Bool())
         val arvalid = Output(Bool())
         val arid    = Output(UInt(4.W))
-        val araddr  = Output(UInt(w.W))
+        val araddr  = Output(UInt(32.W))
         val arlen   = Output(UInt(8.W))
         val arsize  = Output(UInt(3.W))
         val arburst = Output(UInt(2.W))

@@ -26,6 +26,7 @@ class ysyx_22051110_CacheStage1(config: CacheConfig) extends Module{
     io.s1_to_s2.bits.wstrb    := io.cpu.bits.wstrb
     io.s1_to_s2.bits.mthrough := io.cpu.bits.mthrough
     io.s1_to_s2.bits.fencei   := io.cpu.bits.fencei
+    io.s1_to_s2.bits.size     := io.cpu.bits.size
     io.s1_to_s2.bits.tag      := tag
     io.s1_to_s2.bits.index    := index
     io.s1_to_s2.bits.offset   := offset
@@ -84,6 +85,7 @@ class ysyx_22051110_CacheStage2(config: CacheConfig) extends Module{
     io.s2_to_s3.bits.index        := buf.index
     io.s2_to_s3.bits.tag          := buf.tag
     io.s2_to_s3.bits.offset       := buf.offset
+    io.s2_to_s3.bits.size         := buf.size
     io.s2_to_s3.bits.hit          := hit
     io.s2_to_s3.bits.target_way   := OHToUInt(target_way1H)
     io.s2_to_s3.bits.target_line  := Mux1H( for( i <- 0 until config.nr_ways) yield (target_way1H(i) -> io.rd_lines(i)) )
@@ -180,7 +182,10 @@ class ysyx_22051110_CacheStage3(config: CacheConfig) extends Module with HasCach
     // -------------------------------- Write Back --------------------------------
 
     val wb_en       = buf.target_line.valid & buf.target_line.dirty & !hit & state(0) & s3_valid & ~buf.mthrough // need write back
-    val wb_addr     = Cat(0.U((config.w - config.cache_addr_w).W), buf.target_line.tag, buf.index, buf.offset)
+    // val wb_addr     = Cat(0.U((config.w - config.cache_addr_w).W), buf.target_line.tag, buf.index, buf.offset)
+    val wb_addr     = Cat(0.U((config.w - config.cache_addr_w).W), buf.target_line.tag, buf.index,
+                            buf.offset(log2Ceil(config.block_size) - 1, log2Ceil(config.w/8)),
+                            0.U(log2Ceil(config.w/8).W))
     val burst_last  = io.mem_out.ret.valid && (state(1) === 1.U || io.mem_out.rlast)
     // -------------------------------- Refill --------------------------------
 
@@ -206,11 +211,12 @@ class ysyx_22051110_CacheStage3(config: CacheConfig) extends Module with HasCach
     }
     // -------------------------------- memory read/write --------------------------------
 
-    val stage3_mem_req       = Wire(new CPUMemReqBundle(config.w, config.w))
+    val stage3_mem_req       = Wire(new CPUMemReqBundle(config.w, config.block_size * 8))
     val stage3_mem_req_valid = Wire(Bool())
     stage3_mem_req_valid    := s3_valid & ((state(0) & ~hit & ~buf.fencei) | state(2)) //miss or after wb
     stage3_mem_req.wr       := wb_en | (buf.mthrough & buf.wr) //wb or mmio write
     stage3_mem_req.addr     := Mux(wb_en === 1.U, wb_addr, cpu_req_addr)
+    stage3_mem_req.size     := Mux(buf.mthrough === 1.U, buf.size, 3.U)
     stage3_mem_req.wdata    := Mux(buf.mthrough === 1.U, mmio_wblock.reverse.reduce((a, b) => Cat(a, b)),
                                                               buf.target_line.data.reverse.reduce((a, b) => Cat(a, b)) )
     stage3_mem_req.wstrb    := Mux(buf.mthrough === 1.U, buf.wstrb, Fill(((config.w) / 8), 1.U(1.W)))
@@ -221,6 +227,7 @@ class ysyx_22051110_CacheStage3(config: CacheConfig) extends Module with HasCach
     // io.mem_out.req.bits  := Mux(state(6), fenceiModule.io.mem_out.req.bits, stage3_mem_req)
     io.mem_out.req.bits.wr       := Mux(state(6), fenceiModule.io.mem_out.req.bits.wr, stage3_mem_req.wr)
     io.mem_out.req.bits.addr     := Mux(state(6), fenceiModule.io.mem_out.req.bits.addr, stage3_mem_req.addr)
+    io.mem_out.req.bits.size     := Mux(state(6), fenceiModule.io.mem_out.req.bits.size, stage3_mem_req.size)
     io.mem_out.req.bits.wdata    := Mux(state(6), fenceiModule.io.mem_out.req.bits.wdata, stage3_mem_req.wdata)
     io.mem_out.req.bits.wstrb    := Mux(state(6), fenceiModule.io.mem_out.req.bits.wstrb, stage3_mem_req.wstrb)
     io.mem_out.req.bits.mthrough := Mux(state(6), fenceiModule.io.mem_out.req.bits.mthrough, stage3_mem_req.mthrough)
@@ -362,6 +369,7 @@ class ysyx_22051110_CacheFencei(config: CacheConfig) extends Module with HasCach
     io.mem_out.req.bits.wstrb    := Fill(((config.w) / 8), 1.U(1.W))
     io.mem_out.req.bits.mthrough := 0.B
     io.mem_out.req.bits.fencei   := 1.B
+    io.mem_out.req.bits.size     := 3.U
 
     wb_req_done := state(3) && Mux(io.mem_out.req.valid, io.mem_out.req.fire, 1.B)
     when(wb_req_done) {

@@ -3,8 +3,8 @@ import chisel3._
 import chisel3.util._
 
 trait HasClintConst{
-    val MTIME_ADDR    = 0xBFF8
-    val MTIMECMP_ADDR = 0x4000
+    val MTIME_ADDR    = 0x200_BFF8
+    val MTIMECMP_ADDR = 0x200_4000
 }
 
 /*

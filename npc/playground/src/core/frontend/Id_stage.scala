@@ -3,7 +3,7 @@ import chisel3._
 import chisel3.util._
 
 trait HasDecodeConst{
-    val INSTT_LEN  = 7
+    val INSTT_LEN  = 6
     val ALUOP_LEN  = 23
     val BRTYPE_LEN = 9
     val MT_LEN     = 7

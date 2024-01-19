@@ -109,7 +109,7 @@ class ysyx_22051110(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_arbiter.io.out.aw.ready := io.master.awready
     io.master.awvalid := my_arbiter.io.out.aw.valid
     io.master.awid    := 0.U
-    io.master.awaddr  := my_arbiter.io.out.aw.bits.awaddr
+    io.master.awaddr  := my_arbiter.io.out.aw.bits.awaddr(31, 0)
     io.master.awlen   := my_arbiter.io.out.aw.bits.awlen
     io.master.awsize  := my_arbiter.io.out.aw.bits.awsize
     io.master.awburst := my_arbiter.io.out.aw.bits.awburst
@@ -128,7 +128,7 @@ class ysyx_22051110(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_arbiter.io.out.ar.ready := io.master.arready
     io.master.arvalid := my_arbiter.io.out.ar.valid
     io.master.arid    := 0.U
-    io.master.araddr  := my_arbiter.io.out.ar.bits.araddr
+    io.master.araddr  := my_arbiter.io.out.ar.bits.araddr(31, 0)
     io.master.arlen   := my_arbiter.io.out.ar.bits.arlen
     io.master.arsize  := my_arbiter.io.out.ar.bits.arsize
     io.master.arburst := my_arbiter.io.out.ar.bits.arburst
