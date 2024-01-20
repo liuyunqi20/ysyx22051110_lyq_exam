@@ -291,7 +291,7 @@ class ysyx_22051110_CacheStage3(config: CacheConfig) extends Module with HasCach
     io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx),
                         Mux(state(4), io.mem_out.ret.rdata, write_line.data(cpu_word_idx)) )
     io.cpu.valid   := s3_valid && Mux(buf.fencei.asBool(), (state(6) && fenceiModule.io.ret.fire),
-                                        Mux(hit, 1.B, Mux(state(4), io.mem_out.ret.valid, refill_whit & refill_come) )
+                                        Mux(hit, 1.B, Mux(state(4), io.mem_out.ret.valid, state(3) && burst_last) )
                                     )
 }
 
@@ -304,6 +304,7 @@ Stage-fence.i: Write back dirty blocks in DCache & Invalidate blocks in ICache
     s_idle:       wait fence.i request from cache stage3
     s_clear_v:    clear all valid bits in I$
     s_rd_meta:    send read request to D$ meta data
+    s_sv_data:    save read data to registers
     s_wb_ret:     writeback request
     s_wb_ret:     wait for writeback request
 */
@@ -333,13 +334,14 @@ class ysyx_22051110_CacheFencei(config: CacheConfig) extends Module with HasCach
     val wb_req_done  = Wire(Bool())
     val wb_ret_done  = Wire(Bool())
     val wb_flag      = RegInit(0.B)
+    val buf_rd_lines = RegInit(0.U.asTypeOf( Vec(config.nr_ways,new CacheLineBundle(config.w, config.tag_width, config.block_word_n)) ))
 
     io.req.ready := state(0)
     io.ret.valid := state(1)
 
     // D$ write back
     wb_done       := state(2) && (wb_index === config.nr_lines.U) // scanned all cache lines
-    wb_index_done := state(4) && (wb_way === config.nr_ways.U)    // scanned all current line set
+    wb_index_done := state(5) && (wb_way === config.nr_ways.U)    // scanned all current line set
     wb_index_sel  := wb_index(config.index_width - 1, 0)          // current index of line set
     wb_way_sel    := wb_way(config.ways_width - 1, 0)             // current way of line set
 
@@ -355,27 +357,33 @@ class ysyx_22051110_CacheFencei(config: CacheConfig) extends Module with HasCach
         wb_way := wb_way + 1.U
     }
 
+    when(state(3))
+    {
+        for(i <- 0 until config.nr_ways)
+            buf_rd_lines(i) := io.rd_lines(i)
+    }
+
     io.rd.en := state(2) && !wb_done
     io.rd.index := wb_index_sel
 
-    io.mem_out.req.valid         := state(3) & io.rd_lines(wb_way_sel).dirty
+    io.mem_out.req.valid         := state(4) & buf_rd_lines(wb_way_sel).dirty
     io.mem_out.req.bits.wr       := 1.B
     io.mem_out.req.bits.addr     := Cat(0.U((config.w - config.cache_addr_w).W),
-                                        io.rd_lines(wb_way_sel).tag,
+                                        buf_rd_lines(wb_way_sel).tag,
                                         wb_index_sel,
                                         0.U(config.offset_width.W))
-    io.mem_out.req.bits.wdata    := io.rd_lines(wb_way_sel).data.reverse.reduce((a, b) => Cat(a, b))
+    io.mem_out.req.bits.wdata    := buf_rd_lines(wb_way_sel).data.reverse.reduce((a, b) => Cat(a, b))
 
     io.mem_out.req.bits.wstrb    := Fill(((config.w) / 8), 1.U(1.W))
     io.mem_out.req.bits.mthrough := 0.B
     io.mem_out.req.bits.fencei   := 1.B
     io.mem_out.req.bits.size     := 3.U
 
-    wb_req_done := state(3) && Mux(io.mem_out.req.valid, io.mem_out.req.fire, 1.B)
+    wb_req_done := state(4) && Mux(io.mem_out.req.valid, io.mem_out.req.fire, 1.B)
     when(wb_req_done) {
         wb_flag := io.mem_out.req.valid
     }
-    wb_ret_done := state(4) && Mux(wb_flag, io.mem_out.ret.valid, 1.B)
+    wb_ret_done := state(5) && Mux(wb_flag, io.mem_out.ret.valid, 1.B)
 
     // I$ clear valid
     io.meta_flush := state(1)
@@ -383,9 +391,10 @@ class ysyx_22051110_CacheFencei(config: CacheConfig) extends Module with HasCach
     state := Mux1H(Seq(
         /* IDLE    */ state(0) -> Mux(io.req.fire, s_rd_meta.U, s_idle.U),
         /* CLEAR_V */ state(1) -> s_idle.U,
-        /* RD_META */ state(2) -> Mux(wb_done, s_clear_v.U, s_wb_req.U),
-        /* WB_REQ  */ state(3) -> Mux(wb_req_done, s_wb_ret.U, s_wb_req.U),
-        /* WB_RET  */ state(4) -> Mux(wb_ret_done,
+        /* RD_META */ state(2) -> Mux(wb_done, s_clear_v.U, s_sv_data.U),
+        /* SV_DATA */ state(3) -> s_wb_req.U,
+        /* WB_REQ  */ state(4) -> Mux(wb_req_done, s_wb_ret.U, s_wb_req.U),
+        /* WB_RET  */ state(5) -> Mux(wb_ret_done,
                                     Mux(wb_index_done, s_rd_meta.U, s_wb_req.U),
                                     s_wb_ret.U),
     ))

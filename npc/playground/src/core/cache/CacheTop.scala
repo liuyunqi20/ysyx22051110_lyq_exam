@@ -29,12 +29,13 @@ trait HasCacheStage3Const{
 }
 
 trait HasCacheFenceiConst{
-    val nr_state  = 5
+    val nr_state  = 6
     val s_idle    = 0x01
     val s_clear_v = 0x02
     val s_rd_meta = 0x04
-    val s_wb_req  = 0x08
-    val s_wb_ret  = 0x10
+    val s_sv_data = 0x08
+    val s_wb_req  = 0x10
+    val s_wb_ret  = 0x20
 
 }
 
@@ -98,9 +99,9 @@ class ysyx_22051110_CacheTop(w: Int, tag_w: Int, nr_lines: Int, nr_ways: Int, bl
         data_way_sel(i)     := (stage1.io.rd.index === i.U) || (stage3.io.wt.index === i.U) || (stage3.io.rd.index === i.U)
         io.cache_data(i).cen   := ~(stage1.io.rd.en || stage3.io.rd.en || stage3.io.wt.en)
         io.cache_data(i).wen   := ~(stage3.io.wt.en && (stage3.io.wt.way === i.U))
-        io.cache_data(i).wmask  := Fill(128, 0.U)
-        io.cache_data(i).addr     := cache_addr
-        io.cache_data(i).wdata     := stage3.io.wt.line.data.reverse.reduce((a, b) => Cat(a, b))
+        io.cache_data(i).wmask := Fill(128, 0.U)
+        io.cache_data(i).addr  := cache_addr
+        io.cache_data(i).wdata := stage3.io.wt.line.data.reverse.reduce((a, b) => Cat(a, b))
     }
     val s2_rd_lines = Wire(Vec(nr_ways, new CacheLineBundle(w, config.tag_width, config.block_word_n)))
     val s3_rd_lines = Wire(Vec(nr_ways, new CacheLineBundle(w, config.tag_width, config.block_word_n)))

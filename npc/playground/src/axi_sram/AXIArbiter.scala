@@ -12,15 +12,21 @@ class ysyx_22051110_AXIArbiter(w: Int, nr_src: Int) extends Module{
     */
     val arbiter_rd = Module(new Arbiter(new AXI4LiteAR(w), nr_src))
     val rd_chosen  = RegInit(0.U(log2Ceil(nr_src).W))  //record which port for current issue
-    when(io.out.ar.fire){
+    val occupied   = RegInit(0.B)
+    when(io.out.ar.valid && ~occupied){
         rd_chosen := arbiter_rd.io.chosen
+    }
+    when(io.out.ar.valid){
+        occupied := 1.B
+    } .elsewhen(io.out.rd.fire && (io.out.rd.bits.rlast === 1.U)){
+        occupied := 0.B
     }
     // --------------------------- read arbiter in ---------------------------
     //arbiter for read request
     for( i <- 0 until nr_src){
-        arbiter_rd.io.in(i).valid := io.in(i).ar.valid
+        arbiter_rd.io.in(i).valid := io.in(i).ar.valid && (~occupied || (occupied && (rd_chosen === i.U)))
         arbiter_rd.io.in(i).bits  <> io.in(i).ar.bits
-        io.in(i).ar.ready         := arbiter_rd.io.in(i).ready
+        io.in(i).ar.ready         := arbiter_rd.io.in(i).ready && (~occupied || (occupied && (rd_chosen === i.U)))
     }
     // --------------------------- read arbiter out ---------------------------
     arbiter_rd.io.out.ready   := io.out.ar.ready
