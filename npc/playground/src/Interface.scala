@@ -269,6 +269,7 @@ import chisel3.util._
         val wdata      = Output(UInt(w.W))
         val clint_hit  = Input(Bool())
         val ret_valid  = Input(Bool())
+        val rdata      = Input(UInt(w.W))
     }
 
 // ----------------- Mult/Div Bundle -----------------

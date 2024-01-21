@@ -30,7 +30,7 @@ class ysyx_22051110_MemoryController(w: Int, block_word_n: Int) extends Module{
 
     io.in.req.ready      := Mux(io.clint_out.clint_hit, true.B, io.axi_out.req.ready)
     io.in.ret.valid      := Mux(io.clint_out.ret_valid, true.B, io.axi_out.ret.valid)
-    io.in.ret.rdata      := io.axi_out.ret.rdata
+    io.in.ret.rdata      := Mux(io.clint_out.ret_valid, io.clint_out.rdata, io.axi_out.ret.rdata)
     io.in.rlast          := Mux(io.clint_out.ret_valid, true.B, io.axi_out.rlast)
 }
 
