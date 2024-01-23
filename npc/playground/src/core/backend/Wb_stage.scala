@@ -17,7 +17,9 @@ class ysyx_22051110_Wb_stage(w: Int) extends Module{
     val has_trap     = (ms_ws_r.exc_type.orR === 1.U && ws_valid) || (io.csr_exc.intr_t)
     io.mem2wb.ready := 1.B
     ws_valid        := !has_trap && io.mem2wb.valid
-    when(io.mem2wb.fire){
+    when(has_trap){
+        ms_ws_r.pc := io.exc_br.exc_target
+    } .elsewhen(io.mem2wb.fire){
         ms_ws_r     := io.mem2wb.bits
     }
     // ------------------ intrrupt/exception ------------------
@@ -38,8 +40,8 @@ class ysyx_22051110_Wb_stage(w: Int) extends Module{
     io.csr_op.csr_num    := ms_ws_r.csr_num
     io.csr_op.csr_wdata  := ms_ws_r.rs1
     //csr exc
-    io.csr_exc.ecall     := ms_ws_r.exc_type(0) === 1.U
-    io.csr_exc.mret      := ms_ws_r.exc_type(1) === 1.U
+    io.csr_exc.ecall     := (ms_ws_r.exc_type(0) === 1.U) && ws_valid
+    io.csr_exc.mret      := (ms_ws_r.exc_type(1) === 1.U) && ws_valid
     io.csr_exc.epc       := ms_ws_r.pc
     io.csr_exc.exc_code  := exc_code
     // ------------------ RF write back ------------------

@@ -39,9 +39,12 @@ class ysyx_22051110_If_stage(w: Int, if_id_w: Int) extends Module with HasIFSCon
         /* s_resp */    fs_state(2) -> Mux(io.exc_br.exc_br || io.branch.br_en,
                                                              Mux(io.inst_mem.ret.valid, s_reg_req.U, s_clr.U),
                                                              Mux(io.inst_mem.ret.valid, s_req.U, s_resp.U)),
-        /* s_clr     */ fs_state(3) -> Mux(io.inst_mem.ret.valid, s_reg_req.U, s_clr.U),
-        /* s_reg_req */ fs_state(4) -> Mux(io.inst_mem.req.fire , s_reg_ret.U, s_reg_req.U),
-        /* s_reg_ret */ fs_state(5) -> Mux(io.inst_mem.ret.valid, s_req.U    , s_reg_ret.U),
+        /* s_clr     */ fs_state(3) -> Mux(io.exc_br.exc_br, Mux(io.inst_mem.ret.valid, s_reg_req.U, s_clr.U),
+                                                             Mux(io.inst_mem.ret.valid, s_reg_req.U, s_clr.U)),
+        /* s_reg_req */ fs_state(4) -> Mux(io.exc_br.exc_br, Mux(io.inst_mem.req.fire,  s_clr.U    , s_reg_req.U),
+                                                             Mux(io.inst_mem.req.fire , s_reg_ret.U, s_reg_req.U)),
+        /* s_reg_ret */ fs_state(5) -> Mux(io.exc_br.exc_br, Mux(io.inst_mem.ret.valid, s_reg_req.U, s_clr.U),
+                                                             Mux(io.inst_mem.ret.valid, s_req.U    , s_reg_ret.U)),
     ))
     // ---------------- read request ----------------
     io.inst_mem.req.valid         := (fs_state(1) && ~fs_wait_r && ~io.exc_br.exc_br) || fs_state(4)
@@ -58,7 +61,8 @@ class ysyx_22051110_If_stage(w: Int, if_id_w: Int) extends Module with HasIFSCon
     val rdata_buf         = RegInit(0.U(w.W))
     //IFU memory ok when exception inst fetch ok(fs_state(5)) or normal ret valid
     val fs_mem_ok         = io.inst_mem.ret.valid &&
-                                ( fs_state(5) || (~io.exc_br.exc_br && ~io.branch.br_en && fs_state(2)) )
+                                ( (~io.exc_br.exc_br && ~io.branch.br_en && fs_state(5)) ||
+                                  (~io.exc_br.exc_br && ~io.branch.br_en && fs_state(2)) )
     //choose inst code from buffer or port when IFU is prepared to enter next instrution
     val fs_inst_data      = Mux(fs_wait_r, rdata_buf, io.inst_mem.ret.rdata)
     //set inst and pc

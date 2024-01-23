@@ -76,8 +76,9 @@ class ysyx_22051110(w: Int, nr_mport: Int) extends Module with HasCoreTopConst{
     my_csr.io.op           <> my_wb.io.csr_op
     my_csr.io.exc          <> my_wb.io.csr_exc
     my_csr.io.out          <> my_wb.io.csr_out
-    my_csr.io.clint_intr   := my_clint.io.has_intr_t
-    my_csr.io.external_intr := io.interrupt
+    my_csr.io.timer_intr     := my_clint.io.has_intr_t
+    my_csr.io.external_intr  := io.interrupt
+    my_csr.io.timer_intr_clr := my_clint.io.clr_intr_t
     //Memory Access
     //icache current ignored
     my_if.io.inst_mem      <> my_icache.io.in

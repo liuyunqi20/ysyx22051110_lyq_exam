@@ -16,9 +16,10 @@ class ysyx_22051110_Clint(w: Int) extends Module with HasClintConst{
     val io = IO(new Bundle{
         val in         = Flipped(new ClintIOBundle(w))
         val has_intr_t = Output(Bool())
+        val clr_intr_t = Output(Bool())
     })
     val mtime         = RegInit(0.U(w.W))
-    val mtimecmp      = RegInit("hffffffffffffffff".U(w.W))
+    val mtimecmp      = RegInit(0.U(w.W))
     val hit_mtime     = io.in.addr === MTIME_ADDR.U(w.W)
     val hit_mtimecmp  = io.in.addr === MTIMECMP_ADDR.U(w.W)
     val wen           = io.in.en && io.in.wr
@@ -29,8 +30,6 @@ class ysyx_22051110_Clint(w: Int) extends Module with HasClintConst{
     }
     when(wen && hit_mtime){
         mtime    := io.in.wdata
-    } .elsewhen(wen && hit_mtimecmp){
-        mtime := 0.U
     } .otherwise {
         mtime    := mtime + 1.U
     }
@@ -53,4 +52,5 @@ class ysyx_22051110_Clint(w: Int) extends Module with HasClintConst{
     io.in.ret_valid := ret_valid
     //interrupt trigger
     io.has_intr_t := (mtime >= mtimecmp)
+    io.clr_intr_t := wen && hit_mtimecmp
 }
