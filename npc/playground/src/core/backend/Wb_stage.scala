@@ -33,6 +33,7 @@ class ysyx_22051110_Wb_stage(w: Int) extends Module{
     ))
     // ------------------ CSR ------------------
     //csr inst
+    io.csr_op.csr_en     := ws_valid
     io.csr_op.csr_op     := ms_ws_r.csr_op
     io.csr_op.csr_num    := ms_ws_r.csr_num
     io.csr_op.csr_wdata  := ms_ws_r.rs1

@@ -20,6 +20,7 @@ trait HasCsrConst{
 }
 
 class CsrOpBundle(w: Int) extends Bundle{
+    val csr_en     = Input(Bool())
     val csr_op     = Input(UInt(3.W))
     val csr_num    = Input(UInt(12.W))
     val csr_wdata  = Input(UInt(w.W))
@@ -87,7 +88,7 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
             /* mie     */ (Mie.U)     -> ("h10".U),
             /* mip     */ (Mip.U)     -> ("h20".U),
         ))
-        val csr_en  = io.op.csr_op.orR === 1.U
+        val csr_en  = io.op.csr_op.orR === 1.U && io.op.csr_en
         val csr_src = Mux1H(Seq(
             csr_1H(0) -> mstatus_rval,
             csr_1H(1) -> mtvec_rval  ,
@@ -155,6 +156,7 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
     io.out.mepc      := mepc_rval
     io.out.mtvec     := mtvec_rval
     io.exc.intr_t    := has_intr
-        //when intr return to epc, else return to epc + 4
-    io.exc.mret_addr := Mux(mcause(w-1) === 1.U, mepc_rval, mepc_rval + 4.U(w.W))
+        //when intr return to epc, else return to epc
+        // io.exc.mret_addr := Mux(mcause(w-1) === 1.U, mepc_rval, mepc_rval + 4.U(w.W))
+    io.exc.mret_addr := mepc_rval
 }
