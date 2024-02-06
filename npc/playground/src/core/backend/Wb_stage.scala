@@ -25,7 +25,7 @@ class ysyx_22051110_Wb_stage(w: Int) extends Module{
     // ------------------ intrrupt/exception ------------------
 
     io.exc_br.exc_br     := has_trap
-    io.exc_br.exc_target := MuxCase(0.U(w.W), Seq(
+    io.exc_br.exc_target := MuxCase(0.U(32.W), Seq(
         ( (ms_ws_r.exc_type(0) === 1.U) || io.csr_exc.intr_t ) -> (io.csr_out.mtvec),    /* trap entry */
         (  ms_ws_r.exc_type(1) === 1.U                       ) -> (io.csr_exc.mret_addr),  /*trap return */
         (  ms_ws_r.exc_type(2) === 1.U                       ) -> (ms_ws_r.pc + 4.U)
@@ -42,7 +42,7 @@ class ysyx_22051110_Wb_stage(w: Int) extends Module{
     //csr exc
     io.csr_exc.ecall     := (ms_ws_r.exc_type(0) === 1.U) && ws_valid
     io.csr_exc.mret      := (ms_ws_r.exc_type(1) === 1.U) && ws_valid
-    io.csr_exc.epc       := ms_ws_r.pc
+    io.csr_exc.epc       := ms_ws_r.pc(31, 2)
     io.csr_exc.exc_code  := exc_code
     // ------------------ RF write back ------------------
     io.wb2rf.rf_we := ms_ws_r.gr_we && ~has_trap && ws_valid

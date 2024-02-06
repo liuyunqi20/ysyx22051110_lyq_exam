@@ -146,12 +146,11 @@ class ysyx_22051110_CacheStage3(config: CacheConfig) extends Module with HasCach
     val mmio_wblock  = Wire(Vec(config.block_word_n, UInt(config.w.W)))
     //when write back, use word counter( buf.offset() is word-align )
     val cpu_word_idx = buf.offset(config.offset_width - 1, log2Ceil(config.w / 8))
-    val cpu_req_addr = Cat(0.U((config.w - config.cache_addr_w).W), buf.tag, buf.index, buf.offset)
+    val cpu_req_addr = Cat(buf.tag, buf.index, buf.offset)
 
     //fence.i module
     val fenceiModule = Module(new ysyx_22051110_CacheFencei(config))
     fenceiModule.io.req.valid         := state(0) & s3_valid & buf.fencei
-    fenceiModule.io.ret.ready         := state(6) & s3_valid & buf.fencei
     fenceiModule.io.rd_lines          := io.rd_lines // fence.i read meta ret
     fenceiModule.io.mem_out.req.ready := io.mem_out.req.ready
     fenceiModule.io.mem_out.ret       := io.mem_out.ret
@@ -183,7 +182,7 @@ class ysyx_22051110_CacheStage3(config: CacheConfig) extends Module with HasCach
 
     val wb_en       = buf.target_line.valid & buf.target_line.dirty & !hit & state(0) & s3_valid & ~buf.mthrough // need write back
     // val wb_addr     = Cat(0.U((config.w - config.cache_addr_w).W), buf.target_line.tag, buf.index, buf.offset)
-    val wb_addr     = Cat(0.U((config.w - config.cache_addr_w).W), buf.target_line.tag, buf.index,
+    val wb_addr     = Cat(buf.target_line.tag, buf.index,
                             buf.offset(log2Ceil(config.block_size) - 1, log2Ceil(config.w/8)),
                             0.U(log2Ceil(config.w/8).W))
     val burst_last  = io.mem_out.ret.valid && (state(1) === 1.U || io.mem_out.rlast)
@@ -280,17 +279,17 @@ class ysyx_22051110_CacheStage3(config: CacheConfig) extends Module with HasCach
         /* REFILL     */ state(3) -> Mux(burst_last, s_commit.U, s_refill.U),
         /* MMIO       */ state(4) -> Mux(io.mem_out.ret.valid, s_idle.U, s_mmio.U),
         /* COMMIT     */ state(5) -> (s_idle.U),
-        /* WAIT FENCEI */state(6) -> Mux(fenceiModule.io.ret.fire, s_idle.U, s_wait_fencei.U),
+        /* WAIT FENCEI */state(6) -> Mux(fenceiModule.io.ret, s_idle.U, s_wait_fencei.U),
     ))
     s3_ready_go := (hit && (buf.wr === 0.U)) ||           //read hit
                    (state(4) && io.mem_out.ret.valid)  || //mmio
                    (state(5) === 1.U) ||                  //refill/write commit
-                   (state(6) && fenceiModule.io.ret.fire) //fencei
+                   (state(6) && fenceiModule.io.ret) //fencei
     // -------------------------------- CPU commit --------------------------------
 
     io.cpu.rdata   := Mux(hit, buf.target_line.data(cpu_word_idx),
                         Mux(state(4), io.mem_out.ret.rdata, write_line.data(cpu_word_idx)) )
-    io.cpu.valid   := s3_valid && Mux(buf.fencei.asBool(), (state(6) && fenceiModule.io.ret.fire),
+    io.cpu.valid   := s3_valid && Mux(buf.fencei.asBool(), (state(6) && fenceiModule.io.ret),
                                         Mux(hit, 1.B, Mux(state(4), io.mem_out.ret.valid, state(3) && burst_last) )
                                     )
 }
@@ -311,7 +310,7 @@ Stage-fence.i: Write back dirty blocks in DCache & Invalidate blocks in ICache
 class ysyx_22051110_CacheFencei(config: CacheConfig) extends Module with HasCacheFenceiConst{
     val io = IO(new Bundle{
         val req = Flipped(Decoupled())
-        val ret = Decoupled()
+        val ret = Output(Bool())
         // I$ flush
         val meta_flush = Output(Bool())
         // D$ write back
@@ -337,7 +336,7 @@ class ysyx_22051110_CacheFencei(config: CacheConfig) extends Module with HasCach
     val buf_rd_lines = RegInit(0.U.asTypeOf( Vec(config.nr_ways,new CacheLineBundle(config.w, config.tag_width, config.block_word_n)) ))
 
     io.req.ready := state(0)
-    io.ret.valid := state(1)
+    io.ret       := state(1)
 
     // D$ write back
     wb_done       := state(2) && (wb_index === config.nr_lines.U) // scanned all cache lines
@@ -368,8 +367,7 @@ class ysyx_22051110_CacheFencei(config: CacheConfig) extends Module with HasCach
 
     io.mem_out.req.valid         := state(4) & buf_rd_lines(wb_way_sel).dirty
     io.mem_out.req.bits.wr       := 1.B
-    io.mem_out.req.bits.addr     := Cat(0.U((config.w - config.cache_addr_w).W),
-                                        buf_rd_lines(wb_way_sel).tag,
+    io.mem_out.req.bits.addr     := Cat(buf_rd_lines(wb_way_sel).tag,
                                         wb_index_sel,
                                         0.U(config.offset_width.W))
     io.mem_out.req.bits.wdata    := buf_rd_lines(wb_way_sel).data.reverse.reduce((a, b) => Cat(a, b))

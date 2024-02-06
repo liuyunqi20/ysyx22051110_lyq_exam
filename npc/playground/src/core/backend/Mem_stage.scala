@@ -31,7 +31,7 @@ class ysyx_22051110_Mem_stage(w: Int) extends Module with HasMEMSconst{
 
     val has_trap     = io.exc_flush
     // val maddr        = Cat(es_ms_r.result(w-1, 3), 0.U(3.W))
-    val maddr        = es_ms_r.result
+    val maddr        = es_ms_r.result(31, 0)
     val offset       = es_ms_r.result(2, 0)
     // -------------- write mask --------------
     val wmask_b = MuxLookup(offset, 0.U(8.W), Seq(

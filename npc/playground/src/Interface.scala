@@ -6,7 +6,7 @@ import chisel3.util._
 
     class CPUMemReqBundle(w: Int, wdata_w: Int) extends Bundle{
         val wr        = Bits(1.W)
-        val addr      = Bits(w.W)
+        val addr      = Bits(32.W)
         val size      = Bits(2.W)
         val wdata     = Bits(wdata_w.W)
         val wstrb     = Bits((w/8).W)
@@ -45,13 +45,13 @@ import chisel3.util._
     }
 
     class BranchBundle(w: Int) extends Bundle{
-        val br_target = Output(UInt(w.W))
+        val br_target = Output(UInt(32.W))
         val br_en     = Output(Bool())
     }
 
     class IftoIdBundle(w: Int) extends Bundle{
         val inst = Output(UInt(32.W))
-        val pc   = Output(UInt(w.W))
+        val pc   = Output(UInt(32.W))
     }
 
     class IdtoExBundle(w: Int) extends Bundle with HasDecodeConst{
@@ -74,7 +74,7 @@ import chisel3.util._
         val is_fencei = Output(Bool())
         //data signals
         val dest      = Output(UInt(5.W))
-        val pc        = Output(UInt(w.W))
+        val pc        = Output(UInt(32.W))
         val rs1_addr  = Output(UInt(5.W))
         val rs2_addr  = Output(UInt(5.W))
         val rs1       = Output(UInt(w.W))
@@ -86,7 +86,7 @@ import chisel3.util._
     }
 
     class ExtoMemBundle(w: Int) extends Bundle with HasDecodeConst{
-        val pc        = Output(UInt(w.W))
+        val pc        = Output(UInt(32.W))
         //control signals
         val gr_we     = Output(Bool())
         val dest      = Output(UInt(5.W))
@@ -108,7 +108,7 @@ import chisel3.util._
     }
 
     class MemtoWbBundle(w: Int) extends Bundle with HasDecodeConst{
-        val pc        = Output(UInt(w.W))
+        val pc        = Output(UInt(32.W))
         //control signals
         val gr_we     = Output(Bool())
         val csr_op    = Output(UInt(CSRT_LEN.W))
@@ -131,14 +131,14 @@ import chisel3.util._
 
     class ExcBranchBundle(w: Int) extends Bundle{
         val exc_br     = Output(Bool())
-        val exc_target = Output(UInt(w.W))
+        val exc_target = Output(UInt(32.W))
     }
 
 // ----------------- AXI Memory Access Bundle -----------------
     class AXI4LiteAR(w: Int) extends Bundle{
         //val arvalid = Output(Bool())
         //val arready = Input(Bool())
-        val araddr  = Bits(w.W)
+        val araddr  = Bits(32.W)
         val arprot  = Bits(3.W)
         val arlen   = Bits(8.W) // Burst trans = awlen + 1 (1 ~ 256)
         val arsize  = Bits(3.W) // Bytes = 2 ^ awsize
@@ -156,7 +156,7 @@ import chisel3.util._
     class AXI4LiteAW(w: Int) extends Bundle{
         //val awvalid = Output(Bool())
         //val awready = Input(Bool())
-        val awaddr  = Bits(w.W)
+        val awaddr  = Bits(32.W)
         val awprot  = Bits(3.W)
         val awlen   = Bits(8.W) // Burst trans = awlen + 1 (1 ~ 256)
         val awsize  = Bits(3.W) // Bytes Per Clock = 2 ^ awsize
@@ -188,14 +188,14 @@ import chisel3.util._
     class DPIReadMemBundle(w: Int) extends Bundle{
         val en    = Output(Bool())
         val wr    = Output(Bool())
-        val addr  = Output(UInt(w.W))
+        val addr  = Output(UInt(32.W))
         val rdata = Input(UInt(w.W))
     }
 
     class DPIWriteMemBundle(w: Int) extends Bundle{
         val en    = Output(Bool())
         val wr    = Output(Bool())
-        val addr  = Output(UInt(w.W))
+        val addr  = Output(UInt(32.W))
         val wdata = Output(UInt(w.W))
         val wmask = Output(UInt((w/8).W))
     }
@@ -265,7 +265,7 @@ import chisel3.util._
     class ClintIOBundle(w: Int) extends Bundle{
         val en         = Output(Bool())
         val wr         = Output(Bool())
-        val addr       = Output(UInt(w.W))
+        val addr       = Output(UInt(32.W))
         val wdata      = Output(UInt(w.W))
         val clint_hit  = Input(Bool())
         val ret_valid  = Input(Bool())

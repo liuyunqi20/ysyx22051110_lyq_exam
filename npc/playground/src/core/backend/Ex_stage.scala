@@ -67,7 +67,7 @@ class ysyx_22051110_Ex_stage(w: Int) extends Module{
         val is_jal           = br_type(7) === 1.U | br_type(8) === 1.U
         //sequential pc
         val pc_seq           = ds_es_r.pc + 4.U
-        io.ex2mem.bits.br.br_target := Mux(is_jal, alu_res, ds_es_r.pc + ds_es_r.imm)
+        io.ex2mem.bits.br.br_target := Mux(is_jal, alu_res(31, 0), ds_es_r.pc + ds_es_r.imm)
         io.ex2mem.bits.br.br_en     := Mux1H(Seq(
             /*NB  */ br_type(0) -> 0.B,
             /*BEQ */ br_type(1) -> (alu_res === 0.U),

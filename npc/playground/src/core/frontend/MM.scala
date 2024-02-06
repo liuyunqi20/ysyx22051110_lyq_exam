@@ -41,7 +41,7 @@ higher or equal than mmio base(0xa0000000)
 */
 class ysyx_22051110_MemoryMappingUnit(w: Int) extends Module{
     val io = IO(new Bundle{
-        val addr_in = Input(UInt(w.W))
+        val addr_in = Input(UInt(32.W))
         val mthrough = Output(Bool())
     })
     val hi = io.addr_in(31, 29)

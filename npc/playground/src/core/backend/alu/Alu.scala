@@ -96,12 +96,12 @@ class ysyx_22051110_Alu(w: Int) extends Module{
     my_div.io.in.bits.divisor    := io.in.bits.src2
     val div_res   = my_div.io.out.bits.quotient
     val divu_res  = div_res
-    val divw_res  = Cat(Fill(w - 32, my_div.io.out.bits.quotient(31)), my_div.io.out.bits.quotient(31, 0))
-    val divuw_res = divw_res
+    val divw_res  = my_div.io.out.bits.quotient(31, 0)
+    val divuw_res = divw_res(31, 0)
     val rem_res   = my_div.io.out.bits.reminder
     val remu_res  = rem_res
-    val remw_res  = Cat(Fill(w - 32, my_div.io.out.bits.reminder(31)), my_div.io.out.bits.reminder(31, 0))
-    val remuw_res = remw_res
+    val remw_res  = my_div.io.out.bits.reminder(31, 0)
+    val remuw_res = remw_res(31, 0)
 
     io.out.bits.res      := Mux1H(Seq(
         /* add    */ io.in.bits.alu_op(0)  -> add_res(w-1, 0),

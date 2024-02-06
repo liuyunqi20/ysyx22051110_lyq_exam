@@ -30,17 +30,17 @@ class CsrOpBundle(w: Int) extends Bundle{
 }
 
 class CsrOutBundle(w: Int) extends Bundle{
-    val mepc       = Output(UInt(w.W))
-    val mtvec      = Output(UInt(w.W))
+    val mepc       = Output(UInt(32.W))
+    val mtvec      = Output(UInt(32.W))
 }
 
 class CsrExcBundle(w: Int) extends Bundle{
     val ecall      = Input(Bool())
     val mret       = Input(Bool())
-    val epc        = Input(UInt(w.W))
+    val epc        = Input(UInt(30.W))
     val exc_code   = Input(UInt(w.W))
     val intr_t     = Output(Bool())
-    val mret_addr  = Output(UInt(w.W))
+    val mret_addr  = Output(UInt(32.W))
 }
 
 /*
@@ -70,16 +70,16 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
     val mstatus_mie  = RegInit(0.B)
     val mstatus_mpie = RegInit(0.B)
     val mcause  = RegInit(0.U(w.W))
-    val mepc    = RegInit(0.U(w.W))
-    val mtvec   = RegInit(0.U(w.W))
+    val mepc    = RegInit(0.U(30.W))
+    val mtvec   = RegInit(0.U(30.W))
     val mie_meie = RegInit(0.B)
     val mie_mtie = RegInit(0.B)
     val mip_meip = RegInit(0.B)
     val mip_mtip = RegInit(0.B)
     val mstatus_rval = Cat(0.U(28.W) , mstatus_sxl, mstatus_uxl, 0.U(19.W),
                             mstatus_mpp, 0.U(3.W), mstatus_mpie, 0.U(3.W), mstatus_mie, 0.U(3.W))
-    val mtvec_rval   = Cat(mtvec(w-1, 2), 0.U(2.W))
-    val mepc_rval    = Cat(mepc(w-1, 2), 0.U(2.W))
+    val mtvec_rval   = Cat(mtvec, 0.U(2.W))
+    val mepc_rval    = Cat(mepc, 0.U(2.W))
     val mcause_rval  = mcause
     val mie_rval     = Cat(0.U(52.W), mie_meie, 0.U(3.W), mie_mtie, 0.U(7.W))
     val mip_rval     = Cat(0.U(52.W), mip_meip, 0.U(3.W), mip_mtip, 0.U(7.W))
@@ -130,13 +130,13 @@ class ysyx_22051110_Csr(w: Int) extends Module with HasCsrConst{
         }
         // ----- mtvec -----
         when(csr_en && csr_1H(1)){
-            mtvec   := csr_res
+            mtvec   := csr_res(31, 2)
         }
         // ----- mepc -----
         when(io.exc.ecall || has_intr){
             mepc    := io.exc.epc
         } .elsewhen(csr_en && csr_1H(2)){
-            mepc    := csr_res
+            mepc    := csr_res(31, 2)
         }
         // ----- mcause -----
         when(io.exc.ecall){

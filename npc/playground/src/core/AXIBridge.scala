@@ -29,7 +29,7 @@ class ysyx_22051110_AXIBridge(w: Int, block_word_n: Int) extends Module with Has
     val rd_widx             = RegInit(0.U(log2Ceil(block_word_n).W))
     val rd_after_wt_r       = RegInit(0.B)
     val wdata_r             = RegInit(0.U((block_word_n * w).W))
-    val wtag_r              = RegInit(0.U((w - log2Ceil(block_word_n) - log2Ceil(w/8)).W))
+    val wtag_r              = RegInit(0.U((32 - log2Ceil(block_word_n) - log2Ceil(w/8)).W))
     val wstrb_r             = RegInit(0.U((w/8).W))
     val wt_widx             = RegInit(0.U(log2Ceil(block_word_n).W))
     val init_widx           = io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(w/8) - 1, log2Ceil(w/8))
@@ -38,7 +38,7 @@ class ysyx_22051110_AXIBridge(w: Int, block_word_n: Int) extends Module with Has
     //read after write
     val rd_after_wt         = io.in.req.valid && (io.in.req.bits.wr === 0.U) && state(0) &&
                             (io.in.req.bits.mthrough === 0.U) &&
-                            (wtag_r === io.in.req.bits.addr(w - 1, log2Ceil(block_word_n) + log2Ceil(w/8)))
+                            (wtag_r === io.in.req.bits.addr(31, log2Ceil(block_word_n) + log2Ceil(w/8)))
     val rd_after_wt_rdata   = MuxLookup(rd_widx, 0.U,
                                 for(i <- 0 until block_word_n) yield ((i.U) -> wdata_r((i+1)*w - 1, i*w)))
     //read
@@ -49,7 +49,7 @@ class ysyx_22051110_AXIBridge(w: Int, block_word_n: Int) extends Module with Has
         rd_after_wt_r := 0.B
     }
     io.out.ar.valid        := io.in.req.valid && (io.in.req.bits.wr === 0.U) && state(0) && !rd_after_wt
-    io.out.ar.bits.araddr  := Cat(io.in.req.bits.addr(w - 1, 3), Mux(io.in.req.bits.mthrough === 1.U, io.in.req.bits.addr(2, 0), 0.U(3.W)))
+    io.out.ar.bits.araddr  := Cat(io.in.req.bits.addr(31, 3), Mux(io.in.req.bits.mthrough === 1.U, io.in.req.bits.addr(2, 0), 0.U(3.W)))
     io.out.ar.bits.arprot  := 0.U(3.W)
     io.out.ar.bits.arlen   := Mux(io.in.req.bits.mthrough === 1.U, 0.U(8.W), (block_word_n - 1).U(8.W))
     io.out.ar.bits.arsize  := Mux(io.in.req.bits.mthrough === 1.U, Cat(0.U(1.W), io.in.req.bits.size), log2Ceil(w/8).U(3.W))
@@ -60,7 +60,7 @@ class ysyx_22051110_AXIBridge(w: Int, block_word_n: Int) extends Module with Has
     //write
     when(io.in.req.valid && (io.in.req.bits.wr === 1.U) && io.out.aw.fire) {
         wdata_r   := io.in.req.bits.wdata
-        wtag_r    := io.in.req.bits.addr(w - 1, log2Ceil(block_word_n) + log2Ceil(w/8))
+        wtag_r    := io.in.req.bits.addr(31, log2Ceil(block_word_n) + log2Ceil(w/8))
         wstrb_r   := io.in.req.bits.wstrb
         wt_widx   := io.in.req.bits.addr(log2Ceil(block_word_n) + log2Ceil(w/8) - 1, log2Ceil(w/8))
         burst_len := io.out.aw.bits.awlen
@@ -73,7 +73,7 @@ class ysyx_22051110_AXIBridge(w: Int, block_word_n: Int) extends Module with Has
         burst_cnt := 0.U
     }
     io.out.aw.valid        := io.in.req.valid && (io.in.req.bits.wr === 1.U) && state(0)
-    io.out.aw.bits.awaddr  := Cat(io.in.req.bits.addr(w - 1, 3), Mux(io.in.req.bits.mthrough === 1.U, io.in.req.bits.addr(2, 0), 0.U(3.W)))
+    io.out.aw.bits.awaddr  := Cat(io.in.req.bits.addr(31, 3), Mux(io.in.req.bits.mthrough === 1.U, io.in.req.bits.addr(2, 0), 0.U(3.W)))
     io.out.aw.bits.awprot  := 0.U(3.W)
     io.out.aw.bits.awlen   := Mux(io.in.req.bits.mthrough === 1.U, 0.U(8.W), (block_word_n - 1).U(8.W))
     io.out.aw.bits.awsize  := Mux(io.in.req.bits.mthrough === 1.U, Cat(0.U(1.W), io.in.req.bits.size), log2Ceil(w/8).U(3.W))
